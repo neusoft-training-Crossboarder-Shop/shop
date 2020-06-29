@@ -2,215 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3ce6148d-44a4-4aa0-b7f4-08e7ab982990" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_druid_1_1_14.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_druid_spring_boot_starter_1_1_14.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_fastjson_1_2_70.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_9_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_9_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_9_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_9_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_9_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_9_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_jsqlparser_jsqlparser_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_pagehelper_pagehelper_5_1_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_pagehelper_pagehelper_spring_boot_autoconfigure_1_2_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_pagehelper_pagehelper_spring_boot_starter_1_2_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_20_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_jayway_jsonpath_json_path_2_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_external_google_android_json_0_0_20131108_vaadin1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_zaxxer_HikariCP_3_2_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_jsonwebtoken_jjwt_0_9_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_lettuce_lettuce_core_5_1_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_buffer_4_1_31_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_codec_4_1_31_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_common_4_1_31_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_handler_4_1_31_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_resolver_4_1_31_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_transport_4_1_31_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_core_3_2_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_springfox_springfox_core_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_springfox_springfox_schema_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_springfox_springfox_spi_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_springfox_springfox_spring_web_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_springfox_springfox_swagger2_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_springfox_springfox_swagger_common_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_springfox_springfox_swagger_ui_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_swagger_swagger_annotations_1_5_21.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_swagger_swagger_models_1_5_21.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_annotation_javax_annotation_api_1_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_validation_validation_api_2_0_1_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_13.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_9_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_9_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_accessors_smart_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_json_smart_2_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_6_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_11_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_11_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_13.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_13.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_13.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_assertj_assertj_core_3_11_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_library_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_0_13_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_3_2_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mapstruct_mapstruct_1_2_0_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_2_23_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_3_4_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_spring_1_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_spring_boot_mybatis_spring_boot_autoconfigure_1_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_spring_boot_mybatis_spring_boot_starter_1_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_2_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_5_0_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_reactivestreams_reactive_streams_1_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_skyscreamer_jsonassert_1_5_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_25.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_25.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_1_1_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_1_1_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_devtools_2_1_1_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_1_1_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_2_1_1_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_redis_2_1_1_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_1_1_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_1_1_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_1_1_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_security_2_1_1_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_2_1_1_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_1_1_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_1_1_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_1_1_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_2_1_1_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_2_1_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_keyvalue_2_1_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_redis_2_1_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_plugin_spring_plugin_core_1_2_0_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_plugin_spring_plugin_metadata_1_2_0_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_config_5_1_2_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_core_5_1_2_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_web_5_1_2_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_1_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_1_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_1_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_1_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_1_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_1_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_1_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_1_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_oxm_5_1_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_1_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_1_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_1_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_1_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_xmlunit_xmlunit_core_2_6_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_23.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shop.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/shopbackend.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/CrossBoarderShopApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/ShopServletInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/constant/Constants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/constant/HttpStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/core/lang/UUID.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/core/text/CharsetKit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/core/text/Convert.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/core/text/StrFormatter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/enums/HttpMethod.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/enums/UserStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/exception/BaseException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/exception/CustomException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/exception/DemoModeException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/exception/UtilException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/exception/file/FileException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/exception/file/FileNameLengthLimitExceededException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/exception/file/FileSizeLimitExceededException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/exception/file/InvalidExtensionException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/exception/job/TaskException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/exception/user/CaptchaException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/exception/user/CaptchaExpireException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/exception/user/UserException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/exception/user/UserPasswordNotMatchException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/DateUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/DictUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/IdUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/MessageUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/SecurityUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/ServletUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/StringUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/VerifyCodeUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/file/FileUploadUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/file/FileUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/file/MimeTypeUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/html/EscapeUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/html/HTMLFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/http/HttpHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/http/HttpUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/security/Md5Utils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/sign/Base64.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/spring/SpringUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/sql/SqlUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/config/ApplicationConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/config/FastJson2JsonRedisSerializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/config/FilterConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/config/MyBatisConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/config/RedisConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/config/ResourcesConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/config/RuoYiConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/config/ServerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/config/SwaggerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/config/filter/RepeatableFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/config/filter/RepeatedlyRequestWrapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/config/filter/XssFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/config/filter/XssHttpServletRequestWrapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/interceptor/RepeatSubmitInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/interceptor/annotation/RepeatSubmit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/interceptor/impl/SameUrlDataInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/redis/RedisCache.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/security/LoginBody.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/security/LoginUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/security/filter/JwtAuthenticationTokenFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/security/handle/AuthenticationEntryPointImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/security/handle/LogoutSuccessHandlerImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/security/service/PermissionService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/security/service/SysLoginService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/security/service/SysPermissionService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/security/service/TokenService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/security/service/UserDetailsServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/web/controller/BaseController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/web/domain/AjaxResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/web/domain/BaseEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/web/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/web/page/PageDomain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/web/page/TableDataInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/web/page/TableSupport.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/project/common/CaptchaController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/project/common/CommonController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/project/domain/SysMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/project/domain/SysRole.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/project/domain/SysRoleMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/project/domain/SysUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/project/domain/SysUserRole.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/project/service/ISysMenuService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/project/service/ISysRoleService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/project/service/ISysUserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/resources/i18n/messages.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopbackend/src/main/resources/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/shopbackend/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -430,10 +222,10 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="496" />
-    <option name="y" value="-18" />
-    <option name="width" value="1460" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="164" />
+    <option name="y" value="5" />
+    <option name="width" value="1456" />
     <option name="height" value="920" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -529,15 +321,15 @@
       <option name="presentableId" value="Default" />
       <updated>1593423588031</updated>
       <workItem from="1593423597844" duration="3030000" />
-      <workItem from="1593428554442" duration="9223000" />
+      <workItem from="1593428554442" duration="10059000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12253000" />
+    <option name="totallyTimeSpent" value="13089000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="916" extended-state="6" />
+    <frame x="99" y="87" width="1456" height="920" extended-state="0" />
     <layout>
       <window_info id="Web" side_tool="true" />
       <window_info id="Learn" order="0" />
@@ -553,7 +345,7 @@
       <window_info anchor="bottom" id="Java Enterprise" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="1" weight="0.32919255" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="2" visible="true" weight="0.32919255" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="2" visible="true" weight="0.3275649" />
       <window_info anchor="bottom" id="Database Changes" order="3" />
       <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="5" />
