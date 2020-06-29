@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3ce6148d-44a4-4aa0-b7f4-08e7ab982990" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/CrossBoarderShopApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/CrossBoarderShopApplication.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/shopbackend/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -39,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/shopbackend/src/main/java/neu/train/CrossBoarderShopApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
+            <state relative-caret-position="128">
+              <caret line="16" selection-start-line="16" selection-end-line="16" />
             </state>
           </provider>
         </entry>
@@ -60,7 +61,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/config/MyBatisConfig.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="442">
@@ -68,6 +69,15 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="91" column="13" lean-forward="true" selection-start-line="91" selection-start-column="13" selection-end-line="91" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -181,7 +191,6 @@
         <option value="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/RuoYiApplication.java" />
         <option value="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/MySpringBootApplication.java" />
         <option value="$PROJECT_DIR$/shopbackend/src/main/java/neu/RuoYiServletInitializer.java" />
-        <option value="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/CrossBoarderShopApplication.java" />
         <option value="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/RuoYiServletInitializer.java" />
         <option value="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/ShopServletInitializer.java" />
         <option value="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/project/System.java" />
@@ -201,6 +210,7 @@
         <option value="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/http/HttpUtils.java" />
         <option value="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/common/utils/StringUtils.java" />
         <option value="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/config/MyBatisConfig.java" />
+        <option value="$PROJECT_DIR$/shopbackend/src/main/java/neu/train/CrossBoarderShopApplication.java" />
       </list>
     </option>
   </component>
@@ -222,7 +232,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="164" />
     <option name="y" value="5" />
     <option name="width" value="1456" />
@@ -242,6 +252,11 @@
             <path>
               <item name="shop" type="b2602c69:ProjectViewProjectNode" />
               <item name="shop" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shop" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -321,15 +336,15 @@
       <option name="presentableId" value="Default" />
       <updated>1593423588031</updated>
       <workItem from="1593423597844" duration="3030000" />
-      <workItem from="1593428554442" duration="10059000" />
+      <workItem from="1593428554442" duration="10316000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13089000" />
+    <option name="totallyTimeSpent" value="13346000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="99" y="87" width="1456" height="920" extended-state="0" />
+    <frame x="-8" y="-8" width="1456" height="916" extended-state="6" />
     <layout>
       <window_info id="Web" side_tool="true" />
       <window_info id="Learn" order="0" />
@@ -345,7 +360,7 @@
       <window_info anchor="bottom" id="Java Enterprise" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="1" weight="0.32919255" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="2" visible="true" weight="0.3275649" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="2" visible="true" weight="0.38757765" />
       <window_info anchor="bottom" id="Database Changes" order="3" />
       <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="5" />
@@ -371,15 +386,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/web/domain/AjaxResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/web/domain/BaseEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
@@ -747,13 +753,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shopbackend/src/main/java/neu/train/CrossBoarderShopApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/shopbackend/src/main/java/neu/train/framework/config/ResourcesConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="346">
@@ -793,6 +792,20 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="91" column="13" lean-forward="true" selection-start-line="91" selection-start-column="13" selection-end-line="91" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shopbackend/src/main/java/neu/train/CrossBoarderShopApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
         </state>
       </provider>
     </entry>
