@@ -3,7 +3,7 @@ package neu.train.framework.interceptor.impl;
 import com.alibaba.fastjson.JSONObject;
 import neu.train.common.utils.StringUtils;
 import neu.train.common.utils.http.HttpHelper;
-import neu.train.framework.config.filter.RepeatedlyRequestWrapper;
+import neu.train.common.filter.RepeatedlyRequestWrapper;
 import neu.train.framework.interceptor.RepeatSubmitInterceptor;
 import neu.train.framework.redis.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,7 @@ package neu.train.framework.security.service;
 import neu.train.common.utils.ServletUtils;
 import neu.train.common.utils.StringUtils;
 import neu.train.framework.security.LoginUser;
-import neu.train.project.domain.SysRole;
+import neu.train.project.system.domain.SysRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;

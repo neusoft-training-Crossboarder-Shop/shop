@@ -2,8 +2,8 @@ package neu.train.framework.config;
 
 
 import neu.train.common.utils.StringUtils;
-import neu.train.framework.config.filter.RepeatableFilter;
-import neu.train.framework.config.filter.XssFilter;
+import neu.train.common.filter.RepeatableFilter;
+import neu.train.common.filter.XssFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

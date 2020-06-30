@@ -8,3 +8,5 @@ const svgIcons = requireAll(req).map(i => {
 })
 
 export default svgIcons
+
+

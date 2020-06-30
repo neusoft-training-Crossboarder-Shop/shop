@@ -4,8 +4,8 @@ import neu.train.common.enums.UserStatus;
 import neu.train.common.exception.BaseException;
 import neu.train.common.utils.StringUtils;
 import neu.train.framework.security.LoginUser;
-import neu.train.project.domain.SysUser;
-import neu.train.project.service.ISysUserService;
+import neu.train.project.system.domain.SysUser;
+import neu.train.project.system.service.ISysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
  *
  * @author ruoyi
  */
-@Service
+@Service("MyUserDetailsServiceImpl")
 public class UserDetailsServiceImpl implements UserDetailsService
 {
     private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);

@@ -4,6 +4,7 @@ import neu.train.framework.security.filter.JwtAuthenticationTokenFilter;
 import neu.train.framework.security.handle.AuthenticationEntryPointImpl;
 import neu.train.framework.security.handle.LogoutSuccessHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +29,7 @@ SecurityConfig extends WebSecurityConfigurerAdapter
     /**
      * 自定义用户认证逻辑
      */
+    @Qualifier("MyUserDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
     

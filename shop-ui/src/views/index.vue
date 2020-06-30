@@ -26,8 +26,8 @@
 <!--    </el-row>-->
 
 <!--    -->
-<!--  </div>-->
-<!--</template>-->
+  </div>
+</template>
 
 <script>
 // import PanelGroup from './dashboard/PanelGroup'
@@ -58,11 +58,11 @@ const lineChartData = {
 export default {
   name: 'Index',
   components: {
-    PanelGroup,
-    LineChart,
-    RaddarChart,
-    PieChart,
-    BarChart
+    // PanelGroup,
+    // LineChart,
+    // RaddarChart,
+    // PieChart,
+    // BarChart
   },
   data() {
     return {

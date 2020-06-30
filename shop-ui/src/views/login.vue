@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
-      <h3 class="title">若依后台管理系统</h3>
+      <h3 class="title">CrossBoarderShop</h3>
       <el-form-item prop="username">
         <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号">
           <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
@@ -132,7 +132,6 @@ export default {
             Cookies.remove('rememberMe');
           }
           this.$store
-            //登陆 登陆是一个异步行为 需要使用 dispatch
             .dispatch("Login", this.loginForm)
             .then(() => {
               //登陆成功 路由跳转

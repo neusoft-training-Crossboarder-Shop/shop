@@ -1,8 +1,8 @@
 package neu.train.framework.security.service;
 
-import neu.train.project.domain.SysUser;
-import neu.train.project.service.ISysMenuService;
-import neu.train.project.service.ISysRoleService;
+import neu.train.project.system.domain.SysUser;
+import neu.train.project.system.service.ISysMenuService;
+import neu.train.project.system.service.ISysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

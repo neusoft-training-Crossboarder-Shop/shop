@@ -1,5 +1,7 @@
 package neu.train.common.utils;
 
+import neu.train.common.core.lang.UUID;
+
 /**
  * ID生成器工具类
  * 

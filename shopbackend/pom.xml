@@ -4,12 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>neu.train</groupId>
-    <artifactId>shop-backend</artifactId>
-    <version>1.0</version>
-
+    <artifactId>shopbackend</artifactId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>cross_boarder_shop</name>
+    <name>CrossBoarderShop</name>
     <description>跨境电商平台</description>
 
     <parent>
@@ -18,7 +17,6 @@
         <version>2.1.1.RELEASE</version>
         <relativePath />
     </parent>
-
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -33,13 +31,13 @@
         <bitwalker.version>1.19</bitwalker.version>
         <jwt.version>0.9.0</jwt.version>
         <swagger.version>2.9.2</swagger.version>
-
-<!--        <poi.version>3.17</poi.version>-->
-<!--        <oshi.version>3.9.1</oshi.version>-->
-<!--        <velocity.version>1.7</velocity.version>-->
+        <poi.version>3.17</poi.version>
+        <oshi.version>3.9.1</oshi.version>
+        <velocity.version>1.7</velocity.version>
     </properties>
 
     <dependencies>
+
         <!-- SpringBoot 核心包 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -53,25 +51,24 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- SpringBoot AOP 拦截器 -->
+        <!-- SpringBoot 拦截器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-        <!-- SpringBoot Web container  -->
+        <!-- SpringBoot Web容器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- spring-boot-devtools  hot-dev 实现热部署-->
+        <!-- spring-boot-devtools -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional> <!-- 表示依赖不会传递 -->
         </dependency>
-
 
         <!-- spring security 安全认证 -->
         <dependency>
@@ -98,6 +95,7 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- SpringBoot集成mybatis框架 -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -118,14 +116,13 @@
             <version>${druid.version}</version>
         </dependency>
 
-
-        <!--常用工具类 apache提供的众多commons工具包，号称Java第二API-->
+        <!--常用工具类 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
 
-        <!--io常用工具类  用于文件上传-->
+        <!--io常用工具类 -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -139,6 +136,12 @@
             <version>${commons.fileupload.version}</version>
         </dependency>
 
+        <!-- 解析客户端操作系统、浏览器等 -->
+        <dependency>
+            <groupId>eu.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+            <version>${bitwalker.version}</version>
+        </dependency>
 
         <!-- 阿里JSON解析器 -->
         <dependency>
@@ -196,6 +199,23 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger.version}</version>
         </dependency>
+
+        <!-- 获取系统信息 -->
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core</artifactId>
+            <version>${oshi.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -206,9 +226,35 @@
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
         </dependency>
+
+        <!--        &lt;!&ndash; excel工具 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.poi</groupId>-->
+<!--            <artifactId>poi-ooxml</artifactId>-->
+<!--            <version>${poi.version}</version>-->
+<!--        </dependency>-->
+
+<!--        &lt;!&ndash;velocity代码生成使用模板 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.velocity</groupId>-->
+<!--            <artifactId>velocity</artifactId>-->
+<!--            <version>${velocity.version}</version>-->
+<!--        </dependency>-->
+
+<!--        &lt;!&ndash; 定时任务 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.quartz-scheduler</groupId>-->
+<!--            <artifactId>quartz</artifactId>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>com.mchange</groupId>-->
+<!--                    <artifactId>c3p0</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
+
     </dependencies>
 
-    <!--配置热部署-->
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -222,32 +268,29 @@
         </plugins>
     </build>
 
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>public</id>-->
+<!--            <name>aliyun nexus</name>-->
+<!--            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>-->
+<!--            <releases>-->
+<!--                <enabled>true</enabled>-->
+<!--            </releases>-->
+<!--        </repository>-->
+<!--    </repositories>-->
 
-    <repositories>
-        <repository>
-            <id>public</id>
-            <name>aliyun nexus</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>public</id>
-            <name>aliyun nexus</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
-
+<!--&lt;!&ndash;    <pluginRepositories>&ndash;&gt;-->
+<!--&lt;!&ndash;        <pluginRepository>&ndash;&gt;-->
+<!--&lt;!&ndash;            <id>public</id>&ndash;&gt;-->
+<!--&lt;!&ndash;            <name>aliyun nexus</name>&ndash;&gt;-->
+<!--&lt;!&ndash;            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>&ndash;&gt;-->
+<!--&lt;!&ndash;            <releases>&ndash;&gt;-->
+<!--&lt;!&ndash;                <enabled>true</enabled>&ndash;&gt;-->
+<!--&lt;!&ndash;            </releases>&ndash;&gt;-->
+<!--&lt;!&ndash;            <snapshots>&ndash;&gt;-->
+<!--&lt;!&ndash;                <enabled>false</enabled>&ndash;&gt;-->
+<!--&lt;!&ndash;            </snapshots>&ndash;&gt;-->
+<!--&lt;!&ndash;        </pluginRepository>&ndash;&gt;-->
+<!--&lt;!&ndash;    </pluginRepositories>&ndash;&gt;-->
 
 </project>

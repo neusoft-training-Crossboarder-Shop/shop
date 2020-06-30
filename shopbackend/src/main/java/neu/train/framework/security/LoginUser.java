@@ -1,7 +1,7 @@
 package neu.train.framework.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import neu.train.project.domain.SysUser;
+import neu.train.project.system.domain.SysUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
