@@ -5,9 +5,14 @@
   "author": "NeuSoft",
   "license": "MIT",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "dev": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "preview": "node build/index.js --preview",
+    "lint": "eslint --ext .js,.vue src",
+    "test:unit": "jest --clearCache && vue-cli-service test:unit",
+    "test:ci": "npm run lint && npm run test:unit",
+    "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml",
+    "new": "plop"
   },
   "husky": {
     "hooks": {
@@ -20,28 +25,82 @@
       "git add"
     ]
   },
+  "keywords": [
+    "vue",
+    "admin",
+    "dashboard",
+    "element-ui",
+    "management-system",
+    "e-commercial"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neusoft-training-Crossboarder-Shop/shop/"
+  },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "vue": "^2.6.11",
-    "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+    "@riophae/vue-treeselect": "0.4.0",
+    "axios": "0.18.1",
+    "clipboard": "2.0.4",
+    "echarts": "4.2.1",
+    "element-ui": "2.13.0",
+    "file-saver": "2.0.1",
+    "js-beautify": "^1.10.2",
+    "fuse.js": "3.4.4",
+    "js-cookie": "2.2.0",
+    "jsencrypt": "3.0.0-rc.1",
+    "normalize.css": "7.0.0",
+    "nprogress": "0.2.0",
+    "path-to-regexp": "2.4.0",
+    "screenfull": "4.2.0",
+    "sortablejs": "1.8.4",
+    "vue": "2.6.10",
+    "vue-count-to": "1.0.13",
+    "vue-quill-editor": "3.0.6",
+    "vue-cropper": "0.4.9",
+    "vuedraggable": "2.20.0",
+    "vue-router": "3.0.2",
+    "vue-splitpane": "1.0.4",
+    "vuex": "3.1.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.4.0",
-    "@vue/cli-plugin-eslint": "~4.4.0",
-    "@vue/cli-plugin-router": "~4.4.0",
-    "@vue/cli-plugin-vuex": "~4.4.0",
-    "@vue/cli-service": "~4.4.0",
-    "@vue/eslint-config-standard": "^5.1.2",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-vue": "^6.2.2",
-    "husky": "^4.2.5",
-    "lint-staged": "^10.2.11",
-    "vue-template-compiler": "^2.6.11"
-  }
+    "@babel/core": "7.0.0",
+    "@babel/parser": "^7.7.4",
+    "@babel/register": "7.0.0",
+    "@vue/cli-plugin-babel": "3.5.3",
+    "@vue/cli-plugin-eslint": "^3.9.1",
+    "@vue/cli-plugin-unit-jest": "3.5.3",
+    "@vue/cli-service": "3.5.3",
+    "@vue/test-utils": "1.0.0-beta.29",
+    "autoprefixer": "^9.5.1",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "10.0.1",
+    "babel-jest": "23.6.0",
+    "chalk": "2.4.2",
+    "chokidar": "2.1.5",
+    "connect": "3.6.6",
+    "eslint": "5.15.3",
+    "eslint-plugin-vue": "5.2.2",
+    "html-webpack-plugin": "3.2.0",
+    "http-proxy-middleware": "^0.19.1",
+    "husky": "1.3.1",
+    "lint-staged": "8.1.5",
+    "mockjs": "1.0.1-beta3",
+    "plop": "2.3.0",
+    "runjs": "^4.3.2",
+    "sass-loader": "^7.1.0",
+    "script-ext-html-webpack-plugin": "2.1.3",
+    "script-loader": "0.7.2",
+    "serve-static": "^1.13.2",
+    "svg-sprite-loader": "4.1.3",
+    "svgo": "1.2.0",
+    "vue-template-compiler": "2.6.10"
+  },
+  "engines": {
+    "node": ">=8.9",
+    "npm": ">= 3.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
 }
