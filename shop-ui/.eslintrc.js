@@ -1,3 +1,4 @@
+//语法检测
 module.exports = {
   root: true,
   env: {
