@@ -11,9 +11,7 @@ import neu.train.common.exception.CustomException;
 import neu.train.common.utils.StringUtils;
 import neu.train.common.utils.spring.SpringUtils;
 import neu.train.project.system.domain.SysRole;
-import neu.train.project.system.domain.SysRoleDept;
 import neu.train.project.system.domain.SysRoleMenu;
-import neu.train.project.system.mapper.SysRoleDeptMapper;
 import neu.train.project.system.mapper.SysRoleMapper;
 import neu.train.project.system.mapper.SysRoleMenuMapper;
 import neu.train.project.system.mapper.SysUserRoleMapper;
@@ -39,8 +37,8 @@ public class SysRoleServiceImpl implements ISysRoleService
     @Autowired
     private SysUserRoleMapper userRoleMapper;
 
-    @Autowired
-    private SysRoleDeptMapper roleDeptMapper;
+//    @Autowired
+//    private SysRoleDeptMapper roleDeptMapper;
 
     /**
      * 根据条件分页查询角色数据
@@ -229,7 +227,7 @@ public class SysRoleServiceImpl implements ISysRoleService
         // 修改角色信息
         roleMapper.updateRole(role);
         // 删除角色与部门关联
-        roleDeptMapper.deleteRoleDeptByRoleId(role.getRoleId());
+//        roleDeptMapper.deleteRoleDeptByRoleId(role.getRoleId());
         // 新增角色和部门信息（数据权限）
         return insertRoleDept(role);
     }
@@ -266,19 +264,19 @@ public class SysRoleServiceImpl implements ISysRoleService
     public int insertRoleDept(SysRole role)
     {
         int rows = 1;
-        // 新增角色与部门（数据权限）管理
-        List<SysRoleDept> list = new ArrayList<SysRoleDept>();
-        for (Long deptId : role.getDeptIds())
-        {
-            SysRoleDept rd = new SysRoleDept();
-            rd.setRoleId(role.getRoleId());
-            rd.setDeptId(deptId);
-            list.add(rd);
-        }
-        if (list.size() > 0)
-        {
-            rows = roleDeptMapper.batchRoleDept(list);
-        }
+//        // 新增角色与部门（数据权限）管理
+//        List<SysRoleDept> list = new ArrayList<SysRoleDept>();
+//        for (Long deptId : role.getDeptIds())
+//        {
+//            SysRoleDept rd = new SysRoleDept();
+//            rd.setRoleId(role.getRoleId());
+//            rd.setDeptId(deptId);
+//            list.add(rd);
+//        }
+//        if (list.size() > 0)
+//        {
+//            rows = roleDeptMapper.batchRoleDept(list);
+//        }
         return rows;
     }
 

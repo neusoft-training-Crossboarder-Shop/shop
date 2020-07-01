@@ -1,32 +1,32 @@
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <!--部门数据-->
-      <el-col :span="4" :xs="24">
-        <div class="head-container">
-          <el-input
-            v-model="deptName"
-            placeholder="请输入部门名称"
-            clearable
-            size="small"
-            prefix-icon="el-icon-search"
-            style="margin-bottom: 20px"
-          />
-        </div>
-        <div class="head-container">
-          <el-tree
-            :data="deptOptions"
-            :props="defaultProps"
-            :expand-on-click-node="false"
-            :filter-node-method="filterNode"
-            ref="tree"
-            default-expand-all
-            @node-click="handleNodeClick"
-          />
-        </div>
-      </el-col>
+<!--      &lt;!&ndash;部门数据&ndash;&gt;-->
+<!--      <el-col :span="4" :xs="24">-->
+<!--        <div class="head-container">-->
+<!--          <el-input-->
+<!--            v-model="deptName"-->
+<!--            placeholder="请输入部门名称"-->
+<!--            clearable-->
+<!--            size="small"-->
+<!--            prefix-icon="el-icon-search"-->
+<!--            style="margin-bottom: 20px"-->
+<!--          />-->
+<!--        </div>-->
+<!--        <div class="head-container">-->
+<!--          <el-tree-->
+<!--            :data="deptOptions"-->
+<!--            :props="defaultProps"-->
+<!--            :expand-on-click-node="false"-->
+<!--            :filter-node-method="filterNode"-->
+<!--            ref="tree"-->
+<!--            default-expand-all-->
+<!--            @node-click="handleNodeClick"-->
+<!--          />-->
+<!--        </div>-->
+<!--      </el-col>-->
       <!--用户数据-->
-      <el-col :span="20" :xs="24">
+      <el-col :span="24" :xs="24">
         <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="68px">
           <el-form-item label="用户名称" prop="userName">
             <el-input
@@ -112,24 +112,24 @@
               v-hasPermi="['system:user:remove']"
             >删除</el-button>
           </el-col>
-          <el-col :span="1.5">
-            <el-button
-              type="info"
-              icon="el-icon-upload2"
-              size="mini"
-              @click="handleImport"
-              v-hasPermi="['system:user:import']"
-            >导入</el-button>
-          </el-col>
-          <el-col :span="1.5">
-            <el-button
-              type="warning"
-              icon="el-icon-download"
-              size="mini"
-              @click="handleExport"
-              v-hasPermi="['system:user:export']"
-            >导出</el-button>
-          </el-col>
+<!--          <el-col :span="1.5">-->
+<!--            <el-button-->
+<!--              type="info"-->
+<!--              icon="el-icon-upload2"-->
+<!--              size="mini"-->
+<!--              @click="handleImport"-->
+<!--              v-hasPermi="['system:user:import']"-->
+<!--            >导入</el-button>-->
+<!--          </el-col>-->
+<!--          <el-col :span="1.5">-->
+<!--            <el-button-->
+<!--              type="warning"-->
+<!--              icon="el-icon-download"-->
+<!--              size="mini"-->
+<!--              @click="handleExport"-->
+<!--              v-hasPermi="['system:user:export']"-->
+<!--            >导出</el-button>-->
+<!--          </el-col>-->
         </el-row>
 
         <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
@@ -137,7 +137,7 @@
           <el-table-column label="用户编号" align="center" prop="userId" />
           <el-table-column label="用户名称" align="center" prop="userName" :show-overflow-tooltip="true" />
           <el-table-column label="用户昵称" align="center" prop="nickName" :show-overflow-tooltip="true" />
-          <el-table-column label="部门" align="center" prop="dept.deptName" :show-overflow-tooltip="true" />
+<!--          <el-table-column label="部门" align="center" prop="dept.deptName" :show-overflow-tooltip="true" />-->
           <el-table-column label="手机号码" align="center" prop="phonenumber" width="120" />
           <el-table-column label="状态" align="center">
             <template slot-scope="scope">
@@ -206,11 +206,11 @@
               <el-input v-model="form.nickName" placeholder="请输入用户昵称" />
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="归属部门" prop="deptId">
-              <treeselect v-model="form.deptId" :options="deptOptions" :disable-branch-nodes="true" :show-count="true" placeholder="请选择归属部门" />
-            </el-form-item>
-          </el-col>
+<!--          <el-col :span="12">-->
+<!--            <el-form-item label="归属部门" prop="deptId">-->
+<!--              <treeselect v-model="form.deptId" :options="deptOptions" :disable-branch-nodes="true" :show-count="true" placeholder="请选择归属部门" />-->
+<!--            </el-form-item>-->
+<!--          </el-col>-->
         </el-row>
         <el-row>
           <el-col :span="12">
@@ -262,20 +262,20 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">
-            <el-form-item label="岗位">
-              <el-select v-model="form.postIds" multiple placeholder="请选择">
-                <el-option
-                  v-for="item in postOptions"
-                  :key="item.postId"
-                  :label="item.postName"
-                  :value="item.postId"
-                  :disabled="item.status == 1"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
+<!--          <el-col :span="12">-->
+<!--            <el-form-item label="岗位">-->
+<!--              <el-select v-model="form.postIds" multiple placeholder="请选择">-->
+<!--                <el-option-->
+<!--                  v-for="item in postOptions"-->
+<!--                  :key="item.postId"-->
+<!--                  :label="item.postName"-->
+<!--                  :value="item.postId"-->
+<!--                  :disabled="item.status == 1"-->
+<!--                ></el-option>-->
+<!--              </el-select>-->
+<!--            </el-form-item>-->
+<!--          </el-col>-->
+<!--          <el-col :span="12">-->
             <el-form-item label="角色">
               <el-select v-model="form.roleIds" multiple placeholder="请选择">
                 <el-option
@@ -363,11 +363,11 @@ export default {
       // 弹出层标题
       title: "",
       // 部门树选项
-      deptOptions: undefined,
+      // deptOptions: undefined,
       // 是否显示弹出层
       open: false,
       // 部门名称
-      deptName: undefined,
+      // deptName: undefined,
       // 默认密码
       initPassword: undefined,
       // 日期范围
@@ -377,7 +377,7 @@ export default {
       // 性别状态字典
       sexOptions: [],
       // 岗位选项
-      postOptions: [],
+      // postOptions: [],
       // 角色选项
       roleOptions: [],
       // 表单参数
@@ -408,7 +408,7 @@ export default {
         userName: undefined,
         phonenumber: undefined,
         status: undefined,
-        deptId: undefined
+        // deptId: undefined
       },
       // 表单校验
       rules: {
@@ -418,9 +418,9 @@ export default {
         nickName: [
           { required: true, message: "用户昵称不能为空", trigger: "blur" }
         ],
-        deptId: [
-          { required: true, message: "归属部门不能为空", trigger: "blur" }
-        ],
+        // deptId: [
+        //   { required: true, message: "归属部门不能为空", trigger: "blur" }
+        // ],
         password: [
           { required: true, message: "用户密码不能为空", trigger: "blur" }
         ],
@@ -444,14 +444,14 @@ export default {
     };
   },
   watch: {
-    // 根据名称筛选部门树
-    deptName(val) {
-      this.$refs.tree.filter(val);
-    }
+    // // 根据名称筛选部门树
+    // deptName(val) {
+    //   this.$refs.tree.filter(val);
+    // }
   },
   created() {
     this.getList();
-    this.getTreeselect();
+    // this.getTreeselect();
     this.getDicts("sys_normal_disable").then(response => {
       this.statusOptions = response.data;
     });
@@ -474,21 +474,21 @@ export default {
       );
     },
     /** 查询部门下拉树结构 */
-    getTreeselect() {
-      treeselect().then(response => {
-        this.deptOptions = response.data;
-      });
-    },
+    // getTreeselect() {
+    //   treeselect().then(response => {
+    //     this.deptOptions = response.data;
+    //   });
+    // },
     // 筛选节点
     filterNode(value, data) {
       if (!value) return true;
       return data.label.indexOf(value) !== -1;
     },
     // 节点单击事件
-    handleNodeClick(data) {
-      this.queryParams.deptId = data.id;
-      this.getList();
-    },
+    // handleNodeClick(data) {
+    //   this.queryParams.deptId = data.id;
+    //   this.getList();
+    // },
     // 用户状态修改
     handleStatusChange(row) {
       let text = row.status === "0" ? "启用" : "停用";
@@ -513,7 +513,7 @@ export default {
     reset() {
       this.form = {
         userId: undefined,
-        deptId: undefined,
+        // deptId: undefined,
         userName: undefined,
         nickName: undefined,
         password: undefined,
@@ -522,7 +522,7 @@ export default {
         sex: undefined,
         status: "0",
         remark: undefined,
-        postIds: [],
+        // postIds: [],
         roleIds: []
       };
       this.resetForm("form");
@@ -547,9 +547,9 @@ export default {
     /** 新增按钮操作 */
     handleAdd() {
       this.reset();
-      this.getTreeselect();
+      // this.getTreeselect();
       getUser().then(response => {
-        this.postOptions = response.posts;
+        // this.postOptions = response.posts;
         this.roleOptions = response.roles;
         this.open = true;
         this.title = "添加用户";
@@ -559,13 +559,13 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      this.getTreeselect();
+      // this.getTreeselect();
       const userId = row.userId || this.ids;
       getUser(userId).then(response => {
         this.form = response.data;
-        this.postOptions = response.posts;
+        // this.postOptions = response.posts;
         this.roleOptions = response.roles;
-        this.form.postIds = response.postIds;
+        // this.form.postIds = response.postIds;
         this.form.roleIds = response.roleIds;
         this.open = true;
         this.title = "修改用户";
@@ -624,23 +624,23 @@ export default {
         }).catch(function() {});
     },
     /** 导出按钮操作 */
-    handleExport() {
-      const queryParams = this.queryParams;
-      this.$confirm('是否确认导出所有用户数据项?', "警告", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }).then(function() {
-          return exportUser(queryParams);
-        }).then(response => {
-          this.download(response.msg);
-        }).catch(function() {});
-    },
-    /** 导入按钮操作 */
-    handleImport() {
-      this.upload.title = "用户导入";
-      this.upload.open = true;
-    },
+    // handleExport() {
+    //   const queryParams = this.queryParams;
+    //   this.$confirm('是否确认导出所有用户数据项?', "警告", {
+    //       confirmButtonText: "确定",
+    //       cancelButtonText: "取消",
+    //       type: "warning"
+    //     }).then(function() {
+    //       return exportUser(queryParams);
+    //     }).then(response => {
+    //       this.download(response.msg);
+    //     }).catch(function() {});
+    // },
+    // /** 导入按钮操作 */
+    // handleImport() {
+    //   this.upload.title = "用户导入";
+    //   this.upload.open = true;
+    // },
     /** 下载模板操作 */
     importTemplate() {
       importTemplate().then(response => {

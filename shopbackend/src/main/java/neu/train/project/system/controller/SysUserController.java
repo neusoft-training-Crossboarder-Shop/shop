@@ -11,7 +11,6 @@ import neu.train.framework.web.controller.BaseController;
 import neu.train.framework.web.domain.AjaxResult;
 import neu.train.framework.web.page.TableDataInfo;
 import neu.train.project.system.domain.SysUser;
-import neu.train.project.system.service.ISysPostService;
 import neu.train.project.system.service.ISysRoleService;
 import neu.train.project.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +35,8 @@ public class SysUserController extends BaseController
     @Autowired
     private ISysRoleService roleService;
 
-    @Autowired
-    private ISysPostService postService;
+//    @Autowired
+//    private ISysPostService postService;
 
     @Autowired
     private TokenService tokenService;
@@ -93,11 +92,11 @@ public class SysUserController extends BaseController
     {
         AjaxResult ajax = AjaxResult.success();
         ajax.put("roles", roleService.selectRoleAll());
-        ajax.put("posts", postService.selectPostAll());
+//        ajax.put("posts", postService.selectPostAll());
         if (StringUtils.isNotNull(userId))
         {
             ajax.put(AjaxResult.DATA_TAG, userService.selectUserById(userId));
-            ajax.put("postIds", postService.selectPostListByUserId(userId));
+//            ajax.put("postIds", postService.selectPostListByUserId(userId));
             ajax.put("roleIds", roleService.selectRoleListByUserId(userId));
         }
         return ajax;

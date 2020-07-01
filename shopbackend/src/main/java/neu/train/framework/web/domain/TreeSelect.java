@@ -1,7 +1,6 @@
 package neu.train.framework.web.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import neu.train.project.system.domain.SysDept;
 import neu.train.project.system.domain.SysMenu;
 
 import java.io.Serializable;
@@ -32,12 +31,12 @@ public class TreeSelect implements Serializable
 
     }
 
-    public TreeSelect(SysDept dept)
-    {
-        this.id = dept.getDeptId();
-        this.label = dept.getDeptName();
-        this.children = dept.getChildren().stream().map(TreeSelect::new).collect(Collectors.toList());
-    }
+//    public TreeSelect(SysDept dept)
+//    {
+//        this.id = dept.getDeptId();
+//        this.label = dept.getDeptName();
+//        this.children = dept.getChildren().stream().map(TreeSelect::new).collect(Collectors.toList());
+//    }
 
     public TreeSelect(SysMenu menu)
     {
