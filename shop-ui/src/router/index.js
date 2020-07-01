@@ -65,33 +65,33 @@ export const constantRoutes = [
       }
     ]
   },
-  // {
-  //   path: '/user',
-  //   component: Layout,
-  //   hidden: true,
-  //   redirect: 'noredirect',
-  //   children: [
-  //     {
-  //       path: 'profile',
-  //       component: (resolve) => require(['@/views/system/user/profile/index'], resolve),
-  //       name: 'Profile',
-  //       meta: { title: '个人中心', icon: 'user' }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: '/dict',
-  //   component: Layout,
-  //   hidden: true,
-  //   children: [
-  //     {
-  //       path: 'type/data/:dictId(\\d+)',
-  //       component: (resolve) => require(['@/views/system/dict/data'], resolve),
-  //       name: 'Data',
-  //       meta: { title: '字典数据', icon: '' }
-  //     }
-  //   ]
-  // },
+  {
+    path: '/user',
+    component: Layout,
+    hidden: true,
+    redirect: 'noredirect',
+    children: [
+      {
+        path: 'profile',
+        component: (resolve) => require(['@/views/system/user/profile/index'], resolve),
+        name: 'Profile',
+        meta: { title: '个人中心', icon: 'user' }
+      }
+    ]
+  },
+  {
+    path: '/dict',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: 'type/data/:dictId(\\d+)',
+        component: (resolve) => require(['@/views/system/dict/data'], resolve),
+        name: 'Data',
+        meta: { title: '字典数据', icon: '' }
+      }
+    ]
+  },
   // {
   //   path: '/job',
   //   component: Layout,

@@ -44,8 +44,7 @@ export default {
             return path;
         },
         showLogo() {
-            return true;
-            // return this.$store.state.settings.sidebarLogo;
+            return this.$store.state.settings.sidebarLogo;
         },
         variables() {
             return variables;
