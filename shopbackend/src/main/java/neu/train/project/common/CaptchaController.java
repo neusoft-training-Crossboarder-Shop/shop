@@ -1,5 +1,6 @@
 package neu.train.project.common;
 
+import io.swagger.annotations.ApiOperation;
 import neu.train.common.constant.Constants;
 import neu.train.common.utils.IdUtils;
 import neu.train.common.utils.VerifyCodeUtils;
