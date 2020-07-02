@@ -212,17 +212,17 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="数据权限" v-show="form.dataScope == 2">
-          <el-tree
-            :data="deptOptions"
-            show-checkbox
-            default-expand-all
-            ref="dept"
-            node-key="id"
-            empty-text="加载中，请稍后"
-            :props="defaultProps"
-          ></el-tree>
-        </el-form-item>
+<!--        <el-form-item label="数据权限" v-show="form.dataScope == 2">-->
+<!--          <el-tree-->
+<!--            :data="deptOptions"-->
+<!--            show-checkbox-->
+<!--            default-expand-all-->
+<!--            ref="dept"-->
+<!--            node-key="id"-->
+<!--            empty-text="加载中，请稍后"-->
+<!--            :props="defaultProps"-->
+<!--          ></el-tree>-->
+<!--        </el-form-item>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitDataScope">确 定</el-button>
@@ -235,7 +235,6 @@
 <script>
 import { listRole, getRole, delRole, addRole, updateRole, dataScope, changeRoleStatus } from "@/api/system/role";
 import { treeselect as menuTreeselect, roleMenuTreeselect } from "@/api/system/menu";
-import { treeselect as deptTreeselect, roleDeptTreeselect } from "@/api/system/dept";
 
 export default {
   name: "Role",
@@ -288,8 +287,8 @@ export default {
       ],
       // 菜单列表
       menuOptions: [],
-      // 部门列表
-      deptOptions: [],
+      // // 部门列表
+      // deptOptions: [],
       // 查询参数
       queryParams: {
         pageNum: 1,
@@ -342,12 +341,12 @@ export default {
         this.menuOptions = response.data;
       });
     },
-    /** 查询部门树结构 */
-    getDeptTreeselect() {
-      deptTreeselect().then(response => {
-        this.deptOptions = response.data;
-      });
-    },
+    // /** 查询部门树结构 */
+    // getDeptTreeselect() {
+    //   deptTreeselect().then(response => {
+    //     this.deptOptions = response.data;
+    //   });
+    // },
     // 所有菜单节点数据
     getMenuAllCheckedKeys() {
       // 目前被选中的菜单节点
@@ -360,9 +359,9 @@ export default {
     // 所有部门节点数据
     getDeptAllCheckedKeys() {
       // 目前被选中的部门节点
-      let checkedKeys = this.$refs.dept.getHalfCheckedKeys();
+      // let checkedKeys = this.$refs.dept.getHalfCheckedKeys();
       // 半选中的部门节点
-      let halfCheckedKeys = this.$refs.dept.getCheckedKeys();
+      // let halfCheckedKeys = this.$refs.dept.getCheckedKeys();
       checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys);
       return checkedKeys;
     },
@@ -374,12 +373,12 @@ export default {
       });
     },
     /** 根据角色ID查询部门树结构 */
-    getRoleDeptTreeselect(roleId) {
-      roleDeptTreeselect(roleId).then(response => {
-        this.deptOptions = response.depts;
-        this.$refs.dept.setCheckedKeys(response.checkedKeys);
-      });
-    },
+    // getRoleDeptTreeselect(roleId) {
+    //   roleDeptTreeselect(roleId).then(response => {
+    //     this.deptOptions = response.depts;
+    //     this.$refs.dept.setCheckedKeys(response.checkedKeys);
+    //   });
+    // },
     // 角色状态修改
     handleStatusChange(row) {
       let text = row.status === "0" ? "启用" : "停用";
@@ -417,7 +416,7 @@ export default {
         roleSort: 0,
         status: "0",
         menuIds: [],
-        deptIds: [],
+        // deptIds: [],
         remark: undefined
       };
       this.resetForm("form");
@@ -500,7 +499,7 @@ export default {
     /** 提交按钮（数据权限） */
     submitDataScope: function() {
       if (this.form.roleId != undefined) {
-        this.form.deptIds = this.getDeptAllCheckedKeys();
+        // this.form.deptIds = this.getDeptAllCheckedKeys();
         dataScope(this.form).then(response => {
           if (response.code === 200) {
             this.msgSuccess("修改成功");

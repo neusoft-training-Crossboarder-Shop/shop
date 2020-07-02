@@ -79,15 +79,6 @@
           v-hasPermi="['system:config:remove']"
         >删除</el-button>
       </el-col>
-<!--      <el-col :span="1.5">-->
-<!--        <el-button-->
-<!--          type="warning"-->
-<!--          icon="el-icon-download"-->
-<!--          size="mini"-->
-<!--          @click="handleExport"-->
-<!--          v-hasPermi="['system:config:export']"-->
-<!--        >导出</el-button>-->
-<!--      </el-col>-->
       <el-col :span="1.5">
         <el-button
           type="danger"
@@ -333,19 +324,6 @@ export default {
           this.msgSuccess("删除成功");
         }).catch(function() {});
     },
-    // /** 导出按钮操作 */
-    // handleExport() {
-    //   const queryParams = this.queryParams;
-    //   this.$confirm('是否确认导出所有参数数据项?', "警告", {
-    //       confirmButtonText: "确定",
-    //       cancelButtonText: "取消",
-    //       type: "warning"
-    //     }).then(function() {
-    //       return exportConfig(queryParams);
-    //     }).then(response => {
-    //       this.download(response.msg);
-    //     }).catch(function() {});
-    // },
     /** 清理缓存按钮操作 */
     handleClearCache() {
       clearCache().then(response => {
