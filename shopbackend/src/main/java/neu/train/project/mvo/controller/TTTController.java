@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/swagger-resources/")
 public class TTTController {
-   //普通消息，mybatis，分页查询，redis，exception，validate，aspectJ
+   //普通消息，mybatis，懒加载，分页查询，redis，exception，validate，aspectJ
     @ApiOperation(value="post请求返回一个成功普通消息")
     @PostMapping("/test1")
     public AjaxResult test(){
