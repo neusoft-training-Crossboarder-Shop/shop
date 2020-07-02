@@ -75,7 +75,7 @@
                   icon="el-icon-refresh"
                   size="mini"
                   @click="handleClearCache"
-                  v-hasPermi="['system:config:remove']"
+                  v-hasPermi="['system:browse:read']"
                 >清理缓存
                 </el-button>
               </el-form-item>
@@ -85,7 +85,7 @@
       </div>
       <el-divider></el-divider>
 
-      <ul class="infinite-container" v-infinite-scroll="loadMoreItems" infinite-scroll-disabled="disabled" style="overflow:auto"  >
+      <ul class="infinite-container" v-infinite-scroll="loadMoreItems" infinite-scroll-disabled="disabled"  >
         <el-backtop target=".page-component__scroll .el-scrollbar__wrap" ></el-backtop>
         <li v-for="item in items" class="card" key="item.id" >
             <el-image
@@ -123,6 +123,7 @@
                priceDown: 1,
                priceUp: 1
             },
+
             items:[
               {
                 id:'1',
@@ -343,6 +344,7 @@
 .research_container{
   position: -webkit-sticky;
   position: sticky;
+  padding: 1%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
 }
 
