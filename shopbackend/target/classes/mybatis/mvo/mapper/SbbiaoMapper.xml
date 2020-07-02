@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="neu.train.project.mvo.mapper.SbbiaoMapper" >
+  <resultMap id="BaseResultMap" type="neu.train.project.mvo.pojo.Sbbiao" >
+    <constructor >
+      <arg column="aaa_bbb" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bbb_ccc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ttt_ttt" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    aaa_bbb, bbb_ccc, ttt_ttt
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="neu.train.project.mvo.pojo.SbbiaoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sbbiao
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="neu.train.project.mvo.pojo.SbbiaoExample" >
+    delete from sbbiao
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insertSelective" parameterType="neu.train.project.mvo.pojo.Sbbiao" >
+    <selectKey resultType="java.lang.Integer" keyProperty="aaaBbb" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sbbiao
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      aaa_bbb,
+      <if test="bbbCcc != null" >
+        bbb_ccc,
+      </if>
+      <if test="tttTtt != null" >
+        ttt_ttt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{aaaBbb,jdbcType=INTEGER},
+      <if test="bbbCcc != null" >
+        #{bbbCcc,jdbcType=VARCHAR},
+      </if>
+      <if test="tttTtt != null" >
+        #{tttTtt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="neu.train.project.mvo.pojo.SbbiaoExample" resultType="java.lang.Integer" >
+    select count(*) from sbbiao
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sbbiao
+    <set >
+      <if test="record.aaaBbb != null" >
+        aaa_bbb = #{record.aaaBbb,jdbcType=INTEGER},
+      </if>
+      <if test="record.bbbCcc != null" >
+        bbb_ccc = #{record.bbbCcc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tttTtt != null" >
+        ttt_ttt = #{record.tttTtt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sbbiao
+    set aaa_bbb = #{record.aaaBbb,jdbcType=INTEGER},
+      bbb_ccc = #{record.bbbCcc,jdbcType=VARCHAR},
+      ttt_ttt = #{record.tttTtt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
