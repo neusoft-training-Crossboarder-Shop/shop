@@ -85,15 +85,15 @@
           v-hasPermi="['system:dict:remove']"
         >删除</el-button>
       </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="warning"
-          icon="el-icon-download"
-          size="mini"
-          @click="handleExport"
-          v-hasPermi="['system:dict:export']"
-        >导出</el-button>
-      </el-col>
+<!--      <el-col :span="1.5">-->
+<!--        <el-button-->
+<!--          type="warning"-->
+<!--          icon="el-icon-download"-->
+<!--          size="mini"-->
+<!--          @click="handleExport"-->
+<!--          v-hasPermi="['system:dict:export']"-->
+<!--        >导出</el-button>-->
+<!--      </el-col>-->
       <el-col :span="1.5">
         <el-button
           type="danger"
@@ -182,7 +182,7 @@
 </template>
 
 <script>
-import { listType, getType, delType, addType, updateType, exportType, clearCache } from "@/api/system/dict/type";
+import { listType, getType, delType, addType, updateType, clearCache } from "@/api/system/dict/type";
 
 export default {
   name: "Dict",
@@ -337,19 +337,19 @@ export default {
           this.msgSuccess("删除成功");
         }).catch(function() {});
     },
-    /** 导出按钮操作 */
-    handleExport() {
-      const queryParams = this.queryParams;
-      this.$confirm('是否确认导出所有类型数据项?', "警告", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }).then(function() {
-          return exportType(queryParams);
-        }).then(response => {
-          this.download(response.msg);
-        }).catch(function() {});
-    },
+    // /** 导出按钮操作 */
+    // handleExport() {
+    //   const queryParams = this.queryParams;
+    //   this.$confirm('是否确认导出所有类型数据项?', "警告", {
+    //       confirmButtonText: "确定",
+    //       cancelButtonText: "取消",
+    //       type: "warning"
+    //     }).then(function() {
+    //       return exportType(queryParams);
+    //     }).then(response => {
+    //       this.download(response.msg);
+    //     }).catch(function() {});
+    // },
     /** 清理缓存按钮操作 */
     handleClearCache() {
       clearCache().then(response => {
