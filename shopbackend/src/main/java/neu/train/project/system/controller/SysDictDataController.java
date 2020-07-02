@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * 数据字典信息
  * 
- * @author ruoyi
+ * @author
  */
 @RestController
 @RequestMapping("/system/dict/data")

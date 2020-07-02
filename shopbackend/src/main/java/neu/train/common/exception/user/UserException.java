@@ -5,7 +5,7 @@ import neu.train.common.exception.BaseException;
 /**
  * 用户信息异常类
  * 
- * @author ruoyi
+ * @author
  */
 class UserException extends BaseException
 {

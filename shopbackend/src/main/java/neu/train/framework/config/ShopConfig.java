@@ -1,17 +1,16 @@
 package neu.train.framework.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 /**
  * 读取项目相关配置
  * 
- * @author ruoyi
+ * @author
  */
 @Component
 @ConfigurationProperties(prefix = "shop")
-public class RuoYiConfig
+public class ShopConfig
 {
     /** 项目名称 */
     private String name;
@@ -78,7 +77,7 @@ public class RuoYiConfig
 
     public void setProfile(String profile)
     {
-        RuoYiConfig.profile = profile;
+        ShopConfig.profile = profile;
     }
 
     public static boolean isAddressEnabled()
@@ -88,7 +87,7 @@ public class RuoYiConfig
 
     public void setAddressEnabled(boolean addressEnabled)
     {
-        RuoYiConfig.addressEnabled = addressEnabled;
+        ShopConfig.addressEnabled = addressEnabled;
     }
 
     /**

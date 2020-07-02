@@ -3,7 +3,7 @@ package neu.train.common.exception.user;
 /**
  * 验证码失效异常类
  * 
- * @author ruoyi
+ * @author
  */
 public class CaptchaExpireException extends UserException
 {

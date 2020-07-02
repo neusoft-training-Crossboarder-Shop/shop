@@ -20,7 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 /**
  * spring security配置
  * 
- * @author ruoyi
+ * @author
  */
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class

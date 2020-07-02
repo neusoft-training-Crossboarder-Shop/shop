@@ -3,7 +3,7 @@ package neu.train.framework.security;
 /**
  * 用户登录对象
  * 
- * @author ruoyi
+ * @author
  */
 public class LoginBody
 {

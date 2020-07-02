@@ -3,7 +3,7 @@ package neu.train.framework.aspectj.lang.enums;
 /**
  * 数据源
  * 
- * @author ruoyi
+ * @author
  */
 public enum DataSourceType
 {

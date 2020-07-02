@@ -3,7 +3,7 @@ package neu.train.framework.aspectj.lang.enums;
 /**
  * 业务操作类型
  * 
- * @author ruoyi
+ * @author
  */
 public enum BusinessType
 {

@@ -3,7 +3,7 @@ package neu.train.project.system.controller;
 import neu.train.common.utils.SecurityUtils;
 import neu.train.common.utils.ServletUtils;
 import neu.train.common.utils.file.FileUploadUtils;
-import neu.train.framework.config.RuoYiConfig;
+import neu.train.framework.config.ShopConfig;
 import neu.train.framework.security.LoginUser;
 import neu.train.framework.security.service.TokenService;
 import neu.train.framework.web.controller.BaseController;
@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * 个人信息 业务处理
  * 
- * @author ruoyi
+ * @author
  */
 @RestController
 @RequestMapping("/system/user/profile")
@@ -104,7 +104,7 @@ public class SysProfileController extends BaseController
         if (!file.isEmpty())
         {
             LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
-            String avatar = FileUploadUtils.upload(RuoYiConfig.getAvatarPath(), file);
+            String avatar = FileUploadUtils.upload(ShopConfig.getAvatarPath(), file);
             if (userService.updateUserAvatar(loginUser.getUsername(), avatar))
             {
                 AjaxResult ajax = AjaxResult.success();

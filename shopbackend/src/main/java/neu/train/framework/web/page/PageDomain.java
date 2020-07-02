@@ -6,7 +6,7 @@ import neu.train.common.utils.StringUtils;
 /**
  * 分页数据
  * 
- * @author ruoyi
+ * @author
  */
 public class PageDomain
 {

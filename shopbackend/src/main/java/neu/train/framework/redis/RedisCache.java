@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 封装了redis方法的redis utils类别
  * 
- * @author ruoyi
+ * @author
  **/
 @SuppressWarnings(value = { "unchecked", "rawtypes" })
 @Component

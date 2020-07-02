@@ -6,7 +6,7 @@ import neu.train.project.system.domain.SysDictData;
 /**
  * 字典 业务层
  * 
- * @author ruoyi
+ * @author
  */
 public interface ISysDictDataService
 {

@@ -3,7 +3,7 @@ package neu.train.framework.aspectj.lang.enums;
 /**
  * 操作人类别
  * 
- * @author ruoyi
+ * @author
  */
 public enum OperatorType
 {

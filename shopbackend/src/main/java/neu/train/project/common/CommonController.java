@@ -4,7 +4,7 @@ import neu.train.common.constant.Constants;
 import neu.train.common.utils.StringUtils;
 import neu.train.common.utils.file.FileUploadUtils;
 import neu.train.common.utils.file.FileUtils;
-import neu.train.framework.config.RuoYiConfig;
+import neu.train.framework.config.ShopConfig;
 import neu.train.framework.config.ServerConfig;
 import neu.train.framework.web.domain.AjaxResult;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 通用请求处理
  * 
- * @author ruoyi
+ * @author
  */
 @RestController
 public class CommonController
@@ -47,7 +47,7 @@ public class CommonController
                 throw new Exception(StringUtils.format("文件名称({})非法，不允许下载。 ", fileName));
             }
             String realFileName = System.currentTimeMillis() + fileName.substring(fileName.indexOf("_") + 1);
-            String filePath = RuoYiConfig.getDownloadPath() + fileName;
+            String filePath = ShopConfig.getDownloadPath() + fileName;
 
             response.setCharacterEncoding("utf-8");
             response.setContentType("multipart/form-data");
@@ -74,7 +74,7 @@ public class CommonController
         try
         {
             // 上传文件路径
-            String filePath = RuoYiConfig.getUploadPath();
+            String filePath = ShopConfig.getUploadPath();
             // 上传并返回新文件名称
             String fileName = FileUploadUtils.upload(filePath, file);
             String url = serverConfig.getUrl() + fileName;
@@ -96,7 +96,7 @@ public class CommonController
     public void resourceDownload(String name, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         // 本地资源路径
-        String localPath = RuoYiConfig.getProfile();
+        String localPath = ShopConfig.getProfile();
         // 数据库资源地址
         String downloadPath = localPath + StringUtils.substringAfter(name, Constants.RESOURCE_PREFIX);
         // 下载名称

@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * 字典 业务层处理
  * 
- * @author ruoyi
+ * @author
  */
 @Service
 public class SysDictTypeServiceImpl implements ISysDictTypeService{

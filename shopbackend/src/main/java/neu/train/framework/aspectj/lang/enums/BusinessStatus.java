@@ -3,7 +3,7 @@ package neu.train.framework.aspectj.lang.enums;
 /**
  * 操作状态
  * 
- * @author ruoyi
+ * @author
  *
  */
 public enum BusinessStatus

@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
 /**
  * 防止重复提交拦截器
  * 
- * @author ruoyi
+ * @author
  */
 @Component
 public abstract class RepeatSubmitInterceptor extends HandlerInterceptorAdapter

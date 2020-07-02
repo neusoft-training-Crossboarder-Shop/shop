@@ -14,7 +14,7 @@ import java.nio.charset.Charset;
 /**
  * 通用http工具封装
  * 
- * @author ruoyi
+ * @author
  */
 public class HttpHelper
 {

@@ -8,7 +8,7 @@ import neu.train.project.system.domain.SysDictType;
 /**
  * 字典 业务层
  * 
- * @author ruoyi
+ * @author
  */
 public interface ISysDictTypeService
 {

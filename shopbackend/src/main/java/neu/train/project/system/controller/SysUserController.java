@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * 用户信息
  * 
- * @author ruoyi
+ * @author
  */
 @RestController
 @RequestMapping("/system/user")

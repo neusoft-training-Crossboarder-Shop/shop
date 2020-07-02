@@ -5,7 +5,7 @@ import neu.train.common.core.lang.UUID;
 /**
  * ID生成器工具类
  * 
- * @author ruoyi
+ * @author
  */
 public class IdUtils
 {

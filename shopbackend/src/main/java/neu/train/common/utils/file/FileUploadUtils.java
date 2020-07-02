@@ -7,7 +7,7 @@ import neu.train.common.exception.file.InvalidExtensionException;
 import neu.train.common.utils.DateUtils;
 import neu.train.common.utils.StringUtils;
 import neu.train.common.utils.security.Md5Utils;
-import neu.train.framework.config.RuoYiConfig;
+import neu.train.framework.config.ShopConfig;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,7 +17,7 @@ import java.io.IOException;
 /**
  * 文件上传工具类
  * 
- * @author ruoyi
+ * @author
  */
 public class FileUploadUtils
 {
@@ -34,7 +34,7 @@ public class FileUploadUtils
     /**
      * 默认上传的地址
      */
-    private static String defaultBaseDir = RuoYiConfig.getProfile();
+    private static String defaultBaseDir = ShopConfig.getProfile();
 
     private static int counter = 0;
 
@@ -147,7 +147,7 @@ public class FileUploadUtils
 
     private static final String getPathFileName(String uploadDir, String fileName) throws IOException
     {
-        int dirLastIndex = RuoYiConfig.getProfile().length() + 1;
+        int dirLastIndex = ShopConfig.getProfile().length() + 1;
         String currentDir = StringUtils.substring(uploadDir, dirLastIndex);
         String pathFileName = Constants.RESOURCE_PREFIX + "/" + currentDir + "/" + fileName;
         return pathFileName;

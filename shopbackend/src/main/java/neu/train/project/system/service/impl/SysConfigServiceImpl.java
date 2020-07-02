@@ -18,7 +18,7 @@ import neu.train.project.system.service.ISysConfigService;
 /**
  * 参数配置 服务层实现
  * 
- * @author ruoyi
+ * @author
  */
 @Service
 public class SysConfigServiceImpl implements ISysConfigService
