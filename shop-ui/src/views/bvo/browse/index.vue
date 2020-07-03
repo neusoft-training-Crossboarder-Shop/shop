@@ -87,7 +87,7 @@
 
       <ul class="infinite-container" v-infinite-scroll="loadMoreItems" infinite-scroll-disabled="disabled"  >
         <el-backtop target=".page-component__scroll .el-scrollbar__wrap" ></el-backtop>
-        <li v-for="item in items" class="card" key="item.id" >
+        <li v-for="item in items" class="card" key="item.id" @click="redirect(item.id)" >
             <el-image
               style="width: 100%; height: 80%"
               :src="item.url"
@@ -262,6 +262,11 @@
       }
     },
       methods:{
+        redirect(id){
+          this.$router.push({
+            path:`/bvo/good/${id}`
+          })
+        },
         handleQuery() {
           this.$notify({
             title: '执行',

@@ -13,14 +13,9 @@
               <el-button type="primary"  v-if="isEdit" class="long-button" @click="save">保存</el-button>
               <el-button type="primary" v-else @click="edit" class="long-button">编辑</el-button>
               <el-button type="danger"  @click="redirect">我的店铺</el-button>
-
             </el-form-item>
-
           </el-form>
-
         </div>
-
-
     </el-card>
 
 
