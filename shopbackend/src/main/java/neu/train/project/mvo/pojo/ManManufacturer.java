@@ -1,8 +1,10 @@
 package neu.train.project.mvo.pojo;
 
+import neu.train.framework.web.domain.BaseEntity;
+
 import java.util.Date;
 
-public class ManManufacturer {
+public class ManManufacturer extends BaseEntity {
     private Integer manId;
 
     private Long sysUserId;

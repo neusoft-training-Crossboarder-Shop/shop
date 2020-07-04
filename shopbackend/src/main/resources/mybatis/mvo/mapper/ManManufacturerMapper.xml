@@ -137,21 +137,21 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insertSelective" parameterType="neu.train.project.mvo.pojo.ManManufacturer" >
-    <selectKey resultType="java.lang.Integer" keyProperty="manId" order="BEFORE" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into man_manufacturer
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      man_id,
-      <if test="sysUserId != null" >
-        sys_user_id,
-      </if>
-      <if test="nameEn != null" >
-        name_en,
-      </if>
-      <if test="nameCn != null" >
-        name_cn,
+  <insert id="insertSelective" parameterType="neu.train.project.mvo.pojo.ManManufacturer">
+  <selectKey resultType="java.lang.Integer" keyProperty="manId" order="BEFORE" >
+    SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into man_manufacturer
+  <trim prefix="(" suffix=")" suffixOverrides="," >
+    man_id,
+    <if test="sysUserId != null" >
+      sys_user_id,
+    </if>
+    <if test="nameEn != null" >
+      name_en,
+    </if>
+    <if test="nameCn != null" >
+      name_cn,
       </if>
       <if test="gmcReportType != null" >
         gmc_report_type,

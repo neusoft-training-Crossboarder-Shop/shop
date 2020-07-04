@@ -38,7 +38,7 @@ public interface ManManufacturerMapper {
         "#{callCnt,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, ",
         "#{stsCd,jdbcType=CHAR}, #{description,jdbcType=LONGVARCHAR})"
     })
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="manId", before=true, resultType=Integer.class)
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="manId", before=false, resultType=Integer.class)
     int insert(ManManufacturer record);
 
     int insertSelective(ManManufacturer record);
