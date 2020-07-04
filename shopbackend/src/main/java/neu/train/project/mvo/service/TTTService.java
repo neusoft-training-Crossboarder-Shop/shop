@@ -13,7 +13,8 @@ public class TTTService {
 
     @Cacheable(value = "shabbb",key="#manId")
     public ManManufacturer test7(int manId){
-        return manManufacturerMapper.selectByPrimaryKey(5);
+        //return manManufacturerMapper.selectByPrimaryKey(6);
+        return new ManManufacturer();
     }
 
 }

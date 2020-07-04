@@ -14,6 +14,8 @@ import neu.train.project.mvo.pojo.ManManufacturerExample;
 import neu.train.project.mvo.service.TTTService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +33,11 @@ public class TTTController extends BaseController {
 
     @Autowired
     private TTTService tttService;
+
+    @Autowired
+    private RedisCache redisCache;
+
+    @Autowired RedisTemplate redisTemplate;
 
     //普通消息OK，mybatis-generatorOK，懒加载，分页查询OK，事务OK，redis，exception全局异常处理OK，validate@notNull??有用吗，springscurity？？？haspermi???
     @ApiOperation(value = "post请求返回一个成功普通消息,一般来说返回的是AjaxResult")
@@ -112,11 +119,104 @@ public class TTTController extends BaseController {
     @GetMapping("/test8")
     //@PathVariable String deleteCache
     public AjaxResult test8(){
-        RedisCache redisCache=new RedisCache();
-        redisCache.getCacheObject("shab2::4");
+       ManManufacturer answer=redisCache.getCacheObject("shabbb::4");
+        System.out.println(answer.getDescription());
         return AjaxResult.success();
-
-    }
-
-
 }
+
+    @ApiOperation(value="测试redis")
+    @GetMapping("/test9")
+    //@PathVariable String deleteCache
+    public AjaxResult test9(){
+        redisCache.setCacheObject("shabbb::wobushishabi","youshigeshabi");
+        return AjaxResult.success();
+    }
+}
+
+
+
+/*
+* 1、@CacheConfig
+主要用于配置该类中会用到的一些共用的缓存配置。示例：
+
+@CacheConfig(cacheNames = "users")
+public interface UserService {。。。}
+配置了该数据访问对象中返回的内容将存储于名为users的缓存对象中，我们也可以不使用该注解，直接通过@Cacheable自己配置缓存集的名字来定义。
+
+2、@Cacheable
+应用到读取数据的方法上，即可缓存的方法，如查找方法，先从缓存中读取，如果没有再调用相应方法获取数据，然后把数据添加到缓存中。
+
+该注解主要有下面几个参数：
+
+value、cacheNames：两个等同的参数（cacheNames为Spring 4新增，作为value的别名），用于指定缓存存储的集合名。由于Spring 4中新增了@CacheConfig，因此在Spring 3中原本必须有的value属性，也成为非必需项了
+key：缓存对象存储在Map集合中的key值，非必需，缺省按照函数的所有参数组合作为key值，若自己配置需使用SpEL表达式，比如：@Cacheable(key = "#p0")：使用函数第一个参数作为缓存的key值，更多关于SpEL表达式的详细内容可参考官方文档
+condition：缓存对象的条件，非必需，也需使用SpEL表达式，只有满足表达式条件的内容才会被缓存，比如：@Cacheable(key = "#p0", condition = "#p0.length() < 3")，表示只有当第一个参数的长度小于3的时候才会被缓存。
+unless：另外一个缓存条件参数，非必需，需使用SpEL表达式。它不同于condition参数的地方在于它的判断时机，该条件是在函数被调用之后才做判断的，所以它可以通过对result进行判断。
+keyGenerator：用于指定key生成器，非必需。若需要指定一个自定义的key生成器，我们需要去实现org.springframework.cache.interceptor.KeyGenerator接口，并使用该参数来指定。需要注意的是：该参数与key是互斥的
+cacheManager：用于指定使用哪个缓存管理器，非必需。只有当有多个时才需要使用
+cacheResolver：用于指定使用那个缓存解析器，非必需。需通过org.springframework.cache.interceptor.CacheResolver接口来实现自己的缓存解析器，并用该参数指定。
+示例如下：
+
+@Cacheable(value = "user", key = "#id")
+User selectUserById(final Integer id);
+ 3、@CachePut
+应用到写数据的方法上，如新增/修改方法，调用方法时会自动把相应的数据放入缓存，示例如下：
+
+@CachePut(value = "user", key = "#user.id")
+public User save(User user) {
+    users.add(user);
+    return user;
+}
+此时会以user.id做为缓存key,返回结果user做为值，测试过程中发现在修改对象后只将缓存结果移除但key未移除，导致查询依然使用了缓存而结果为空（不知道啥情况）
+
+@CachePut的参数与@Cacheable类似
+
+4、@CacheEvict
+应用到移除数据的方法上，如删除方法，调用方法时会从缓存中移除相应的数据，示例如下：
+
+@CacheEvict(value = "user", key = "#id")
+void delete(final Integer id);
+除了同@Cacheable一样的参数之外，@CacheEvict还有下面两个参数：
+
+allEntries：非必需，默认为false。当为true时，会移除所有数据
+beforeInvocation：非必需，默认为false，会在调用方法之后移除数据。当为true时，会在调用方法之前移除数据。
+5、@Caching
+组合多个Cache注解使用。示例：
+
+复制代码
+@Caching(
+    put = {
+        @CachePut(value = "user", key = "#user.id"),
+        @CachePut(value = "user", key = "#user.username"),
+        @CachePut(value = "user", key = "#user.age")
+   }
+}
+复制代码
+以上是将id-->user；username--->user；age--->user进行缓存。
+
+6、缓存策略
+如果缓存满了，从缓存中移除数据的策略，常见的有FIFO， LRU 、LFU
+
+FIFO (First in First Out) 先进先出策略，即先放入缓存的数据先被移除
+LRU (Least Recently Used) 最久未使用策略， 即使用时间距离现在最久的那个数据被移除
+LFU (Least Frequently Used)  最少使用策略，即一定时间内使用次数（频率）最少的那个数据被移除
+TTL（Time To Live）存活期，即从缓存中创建时间点开始至到期的一个时间段（不管在这个时间段内有没被访问过都将过期）
+TTI （Time To Idle）空闲期，即一个数据多久没有被访问就从缓存中移除的时间。
+7、附注
+通过@EnableCaching注解自动化配置合适的缓存管理器（CacheManager），Spring Boot根据下面的顺序去侦测缓存提供者：
+
+ Generic
+JCache (JSR-107)
+ EhCache 2.x
+ Hazelcast
+ Infinispan
+ Redis
+ Guava
+ Simple
+可以通过配置属性spring.cache.type来强制指定，即
+
+spring.cache.type = xxx
+另外可通过注入cacheManager来调试查看使用哪种类型,进一步熟悉cache
+
+@Autowired
+private CacheManager cacheManager;*/
