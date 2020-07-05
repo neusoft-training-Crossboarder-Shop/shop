@@ -50,6 +50,7 @@ public class BaseController
      */
     protected void startPage()
     {
+
         PageDomain pageDomain = TableSupport.buildPageRequest();
         Integer pageNum = pageDomain.getPageNum();
         Integer pageSize = pageDomain.getPageSize();
@@ -58,6 +59,7 @@ public class BaseController
             String orderBy = SqlUtil.escapeOrderBySql(pageDomain.getOrderBy());
             PageHelper.startPage(pageNum, pageSize, orderBy);
         }
+
     }
 
     /**

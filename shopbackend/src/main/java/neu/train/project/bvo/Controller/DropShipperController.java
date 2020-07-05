@@ -32,5 +32,6 @@ public class DropShipperController extends BaseController {
     public AjaxResult update(@RequestBody DropShipper dropShipper){
 
         return dropShipperService.update(dropShipper);
+
     }
 }

@@ -27,6 +27,7 @@
                 connectionURL="jdbc:mysql://39.106.38.67/bsp_database?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;useSSL=true&amp;serverTimezone=GMT%2B8"
                 userId="root"
                 password="123456">
+            <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
 
         <!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制-->
@@ -68,14 +69,25 @@
         </javaClientGenerator>
 
 
-        <table tableName="dsr_dropshipper"
-               domainObjectName="DropShipper">
+<!--        <table tableName="dsr_dropshipper"-->
+<!--               domainObjectName="DropShipper">-->
+<!--            &lt;!&ndash; 上面的属性都可以使用子标签形式表示 &ndash;&gt;-->
+<!--            &lt;!&ndash; 是否使用真实字段名，设置为false将自动驼峰转换 &ndash;&gt;-->
+<!--            <property name="useActualColumnNames" value="false" />-->
+<!--            &lt;!&ndash; 还可以对表中的字段进行类型转换 &ndash;&gt;-->
+<!--            &lt;!&ndash; 这里转换的原因是会自动将个位的int值自动转化为Boolean，所以指定为Integer &ndash;&gt;-->
+<!--&lt;!&ndash;            <columnOverride column="sex" javaType="Integer"/>&ndash;&gt;-->
+<!--            <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+<!--        </table>-->
+
+        <table tableName="str_store"
+               domainObjectName="Store">
             <!-- 上面的属性都可以使用子标签形式表示 -->
             <!-- 是否使用真实字段名，设置为false将自动驼峰转换 -->
             <property name="useActualColumnNames" value="false" />
             <!-- 还可以对表中的字段进行类型转换 -->
             <!-- 这里转换的原因是会自动将个位的int值自动转化为Boolean，所以指定为Integer -->
-<!--            <columnOverride column="sex" javaType="Integer"/>-->
+            <!--            <columnOverride column="sex" javaType="Integer"/>-->
             <property name="ignoreQualifiersAtRuntime" value="true"/>
         </table>
         <!-- geelynote mybatis插件的搭建 -->

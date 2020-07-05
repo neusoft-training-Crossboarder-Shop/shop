@@ -2,54 +2,68 @@
   <div>
     <template>
       <div class="app-container">
-        <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="68px">
-          <el-form-item label="网店ID" prop="storeID">
+        <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="20%">
+          <el-form-item label="StoreId" prop="storeID">
             <el-input
-              v-model="queryParams.storeID"
-              placeholder="请输入网店名称"
+              v-model="queryParams.storeId"
+              placeholder="Please Enter Store Id"
               clearable
               size="small"
               style="width: 240px"
               @keyup.enter.native="handleQuery"
             />
           </el-form-item>
-          <el-form-item label="网店名称" prop="storeName">
+          <el-form-item label="StoreName" prop="storeName" label-width="25%">
             <el-input
               v-model="queryParams.storeName"
-              placeholder="请输入参数键名"
+              placeholder="Please Enter Store Name"
               clearable
               size="small"
               style="width: 240px"
               @keyup.enter.native="handleQuery"
             />
           </el-form-item>
+          <el-form-item label-width="0">
+            <el-select v-model="queryParams.platformType" clearable placeholder="Select Platform Type">
+              <el-option
+                v-for="(item,index) in typeOptions"
+                :key="index"
+                :label="item"
+                :value="index">
+              </el-option>
+            </el-select>
+          </el-form-item>
+
           <el-form-item>
-            <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-            <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+            <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">Search</el-button>
+            <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">Reset</el-button>
           </el-form-item>
         </el-form>
 
 
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
+<!--            v-hasPermi="['bvo:store:add']"-->
             <el-button
               type="primary"
               icon="el-icon-plus"
               size="mini"
               @click="handleAdd"
-              v-hasPermi="['bvo:store:add']"
+
             >新增</el-button>
           </el-col>
           <el-col :span="1.5">
+<!--            v-hasPermi="['bvo:store:edit']" 这是权限控制里加载 el-button里的参数-->
             <el-button
               type="success"
               icon="el-icon-edit"
               size="mini"
               :disabled="single"
               @click="handleUpdate"
-              v-hasPermi="['bvo:store:edit']"
             >修改</el-button>
           </el-col>
+<!--                        v-hasPermi="['bvo:store:remove']"
+-->
           <el-col :span="1.5">
             <el-button
               type="danger"
@@ -57,7 +71,6 @@
               size="mini"
               :disabled="multiple"
               @click="handleDelete"
-              v-hasPermi="['bvo:store:remove']"
             >删除
             </el-button>
           </el-col>
@@ -73,35 +86,40 @@
           </el-col>
         </el-row>
 
-        <el-table v-loading="loading" :data="storeList" @selection-change="handleSelectionChange">
+        <el-table class="el-table--enable-row-hover el-table__body" v-loading="loading" :data="storeList"  @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="55" align="center" />
-          <el-table-column label="网点名称" align="center" prop="storeName" />
-          <el-table-column label="平台类别" align="center" prop="storeType" :show-overflow-tooltip="true" />
-          <el-table-column label="API Status" align="center" prop="storeStatus" width="130" :show-overflow-tooltip="true" />
-          <el-table-column label="备注" align="center" prop="remark" width="130" :show-overflow-tooltip="true" />
-          <el-table-column label="创建人" align="center" prop="createdBy"  />
-          <el-table-column label="创建时间" align="center" prop="createdTime" width="150">
+          <el-table-column label="Store ID" align="center" prop="storeId" />
+          <el-table-column label="Platform Type" align="center"  :show-overflow-tooltip="true" >
             <template slot-scope="scope">
-              <span>{{ parseTime(scope.row.createdTime) }}</span>
+              {{typeOptions[scope.row.platformType]}}
+            </template>
+          </el-table-column>
+          <el-table-column label="Store Name" align="center" prop="storeName" />
+          <el-table-column label="VerifyCation Token" align="center" prop="authencationCode" width="140" :show-overflow-tooltip="true" />
+          <el-table-column label="Creator" align="center" prop="createdBy"  />
+          <el-table-column label="CreateTime" align="center" prop="createTime" width="150">
+            <template slot-scope="scope">
+              <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="修改人" align="center" prop="updatedBy" />
+          <el-table-column label="Last Update By" align="center" prop="lastUpdateBy" />
 
-          <el-table-column label="修改时间" align="center" prop="updatedTime" width="150">
+          <el-table-column label="Last Update Time" align="center" prop="lastUpdateTime" width="150">
             <template slot-scope="scope">
-              <span>{{ parseTime(scope.row.updatedTime) }}</span>
+              <span>{{ parseTime(scope.row.lastUpdateTime) }}</span>
             </template>
           </el-table-column>
           <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
             <template slot-scope="scope">
+<!--         el-button 权限里面v-hasPermi="['system:config:edit']"-->
               <el-button
                 size="mini"
                 type="text"
                 icon="el-icon-edit"
                 @click="handleUpdate(scope.row)"
-                v-hasPermi="['system:config:edit']"
               >修改</el-button>
+
               <el-button
                 size="mini"
                 type="text"
@@ -122,26 +140,25 @@
         />
 
         <!-- 添加或修改参数配置对话框 -->
-        <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
-          <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-            <el-form-item label="网店名称" prop="storeName">
-              <el-input v-model="form.storeName" placeholder="请输入参数名称" />
+        <el-dialog :title="title" :visible.sync="open" width="80%" append-to-body>
+          <el-form ref="form" :model="form" :rules="rules" label-width="30%">
+            <el-form-item label="Store Name" prop="storeName">
+              <el-input v-model="form.storeName" placeholder="Please Enter Store　Name" />
             </el-form-item>
-            <el-form-item label="网店ID" prop="storeID">
-              <el-input v-model="form.storeID" placeholder="请输入参数键名" />
-            </el-form-item>
-            <el-form-item label="网店类别" prop="storeType">
-              <el-radio-group v-model="form.storeType">
+            <el-form-item label="PlatformType" prop="platformType">
+              <el-radio-group v-model="form.platformType">
                 <el-radio
-                    v-for="type in typeOptions"
-                    :key="type.id"
-                    :label="type.label"
-                  >{{type.label}}
+                  v-for="(type,index) in typeOptions"
+                  :key="index"
+                  :value="index"
+                  :label="index"
+                >{{type}}
                 </el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="备注" prop="remark" >
-              <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
+
+            <el-form-item label="Verifycation Code" prop="authencationCode">
+              <el-input v-model="form.authencationCode" placeholder="Please enter Authentication Code" />
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
@@ -155,23 +172,28 @@
 </template>
 
 <script>
-    export default {
+  import {getStoreList,getStore,updateStore,addStore,delStore} from "../../../api/bvo/store";
+
+  export default {
         name: "index.vue",
         data:  function () {
           return{
             queryParams :{
-              storeId:"",
-              storeName:"",
+              pageNum: 1,
+              pageSize: 10,
+              storeId:undefined,
+              storeName: undefined,
+              platformType: undefined
             },
             rules: {
               storeName: [
-                { required: true, message: "商店名称不能为空", trigger: "blur" }
+                { required: true, message: "Store name can't be empty", trigger: "blur" }
               ],
-              storeID: [
-                { required: true, message: "商店ID不能为空", trigger: "blur" }
+              authencationCode: [
+                { required: true, message: "Authencation Code cann't be empty", trigger: "blur" }
               ],
-              storeType: [
-                { required: true, message: "商店类别不能为空", trigger: "blur" }
+              platformType: [
+                { required: true, message: "Platform Type can't be empty", trigger: "blur" }
               ]
             },
             // 遮罩层
@@ -190,61 +212,58 @@
             open: false,
             // 参数表格数据
             typeOptions:[
-              {id:1,label:"Amazon"},
-              {id:2,label:"Ebay"}
+              // "Amazon",
+              // "Ebay"
             ],
             storeList:[
               {
                 storeId:123,
                 storeName:"好宝宝网店",
-                storeType:1,
-                storeStatus:1,
+                platformType:1,
+                authencationCode:1,
                 createdBy:"好人",
-                createdTime:"2020-07-01 07:27:04",
-                updatedBy:"好人",
-                updatedTime:"2020-07-01 07:27:04",
-                remark:"我的第一家网店"
+                createTime:"2020-07-01 07:27:04",
+                lastUpdateBy:"好人",
+                lastUpdateTime:"2020-07-01 07:27:04",
               },
-              {
-                storeId:1234,
-                storeName:"好宝宝网店",
-                storeType:1,
-                storeStatus:1,
-                createdBy:"好人",
-                createdTime:"2020-07-01 07:27:04",
-                updatedBy:"好人",
-                updatedTime:"2020-07-01 07:27:04",
-                remark:"我的第一家网店"
-              }
             ],
             // 弹出层标题
             title: "",
             // 是否显示弹出层
             open: false,
             form: {
-              storeId:"",
+              storeId:undefined,
               storeName:"",
-              storeType:"",
+              platformType:"",
               remark:"",
             },
           }
         },
+      created() {
+        this.getList();
+        this.getDicts("store_platform_type").then(response => {
+           let data=response.data;
+           data.forEach(item=>{
+             this.typeOptions.push(item.dictLabel);
+           })
+          console.log(this.typeOptions);
+        });
+      },
         methods:{
-          created() {
-            // this.getList();
-            // this.getDicts("sys_yes_no").then(response => {
-            //   this.typeOptions = response.data;
-            // });
+          tableRowStyle(){
+              return `
+
+                  `
           },
             /** 查询参数列表 */
             getList() {
-              // this.loading = true;
-              // listConfig(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-              //     this.configList = response.rows;
-              //     this.total = response.total;
-              //     this.loading = false;
-              //   }
-              // );
+              this.loading = true;
+              getStoreList(this.queryParams).then(response => {
+                  this.storeList = response.rows;
+                  this.total = response.total;
+                  this.loading = false;
+                }
+              );
             },
             // 取消按钮
             cancel() {
@@ -258,10 +277,9 @@
           },
           reset() {
             this.form = {
-              storeId:"",
               storeName:"",
-              storeType:"",
-              remark:"",
+              platformType:"",
+              authencationCode:"",
             };
             this.resetForm("form");
           },
@@ -284,39 +302,37 @@
           },
           // 多选框选中数据
           handleSelectionChange(selection) {
-            this.ids = selection.map(item => item.configId)
+            this.ids = selection.map(item => item.storeId)
             this.single = selection.length!=1
             this.multiple = !selection.length
           },
           /** 修改按钮操作 */
           handleUpdate(row) {
             this.reset();
-            const configId = row.configId || this.ids
-            getConfig(configId).then(response => {
+            const storeId = row.storeId || this.ids;
+            getStore(storeId).then(response => {
               this.form = response.data;
+              console.log(this.form)
               this.open = true;
-              this.title = "修改参数";
+              this.title = "Modify Page";
             });
           },
           /** 提交按钮 */
           submitForm: function() {
             this.$refs["form"].validate(valid => {
               if (valid) {
-                if (this.form.configId != undefined) {
-                  updateConfig(this.form).then(response => {
-                    if (response.code === 200) {
-                      this.msgSuccess("修改成功");
-                      this.open = false;
-                      this.getList();
-                    }
+                if (this.form.storeId != undefined) {
+                  updateStore(this.form).then(response => {
+                    this.getList();
+                    this.open = false;
                   });
                 } else {
-                  addConfig(this.form).then(response => {
-                    if (response.code === 200) {
-                      this.msgSuccess("新增成功");
-                      this.open = false;
-                      this.getList();
-                    }
+                  addStore(this.form).then(response => {
+                    //添加成功
+
+                    this.getList();
+                    this.open = false;
+
                   });
                 }
               }
@@ -324,16 +340,15 @@
           },
           /** 删除按钮操作 */
           handleDelete(row) {
-            const configIds = row.configId || this.ids;
-            this.$confirm('是否确认删除参数编号为"' + configIds + '"的数据项?', "警告", {
-              confirmButtonText: "确定",
-              cancelButtonText: "取消",
+            const storeId = row.storeId || this.ids;
+            this.$confirm('Are you sure to delete No."' + storeId + '"?', "Warning", {
+              confirmButtonText: "Yes",
+              cancelButtonText: "No",
               type: "warning"
             }).then(function() {
-              return delConfig(configIds);
+              return delStore(storeId);
             }).then(() => {
               this.getList();
-              this.msgSuccess("删除成功");
             }).catch(function() {});
           },
           /** 清理缓存按钮操作 */
@@ -350,6 +365,13 @@
 
 <style scoped>
 
+  /*表格每一行被hover时的样式设置*/
+
+.el-table--enable-row-hover .el-table__body tr:hover>td {
+    background-color: rgba(141, 214, 217, .4);
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+}
 
 
 

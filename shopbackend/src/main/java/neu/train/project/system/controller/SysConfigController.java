@@ -36,6 +36,7 @@ public class SysConfigController extends BaseController
         startPage();
         List<SysConfig> list = configService.selectConfigList(config);
         return getDataTable(list);
+
     }
 
 ////    @Log(title = "参数管理", businessType = BusinessType.EXPORT)
