@@ -2,7 +2,7 @@
   <div class="item_container">
     <ul class="infinite-container"   >
       <el-backtop target=".page-component__scroll .el-scrollbar__wrap" ></el-backtop>
-      <li v-for="item in items" class="card" key="item.id" >
+      <li v-for="item in items" class="card" key="item.id" @click="redirect(item.id)" >
         <el-row :gutter="20">
          <el-col :span="4">
            <el-image
@@ -156,6 +156,11 @@
           }
         },
         methods:{
+          redirect(id){
+            this.$router.push({
+              path:`/bvo/good/${id}`
+            })
+          },
           remove(id){
             this.$notify({
               title: '执行',

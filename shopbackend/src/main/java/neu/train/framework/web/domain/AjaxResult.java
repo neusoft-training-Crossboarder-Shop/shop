@@ -43,6 +43,7 @@ public class AjaxResult extends HashMap<String, Object>
         super.put(MSG_TAG, msg);
     }
 
+
     /**
      * 初始化一个新创建的 AjaxResult 对象
      * 
@@ -68,6 +69,28 @@ public class AjaxResult extends HashMap<String, Object>
     public static AjaxResult success()
     {
         return AjaxResult.success("操作成功");
+    }
+
+    public static AjaxResult insertSuccess() {
+        return new AjaxResult(HttpStatus.INSERT_SUCCESS,"添加/创建成功");
+    };
+    public static AjaxResult insertSuccess(Object data) {
+        return new AjaxResult(HttpStatus.INSERT_SUCCESS,"添加/创建成功",data);
+    };
+
+
+    public static AjaxResult updateSuccess() {
+        return new AjaxResult(HttpStatus.UPDATE_SUCCESS,"更新成功");
+    }
+    public static AjaxResult updateSuccess(Object data) {
+        return new AjaxResult(HttpStatus.UPDATE_SUCCESS,"更新成功");
+    }
+
+    public static AjaxResult deleteSuccess() {
+        return new AjaxResult(HttpStatus.DELETE_SUCCESS, "删除成功");
+    }
+    public static AjaxResult deleteSuccess(Object data) {
+        return new AjaxResult(HttpStatus.DELETE_SUCCESS, "删除成功",data);
     }
 
     /**
