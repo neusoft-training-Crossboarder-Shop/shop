@@ -181,12 +181,12 @@ export default {
       multiple: true,
       // 总条数
       total: 0,
-      // 参数表格数据
-      configList: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
       open: false,
+      // 参数表格数据
+      configList: [],
       // 类型数据字典
       typeOptions: [],
       // 日期范围

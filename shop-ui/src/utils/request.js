@@ -50,15 +50,21 @@ service.interceptors.response.use(res => {
       Message({
         message: message,
         type: 'error'
-      })
+      });
       return Promise.reject(new Error(message))
-    } else if (code !== 200) {
+    }else if (code <= 220 && code >= 210){
+      Message({
+        message: message,
+        type: 'success'
+      });
+      return res.data;
+    } else if (code !== 200 ) {
       Notification.error({
         title: message
       })
       return Promise.reject('error')
     } else {
-      return res.data
+      return res.data;
     }
   },
   error => {

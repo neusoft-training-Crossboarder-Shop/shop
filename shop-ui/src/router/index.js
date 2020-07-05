@@ -92,32 +92,19 @@ export const constantRoutes = [
       }
     ]
   },
-  // {
-  //   path: '/job',
-  //   component: Layout,
-  //   hidden: true,
-  //   children: [
-  //     {
-  //       path: 'log',
-  //       component: (resolve) => require(['@/views/monitor/job/log'], resolve),
-  //       name: 'JobLog',
-  //       meta: { title: '调度日志' }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: '/gen',
-  //   component: Layout,
-  //   hidden: true,
-  //   children: [
-  //     {
-  //       path: 'edit/:tableId(\\d+)',
-  //       component: (resolve) => require(['@/views/tool/gen/editTable'], resolve),
-  //       name: 'GenEdit',
-  //       meta: { title: '修改生成配置' }
-  //     }
-  //   ]
-  // }
+  {
+    path: '/bvo',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: 'good/:proID(\\d+)',
+        component: (resolve) => require(['@/views/mvo/good/GoodDetail'], resolve),
+        name: 'GoodDetail',
+        meta: { title: '商品详情', icon: '' }
+      }
+    ]
+  }
 ]
 
 export default new Router({

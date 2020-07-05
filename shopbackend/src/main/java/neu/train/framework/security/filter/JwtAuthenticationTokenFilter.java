@@ -41,9 +41,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter
 
             //每次请求验证token的同时更新一次Token
             tokenService.verifyToken(loginUser);
+
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
+
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
         }
 
 
