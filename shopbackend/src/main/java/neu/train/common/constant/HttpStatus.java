@@ -85,4 +85,8 @@ public class HttpStatus
      * 接口未实现
      */
     public static final int NOT_IMPLEMENTED = 501;
+
+    public static final int INSERT_SUCCESS = 211;
+    public static final int UPDATE_SUCCESS = 212;
+    public static final int DELETE_SUCCESS = 213;
 }
