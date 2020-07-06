@@ -79,9 +79,7 @@
          </div>
        </div>
 
-
-
-        <el-row :gutter="10">
+       <el-row :gutter="10">
           <el-input-number size="medium" v-model="num"   ></el-input-number>
           <el-button-group>
             <el-button icon="el-icon-star-off" @click="addToWishList">Add to wishlist</el-button>
@@ -105,7 +103,6 @@
               </el-select>
               <el-button type="primary" @click="pushToStore">PUSH</el-button>
             </div>
-
             <el-button type="danger"  slot="reference" icon="el-icon-goods">Purchase</el-button>
           </el-popover>
         </el-row>
@@ -138,6 +135,7 @@
 
 <script>
   import {getGoodDetail} from "../../../api/bvo/browse";
+  import {addProIntoWishList} from "../../../api/bvo/wishlist";
 
   export default {
         name: "GoodDetail",
@@ -170,6 +168,7 @@
             }],
             value: '',
             pro:{
+              proId:'',
               images:[
                 {imgId:1,uri:""},
               ],
@@ -223,32 +222,21 @@
             })
           },
           addToWishList:function () {
-            this.$notify({
-              type:"success",
-              title:"执行中",
-              message:"添加到心愿单"
+            addProIntoWishList({proId:this.pro.proId}).then(response=>{
+                //  添加成功了
             })
           }
         },
         created() {
           const proID = this.$route.params && this.$route.params.proID;
           getGoodDetail(proID).then(response=>{
-            console.log(response);
             this.pro=response.data;
-            this.$notify({
-              type : "success",
-              message:`你当前正在访问的商品ID为${proID}`
-            })
           });
-
-
           // this.getType(dictId);
           // this.getTypeList();
           // this.getDicts("sys_normal_disable").then(response => {
           //   this.statusOptions = response.data;
           // });
-
-
         }
     }
 </script>

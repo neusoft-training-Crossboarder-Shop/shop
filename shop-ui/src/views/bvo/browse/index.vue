@@ -86,7 +86,7 @@
       <el-divider></el-divider>
 
       <ul class="infinite-container" v-infinite-scroll="loadMoreItems" infinite-scroll-disabled="disabled"  >
-        <el-backtop target=".page-component__scroll .el-scrollbar__wrap" ></el-backtop>
+<!--        <el-backtop target=".page-component__scroll .el-scrollbar__wrap" ></el-backtop>-->
         <li v-for="item in items" class="card" key="item.id" @click="redirect(item.id)" >
             <el-image
               style="width: 100%; height: 80%"
