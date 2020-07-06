@@ -44,8 +44,8 @@
     "echarts": "4.2.1",
     "element-ui": "2.13.0",
     "file-saver": "2.0.1",
-    "js-beautify": "^1.10.2",
     "fuse.js": "3.4.4",
+    "js-beautify": "^1.10.2",
     "js-cookie": "2.2.0",
     "jsencrypt": "3.0.0-rc.1",
     "normalize.css": "7.0.0",
@@ -55,12 +55,13 @@
     "sortablejs": "1.8.4",
     "vue": "2.6.10",
     "vue-count-to": "1.0.13",
-    "vue-quill-editor": "3.0.6",
     "vue-cropper": "0.4.9",
-    "vuedraggable": "2.20.0",
+    "vue-quill-editor": "3.0.6",
     "vue-router": "3.0.2",
     "vue-splitpane": "1.0.4",
-    "vuex": "3.1.0"
+    "vuedraggable": "2.20.0",
+    "vuex": "3.1.0",
+    "xlsx": "^0.16.3"
   },
   "devDependencies": {
     "@babel/core": "7.0.0",
