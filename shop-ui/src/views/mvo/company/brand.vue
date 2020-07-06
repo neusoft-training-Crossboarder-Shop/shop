@@ -3,33 +3,46 @@
 
     <!-- 查询和其他操作 -->
     <div class="filter-container">
-      <el-input v-model="listQuery.id" clearable class="filter-item" style="width: 200px;" placeholder="请输入品牌商ID"/>
-      <el-input v-model="listQuery.name" clearable class="filter-item" style="width: 200px;" placeholder="请输入品牌商名称"/>
-      <el-button v-permission="['GET /admin/brand/list']" class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查找</el-button>
-      <el-button v-permission="['POST /admin/brand/create']" class="filter-item" type="primary" icon="el-icon-edit" @click="handleCreate">添加</el-button>
-      <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
+      <el-input v-model="listQuery.id" clearable class="filter-item" style="width: 200px;" placeholder="Enter the ID of brand"/>
+      <el-input v-model="listQuery.name" clearable class="filter-item" style="width: 200px;" placeholder="Enter the name of brand"/>
+      <el-button v-permission="['GET /admin/brand/list']" class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">Search</el-button>
+      <el-button v-permission="['POST /admin/brand/create']" class="filter-item" type="success" icon="el-icon-edit" @click="handleCreate">Add</el-button>
+      <el-button :loading="downloadLoading" class="filter-item" type="info" icon="el-icon-download" @click="handleDownload">Export</el-button>
     </div>
 
     <!-- 查询结果 -->
-    <el-table v-loading="listLoading" :data="list" element-loading-text="正在查询中。。。" border fit highlight-current-row>
+    <el-table v-loading="listLoading" :data="list" element-loading-text="Searching now..." border fit highlight-current-row>
 
-      <el-table-column align="center" label="品牌商ID" prop="id"/>
+      <el-table-column align="center" label="Brand ID" prop="brand_id"/>
+      <el-table-column align="center" label="Company ID" prop="company_id"/>
 
-      <el-table-column align="center" label="品牌商名称" prop="name"/>
+      <el-table-column align="center" label="Name_CHN" prop="name_CHN"/>
+      <el-table-column align="center" label="Name_EN" prop="name_EN"/>
 
-      <el-table-column align="center" property="picUrl" label="品牌商图片">
+      <el-table-column align="center" property="brand_pic" label="brand_pic">
         <template slot-scope="scope">
-          <img v-if="scope.row.picUrl" :src="scope.row.picUrl" width="80">
+          <img v-if="scope.row.brand_pic" :src="scope.row.brand_pic" width="80">
         </template>
       </el-table-column>
 
-      <el-table-column align="center" min-width="400px" label="介绍" prop="desc"/>
+      <el-table-column align="center" min-width="400px" label="Desc" prop="desc"/>
 
-      <el-table-column align="center" label="底价" prop="floorPrice"/>
+      <el-table-column align="center" label="Creater" prop="creater"/>
 
-      <el-table-column align="center" label="操作" width="200" class-name="small-padding fixed-width">
+      <el-table-column align="center" label="Create_date" prop="create_date"/>
+
+      <el-table-column align="center" label="Updater" prop="updater"/>
+
+      <el-table-column align="center" label="Update_date" prop="update_date"/>
+
+      <el-table-column align="center" label="Remark" prop="remark"/>
+
+      <el-table-column align="center" label="State" prop="state"/>
+
+
+      <el-table-column align="center" label="Operation" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button v-permission="['POST /admin/brand/update']" type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
+          <el-button v-permission="['POST /admin/brand/update']" type="primary" size="mini" @click="handleUpdate(scope.row)">Edit</el-button>
           <el-button v-permission="['POST /admin/brand/delete']" type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -37,16 +50,29 @@
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
+
+
     <!-- 添加或修改对话框 -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="dataForm" status-icon label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="品牌商名称" prop="name">
+      <el-form ref="dataForm" :rules="rules" :model="dataForm" status-icon label-position="left" label-width="180px" style="width: 800px; margin-left:50px;">
+        <el-form-item label="Name (CHN)" prop="name_CHN">
           <el-input v-model="dataForm.name"/>
         </el-form-item>
-        <el-form-item label="介绍" prop="simpleDesc">
-          <el-input v-model="dataForm.desc"/>
+        <el-form-item label="Name (EN)" prop="name_EN">
+          <el-input v-model="dataForm.name"/>
         </el-form-item>
-        <el-form-item label="品牌商图片" prop="picUrl">
+
+        <el-form-item label="Description" prop="simpleDesc">
+
+          <el-card style="height: 700px;width:620px">
+            <quill-editor v-model="content" ref="myQuillEditor" style="height: 580px;width : 580px" :options="editorOption">
+            </quill-editor>
+          </el-card>
+
+        </el-form-item>
+
+
+        <el-form-item label="Company_img" prop="brand_pic">
           <el-upload
             :headers="headers"
             :action="uploadPath"
@@ -54,21 +80,18 @@
             :on-success="uploadPicUrl"
             class="avatar-uploader"
             accept=".jpg,.jpeg,.png,.gif">
-            <img v-if="dataForm.picUrl" :src="dataForm.picUrl" class="avatar">
+            <img v-if="dataForm.brand_pic" :src="dataForm.brand_pic" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"/>
           </el-upload>
         </el-form-item>
-        <el-form-item label="底价" prop="floorPrice">
-          <el-input v-model="dataForm.floorPrice"/>
-        </el-form-item>
+
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取消</el-button>
-        <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">确定</el-button>
-        <el-button v-else type="primary" @click="updateData">确定</el-button>
+        <el-button @click="dialogFormVisible = false" type="danger">Cancel</el-button>
+        <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">Confirm</el-button>
+        <el-button v-else  type="success" @click="updateData">Confirm</el-button>
       </div>
     </el-dialog>
-
   </div>
 </template>
 
@@ -103,10 +126,16 @@
   import { uploadPath } from '@/api/mvo/storage'
   import { getToken } from '@/utils/auth'
   import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
+  import {
+    quillEditor
+  } from 'vue-quill-editor'
+  import 'quill/dist/quill.core.css'
+  import 'quill/dist/quill.snow.css'
+  import 'quill/dist/quill.bubble.css'
 
   export default {
-    name: 'Brand',
-    components: { Pagination },
+    name: 'brand',
+    components: { Pagination, quillEditor },
     data() {
       return {
         uploadPath,
@@ -126,17 +155,17 @@
           name: '',
           desc: '',
           floorPrice: undefined,
-          picUrl: undefined
+          brand_pic: undefined
         },
         dialogFormVisible: false,
         dialogStatus: '',
         textMap: {
-          update: '编辑',
-          create: '创建'
+          update: 'Edit',
+          create: 'Create'
         },
         rules: {
           name: [
-            { required: true, message: '品牌商名称不能为空', trigger: 'blur' }
+            { required: true, message: 'Name cannot be empty!', trigger: 'blur' }
           ]
         },
         downloadLoading: false
@@ -177,7 +206,7 @@
           name: '',
           desc: '',
           floorPrice: undefined,
-          picUrl: undefined
+          brand_pic: undefined
         }
       },
       handleCreate() {
@@ -189,7 +218,7 @@
         })
       },
       uploadPicUrl: function(response) {
-        this.dataForm.picUrl = response.data.url
+        this.dataForm.brand_pic = response.data.url
       },
       createData() {
         this.$refs['dataForm'].validate(valid => {
@@ -199,13 +228,13 @@
                 this.list.unshift(response.data.data)
                 this.dialogFormVisible = false
                 this.$notify.success({
-                  title: '成功',
-                  message: '创建成功'
+                  title: 'Success',
+                  message: 'create successfully!'
                 })
               })
               .catch(response => {
                 this.$notify.error({
-                  title: '失败',
+                  title: 'Fail',
                   message: response.data.errmsg
                 })
               })
@@ -234,13 +263,13 @@
                 }
                 this.dialogFormVisible = false
                 this.$notify.success({
-                  title: '成功',
-                  message: '更新成功'
+                  title: 'Success',
+                  message: 'Update Successfully!'
                 })
               })
               .catch(response => {
                 this.$notify.error({
-                  title: '失败',
+                  title: 'Fail',
                   message: response.data.errmsg
                 })
               })
@@ -251,15 +280,15 @@
         deleteBrand(row)
           .then(response => {
             this.$notify.success({
-              title: '成功',
-              message: '删除成功'
+              title: 'Success',
+              message: 'Delete Successfully'
             })
             const index = this.list.indexOf(row)
             this.list.splice(index, 1)
           })
           .catch(response => {
             this.$notify.error({
-              title: '失败',
+              title: 'Fail',
               message: response.data.errmsg
             })
           })
@@ -268,18 +297,19 @@
         this.downloadLoading = true
         import('@/vendor/Export2Excel').then(excel => {
           const tHeader = [
-            '品牌商ID',
-            '品牌商名称',
-            '介绍',
-            '低价',
-            '品牌商图片'
+            'brand_ID',
+            'company_ID',
+            'name_CHN',
+            'name_EN',
+            'Desc',
+            'brand_pic'
           ]
-          const filterVal = ['id', 'name', 'desc', 'floorPrice', 'picUrl']
+          const filterVal = ['brand_id','company_id', 'name_CHN','name_EN', 'desc', 'brand_pic']
           excel.export_json_to_excel2(
             tHeader,
             this.list,
             filterVal,
-            '品牌商信息'
+            'bran'
           )
           this.downloadLoading = false
         })

@@ -6,8 +6,8 @@
       <el-input v-model="listQuery.id" clearable class="filter-item" style="width: 200px;" placeholder="Enter the id to check "/>
       <el-input v-model="listQuery.name" clearable class="filter-item" style="width: 200px;" placeholder="Input the name  (CHN/EN)"/>
       <el-button v-permission="['GET /admin/brand/list']" class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">Search</el-button>
-      <el-button v-permission="['POST /admin/brand/create']" class="filter-item" type="primary" icon="el-icon-edit" @click="handleCreate">Add</el-button>
-      <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">Export to EXCEL</el-button>
+      <el-button v-permission="['POST /admin/brand/create']" class="filter-item" type="success" icon="el-icon-edit" @click="handleCreate">Add</el-button>
+      <el-button :loading="downloadLoading" class="filter-item" type="info" icon="el-icon-download" @click="handleDownload">Export to EXCEL</el-button>
     </div>
 
     <!-- 查询结果 -->
@@ -96,16 +96,11 @@
           <el-input v-model="dataForm.url"/>
         </el-form-item>
 
-
-
-        <!--        <el-form-item label="底价" prop="floorPrice">-->
-        <!--          <el-input v-model="dataForm.floorPrice"/>-->
-        <!--        </el-form-item>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">Cancel</el-button>
-        <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">Confirm</el-button>
-        <el-button v-else type="primary" @click="updateData">Confirm</el-button>
+        <el-button type="danger" @click="dialogFormVisible = false">Cancel</el-button>
+        <el-button v-if="dialogStatus=='create'" type="success" @click="createData">Confirm</el-button>
+        <el-button v-else type="success" @click="updateData">Confirm</el-button>
       </div>
     </el-dialog>
 
@@ -188,7 +183,7 @@
         },
         rules: {
           name: [
-            { required: true, message: 'Company_name不能为空', trigger: 'blur' }
+            { required: true, message: 'Company_name cannot be empty!', trigger: 'blur' }
           ]
         },
         downloadLoading: false
@@ -252,7 +247,7 @@
                 this.dialogFormVisible = false
                 this.$notify.success({
                   title: 'Success',
-                  message: '创建成功'
+                  message: 'Create Successfully!'
                 })
               })
               .catch(response => {
