@@ -80,6 +80,30 @@
 <!--            <property name="ignoreQualifiersAtRuntime" value="true"/>-->
 <!--        </table>-->
 
+<!--        <table tableName="str_store"-->
+<!--               domainObjectName="Store">-->
+<!--            &lt;!&ndash; 上面的属性都可以使用子标签形式表示 &ndash;&gt;-->
+<!--            &lt;!&ndash; 是否使用真实字段名，设置为false将自动驼峰转换 &ndash;&gt;-->
+<!--            <property name="useActualColumnNames" value="false" />-->
+<!--            &lt;!&ndash; 还可以对表中的字段进行类型转换 &ndash;&gt;-->
+<!--            &lt;!&ndash; 这里转换的原因是会自动将个位的int值自动转化为Boolean，所以指定为Integer &ndash;&gt;-->
+<!--            &lt;!&ndash;            <columnOverride column="sex" javaType="Integer"/>&ndash;&gt;-->
+<!--            <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+<!--        </table>-->
+
+
+        <table tableName="str_store"
+               domainObjectName="Store">
+            <!-- 上面的属性都可以使用子标签形式表示 -->
+            <!-- 是否使用真实字段名，设置为false将自动驼峰转换 -->
+            <property name="useActualColumnNames" value="false" />
+            <!-- 还可以对表中的字段进行类型转换 -->
+            <!-- 这里转换的原因是会自动将个位的int值自动转化为Boolean，所以指定为Integer -->
+            <!--            <columnOverride column="sex" javaType="Integer"/>-->
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+        </table>
+
+
         <table tableName="str_store"
                domainObjectName="Store">
             <!-- 上面的属性都可以使用子标签形式表示 -->

@@ -99,9 +99,22 @@ export const constantRoutes = [
     children: [
       {
         path: 'good/:proID(\\d+)',
-        component: (resolve) => require(['@/views/mvo/good/GoodDetail'], resolve),
+        component: (resolve) => require(['@/views/bvo/good/GoodDetail'], resolve),
         name: 'GoodDetail',
         meta: { title: '商品详情', icon: '' }
+      }
+    ]
+  },
+  {
+    path: '/bvo',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: 'storeDetail/:storeId(\\d+)',
+        component: (resolve) => require(['@/views/bvo/store/storeDetail'], resolve),
+        name: 'StoreDetail',
+        meta: { title: '商店详情', icon: '' }
       }
     ]
   }

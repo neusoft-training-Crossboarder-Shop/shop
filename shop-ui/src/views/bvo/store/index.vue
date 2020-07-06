@@ -86,7 +86,7 @@
           </el-col>
         </el-row>
 
-        <el-table class="el-table--enable-row-hover el-table__body" v-loading="loading" :data="storeList"  @selection-change="handleSelectionChange">
+        <el-table  @row-click="redirect" class="el-table--enable-row-hover el-table__body" v-loading="loading" :data="storeList"  @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="55" align="center" />
           <el-table-column label="Store ID" align="center" prop="storeId" />
           <el-table-column label="Platform Type" align="center"  :show-overflow-tooltip="true" >
@@ -117,14 +117,14 @@
                 size="mini"
                 type="text"
                 icon="el-icon-edit"
-                @click="handleUpdate(scope.row)"
+                @click.stop="handleUpdate(scope.row)"
               >修改</el-button>
 
               <el-button
                 size="mini"
                 type="text"
                 icon="el-icon-delete"
-                @click="handleDelete(scope.row)"
+                @click.stop="handleDelete(scope.row)"
                 v-hasPermi="['system:config:remove']"
               >删除</el-button>
             </template>
@@ -246,14 +246,13 @@
            data.forEach(item=>{
              this.typeOptions.push(item.dictLabel);
            })
-          console.log(this.typeOptions);
         });
       },
         methods:{
-          tableRowStyle(){
-              return `
-
-                  `
+          redirect(row, event, column){
+            this.$router.push({
+              path:`/bvo/storeDetail/${row.storeId}`
+            })
           },
             /** 查询参数列表 */
             getList() {
@@ -312,7 +311,6 @@
             const storeId = row.storeId || this.ids;
             getStore(storeId).then(response => {
               this.form = response.data;
-              console.log(this.form)
               this.open = true;
               this.title = "Modify Page";
             });
@@ -364,15 +362,11 @@
 </script>
 
 <style scoped>
-
   /*表格每一行被hover时的样式设置*/
-
-.el-table--enable-row-hover .el-table__body tr:hover>td {
-    background-color: rgba(141, 214, 217, .4);
-    cursor: pointer;
+  .el-table >>> .el-table__body tr:hover>td {
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-}
-
-
+    cursor: pointer;
+    background-color: #d9d9d9;
+  }
 
 </style>
