@@ -37,8 +37,6 @@
            effect="dark">
              <el-icon
              class="el-icon-s-shop"/>
-
-
            {{pro.manufacturer.nameEn}}
           </el-tag>
 
@@ -77,6 +75,7 @@
            <span class="tag" style=" font: italic 1em Georgia, serif;">warranty</span><span >{{pro.warrantyDay}}{{pro.timeUnit}}</span>
            <div class="warranty">{{pro.warranty}}</div>
          </div>
+
        </div>
 
        <el-row :gutter="10">

@@ -54,9 +54,9 @@
         name: "index.vue",
         data: function () {
           return {
+            loadingInstance:'',
             items:[
               {
-                loadingInstance:'',
                 proId:'1',
                 title:"这是一个非常非常非常非常长的标题",
                 imageUrl:'',
@@ -106,7 +106,7 @@
 .item_container{
   display: block;
   width: 100%;
-  height: 15%;
+  height: 20%;
   margin-right: 2%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
 }
