@@ -253,6 +253,14 @@ export default {
       };
       this.resetForm("form");
     },
+    resetForm(formName) {
+      this.$notify({
+        title: '执行',
+        message: '重置按钮',
+        type: 'success'
+      });
+      this.$refs[formName].resetFields();
+    },
     /** 搜索按钮操作 */
     handleQuery() {
       this.queryParams.pageNum = 1;

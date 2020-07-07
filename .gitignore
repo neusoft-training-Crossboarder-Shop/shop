@@ -2,3 +2,4 @@
 shopbackend/target
 shopbackend/*.iml
 shopbackend/src/main/resources/generatorConfig.xml
+

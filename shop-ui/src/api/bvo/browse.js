@@ -1,14 +1,17 @@
-export function clearCache() {
+import request from '@/utils/request'
+
+
+export function search(query){
   return request({
-    url: '/bvo/browse/clearCache',
-    method: 'delete'
+    url: '/bvo/good/browse',
+    method: 'get',
+    params:query
   })
 }
 
-export function search(data){
+export function getGoodDetail(id){
   return request({
-    url: '/bvo/browse/search',
-    method: 'get',
-    data:data
+    url : 'bvo/good/'+id,
+    method : 'get',
   })
 }

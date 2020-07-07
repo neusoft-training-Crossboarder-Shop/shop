@@ -137,6 +137,7 @@ public class SysConfigServiceImpl implements ISysConfigService
     @Override
     public int deleteConfigByIds(Long[] configIds)
     {
+
         int count = configMapper.deleteConfigByIds(configIds);
         if (count > 0)
         {
@@ -144,6 +145,7 @@ public class SysConfigServiceImpl implements ISysConfigService
             redisCache.deleteObject(keys);
         }
         return count;
+
     }
 
     /**

@@ -1,33 +1,39 @@
 <template>
-  <div class="item_container">
+  <div id="container" class="item_container">
     <ul class="infinite-container"   >
-      <el-backtop target=".page-component__scroll .el-scrollbar__wrap" ></el-backtop>
-      <li v-for="item in items" class="card" key="item.id" @click="redirect(item.id)" >
+<!--      <el-backtop target=".page-component__scroll .el-scrollbar__wrap" ></el-backtop>-->
+      <li v-for="item in items" class="card" :key="item.proId" @click="redirect(item.proId)" >
         <el-row :gutter="20">
-         <el-col :span="4">
+         <el-col :span="6">
            <el-image
              style="width: 100%; height: 100%"
-             :src="item.url"
-             :fit="fill">
+             :src="item.imageUrl"
+             >
              <div slot="error" class="image-slot">
                <i class="el-icon-picture-outline"></i>
              </div>
            </el-image>
          </el-col>
-         <el-col :span="20">
+         <el-col :span="18">
          <div style="padding: 14px;">
-             <p class="item-title">{{item.title}}</p>
-             <p class="item-description">{{item.description}}</p>
-             <p class="item-price" >¥{{item.price}}</p>
-             <el-button
+
+         <p style="font-weight: bold;font-size: 1.2em;white-space: nowrap;text-overflow:ellipsis;  overflow:hidden;">
+           {{item.title}}</p>
+
+         <p class="item-description">{{item.categoryName}}</p>
+         <p class="item-description">{{item.brandName}}</p>
+         <p class="item-description">{{item.manufacturerName}}</p>
+
+         <p class="item-price" >${{item.price}}</p>
+<!--                          v-hasPermi="['bvo:wishlist:remove']"-->
+         <el-button
                style="float: right;margin: 1%"
                type="danger"
                icon="el-icon-refresh"
                size="big"
-               @click="remove(item.id)"
-               v-hasPermi="['bvo:wishlist:remove']"
+               @click.stop="remove(item.proId)"
              >移除
-             </el-button>
+         </el-button>
          </div>
          </el-col>
         </el-row>
@@ -40,133 +46,56 @@
 </template>
 
 <script>
+    import {getWishList,removeFromList} from "../../../api/bvo/wishlist";
+    import { Loading } from 'element-ui';
+
     export default {
+
         name: "index.vue",
         data: function () {
           return {
+            loadingInstance:'',
             items:[
               {
-                id:'1',
+                proId:'1',
                 title:"这是一个非常非常非常非常长的标题",
-                url:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                description:"这是一个超级超级超级超级好吃的汉堡",
+                imageUrl:'',
+                brandName:'',
+                categoryName:'',
+                manufacturerName:'',
                 price:"8.9"
               },
-              {
-                id:'2',
-                title:"汉堡2",
-                url:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                description:"这是一个超级超级超级超级好吃的汉堡",
-                price:"8.9"
-              },
-              {
-                id:'3',
-                url:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                title:"汉堡3",
-                description:"这是一个超级超级超级超级好吃的汉堡,这是一个超级超级超级超级好吃的汉堡，重要的事情说俩边",
-                price:"8.9"
-              },
-              {
-                id:'4',
-                title:"汉堡4",
-                url:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                description:"这是一个超级超级超级超级好吃的汉堡",
-                price:"8.9"
-              },
-              {
-                id:'5',
-                title:"汉堡5",
-                url:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                description:"这是一个超级超级超级超级好吃的汉堡",
-                price:"8.9"
-              },
-              {
-                id:'6',
-                title:"汉堡5",
-                url:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                description:"这是一个超级超级超级超级好吃的汉堡",
-                price:"8.9"
-              },
-              {
-                id:'7',
-                title:"汉堡5",
-                url:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                description:"这是一个超级超级超级超级好吃的汉堡",
-                price:"8.9"
-              },
-              {
-                id:'8',
-                title:"汉堡5",
-                url:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                description:"这是一个超级超级超级超级好吃的汉堡",
-                price:"8.9"
-              },
-              {
-                id:'9',
-                title:"汉堡5",
-                url:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                description:"这是一个超级超级超级超级好吃的汉堡",
-                price:"8.9"
-              },
-              {
-                id:'10',
-                title:"汉堡5",
-                url:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                description:"这是一个超级超级超级超级好吃的汉堡",
-                price:"8.9"
-              },
-              {
-                id:'11',
-                title:"汉堡5",
-                url:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                description:"这是一个超级超级超级超级好吃的汉堡",
-                price:"8.9"
-              },
-              {
-                id:'12',
-                title:"汉堡5",
-                url:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                description:"这是一个超级超级超级超级好吃的汉堡",
-                price:"8.9"
-              },
-              {
-                id:'13',
-                title:"汉堡5",
-                url:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                description:"这是一个超级超级超级超级好吃的汉堡",
-                price:"8.9"
-              },
-              {
-                id:'14',
-                title:"汉堡5",
-                url:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                description:"这是一个超级超级超级超级好吃的汉堡",
-                price:"8.9"
-              },
-              {
-                id:'15',
-                title:"汉堡5",
-                url:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                description:"这是一个超级超级超级超级好吃的汉堡",
-                price:"8.9"
-              }
-
-
             ],
           }
         },
+        created(){
+            this.loadingInstance=Loading.service({
+              target:"#container",
+              body:"true",
+              fullscreen:"false",
+              lock:"true",
+            });
+            this.getList();
+        },
         methods:{
+          getList(){
+              getWishList().then(response=>{
+                this.items = response.data;
+                setTimeout(() => {
+                  this.loadingInstance.close();
+                }, 500);
+              })
+          },
           redirect(id){
             this.$router.push({
               path:`/bvo/good/${id}`
             })
           },
           remove(id){
-            this.$notify({
-              title: '执行',
-              message: '删除这个物品',
-              type: 'success'
-            });
+            console.log("12312312id"+id)
+            removeFromList(id).then(res=>{
+              this.getList();
+            })
           }
         }
 
@@ -178,6 +107,7 @@
   display: block;
   width: 100%;
   height: 20%;
+  margin-right: 2%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
 }
 .card:hover{
@@ -187,28 +117,14 @@
 }
 
 
-.card{
-  display: inline-block;
-  float: left;
-  clear: both;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-  width: 100%;
-  margin: 1%;
-}
-
 .item-description{
   display: block;
   height: 15%;
-  font-size: 0.8em;
+  font-size: 1em;
+  color: #1f2d3d;
+  margin-top: 2%;
 }
 
-.item-title{
-  font-weight: bold;
-  font-size: 1.1em;
-  white-space: nowrap;
-  text-overflow:ellipsis;
-  overflow:hidden;
-}
 
 .item-price{
   margin:  2px;
@@ -217,4 +133,15 @@
   font-size: large;
   letter-spacing: 5px;
 }
+
+.card{
+  display: inline-block;
+  float: left;
+  clear: both;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+  width: 100%;
+  margin: 1%;
+  height: 20%;
+}
+
 </style>

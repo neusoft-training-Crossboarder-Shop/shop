@@ -36,7 +36,8 @@ public class ServletUtils
     /**
      * 获取Integer参数
      */
-    public static Integer getParameterToInt(String name)
+    public static Integer
+    getParameterToInt(String name)
     {
         return Convert.toInt(getRequest().getParameter(name));
     }
