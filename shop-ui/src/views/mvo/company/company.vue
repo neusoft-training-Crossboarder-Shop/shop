@@ -3,29 +3,33 @@
 
     <!-- 查询和其他操作 -->
     <div class="filter-container">
-      <el-input v-model="listQuery.id" clearable class="filter-item" style="width: 200px;" placeholder="Enter the ID of brand"/>
-      <el-input v-model="listQuery.name" clearable class="filter-item" style="width: 200px;" placeholder="Enter the name of brand"/>
+      <el-input v-model="listQuery.id" clearable class="filter-item" style="width: 200px;" placeholder="Enter the id to check "/>
+      <el-input v-model="listQuery.name" clearable class="filter-item" style="width: 200px;" placeholder="Input the name  (CHN/EN)"/>
       <el-button v-permission="['GET /admin/brand/list']" class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">Search</el-button>
       <el-button v-permission="['POST /admin/brand/create']" class="filter-item" type="success" icon="el-icon-edit" @click="handleCreate">Add</el-button>
-      <el-button :loading="downloadLoading" class="filter-item" type="info" icon="el-icon-download" @click="handleDownload">Export</el-button>
+      <el-button :loading="downloadLoading" class="filter-item" type="info" icon="el-icon-download" @click="handleDownload">Export to EXCEL</el-button>
     </div>
 
     <!-- 查询结果 -->
-    <el-table v-loading="listLoading" :data="list" element-loading-text="Searching now..." border fit highlight-current-row>
+    <el-table v-loading="listLoading" :data="list" element-loading-text="Searching...please wait for a while" border fit highlight-current-row>
 
-      <el-table-column align="center" label="Brand ID" prop="brand_id"/>
-      <el-table-column align="center" label="Company ID" prop="company_id"/>
+      <el-table-column align="center" label="Company_ID" prop="id"/>
 
-      <el-table-column align="center" label="Name_CHN" prop="name_CHN"/>
-      <el-table-column align="center" label="Name_EN" prop="name_EN"/>
+      <el-table-column align="center" label="Company_name(CHN)" prop="name_CHN"/>
 
-      <el-table-column align="center" property="brand_pic" label="brand_pic">
+      <el-table-column align="center" label="Company Name (EN)" prop="name_EN"/>
+
+      <el-table-column align="center" property="picUrl" label="Company_img">
         <template slot-scope="scope">
-          <img v-if="scope.row.brand_pic" :src="scope.row.brand_pic" width="80">
+          <img v-if="scope.row.picUrl" :src="scope.row.picUrl" width="80">
         </template>
       </el-table-column>
 
-      <el-table-column align="center" min-width="400px" label="Desc" prop="desc"/>
+      <el-table-column align="center" label="GMC_type" prop="gmc_report_type"/>
+
+      <el-table-column align="center" label="GMC_url" prop="gmc_report_url"/>
+
+      <el-table-column align="center" min-width="100px" label="GMC_Description" prop="desc"/>
 
       <el-table-column align="center" label="Creater" prop="creater"/>
 
@@ -39,8 +43,9 @@
 
       <el-table-column align="center" label="State" prop="state"/>
 
+      <!--      <el-table-column align="center" label="底价" prop="floorPrice"/>-->
 
-      <el-table-column align="center" label="Operation" width="200" class-name="small-padding fixed-width">
+      <el-table-column align="center" label="OPERATION" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button v-permission="['POST /admin/brand/update']" type="primary" size="mini" @click="handleUpdate(scope.row)">Edit</el-button>
           <el-button v-permission="['POST /admin/brand/delete']" type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
@@ -49,8 +54,6 @@
     </el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
-
-
 
     <!-- 添加或修改对话框 -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
@@ -62,6 +65,7 @@
           <el-input v-model="dataForm.name"/>
         </el-form-item>
 
+
         <el-form-item label="Description" prop="simpleDesc">
 
           <el-card style="height: 700px;width:620px">
@@ -71,8 +75,7 @@
 
         </el-form-item>
 
-
-        <el-form-item label="Company_img" prop="brand_pic">
+        <el-form-item label="Company_img" prop="picUrl">
           <el-upload
             :headers="headers"
             :action="uploadPath"
@@ -80,18 +83,27 @@
             :on-success="uploadPicUrl"
             class="avatar-uploader"
             accept=".jpg,.jpeg,.png,.gif">
-            <img v-if="dataForm.brand_pic" :src="dataForm.brand_pic" class="avatar">
+            <img v-if="dataForm.picUrl" :src="dataForm.picUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"/>
           </el-upload>
         </el-form-item>
 
+        <el-form-item label="GMC_Report_type" prop="gmc_report_type">
+          <el-input v-model="dataForm.desc"/>
+        </el-form-item>
+
+        <el-form-item label="GMC_Report_url" prop="gmc_report_url">
+          <el-input v-model="dataForm.url"/>
+        </el-form-item>
+
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false" type="danger">Cancel</el-button>
-        <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">Confirm</el-button>
-        <el-button v-else  type="success" @click="updateData">Confirm</el-button>
+        <el-button type="danger" @click="dialogFormVisible = false">Cancel</el-button>
+        <el-button v-if="dialogStatus=='create'" type="success" @click="createData">Confirm</el-button>
+        <el-button v-else type="success" @click="updateData">Confirm</el-button>
       </div>
     </el-dialog>
+
   </div>
 </template>
 
@@ -121,8 +133,9 @@
   }
 </style>
 
+
 <script>
-  import { listBrand, createBrand, updateBrand, deleteBrand } from '@/api/mvo/brand'
+  import { listCompany, createCompany, updateCompany, deleteCompany } from '@/api/mvo/company'
   import { uploadPath } from '@/api/mvo/storage'
   import { getToken } from '@/utils/auth'
   import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
@@ -133,11 +146,13 @@
   import 'quill/dist/quill.snow.css'
   import 'quill/dist/quill.bubble.css'
 
+
   export default {
-    name: 'brand',
-    components: { Pagination, quillEditor },
+    name: 'company',
+    components: { Pagination , quillEditor},
     data() {
       return {
+
         uploadPath,
         list: [],
         total: 0,
@@ -150,12 +165,15 @@
           sort: 'add_time',
           order: 'desc'
         },
+        content: null,
+        editorOption: {},
+
         dataForm: {
           id: undefined,
           name: '',
           desc: '',
           floorPrice: undefined,
-          brand_pic: undefined
+          picUrl: undefined
         },
         dialogFormVisible: false,
         dialogStatus: '',
@@ -165,7 +183,7 @@
         },
         rules: {
           name: [
-            { required: true, message: 'Name cannot be empty!', trigger: 'blur' }
+            { required: true, message: 'Company_name cannot be empty!', trigger: 'blur' }
           ]
         },
         downloadLoading: false
@@ -184,7 +202,7 @@
     methods: {
       getList() {
         this.listLoading = true
-        listBrand(this.listQuery)
+        listCompany(this.listQuery)
           .then(response => {
             this.list = response.data.data.list
             this.total = response.data.data.total
@@ -206,7 +224,7 @@
           name: '',
           desc: '',
           floorPrice: undefined,
-          brand_pic: undefined
+          picUrl: undefined
         }
       },
       handleCreate() {
@@ -218,18 +236,18 @@
         })
       },
       uploadPicUrl: function(response) {
-        this.dataForm.brand_pic = response.data.url
+        this.dataForm.picUrl = response.data.url
       },
       createData() {
         this.$refs['dataForm'].validate(valid => {
           if (valid) {
-            createBrand(this.dataForm)
+            createCompany(this.dataForm)
               .then(response => {
                 this.list.unshift(response.data.data)
                 this.dialogFormVisible = false
                 this.$notify.success({
                   title: 'Success',
-                  message: 'create successfully!'
+                  message: 'Create Successfully!'
                 })
               })
               .catch(response => {
@@ -252,7 +270,7 @@
       updateData() {
         this.$refs['dataForm'].validate(valid => {
           if (valid) {
-            updateBrand(this.dataForm)
+            updateCompany(this.dataForm)
               .then(() => {
                 for (const v of this.list) {
                   if (v.id === this.dataForm.id) {
@@ -264,7 +282,7 @@
                 this.dialogFormVisible = false
                 this.$notify.success({
                   title: 'Success',
-                  message: 'Update Successfully!'
+                  message: 'Update Success'
                 })
               })
               .catch(response => {
@@ -277,11 +295,11 @@
         })
       },
       handleDelete(row) {
-        deleteBrand(row)
+        deleteCompany(row)
           .then(response => {
             this.$notify.success({
               title: 'Success',
-              message: 'Delete Successfully'
+              message: 'Delete Success'
             })
             const index = this.list.indexOf(row)
             this.list.splice(index, 1)
@@ -297,19 +315,18 @@
         this.downloadLoading = true
         import('@/vendor/Export2Excel').then(excel => {
           const tHeader = [
-            'brand_ID',
-            'company_ID',
-            'name_CHN',
-            'name_EN',
-            'Desc',
-            'brand_pic'
+            'CompanyID',
+            'Company_name',
+            'Description',
+            '低价',
+            'Company_img'
           ]
-          const filterVal = ['brand_id','company_id', 'name_CHN','name_EN', 'desc', 'brand_pic']
+          const filterVal = ['id', 'name', 'desc', 'floorPrice', 'picUrl']
           excel.export_json_to_excel2(
             tHeader,
             this.list,
             filterVal,
-            'bran'
+            'Company Info'
           )
           this.downloadLoading = false
         })
