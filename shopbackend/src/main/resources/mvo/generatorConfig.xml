@@ -76,7 +76,7 @@
         </javaClientGenerator>
 
         <!--表名-->
-        <table tableName="bsp_brand">
+        <table tableName="brd_brand">
             <generatedKey column="brd_id" sqlStatement="MySql" identity="true"/>
         </table>
         <table tableName="man_manufacturer">
