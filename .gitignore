@@ -1,2 +1,3 @@
 .idea/
 shopbackend/target
+shopbackend/src/main/resources/generatorConfig.xml
