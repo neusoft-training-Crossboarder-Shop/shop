@@ -13,31 +13,32 @@
     <!-- 查询结果 -->
     <el-table v-loading="listLoading" :data="list" element-loading-text="Searching now..." border fit highlight-current-row>
 
-      <el-table-column align="center" label="Brand ID" prop="brand_id"/>
-      <el-table-column align="center" label="Company ID" prop="company_id"/>
+      <el-table-column align="center" label="Brand ID" prop="brd_id"/>
+      <el-table-column align="center" label="Company ID" prop="man_id"/>
 
-      <el-table-column align="center" label="Name_CHN" prop="name_CHN"/>
-      <el-table-column align="center" label="Name_EN" prop="name_EN"/>
+      <el-table-column align="center" label="Name_CHN" prop="name_en"/>
+      <el-table-column align="center" label="Name_EN" prop="name_chn"/>
 
-      <el-table-column align="center" property="brand_pic" label="brand_pic">
+      <el-table-column align="center" property="img_id" label="img_id">
         <template slot-scope="scope">
-          <img v-if="scope.row.brand_pic" :src="scope.row.brand_pic" width="80">
+          <img v-if="scope.row.img_id" :src="scope.row.img_id" width="80">
         </template>
       </el-table-column>
 
-      <el-table-column align="center" min-width="400px" label="Desc" prop="desc"/>
+<!--      <el-table-column align="center" min-width="400px" label="Desc" prop="desc"/>-->
 
-      <el-table-column align="center" label="Creater" prop="creater"/>
+      <el-table-column align="center" label="Creater" prop="created_by"/>
 
-      <el-table-column align="center" label="Create_date" prop="create_date"/>
 
-      <el-table-column align="center" label="Updater" prop="updater"/>
+      <el-table-column align="center" label="Create_date" prop="create_time"/>
 
-      <el-table-column align="center" label="Update_date" prop="update_date"/>
+      <el-table-column align="center" label="Updater" prop="last_update_by"/>
 
-      <el-table-column align="center" label="Remark" prop="remark"/>
+      <el-table-column align="center" label="Update_date" prop="last_update_time"/>
+      <el-table-column align="center" label="Remark" prop="call_cnt"/>
 
-      <el-table-column align="center" label="State" prop="state"/>
+      <el-table-column align="center" label="State" prop="sts_cd"/>
+      <el-table-column align="center" label="Deleted" prop="deleted"/>
 
 
       <el-table-column align="center" label="Operation" width="200" class-name="small-padding fixed-width">
@@ -55,10 +56,10 @@
     <!-- 添加或修改对话框 -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="dataForm" status-icon label-position="left" label-width="180px" style="width: 800px; margin-left:50px;">
-        <el-form-item label="Name (CHN)" prop="name_CHN">
+        <el-form-item label="Name (CHN)" prop="name_en">
           <el-input v-model="dataForm.name"/>
         </el-form-item>
-        <el-form-item label="Name (EN)" prop="name_EN">
+        <el-form-item label="Name (EN)" prop="name_chn">
           <el-input v-model="dataForm.name"/>
         </el-form-item>
 
@@ -72,7 +73,7 @@
         </el-form-item>
 
 
-        <el-form-item label="Company_img" prop="brand_pic">
+        <el-form-item label="Company_img" prop="img_id">
           <el-upload
             :headers="headers"
             :action="uploadPath"
@@ -80,7 +81,7 @@
             :on-success="uploadPicUrl"
             class="avatar-uploader"
             accept=".jpg,.jpeg,.png,.gif">
-            <img v-if="dataForm.brand_pic" :src="dataForm.brand_pic" class="avatar">
+            <img v-if="dataForm.img_id" :src="dataForm.img_id" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"/>
           </el-upload>
         </el-form-item>
@@ -147,15 +148,15 @@
           limit: 20,
           id: undefined,
           name: undefined,
-          sort: 'add_time',
-          order: 'desc'
+          sort: 'create_time',
+          order: 'brd_id'
         },
         dataForm: {
           id: undefined,
           name: '',
           desc: '',
           floorPrice: undefined,
-          brand_pic: undefined
+          img_id: undefined
         },
         dialogFormVisible: false,
         dialogStatus: '',
@@ -206,7 +207,7 @@
           name: '',
           desc: '',
           floorPrice: undefined,
-          brand_pic: undefined
+          img_id: undefined
         }
       },
       handleCreate() {
@@ -218,7 +219,7 @@
         })
       },
       uploadPicUrl: function(response) {
-        this.dataForm.brand_pic = response.data.url
+        this.dataForm.img_id = response.data.url
       },
       createData() {
         this.$refs['dataForm'].validate(valid => {
@@ -299,12 +300,12 @@
           const tHeader = [
             'brand_ID',
             'company_ID',
-            'name_CHN',
-            'name_EN',
+            'name_en',
+            'name_chn',
             'Desc',
-            'brand_pic'
+            'img_id'
           ]
-          const filterVal = ['brand_id','company_id', 'name_CHN','name_EN', 'desc', 'brand_pic']
+          const filterVal = ['brd_id','man_id', 'name_en','name_chn', 'desc', 'img_id']
           excel.export_json_to_excel2(
             tHeader,
             this.list,
