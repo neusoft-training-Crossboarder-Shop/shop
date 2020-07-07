@@ -1,0 +1,3 @@
+对应生成enum column类型 还有更多功能
+使用无需前替换现有generator
+改变maven中对应版本与路径（在本config注释下自行复制）
