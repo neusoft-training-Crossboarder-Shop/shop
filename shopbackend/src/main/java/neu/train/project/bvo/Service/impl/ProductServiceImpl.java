@@ -3,6 +3,7 @@ package neu.train.project.bvo.Service.impl;
 import neu.train.common.utils.SecurityUtils;
 import neu.train.framework.security.LoginUser;
 import neu.train.project.bvo.Service.ProductService;
+import neu.train.project.bvo.domain.SearchProduct;
 import neu.train.project.bvo.domain.SimpleProduct;
 import neu.train.project.bvo.domain.WishList;
 import neu.train.project.bvo.domain.WishListExample;
@@ -86,4 +87,10 @@ public class ProductServiceImpl implements ProductService {
         wishList.setLastUpdateBy(sysUser.getUserName());
         return wishListMapper.insertSelective(wishList);
     }
+
+    @Override
+    public List<SearchProduct> getBrowseList(SimpleProduct product) {
+        return productMapper.selectProductListBySimpleProduct(product);
+    }
+
 }

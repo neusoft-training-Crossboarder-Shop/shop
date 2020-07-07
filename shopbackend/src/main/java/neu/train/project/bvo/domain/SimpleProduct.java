@@ -1,8 +1,12 @@
 package neu.train.project.bvo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+
+@JsonIgnoreProperties(value=("handler"))
 public class SimpleProduct implements Serializable {
     private Integer proId;
     private String categoryName;

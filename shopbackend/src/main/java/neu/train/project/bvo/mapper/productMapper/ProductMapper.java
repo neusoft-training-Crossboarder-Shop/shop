@@ -1,6 +1,9 @@
 package neu.train.project.bvo.mapper.productMapper;
 
 import java.util.List;
+
+import neu.train.project.bvo.domain.SearchProduct;
+import neu.train.project.bvo.domain.SimpleProduct;
 import neu.train.project.bvo.domain.productDomain.Product;
 import neu.train.project.bvo.domain.productDomain.ProductExample;
 import org.apache.ibatis.annotations.Param;
@@ -21,6 +24,8 @@ public interface ProductMapper {
     List<Product> selectByExample(ProductExample example);
 
     Product selectByPrimaryKey(Integer proId);
+
+    List<SearchProduct> selectProductListBySimpleProduct(SimpleProduct simpleProduct);
 
     int updateByExampleSelective(@Param("record") Product record, @Param("example") ProductExample example);
 
