@@ -89,9 +89,9 @@
 
         <!--表名-->
 
-        <table tableName="brd_brand">
-            <generatedKey column="brd_id" sqlStatement="MySql" identity="true"/>
-        </table>
+<!--        <table tableName="brd_brand">-->
+<!--            <generatedKey column="brd_id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
 <!--        <table tableName="man_manufacturer">-->
 <!--            <generatedKey column="man_id" sqlStatement="MySql" identity="true"/>-->
 <!--        </table>-->
