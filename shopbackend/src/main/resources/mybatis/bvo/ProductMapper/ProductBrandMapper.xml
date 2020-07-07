@@ -90,12 +90,34 @@
       order by ${orderByClause}
     </if>
   </select>
+
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from brd_brand
     where brd_id = #{brd_id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from brd_brand
+    where brd_id = #{brdId,jdbcType=INTEGER}
+    <if test="brandName!=null and brandName!=''">
+      AND name_en  like concat('%', #{brandName}, '%')
+    </if>
+  </select>
+
+
+
+
+
+
+
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from brd_brand
     where brd_id = #{brdId,jdbcType=INTEGER}

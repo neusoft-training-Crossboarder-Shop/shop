@@ -75,6 +75,50 @@
   </resultMap>
 
 
+  <resultMap id="SimpleProductResultMap" type="neu.train.project.bvo.domain.SearchProduct">
+    <id column="pro_id" jdbcType="INTEGER" property="proId" />
+    <result column="man_id" jdbcType="INTEGER" property="manId" />
+    <result column="brd_id" jdbcType="INTEGER" property="brdId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+
+    <result column="retail_price" jdbcType="DECIMAL" property="retailPrice" />
+
+
+    <association property="manufacturer" column="{manId=man_id,manufacturerName=manufacturer_name}"
+                 select="neu.train.project.bvo.mapper.productMapper.ManufacturerMapper.selectByParams"
+                 javaType="neu.train.project.bvo.domain.productDomain.Manufacturer"/>
+
+
+    <association property="productBrand" column="{brdId=brd_id,brandName=brand_name}"
+                 select="neu.train.project.bvo.mapper.productMapper.ProductBrandMapper.selectByParams"
+                 javaType="neu.train.project.bvo.domain.productDomain.ProductBrand"/>
+
+
+
+
+    <collection property="categories" ofType="neu.train.project.bvo.domain.productDomain.ProductCategory"
+                column="{proId=pro_id,categoryName=category_name}" javaType="ArrayList"
+                select="neu.train.project.bvo.mapper.productMapper.ProductCategoryMapper.selectByParams">
+
+      <!--            <id property="prcId" column="prc_id"/>-->
+      <!--            <result property="categoryName" column="category_name"/>-->
+    </collection>
+
+
+    <collection property="imageList" ofType="neu.train.project.bvo.domain.productDomain.ProductImage"
+                column="{proId=pro_id}" javaType="ArrayList"
+                fetchType="lazy" select="neu.train.project.bvo.mapper.productMapper.ProductImageMapper.selectByParams">
+      <result property="imgId" column="img_id"/>
+      <result property="uri" column="uri"/>
+    </collection>
+
+  </resultMap>
+
+
+
+
+
+
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="neu.train.project.bvo.domain.productDomain.Product">
     <result column="warranty" jdbcType="LONGVARCHAR" property="warranty" />
   </resultMap>
@@ -154,6 +198,27 @@
     <include refid="Blob_Column_List" />
     from pro_product
     where pro_id = #{proId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectProductListBySimpleProduct" parameterType="neu.train.project.bvo.domain.SimpleProduct" resultMap="SimpleProductResultMap">
+    select
+    pro_id, man_id, brd_id, title,retail_price,
+    IFNULL(#{categoryName},'') category_name,
+    IFNULL(#{manufacturerName},'') manufacturer_name,
+    IFNULL(#{brandName},'') brand_name
+    FROM
+        pro_product
+    <where>
+      <if test="title != null and title != ''">
+          AND title like concat('%', #{title}, '%')
+      </if>
+      <if test="lowPrice != null and lowPrice != ''and topPrice != 0">
+          AND retail_price  <![CDATA[ >= ]]> #{lowPrice,jdbcType=DOUBLE}
+      </if>
+      <if test="topPrice != null and topPrice != '' and topPrice != 0 ">
+          AND retail_price  <![CDATA[ <= ]]> #{topPrice,jdbcType=DOUBLE}
+      </if>
+    </where>
   </select>
 
 

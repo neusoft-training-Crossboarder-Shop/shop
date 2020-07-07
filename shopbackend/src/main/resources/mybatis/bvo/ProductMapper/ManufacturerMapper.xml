@@ -87,6 +87,7 @@
 
 
 
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select
     <include refid="Base_Column_List" />
@@ -94,6 +95,19 @@
     <include refid="Blob_Column_List" />
     from man_manufacturer
     where man_id = #{man_id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByParams" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from man_manufacturer
+    where
+        man_id = #{manId,jdbcType=INTEGER}
+        <if test="manufacturerName!=null and manufacturerName!=''">
+          AND name_en  like concat('%', #{manufacturerName}, '%')
+        </if>
   </select>
 
 

@@ -1,6 +1,9 @@
 package neu.train.project.bvo.mapper.productMapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import neu.train.project.bvo.domain.productDomain.ProductBrand;
 import neu.train.project.bvo.domain.productDomain.ProductBrandExample;
 import org.apache.ibatis.annotations.Param;
@@ -19,6 +22,8 @@ public interface ProductBrandMapper {
     List<ProductBrand> selectByExample(ProductBrandExample example);
 
     ProductBrand selectByPrimaryKey(Integer brd_id);
+
+    ProductBrand selectByParams(Map map);
 
     int updateByExampleSelective(@Param("record") ProductBrand record, @Param("example") ProductBrandExample example);
 

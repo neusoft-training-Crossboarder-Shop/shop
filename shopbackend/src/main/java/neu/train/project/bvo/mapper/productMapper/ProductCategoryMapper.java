@@ -1,6 +1,9 @@
 package neu.train.project.bvo.mapper.productMapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import neu.train.project.bvo.domain.productDomain.ProductCategory;
 import neu.train.project.bvo.domain.productDomain.ProductCategoryExample;
 import org.apache.ibatis.annotations.Param;
@@ -8,6 +11,8 @@ import org.apache.ibatis.annotations.Param;
 public interface ProductCategoryMapper {
 
     List<ProductCategory> selectByProId(Integer pro_id);
+
+    List<ProductCategory> selectByParams(Map map);
 
     long countByExample(ProductCategoryExample example);
 

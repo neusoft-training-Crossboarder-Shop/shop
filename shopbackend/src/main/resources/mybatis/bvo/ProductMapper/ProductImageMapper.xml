@@ -103,6 +103,13 @@
     where pro_id = #{pro_id,jdbcType=INTEGER}
   </select>
 
+  <select id="selectByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+        <include refid="Base_Column_List" />
+    from img_image
+        where pro_id = #{proId,jdbcType=INTEGER}
+  </select>
+
 
 
 

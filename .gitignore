@@ -1,3 +1,4 @@
 .idea/
 shopbackend/target
-shopbackend/shopbackend.iml
+shopbackend/*.iml
+shopbackend/src/main/resources/generatorConfig.xml
