@@ -36,10 +36,10 @@ public class WalletController extends BaseController {
         return AjaxResult.success(new SendAWallet(walletService.selectWalletById(buyerId), walletService.selectFundById(buyerId)));
     }
 
-    @ApiOperation(value = "返回符合条件的钱包简况,给管理员用的,不会显示钱包里有多少钱的", httpMethod = "GET", notes = "可选查询参数:账号accountName，邮箱email")
+    @ApiOperation(value = "返回符合条件的钱包简况,给管理员用的,不会显示钱包里有多少钱的,管理员点进去才能详细操作", httpMethod = "GET", notes = "可选查询参数:账号accountName，邮箱email")
     @GetMapping("/getWalletAdmin")
     public AjaxResult getWalletAdmin(@RequestParam(value = "accountName", required = false) String accountName, @RequestParam(value = "email", required = false) String email) {
-        return AjaxResult.success(getDataTable(walletService.select(accountName,email)));
+        return AjaxResult.success(getDataTable(walletService.selectWalletByNameAndEmail(accountName,email)));
     }
 
 
