@@ -18,7 +18,8 @@ import neu.train.project.wallet.vo.GetANewWallet;
 
 
 @RestController
-@RequestMapping("swagger-resources/wallet")
+//@RequestMapping("swagger-resources/wallet")
+@RequestMapping("/wallet")
 public class WalletController extends BaseController {
 
     @Autowired
@@ -32,6 +33,7 @@ public class WalletController extends BaseController {
     public AjaxResult getWalletUser(@RequestParam(value = "buyerId", required = false) int buyerId) {
         if(buyerId==0){
             buyerId=Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId());
+            System.out.println(buyerId);
         }
         return AjaxResult.success(new SendAWallet(walletService.selectWalletById(buyerId), walletService.selectFundById(buyerId)));
     }

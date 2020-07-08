@@ -180,7 +180,7 @@ export default {
       // 非多个禁用
       multiple: true,
       // 总条数
-      total: 0,
+      total: 10,
       // 弹出层标题
       title: "",
       // 是否显示弹出层

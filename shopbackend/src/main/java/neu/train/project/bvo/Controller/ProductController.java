@@ -27,8 +27,6 @@ public class ProductController extends BaseController {
     @ApiOperation("try to get good detail")
     public AjaxResult getProductDetail(@PathVariable("proId") Integer proId){
         Product productDetail = productService.getProductDetail(proId);
-        System.out.println(productDetail.getManufacturer());
-        System.out.println(productDetail.getProductBrand());
         return AjaxResult.success(productDetail);
     }
 
