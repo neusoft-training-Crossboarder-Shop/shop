@@ -1,9 +1,12 @@
 package neu.train.project.wallet.pojo;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
+import neu.train.framework.web.domain.BaseEntity;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class WafWalletAccountFund {
+public class WafWalletAccountFund extends BaseEntity {
     private Integer buyerId;
 
     private BigDecimal availableMoney;

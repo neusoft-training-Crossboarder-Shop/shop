@@ -6,10 +6,18 @@ import neu.train.project.wallet.pojo.WafWalletAccountFund;
 import java.util.List;
 
 public interface WalletService {
+    boolean ifWallet(int buyerId);
     WaaWalletAccount selectWalletById(int buyerId);
+    boolean selectWalletLogin(int buyerId,String accountName,String password);
+    boolean updateWallet(WaaWalletAccount waaWalletAccount);
+    boolean insertWallet(WaaWalletAccount waaWalletAccount);
+    boolean insertFund(int buyerId,String currency);
+
+
+
+
+
     WafWalletAccountFund selectFundById(int buyerId);
     List<WaaWalletAccount> selectWalletByNameAndEmail(String accountName,String email);
-    WaaWalletAccount insertWallet(WaaWalletAccount waaWalletAccount);
-    WafWalletAccountFund insertFund(String currency);
-    int test();
+    boolean test(int num);
 }
