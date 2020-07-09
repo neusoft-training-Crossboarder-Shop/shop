@@ -92,8 +92,8 @@ public class WalletServiceImp implements WalletService {
         waaWalletAccount.setStatus((byte)7);
         waaWalletAccount.setHoldOrderTime("0");
         waaWalletAccount.setAutoPayStatus("0");
-        waaWalletAccountMapper.insert(waaWalletAccount);
         redisTemplate.opsForValue().set("walletById:"+waaWalletAccount.getBuyerId(),waaWalletAccount);
+        waaWalletAccountMapper.insertSelective(waaWalletAccount);
         return true;
     }
 
@@ -101,14 +101,15 @@ public class WalletServiceImp implements WalletService {
     @Override
     public boolean insertFund(int buyerId,String currency){
         WafWalletAccountFund wafWalletAccountFund=new WafWalletAccountFund();
+        wafWalletAccountFund.setBuyerId(buyerId);
         wafWalletAccountFund.setAvailableMoney(new BigDecimal(0));
         wafWalletAccountFund.setDepositingMoney(new BigDecimal(0));
         wafWalletAccountFund.setWithdrawingMoney(new BigDecimal(0));
         wafWalletAccountFund.setCreatedBy(String.valueOf(SecurityUtils.getLoginUser().getUser().getUserId()));
         wafWalletAccountFund.setLastUpdateBy(String.valueOf(SecurityUtils.getLoginUser().getUser().getUserId()));
         wafWalletAccountFund.setCurrency(currency);
-        wafWalletAccountFundMapper.insert(wafWalletAccountFund);
         redisTemplate.opsForValue().set("fundById:"+buyerId,wafWalletAccountFund);
+        wafWalletAccountFundMapper.insertSelective(wafWalletAccountFund);
         return true;
     }
 
