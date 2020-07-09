@@ -12,7 +12,7 @@ export function getWalletAccount() {
 //2.注册账号  不用返回数据
 export function addWalletAccount(data) {
   return request({
-    url:'/wallet/account/'+data,
+    url:'/wallet/account/',
     method:'post',
     data:data
   })

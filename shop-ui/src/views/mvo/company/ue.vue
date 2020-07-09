@@ -1,3 +1,7 @@
+<!--富文本编辑框 使用了 npm install vue-quill-editor-->
+<!--ue.vue 日后应该移入到components-->
+
+
 <!-- 组件代码如下 -->
 <template>
   <div>

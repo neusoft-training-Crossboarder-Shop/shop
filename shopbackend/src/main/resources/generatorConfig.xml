@@ -12,26 +12,26 @@
         </commentGenerator>
         <jdbcConnection
                 driverClass="com.mysql.cj.jdbc.Driver"
-                connectionURL="jdbc:mysql://39.106.38.67/bsp?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;useSSL=true&amp;serverTimezone=GMT%2B8"
+                connectionURL="jdbc:mysql://39.106.38.67/bsp_database?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;useSSL=true&amp;serverTimezone=GMT%2B8"
                 userId="root"
-                password="123456">
+                password="UZIUZIUZI">
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
-        <javaModelGenerator targetPackage="neu.train.project.mvo.pojo" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="neu.train.project.wallet.pojo" targetProject="src/main/java">
             <property name="constructorBased" value="true"/>
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
-        <sqlMapGenerator targetPackage="mybatis.mvo.mapper" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="mybatis.wallet" targetProject="src/main/resources">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
-        <javaClientGenerator targetPackage="neu.train.project.mvo.mapper" targetProject="src/main/java"
+        <javaClientGenerator targetPackage="neu.train.project.wallet.mapper" targetProject="src/main/java"
                              type="MIXEDMAPPER">
             <property name="enableSubPackages" value="false"/>
             <property name="exampleMethodVisibility" value="public"/>
         </javaClientGenerator>
-        <table tableName="man_manufacturer" schema="bsp">
-            <generatedKey column="man_id" sqlStatement="Mysql"/>
+        <table tableName="waf_wallet_account_fund" schema="bsp_database">
+            <generatedKey column="buyer_id" sqlStatement="Mysql"/>
         </table>
     </context>
 </generatorConfiguration>

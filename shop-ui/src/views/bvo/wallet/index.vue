@@ -231,7 +231,7 @@
 
 <script>
   // import {getBasicInfo,addDropShipper,updateDropShipper} from "../../../api/bvo/profile";
-  import {getBasicInfo,addWalletAccount} from "../../../api/bvo/wallet";
+  import {getWalletAccount,addWalletAccount} from "../../../api/bvo/wallet";
   import {getDicts} from "../../../api/system/dict/data";
 
   export default {
@@ -240,7 +240,7 @@
       return {
         notRegistered: true,
         notInputPassword:true,
-        notShowTransaction:false,
+        notShowTransaction:true,
         isEdit: false,
 
 
@@ -325,7 +325,7 @@
               //隐藏余额
               balance:'',
               businessId:'',
-              createBy:'',
+              // createBy:'',
             }
           ]
       }
@@ -342,10 +342,8 @@
     },
     created() {
       // 1 -申请 , 2 -完成 , -3-失败
-      console.log(1213)
       this.getDicts("wallet_transaction_status").then(response => {
         let data=response.data;
-        console.log(response)
         data.forEach(item=>{
           this.walletTransactionStatus.push(item.dictLabel);
         })
@@ -365,17 +363,21 @@
         })
       });
 
-      // this.getList();
+      this.getList();
     },
     methods:{
       changeEdit(){
         this.isEdit = true;
       },
       getList(){
-        // getBasicInfo(0).then(response=>{
-        //   console.log(response)
-          //注册成功了
-          this.notRegistered =  false;
+          getWalletAccount().then((response)=>{
+            console.log(response)
+            if (response.data === "true"){
+              this.notRegistered =  false;
+            } else{
+              this.notRegistered = true;
+            }
+          })
           // if (response.data.waaWalletAccount === null){
           //   this.notRegistered = true;
           // }else{
@@ -388,6 +390,7 @@
       register(form){
            this.$refs[form].validate((valid) => {
              if (valid) {
+               console.log(this.account)
                addWalletAccount(this.account).then(response=>{
                  //注册成功
                  this.notRegistered = false;
