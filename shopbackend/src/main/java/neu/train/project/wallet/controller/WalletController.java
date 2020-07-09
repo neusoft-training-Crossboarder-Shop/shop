@@ -23,7 +23,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("swagger-resources")
+//@RequestMapping("swagger-resources")
 public class WalletController extends BaseController {
 
     @Autowired
