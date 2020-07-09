@@ -30,8 +30,8 @@
             <property name="enableSubPackages" value="false"/>
             <property name="exampleMethodVisibility" value="public"/>
         </javaClientGenerator>
-        <table tableName="waf_wallet_account_fund" schema="bsp_database">
-            <generatedKey column="buyer_id" sqlStatement="Mysql"/>
+        <table tableName="wta_wallet_transaction_aduit" schema="bsp_database">
+            <generatedKey column="transaction_audit_id" sqlStatement="Mysql"/>
         </table>
     </context>
 </generatorConfiguration>

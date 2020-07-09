@@ -6,33 +6,13 @@
       <idArg column="transaction_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="buyer_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="bank_card_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="transaction_number" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="transaction_type" jdbcType="TINYINT" javaType="java.lang.Byte" />
-      <arg column="account_name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="transaction_money" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-      <arg column="commission" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-      <arg column="discount_commission" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-      <arg column="transaction_method" jdbcType="TINYINT" javaType="java.lang.Byte" />
-      <arg column="complete_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="status" jdbcType="TINYINT" javaType="java.lang.Byte" />
-      <arg column="actual_money" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-      <arg column="actual_commission" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-      <arg column="actual_discount_commission" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="balance" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="business_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="finance_type" jdbcType="TINYINT" javaType="java.lang.Byte" />
-      <arg column="note" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="operator_name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="operator_ip" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="created_By" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="last_update_by" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="last_update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="bank_receipt_url" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="exchange_rate" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-      <arg column="transaction_desc" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="foreign_exchange_fee" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-      <arg column="withdraw_fee" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -94,12 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    transaction_id, buyer_id, bank_card_id, transaction_number, transaction_type, account_name, 
-    transaction_money, commission, discount_commission, transaction_method, complete_time, 
-    status, actual_money, actual_commission, actual_discount_commission, balance, business_id, 
-    finance_type, note, operator_name, operator_ip, created_By, create_time, last_update_by, 
-    last_update_time, bank_receipt_url, exchange_rate, transaction_desc, foreign_exchange_fee, 
-    withdraw_fee
+    transaction_id, buyer_id, bank_card_id, transaction_type, transaction_money, status, 
+    balance, business_id, finance_type, create_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="neu.train.project.wallet.pojo.WtrWalletTransactionRecordExample" >
     select
@@ -134,41 +110,14 @@
       <if test="bankCardId != null" >
         bank_card_id,
       </if>
-      <if test="transactionNumber != null" >
-        transaction_number,
-      </if>
       <if test="transactionType != null" >
         transaction_type,
-      </if>
-      <if test="accountName != null" >
-        account_name,
       </if>
       <if test="transactionMoney != null" >
         transaction_money,
       </if>
-      <if test="commission != null" >
-        commission,
-      </if>
-      <if test="discountCommission != null" >
-        discount_commission,
-      </if>
-      <if test="transactionMethod != null" >
-        transaction_method,
-      </if>
-      <if test="completeTime != null" >
-        complete_time,
-      </if>
       <if test="status != null" >
         status,
-      </if>
-      <if test="actualMoney != null" >
-        actual_money,
-      </if>
-      <if test="actualCommission != null" >
-        actual_commission,
-      </if>
-      <if test="actualDiscountCommission != null" >
-        actual_discount_commission,
       </if>
       <if test="balance != null" >
         balance,
@@ -179,41 +128,8 @@
       <if test="financeType != null" >
         finance_type,
       </if>
-      <if test="note != null" >
-        note,
-      </if>
-      <if test="operatorName != null" >
-        operator_name,
-      </if>
-      <if test="operatorIp != null" >
-        operator_ip,
-      </if>
-      <if test="createdBy != null" >
-        created_By,
-      </if>
       <if test="createTime != null" >
         create_time,
-      </if>
-      <if test="lastUpdateBy != null" >
-        last_update_by,
-      </if>
-      <if test="lastUpdateTime != null" >
-        last_update_time,
-      </if>
-      <if test="bankReceiptUrl != null" >
-        bank_receipt_url,
-      </if>
-      <if test="exchangeRate != null" >
-        exchange_rate,
-      </if>
-      <if test="transactionDesc != null" >
-        transaction_desc,
-      </if>
-      <if test="foreignExchangeFee != null" >
-        foreign_exchange_fee,
-      </if>
-      <if test="withdrawFee != null" >
-        withdraw_fee,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -224,41 +140,14 @@
       <if test="bankCardId != null" >
         #{bankCardId,jdbcType=INTEGER},
       </if>
-      <if test="transactionNumber != null" >
-        #{transactionNumber,jdbcType=VARCHAR},
-      </if>
       <if test="transactionType != null" >
         #{transactionType,jdbcType=TINYINT},
-      </if>
-      <if test="accountName != null" >
-        #{accountName,jdbcType=VARCHAR},
       </if>
       <if test="transactionMoney != null" >
         #{transactionMoney,jdbcType=DECIMAL},
       </if>
-      <if test="commission != null" >
-        #{commission,jdbcType=DECIMAL},
-      </if>
-      <if test="discountCommission != null" >
-        #{discountCommission,jdbcType=DECIMAL},
-      </if>
-      <if test="transactionMethod != null" >
-        #{transactionMethod,jdbcType=TINYINT},
-      </if>
-      <if test="completeTime != null" >
-        #{completeTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="status != null" >
         #{status,jdbcType=TINYINT},
-      </if>
-      <if test="actualMoney != null" >
-        #{actualMoney,jdbcType=DECIMAL},
-      </if>
-      <if test="actualCommission != null" >
-        #{actualCommission,jdbcType=DECIMAL},
-      </if>
-      <if test="actualDiscountCommission != null" >
-        #{actualDiscountCommission,jdbcType=DECIMAL},
       </if>
       <if test="balance != null" >
         #{balance,jdbcType=DECIMAL},
@@ -269,41 +158,8 @@
       <if test="financeType != null" >
         #{financeType,jdbcType=TINYINT},
       </if>
-      <if test="note != null" >
-        #{note,jdbcType=VARCHAR},
-      </if>
-      <if test="operatorName != null" >
-        #{operatorName,jdbcType=VARCHAR},
-      </if>
-      <if test="operatorIp != null" >
-        #{operatorIp,jdbcType=VARCHAR},
-      </if>
-      <if test="createdBy != null" >
-        #{createdBy,jdbcType=VARCHAR},
-      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastUpdateBy != null" >
-        #{lastUpdateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="lastUpdateTime != null" >
-        #{lastUpdateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="bankReceiptUrl != null" >
-        #{bankReceiptUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="exchangeRate != null" >
-        #{exchangeRate,jdbcType=DECIMAL},
-      </if>
-      <if test="transactionDesc != null" >
-        #{transactionDesc,jdbcType=VARCHAR},
-      </if>
-      <if test="foreignExchangeFee != null" >
-        #{foreignExchangeFee,jdbcType=DECIMAL},
-      </if>
-      <if test="withdrawFee != null" >
-        #{withdrawFee,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -325,41 +181,14 @@
       <if test="record.bankCardId != null" >
         bank_card_id = #{record.bankCardId,jdbcType=INTEGER},
       </if>
-      <if test="record.transactionNumber != null" >
-        transaction_number = #{record.transactionNumber,jdbcType=VARCHAR},
-      </if>
       <if test="record.transactionType != null" >
         transaction_type = #{record.transactionType,jdbcType=TINYINT},
-      </if>
-      <if test="record.accountName != null" >
-        account_name = #{record.accountName,jdbcType=VARCHAR},
       </if>
       <if test="record.transactionMoney != null" >
         transaction_money = #{record.transactionMoney,jdbcType=DECIMAL},
       </if>
-      <if test="record.commission != null" >
-        commission = #{record.commission,jdbcType=DECIMAL},
-      </if>
-      <if test="record.discountCommission != null" >
-        discount_commission = #{record.discountCommission,jdbcType=DECIMAL},
-      </if>
-      <if test="record.transactionMethod != null" >
-        transaction_method = #{record.transactionMethod,jdbcType=TINYINT},
-      </if>
-      <if test="record.completeTime != null" >
-        complete_time = #{record.completeTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=TINYINT},
-      </if>
-      <if test="record.actualMoney != null" >
-        actual_money = #{record.actualMoney,jdbcType=DECIMAL},
-      </if>
-      <if test="record.actualCommission != null" >
-        actual_commission = #{record.actualCommission,jdbcType=DECIMAL},
-      </if>
-      <if test="record.actualDiscountCommission != null" >
-        actual_discount_commission = #{record.actualDiscountCommission,jdbcType=DECIMAL},
       </if>
       <if test="record.balance != null" >
         balance = #{record.balance,jdbcType=DECIMAL},
@@ -370,41 +199,8 @@
       <if test="record.financeType != null" >
         finance_type = #{record.financeType,jdbcType=TINYINT},
       </if>
-      <if test="record.note != null" >
-        note = #{record.note,jdbcType=VARCHAR},
-      </if>
-      <if test="record.operatorName != null" >
-        operator_name = #{record.operatorName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.operatorIp != null" >
-        operator_ip = #{record.operatorIp,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createdBy != null" >
-        created_By = #{record.createdBy,jdbcType=VARCHAR},
-      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.lastUpdateBy != null" >
-        last_update_by = #{record.lastUpdateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lastUpdateTime != null" >
-        last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.bankReceiptUrl != null" >
-        bank_receipt_url = #{record.bankReceiptUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="record.exchangeRate != null" >
-        exchange_rate = #{record.exchangeRate,jdbcType=DECIMAL},
-      </if>
-      <if test="record.transactionDesc != null" >
-        transaction_desc = #{record.transactionDesc,jdbcType=VARCHAR},
-      </if>
-      <if test="record.foreignExchangeFee != null" >
-        foreign_exchange_fee = #{record.foreignExchangeFee,jdbcType=DECIMAL},
-      </if>
-      <if test="record.withdrawFee != null" >
-        withdraw_fee = #{record.withdrawFee,jdbcType=DECIMAL},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -416,33 +212,13 @@
     set transaction_id = #{record.transactionId,jdbcType=INTEGER},
       buyer_id = #{record.buyerId,jdbcType=INTEGER},
       bank_card_id = #{record.bankCardId,jdbcType=INTEGER},
-      transaction_number = #{record.transactionNumber,jdbcType=VARCHAR},
       transaction_type = #{record.transactionType,jdbcType=TINYINT},
-      account_name = #{record.accountName,jdbcType=VARCHAR},
       transaction_money = #{record.transactionMoney,jdbcType=DECIMAL},
-      commission = #{record.commission,jdbcType=DECIMAL},
-      discount_commission = #{record.discountCommission,jdbcType=DECIMAL},
-      transaction_method = #{record.transactionMethod,jdbcType=TINYINT},
-      complete_time = #{record.completeTime,jdbcType=TIMESTAMP},
       status = #{record.status,jdbcType=TINYINT},
-      actual_money = #{record.actualMoney,jdbcType=DECIMAL},
-      actual_commission = #{record.actualCommission,jdbcType=DECIMAL},
-      actual_discount_commission = #{record.actualDiscountCommission,jdbcType=DECIMAL},
       balance = #{record.balance,jdbcType=DECIMAL},
       business_id = #{record.businessId,jdbcType=INTEGER},
       finance_type = #{record.financeType,jdbcType=TINYINT},
-      note = #{record.note,jdbcType=VARCHAR},
-      operator_name = #{record.operatorName,jdbcType=VARCHAR},
-      operator_ip = #{record.operatorIp,jdbcType=VARCHAR},
-      created_By = #{record.createdBy,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      last_update_by = #{record.lastUpdateBy,jdbcType=VARCHAR},
-      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
-      bank_receipt_url = #{record.bankReceiptUrl,jdbcType=VARCHAR},
-      exchange_rate = #{record.exchangeRate,jdbcType=DECIMAL},
-      transaction_desc = #{record.transactionDesc,jdbcType=VARCHAR},
-      foreign_exchange_fee = #{record.foreignExchangeFee,jdbcType=DECIMAL},
-      withdraw_fee = #{record.withdrawFee,jdbcType=DECIMAL}
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -456,41 +232,14 @@
       <if test="bankCardId != null" >
         bank_card_id = #{bankCardId,jdbcType=INTEGER},
       </if>
-      <if test="transactionNumber != null" >
-        transaction_number = #{transactionNumber,jdbcType=VARCHAR},
-      </if>
       <if test="transactionType != null" >
         transaction_type = #{transactionType,jdbcType=TINYINT},
-      </if>
-      <if test="accountName != null" >
-        account_name = #{accountName,jdbcType=VARCHAR},
       </if>
       <if test="transactionMoney != null" >
         transaction_money = #{transactionMoney,jdbcType=DECIMAL},
       </if>
-      <if test="commission != null" >
-        commission = #{commission,jdbcType=DECIMAL},
-      </if>
-      <if test="discountCommission != null" >
-        discount_commission = #{discountCommission,jdbcType=DECIMAL},
-      </if>
-      <if test="transactionMethod != null" >
-        transaction_method = #{transactionMethod,jdbcType=TINYINT},
-      </if>
-      <if test="completeTime != null" >
-        complete_time = #{completeTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="status != null" >
         status = #{status,jdbcType=TINYINT},
-      </if>
-      <if test="actualMoney != null" >
-        actual_money = #{actualMoney,jdbcType=DECIMAL},
-      </if>
-      <if test="actualCommission != null" >
-        actual_commission = #{actualCommission,jdbcType=DECIMAL},
-      </if>
-      <if test="actualDiscountCommission != null" >
-        actual_discount_commission = #{actualDiscountCommission,jdbcType=DECIMAL},
       </if>
       <if test="balance != null" >
         balance = #{balance,jdbcType=DECIMAL},
@@ -501,43 +250,65 @@
       <if test="financeType != null" >
         finance_type = #{financeType,jdbcType=TINYINT},
       </if>
-      <if test="note != null" >
-        note = #{note,jdbcType=VARCHAR},
-      </if>
-      <if test="operatorName != null" >
-        operator_name = #{operatorName,jdbcType=VARCHAR},
-      </if>
-      <if test="operatorIp != null" >
-        operator_ip = #{operatorIp,jdbcType=VARCHAR},
-      </if>
-      <if test="createdBy != null" >
-        created_By = #{createdBy,jdbcType=VARCHAR},
-      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastUpdateBy != null" >
-        last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="lastUpdateTime != null" >
-        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="bankReceiptUrl != null" >
-        bank_receipt_url = #{bankReceiptUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="exchangeRate != null" >
-        exchange_rate = #{exchangeRate,jdbcType=DECIMAL},
-      </if>
-      <if test="transactionDesc != null" >
-        transaction_desc = #{transactionDesc,jdbcType=VARCHAR},
-      </if>
-      <if test="foreignExchangeFee != null" >
-        foreign_exchange_fee = #{foreignExchangeFee,jdbcType=DECIMAL},
-      </if>
-      <if test="withdrawFee != null" >
-        withdraw_fee = #{withdrawFee,jdbcType=DECIMAL},
       </if>
     </set>
     where transaction_id = #{transactionId,jdbcType=INTEGER}
   </update>
+
+
+
+  <resultMap type="neu.train.project.wallet.pojo.WtrWalletTransactionRecord" id="transactionRecord">
+    <id     property="transactionId"      column="transaction_id"      />
+    <result property="buyerId"    column="buyer_id"    />
+    <result property="bankCardId"     column="bank_card_id"     />
+    <result property="transactionType"   column="transaction_type"   />
+    <result property="transactionMoney"    column="transaction_money"    />
+    <result property="status"      column="status"      />
+    <result property="balance"    column="balance"    />
+    <result property="businessId"      column="business_id"      />
+    <result property="financeType"    column="finance_type"    />
+    <result property="createTime"    column="create_time"    />
+  </resultMap>
+
+  <sql id="selectT">
+    select transaction_id, buyer_id, bank_card_id, transaction_type, transaction_money, status, balance, business_id, finance_type, create_time
+    from wtr_wallet_transaction_record
+    order by create_time desc
+  </sql>
+
+  <select id="selectByMany" parameterType="neu.train.project.wallet.vo.GetATransactionQuery" resultMap="transactionRecord">
+    <include refid="selectT"/>
+    <where>
+      <if test="buyerId != null and buyerId != '' and buyerId!=0">
+        AND buyer_id = #{buyerId}
+      </if>
+      <if test="transactionId != null and transactionId != '' and transactionId!=0">
+        AND transaction_id = #{transactionId}
+      </if>
+      <if test="bankCardId != null and bankCardId != '' and bankCardId!=0 ">
+        AND bank_card_id = #{bankCardId}
+      </if>
+      <if test="transactionType != null and transactionType != '' ">
+        AND transaction_type = #{transactionType}
+      </if>
+      <if test="status != null and status != '' ">
+        AND status = #{status}
+      </if>
+      <if test="financeType != null and financeType != '' ">
+        AND finance_type = #{financeType}
+      </if>
+      <if test="beginTime != null and beginTime != ''"><!-- 开始时间检索 -->
+        and date_format(create_time,'%y%m%d') &gt;= date_format(#{beginTime},'%y%m%d')
+      </if>
+      <if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+        and date_format(create_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
+      </if>
+    </where>
+  </select>
+
+
+
+
 </mapper>

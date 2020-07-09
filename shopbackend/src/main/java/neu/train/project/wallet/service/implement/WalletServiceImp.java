@@ -4,10 +4,13 @@ import neu.train.common.utils.SecurityUtils;
 import neu.train.framework.redis.RedisCache;
 import neu.train.project.wallet.mapper.WaaWalletAccountMapper;
 import neu.train.project.wallet.mapper.WafWalletAccountFundMapper;
+import neu.train.project.wallet.mapper.WtrWalletTransactionRecordMapper;
 import neu.train.project.wallet.pojo.WaaWalletAccount;
 import neu.train.project.wallet.pojo.WaaWalletAccountExample;
 import neu.train.project.wallet.pojo.WafWalletAccountFund;
+import neu.train.project.wallet.pojo.WtrWalletTransactionRecord;
 import neu.train.project.wallet.service.WalletService;
+import neu.train.project.wallet.vo.GetATransactionQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -24,9 +27,12 @@ public class WalletServiceImp implements WalletService {
     @Autowired
     WafWalletAccountFundMapper wafWalletAccountFundMapper;
     @Autowired
+    WtrWalletTransactionRecordMapper wtrWalletTransactionRecordMapper;
+    @Autowired
     RedisCache redisCache;
     @Autowired
     RedisTemplate redisTemplate;
+
 
 
 
@@ -113,10 +119,7 @@ public class WalletServiceImp implements WalletService {
         return true;
     }
 
-
-
-
-
+    //根据用户Id，检索钱包，缓存"walletById:"+buyerId
     @Override
     public WaaWalletAccount selectWalletById(int buyerId){
         WaaWalletAccount waaWalletAccount=redisCache.getCacheObject("walletById:"+buyerId);
@@ -128,24 +131,23 @@ public class WalletServiceImp implements WalletService {
         return waaWalletAccount;
     }
 
-
-
-    @Cacheable(value = "walletFundById",key="#buyerId")
+    //根据用户Id，检索钱包余额之类的东西，缓存"fundById:"+buyerId
     @Override
     public WafWalletAccountFund selectFundById(int buyerId){
-          return wafWalletAccountFundMapper.selectByPrimaryKey(buyerId);
+        WafWalletAccountFund wafWalletAccountFund=redisCache.getCacheObject("fundById"+buyerId);
+        if(wafWalletAccountFund!=null){
+            return wafWalletAccountFund;
+        }
+        wafWalletAccountFund=wafWalletAccountFundMapper.selectByPrimaryKey(buyerId);
+        redisCache.setCacheObject("fundById"+buyerId,wafWalletAccountFund);
+        return wafWalletAccountFund;
     }
 
-
-
+    //多条件查询钱包流水，不缓存
     @Override
-    public List<WaaWalletAccount> selectWalletByNameAndEmail(String accountName,String email) {
-        WaaWalletAccountExample waaWalletAccountExample = new WaaWalletAccountExample();
-        WaaWalletAccountExample.Criteria waaWalletAccountExampleCriteria = waaWalletAccountExample.createCriteria();
-        waaWalletAccountExampleCriteria.andAccountNameEqualTo(accountName);
-        waaWalletAccountExampleCriteria.andEmailEqualTo(email);
-        return waaWalletAccountMapper.selectByExample(waaWalletAccountExample);
-                }
+    public List<WtrWalletTransactionRecord> selectTransaction(GetATransactionQuery getATransactionQuery){
+        return wtrWalletTransactionRecordMapper.selectByMany(getATransactionQuery);
+    }
 
 
 
