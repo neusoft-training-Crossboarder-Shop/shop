@@ -31,11 +31,14 @@ public class WalletController extends BaseController {
     @Autowired
     PermissionService permissionService;
 
+
     @ApiOperation(value = "返回是否存在钱包,给MVO，BVO用的不用带参数", httpMethod = "GET")
     @GetMapping("/wallet/account")
     public AjaxResult hasWallet() {
         return AjaxResult.success(walletService.ifWallet(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId())));
     }
+
+
 
     @ApiOperation(value = "注册钱包", httpMethod = "POST", notes = "必选参数有：账户名称accountName,账户邮箱email，账户密码password,账户币种currency")
     @Transactional
@@ -126,6 +129,8 @@ public AjaxResult refuseAudit(@PathVariable List<Integer> ids){
     return null;
 }
 
+
+
 @ApiOperation(value="充值转账申请要不要做？")
 @RequestMapping("/idontknow")
 public AjaxResult emmm(){
@@ -140,7 +145,4 @@ return null;
         System.out.println(walletService.test(2));
         return AjaxResult.success();
     }
-
-
-
 }

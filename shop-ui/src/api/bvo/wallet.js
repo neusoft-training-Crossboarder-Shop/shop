@@ -9,6 +9,7 @@ export function getWalletAccount() {
   })
 }
 
+
 //2.注册账号  不用返回数据
 export function addWalletAccount(data) {
   return request({
@@ -52,6 +53,32 @@ export function getWalletTransaction(param) {
     url:'/wallet/transaction/',
     method:'get',
     params:param
+  })
+}
+
+
+//6.分页返回钱包流水表数据  需要返回交易流水记录
+
+//
+//data:{
+//  bankCardId:'',
+//  operateMoney:'',
+//
+// }
+//
+export function withdrawAccount(data) {
+  return request({
+    url:'/wallet/transaction/charge',
+    method:'post',
+    data:data
+  })
+}
+
+export function depositeAccount(data) {
+  return request({
+    url:'/wallet/transaction/deposite',
+    method:'post',
+    data:data
   })
 }
 

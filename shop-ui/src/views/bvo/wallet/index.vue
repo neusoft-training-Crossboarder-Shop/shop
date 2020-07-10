@@ -9,14 +9,14 @@
         </div>
 
         <div>
-          <el-form  ref="form" :rules="rules" :model="account" label-width="20%">
+          <el-form  ref="form" :rules="rules" :model="account" label-width="30%">
               <el-form-item label="Account Name" prop="accountName">
                 <el-input v-model="account.accountName" @focus="changeEdit"  placeholder="Please Enter Account Name" ></el-input>
               </el-form-item>
-              <el-form-item label="Account Type" prop="currency">
+              <el-form-item label="Account Type" prop="currency" :disabled="!notRegistered">
                 <el-radio-group v-model="account.currency">
-                  <el-radio label="USB"  >$ USB</el-radio>
-                  <el-radio label="RMB">￥ RMB</el-radio>
+                  <el-radio :label="2"  >$ USD</el-radio>
+                  <el-radio :label="1" >￥ RMB</el-radio>
                 </el-radio-group>
               </el-form-item>
 
@@ -43,9 +43,12 @@
         <span>Input Password </span>
       </div>
       <div>
-        <el-form ref="login" :rules="loginRule"  :model="login" label-width="80px">
+        <el-form ref="login" :rules="loginRule"  :model="loginAccount" label-width="80px">
+          <el-form-item prop="accountName" label="Account Name" label-width="20%">
+            <el-input v-model="loginAccount.accountName" placeholder="Account Name" show-password></el-input>
+          </el-form-item>
           <el-form-item prop="password" label="Input Password " label-width="20%">
-            <el-input v-model="login.password" placeholder="Password" show-password></el-input>
+            <el-input v-model="loginAccount.password" placeholder="Password" show-password></el-input>
           </el-form-item>
         </el-form>
         <el-button  class="button-style" type="primary" @click="walletLogin('login')">LogIn</el-button>
@@ -65,7 +68,7 @@
              <el-col :span="4" > <span class="price">$213.1</span></el-col>
               <el-col :span="8">
                 <el-row :gutter="10" style="vertical-align: center;horiz-align: center">
-                  <el-button type="danger">deposite</el-button><el-button type="primary">refresh</el-button>
+                  <el-button type="danger">deposite</el-button><el-button type="primary" >refresh</el-button>
                 </el-row>
               </el-col>
             </el-row>
@@ -176,8 +179,8 @@
     </div>
     <el-divider><i class="el-icon-s-marketing"></i></el-divider>
       <div class="transaction">
-<!--        v-loading="loading"-->
-        <el-table  :data="record">
+
+        <el-table  :data="record" v-loading="loading">
 
           <el-table-column type="expand">
             <template slot-scope="props">
@@ -231,8 +234,7 @@
 </template>
 
 <script>
-  // import {getBasicInfo,addDropShipper,updateDropShipper} from "../../../api/bvo/profile";
-  import {getWalletAccount,addWalletAccount} from "../../../api/bvo/wallet";
+  import {getWalletAccount,getWalletAccountFund,addWalletAccount,walletAccountLogin,updateWalletAccount,getWalletTransaction} from "../../../api/bvo/wallet";
   import {getDicts} from "../../../api/system/dict/data";
 
   export default {
@@ -241,9 +243,8 @@
       return {
         notRegistered: true,
         notInputPassword:true,
-        notShowTransaction:true,
+        notShowTransaction:false,
         isEdit: false,
-
 
 
 
@@ -252,7 +253,7 @@
           accountName: null,
           email: null,
           password: null,
-          currency: 'USB',
+          currency: 2,
           createTime: null,
           createdBy: null,
         },
@@ -271,7 +272,8 @@
             {required: true, message: 'Currency type cannot be null', trigger: 'blur'},
           ],
         },
-        login:{
+        loginAccount:{
+          accountName:'',
           password:'',
         },
         loginRule:{
@@ -282,17 +284,18 @@
 
 
 
+        loading:true,
 
         queryParams :{
           pageNum: 1,
           pageSize: 10,
-          transactionId:'',
-          bankCardId:'',
-          status:'',
-          transactionType:'',
-          financeType: '',
-          beginTime: '',
-          endTime:'',
+          transactionId:undefined,
+          bankCardId:undefined,
+          status:undefined,
+          transactionType:undefined,
+          financeType: undefined,
+          beginTime: undefined,
+          endTime:undefined,
         },
         dateRange: [],
 
@@ -364,18 +367,20 @@
         })
       });
 
-      this.getList();
+      this.getAccount();
     },
     methods:{
       changeEdit(){
         this.isEdit = true;
       },
-      getList(){
+      getAccount(){
           getWalletAccount().then((response)=>{
-            console.log(response)
-            if (response.data === "true"){
+
+            if (eval(response.data)){
+              console.log(1)
               this.notRegistered =  false;
             } else{
+              console.log(2)
               this.notRegistered = true;
             }
           })
@@ -414,7 +419,24 @@
           if (valid) {
             // login(this.account).then(response=>{
               //注册成功
-              this.notInputPassword = false;
+
+                  walletAccountLogin(this.loginAccount).then(response=>{
+                    console.log(response)
+                  if (eval(response.data)){
+                    this.notInputPassword = false;
+                    getWalletAccountFund().then(response=>{
+                      this.account=response.data.waaWalletAccount
+                      this.account.currency=response.data.wafWalletAccountFund.currency
+                    })
+                  }else{
+                    this.$notify({
+                      type:"error",
+                      message:"Wrong Password"
+                    })
+                  }
+
+              })
+
             // })
           } else {
             return false;
@@ -422,13 +444,22 @@
         });
       },
       save(){
-        updateAccount(this.account).then(response=>{
-           //更新成功
+        updateWalletAccount(this.account).then(response=>{
+          this.$notify({
+            type:'success',
+            message:'更新啊啊啊  '
+          })
         })
       },
       handleQuery() {
         this.queryParams.pageNum = 1;
         this.getList();
+      },
+      getList(){
+        getWalletTransaction(this.queryParams).then(response=>{
+          this.loading=false
+          console.log(response)
+        })
       },
       /** 重置按钮操作 */
       resetQuery() {
@@ -438,7 +469,8 @@
       },
 
       redirect(){
-        // this.notShowTransaction = false;
+        this.notShowTransaction = false;
+        this.getList()
       },
       transactionStatusFormatter(row,cloumn){
           return this.walletTransactionStatus[row.status]
@@ -473,7 +505,6 @@
     left: 30%;
     top: 30%;
     width: 50%;
-    height:35%;
 
   }
   .button-style{

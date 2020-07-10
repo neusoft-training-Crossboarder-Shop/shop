@@ -272,10 +272,10 @@
     <result property="createTime"    column="create_time"    />
   </resultMap>
 
+
   <sql id="selectT">
     select transaction_id, buyer_id, bank_card_id, transaction_type, transaction_money, status, balance, business_id, finance_type, create_time
     from wtr_wallet_transaction_record
-    order by create_time desc
   </sql>
 
   <select id="selectByMany" parameterType="neu.train.project.wallet.vo.GetATransactionQuery" resultMap="transactionRecord">
@@ -306,6 +306,7 @@
         and date_format(create_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
       </if>
     </where>
+    order by create_time desc
   </select>
 
 
