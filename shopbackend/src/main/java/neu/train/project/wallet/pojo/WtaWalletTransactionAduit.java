@@ -1,9 +1,11 @@
 package neu.train.project.wallet.pojo;
 
+import neu.train.framework.web.domain.BaseEntity;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class WtaWalletTransactionAduit {
+public class WtaWalletTransactionAduit extends BaseEntity {
     private Integer transactionAuditId;
 
     private Integer buyerId;
