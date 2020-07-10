@@ -1,41 +1,42 @@
 <template>
   <div >
     <div v-if="notShowTransaction" class="profile_container" >
-    <el-card class="box-card" v-if="showFrom">
-      <div slot="header" class="clearfix">
-        <span style="font-weight: bold;font-size: large;margin-right: 2%">Wallet Account</span>
-        <span v-if="!notRegistered" class="foot">注册日期:{{parseTime(account.createTime)}}  </span>
-        <span v-if="!notRegistered" class="foot">注册人员:{{account.createdBy}}</span>
-      </div>
-      <div>
-        <el-form  ref="form" :rules="rules" :model="account" label-width="20%">
-            <el-form-item label="Account Name" prop="accountName">
-              <el-input v-model="account.accountName" @focus="changeEdit"  placeholder="Please Enter Account Name" ></el-input>
-            </el-form-item>
-            <el-form-item label="Account Type" prop="currency">
-              <el-radio-group v-model="account.currency">
-                <el-radio label="USB"  >$ USB</el-radio>
-                <el-radio label="RMB">￥ RMB</el-radio>
-              </el-radio-group>
-            </el-form-item>
+      <el-card class="box-card" v-if="showFrom">
+        <div slot="header" class="clearfix">
+          <span style="font-weight: bold;font-size: large;margin-right: 2%">Wallet Account</span>
+          <span v-if="!notRegistered" class="foot">注册日期:{{parseTime(account.createTime)}}  </span>
+          <span v-if="!notRegistered" class="foot">注册人员:{{account.createdBy}}</span>
+        </div>
 
-            <el-form-item label="Email"  prop="email">
-              <el-input v-model="account.email" @focus="changeEdit"  placeholder="Please Enter Account Name" ></el-input>
-            </el-form-item>
+        <div>
+          <el-form  ref="form" :rules="rules" :model="account" label-width="20%">
+              <el-form-item label="Account Name" prop="accountName">
+                <el-input v-model="account.accountName" @focus="changeEdit"  placeholder="Please Enter Account Name" ></el-input>
+              </el-form-item>
+              <el-form-item label="Account Type" prop="currency">
+                <el-radio-group v-model="account.currency">
+                  <el-radio label="USB"  >$ USB</el-radio>
+                  <el-radio label="RMB">￥ RMB</el-radio>
+                </el-radio-group>
+              </el-form-item>
 
-            <el-form-item label="Password" prop="password">
-              <el-input placeholder="Enter Password" v-model="account.password" show-password></el-input>
-            </el-form-item>
-          </el-form>
-        <template v-if="notRegistered">
-          <el-button  class="button-style" type="primary"   @click="register('form')">注册</el-button>
-        </template>
-        <template v-else >
-          <el-button class="button-style"  type="primary" :disabled="!isEdit" @click="save">保存</el-button>
-          <el-button class="button-style" style="position: relative;left: -10px"   type="danger"  @click="redirect">我的交易</el-button>
-        </template>
-      </div>
-    </el-card>
+              <el-form-item label="Email"  prop="email">
+                <el-input v-model="account.email" @focus="changeEdit"  placeholder="Please Enter Account Name" ></el-input>
+              </el-form-item>
+
+              <el-form-item label="Password" prop="password">
+                <el-input placeholder="Enter Password" v-model="account.password" show-password></el-input>
+              </el-form-item>
+            </el-form>
+          <template v-if="notRegistered">
+            <el-button  class="button-style" type="primary"   @click="register('form')">注册</el-button>
+          </template>
+          <template v-else >
+            <el-button class="button-style"  type="primary" :disabled="!isEdit" @click="save">保存</el-button>
+            <el-button class="button-style" style="position: relative;left: -10px"   type="danger"  @click="redirect">我的交易</el-button>
+          </template>
+        </div>
+      </el-card>
 
     <el-card v-else class="box-card-password">
       <div slot="header" class="clearfix">
@@ -515,5 +516,6 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
   margin: 2%;
 }
+
 
 </style>
