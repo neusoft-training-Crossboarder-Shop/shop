@@ -5,8 +5,8 @@
     <div class="filter-container">
       <el-input v-model="listQuery.id" clearable class="filter-item" style="width: 200px;" placeholder="Enter the ID of brand"/>
       <el-input v-model="listQuery.name" clearable class="filter-item" style="width: 200px;" placeholder="Enter the name of brand"/>
-      <el-button v-permission="['GET /admin/brand/list']" class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">Search</el-button>
-      <el-button v-permission="['POST /admin/brand/create']" class="filter-item" type="success" icon="el-icon-edit" @click="handleCreate">Add</el-button>
+      <el-button v-permission="['GET /admin/oldbrand/list']" class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">Search</el-button>
+      <el-button v-permission="['POST /admin/oldbrand/create']" class="filter-item" type="success" icon="el-icon-edit" @click="handleCreate">Add</el-button>
       <el-button :loading="downloadLoading" class="filter-item" type="info" icon="el-icon-download" @click="handleDownload">Export</el-button>
     </div>
 
@@ -43,8 +43,8 @@
 
       <el-table-column align="center" label="Operation" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button v-permission="['POST /admin/brand/update']" type="primary" size="mini" @click="handleUpdate(scope.row)">Edit</el-button>
-          <el-button v-permission="['POST /admin/brand/delete']" type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
+          <el-button v-permission="['POST /admin/oldbrand/update']" type="primary" size="mini" @click="handleUpdate(scope.row)">Edit</el-button>
+          <el-button v-permission="['POST /admin/oldbrand/delete']" type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -123,7 +123,7 @@
 </style>
 
 <script>
-  import { listBrand, createBrand, updateBrand, deleteBrand } from '@/api/mvo/brand'
+  import { listBrand, createBrand, updateBrand, deleteBrand } from '@/api/mvo/oldbrand'
   import { uploadPath } from '@/api/mvo/storage'
   import { getToken } from '@/utils/auth'
   import Pagination from '@/components/Pagination' // Secondary package based on el-pagination

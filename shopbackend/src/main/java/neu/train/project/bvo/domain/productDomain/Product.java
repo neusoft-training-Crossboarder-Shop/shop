@@ -206,7 +206,7 @@ public class Product implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", proId=").append(proId);
         sb.append(", manufacturer=").append(manufacturer.toString());
-        sb.append(", brand=").append(productBrand.toString());
+        sb.append(", oldbrand=").append(productBrand.toString());
         sb.append(", title=").append(title);
         sb.append(", skuCd=").append(skuCd);
         sb.append(", upc=").append(upc);

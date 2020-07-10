@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="neu.train.project.mvo.brand.mapper.ManManufacturerMapper" >
-  <resultMap id="BaseResultMap" type="neu.train.project.mvo.brand.pojo.ManManufacturer" >
+<mapper namespace="neu.train.project.mvo.oldbrand.mapper.ManManufacturerMapper" >
+  <resultMap id="BaseResultMap" type="neu.train.project.mvo.oldbrand.pojo.ManManufacturer" >
     <constructor >
       <idArg column="man_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="sys_user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -17,7 +17,7 @@
       <arg column="sts_cd" jdbcType="CHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="neu.train.project.mvo.brand.pojo.ManManufacturer" >
+  <resultMap id="ResultMapWithBLOBs" type="neu.train.project.mvo.oldbrand.pojo.ManManufacturer" >
     <constructor >
       <idArg column="man_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="sys_user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -99,7 +99,7 @@
   <sql id="Blob_Column_List" >
     description
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="neu.train.project.mvo.brand.pojo.ManManufacturerExample" >
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="neu.train.project.mvo.oldbrand.pojo.ManManufacturerExample" >
     select
     <if test="distinct" >
       distinct
@@ -115,7 +115,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="neu.train.project.mvo.brand.pojo.ManManufacturerExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="neu.train.project.mvo.oldbrand.pojo.ManManufacturerExample" >
     select
     <if test="distinct" >
       distinct
@@ -129,13 +129,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="neu.train.project.mvo.brand.pojo.ManManufacturerExample" >
+  <delete id="deleteByExample" parameterType="neu.train.project.mvo.oldbrand.pojo.ManManufacturerExample" >
     delete from man_manufacturer
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insertSelective" parameterType="neu.train.project.mvo.brand.pojo.ManManufacturer" >
+  <insert id="insertSelective" parameterType="neu.train.project.mvo.oldbrand.pojo.ManManufacturer" >
     <selectKey resultType="java.lang.Integer" keyProperty="manId" order="BEFORE" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -219,7 +219,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="neu.train.project.mvo.brand.pojo.ManManufacturerExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="neu.train.project.mvo.oldbrand.pojo.ManManufacturerExample" resultType="java.lang.Integer" >
     select count(*) from man_manufacturer
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -309,7 +309,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="neu.train.project.mvo.brand.pojo.ManManufacturer" >
+  <update id="updateByPrimaryKeySelective" parameterType="neu.train.project.mvo.oldbrand.pojo.ManManufacturer" >
     update man_manufacturer
     <set >
       <if test="sysUserId != null" >
