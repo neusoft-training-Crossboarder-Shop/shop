@@ -356,4 +356,66 @@
     </set>
     where transaction_audit_id = #{transactionAuditId,jdbcType=INTEGER}
   </update>
+
+  <resultMap type="neu.train.project.wallet.pojo.WtaWalletTransactionAduit" id="transactionAudit">
+    <id     property="transactionAuditId"      column="transaction_audit_id"      />
+    <result property="buyerId"    column="buyer_id"    />
+    <result property="transactionId"     column="transaction_id"     />
+    <result property="availableMoneyBefore"   column="available_money_before"   />
+    <result property="depositingMoneyBefore"    column="depositing_money_before"    />
+    <result property="withdrawingMoneyBefore"      column="withdrawing_money_before"      />
+    <result property="operateMoney"    column="operate_money"    />
+    <result property="operateType"      column="operate_type"      />
+    <result property="availableMoneyAfter"    column="available_money_after"    />
+    <result property="depositingMoneyAfter"    column="depositing_money_after"    />
+    <result property="withdrawingMoneyAfter"    column="withdrawing_money_after"    />
+    <result property="operateBy"    column="operate_by"    />
+    <result property="status"    column="status"    />
+    <result property="createdBy"    column="created_By"    />
+    <result property="createTime"    column="create_time"    />
+    <result property="lastUpdateBy"    column="last_update_by"    />
+    <result property="lastUpdateTime"    column="last_update_time"    />
+  </resultMap>
+
+  <sql id="selectA">
+    select transaction_audit_id, buyer_id, transaction_id, available_money_before, depositing_money_before, withdrawing_money_before, operate_money, operate_type, available_money_after, depositing_money_after,withdrawing_money_after,operate_by,status,created_By,create_time,last_update_by,last_update_by
+    from wta_wallet_transaction_aduit
+    order by create_time desc
+  </sql>
+
+  <select id="selectByMany" parameterType="neu.train.project.wallet.vo.GetAnAuditQuery" resultMap="transactionAudit">
+    <include refid="selectA"/>
+    <where>
+      <if test="buyerId != null and buyerId != '' and buyerId!=0">
+        AND buyer_id = #{buyerId}
+      </if>
+      <if test="transactionId != null and transactionId != '' and transactionId!=0">
+        AND transaction_id = #{transactionId}
+      </if>
+      <if test="operateType != null and operateType != '' ">
+        AND transaction_type = #{transactionType}
+      </if>
+      <if test="status != null and status != '' ">
+        AND status = #{status}
+      </if>
+      <if test="beginTime != null and beginTime != ''"><!-- 开始时间检索 -->
+        and date_format(create_time,'%y%m%d') &gt;= date_format(#{beginTime},'%y%m%d')
+      </if>
+      <if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+        and date_format(create_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
+      </if>
+    </where>
+  </select>
+
+
+  <select id="selectByIds" parameterType="Integer" resultMap="transactionAudit">
+    <include refid="selectA"/>
+    <where>
+      <foreach item="transactionAuditId" collection="array" open="(" separator="," close=")">
+        #{transactionAuditId}
+      </foreach>
+    </where>
+  </select>
+
+
 </mapper>

@@ -4,13 +4,12 @@ import neu.train.common.utils.SecurityUtils;
 import neu.train.framework.redis.RedisCache;
 import neu.train.project.wallet.mapper.WaaWalletAccountMapper;
 import neu.train.project.wallet.mapper.WafWalletAccountFundMapper;
+import neu.train.project.wallet.mapper.WtaWalletTransactionAduitMapper;
 import neu.train.project.wallet.mapper.WtrWalletTransactionRecordMapper;
-import neu.train.project.wallet.pojo.WaaWalletAccount;
-import neu.train.project.wallet.pojo.WaaWalletAccountExample;
-import neu.train.project.wallet.pojo.WafWalletAccountFund;
-import neu.train.project.wallet.pojo.WtrWalletTransactionRecord;
+import neu.train.project.wallet.pojo.*;
 import neu.train.project.wallet.service.WalletService;
 import neu.train.project.wallet.vo.GetATransactionQuery;
+import neu.train.project.wallet.vo.GetAnAuditQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -28,6 +27,8 @@ public class WalletServiceImp implements WalletService {
     WafWalletAccountFundMapper wafWalletAccountFundMapper;
     @Autowired
     WtrWalletTransactionRecordMapper wtrWalletTransactionRecordMapper;
+    @Autowired
+    WtaWalletTransactionAduitMapper wtaWalletTransactionAduitMapper;
     @Autowired
     RedisCache redisCache;
     @Autowired
@@ -148,6 +149,147 @@ public class WalletServiceImp implements WalletService {
     public List<WtrWalletTransactionRecord> selectTransaction(GetATransactionQuery getATransactionQuery){
         return wtrWalletTransactionRecordMapper.selectByMany(getATransactionQuery);
     }
+
+    //多条件查询流水审批，不缓存
+    @Override
+    public List<WtaWalletTransactionAduit> selectAudit(GetAnAuditQuery getAnAuditQuery){
+        return wtaWalletTransactionAduitMapper.selectByMany(getAnAuditQuery);
+    }
+    //批量同意审核
+    @Override
+    public  boolean doAudits(String managerId,Integer[] ids){
+        List<WtaWalletTransactionAduit> wtaWalletTransactionAduits=wtaWalletTransactionAduitMapper.selectByIds(ids);
+        for(WtaWalletTransactionAduit wtaWalletTransactionAduit:wtaWalletTransactionAduits){
+            //状态 1 -申请 , 2 -完成 , -3-失败
+            if(wtaWalletTransactionAduit.getStatus()==2){
+                    doAudit(managerId,wtaWalletTransactionAduit);
+            }else if(wtaWalletTransactionAduit.getStatus()==3){
+                rejectAudit(managerId,wtaWalletTransactionAduit);
+            }else{
+                throw new RuntimeException("一定发生了什么不愉快的事");
+            }
+        }
+        return true;
+    }
+
+
+    //同意单个钱包，缓存"fundById:"+buyerId
+    @Override
+    public boolean doAudit(String managerId,WtaWalletTransactionAduit wtaWalletTransactionAduit){
+        WafWalletAccountFund wafWalletAccountFund=selectFundById(wtaWalletTransactionAduit.getBuyerId());
+       // 充值前余额，充值中金额，提现中金额
+        BigDecimal availableMoney=wafWalletAccountFund.getAvailableMoney();
+        BigDecimal depositingMoney=wafWalletAccountFund.getDepositingMoney();
+        BigDecimal withdrawingMoney=wafWalletAccountFund.getWithdrawingMoney();
+        BigDecimal operateMoney=wtaWalletTransactionAduit.getOperateMoney();
+        //设置好充值前余额，充值中金额，提现中金额
+        wtaWalletTransactionAduit.setAvailableMoneyBefore(availableMoney);
+        wtaWalletTransactionAduit.setDepositingMoneyBefore(depositingMoney);
+        wtaWalletTransactionAduit.setWithdrawingMoneyBefore(withdrawingMoney);
+        //操作类型 1-充值 2-提现 3消费 4-退款
+        if(wtaWalletTransactionAduit.getOperateType()==1){
+            //充值，余额加，充值中金额减，提现中不变
+            availableMoney=availableMoney.add(operateMoney);
+            depositingMoney=depositingMoney.subtract(operateMoney);
+        }else if(wtaWalletTransactionAduit.getOperateType()==2){
+            //提现，余额减，充值中金额不变，提现中减
+            availableMoney=availableMoney.subtract(operateMoney);
+            withdrawingMoney=withdrawingMoney.subtract(operateMoney);
+        }else if(wtaWalletTransactionAduit.getOperateType()==3){
+            //消费，余额减，充值中金额不变，提现中不变
+            availableMoney=availableMoney.subtract(operateMoney);
+        }else if(wtaWalletTransactionAduit.getOperateType()==4){
+            //退款，余额加，充值中金额不变，提现中不变
+            availableMoney=availableMoney.add(operateMoney);
+        }
+        wtaWalletTransactionAduit.setAvailableMoneyAfter(availableMoney);
+        wtaWalletTransactionAduit.setDepositingMoneyAfter(depositingMoney);
+        wtaWalletTransactionAduit.setWithdrawingMoneyAfter(withdrawingMoney);
+        //通过审核，写审核人，写空更新时间
+        wtaWalletTransactionAduit.setOperateBy(managerId);
+        wtaWalletTransactionAduit.setUpdateBy(managerId);
+        wtaWalletTransactionAduit.setUpdateTime(null);
+        //至此审计表set完毕
+        wafWalletAccountFund.setAvailableMoney(availableMoney);
+        wafWalletAccountFund.setDepositingMoney(depositingMoney);
+        wafWalletAccountFund.setWithdrawingMoney(withdrawingMoney);
+        wafWalletAccountFund.setUpdateBy(managerId);
+        wafWalletAccountFund.setUpdateTime(null);
+        //至此fund表set完毕
+        WtrWalletTransactionRecord wtrWalletTransactionRecord=wtrWalletTransactionRecordMapper.selectByPrimaryKey(wtaWalletTransactionAduit.getTransactionId());
+        wtrWalletTransactionRecord.setTransactionId(null);
+        //状态 1 -申请 , 2 -完成 , -3-失败
+        wtrWalletTransactionRecord.setStatus((byte)2);
+        wtrWalletTransactionRecord.setBalance(availableMoney);
+        wtrWalletTransactionRecord.setCreateBy(managerId);
+        wtrWalletTransactionRecord.setCreateTime(null);
+        //钱包流水set完毕
+        //修改审核
+        wtaWalletTransactionAduitMapper.updateByPrimaryKeySelective(wtaWalletTransactionAduit);
+        //修改钱包fund
+        wafWalletAccountFundMapper.updateByPrimaryKeySelective(wafWalletAccountFund);
+        redisCache.setCacheObject("fundById"+wafWalletAccountFund.getBuyerId(),wafWalletAccountFund);
+        //添加钱包流水
+        wtrWalletTransactionRecordMapper.insertSelective(wtrWalletTransactionRecord);
+        return true;
+    }
+    // 驳回单个钱包，缓存"fundById:"+buyerId
+    @Override
+    public boolean rejectAudit(String managerId,WtaWalletTransactionAduit wtaWalletTransactionAduit){
+        WafWalletAccountFund wafWalletAccountFund=selectFundById(wtaWalletTransactionAduit.getBuyerId());
+        // 充值前余额，充值中金额，提现中金额
+        BigDecimal availableMoney=wafWalletAccountFund.getAvailableMoney();
+        BigDecimal depositingMoney=wafWalletAccountFund.getDepositingMoney();
+        BigDecimal withdrawingMoney=wafWalletAccountFund.getWithdrawingMoney();
+        BigDecimal operateMoney=wtaWalletTransactionAduit.getOperateMoney();
+        //设置好充值前余额，充值中金额，提现中金额
+        wtaWalletTransactionAduit.setAvailableMoneyBefore(availableMoney);
+        wtaWalletTransactionAduit.setDepositingMoneyBefore(depositingMoney);
+        wtaWalletTransactionAduit.setWithdrawingMoneyBefore(withdrawingMoney);
+        //驳回，操作类型 1-充值 2-提现 3消费 4-退款
+        if(wtaWalletTransactionAduit.getOperateType()==1){
+            //充值，余额不变，充值中金额减，提现中不变
+            depositingMoney=depositingMoney.subtract(operateMoney);
+        }else if(wtaWalletTransactionAduit.getOperateType()==2){
+            //提现，余额不变，充值中金额不变，提现中减
+            withdrawingMoney=withdrawingMoney.subtract(operateMoney);
+        }else if(wtaWalletTransactionAduit.getOperateType()==3){
+            throw new RuntimeException("我不觉得你能驳回人家的消费");
+        }else if(wtaWalletTransactionAduit.getOperateType()==4){
+            throw new RuntimeException("我们真的有退款功能吗？");
+        }
+        wtaWalletTransactionAduit.setAvailableMoneyAfter(availableMoney);
+        wtaWalletTransactionAduit.setDepositingMoneyAfter(depositingMoney);
+        wtaWalletTransactionAduit.setWithdrawingMoneyAfter(withdrawingMoney);
+        //驳回审核，写审核人，写空更新时间
+        wtaWalletTransactionAduit.setOperateBy(managerId);
+        wtaWalletTransactionAduit.setUpdateBy(managerId);
+        wtaWalletTransactionAduit.setUpdateTime(null);
+        //至此审计表set完毕
+        wafWalletAccountFund.setAvailableMoney(availableMoney);
+        wafWalletAccountFund.setDepositingMoney(depositingMoney);
+        wafWalletAccountFund.setWithdrawingMoney(withdrawingMoney);
+        wafWalletAccountFund.setUpdateBy(managerId);
+        wafWalletAccountFund.setUpdateTime(null);
+        //至此fund表set完毕
+        WtrWalletTransactionRecord wtrWalletTransactionRecord=wtrWalletTransactionRecordMapper.selectByPrimaryKey(wtaWalletTransactionAduit.getTransactionId());
+        wtrWalletTransactionRecord.setTransactionId(null);
+        //状态 1 -申请 , 2 -完成 , -3-失败
+        wtrWalletTransactionRecord.setStatus((byte)3);
+        wtrWalletTransactionRecord.setBalance(availableMoney);
+        wtrWalletTransactionRecord.setCreateBy(managerId);
+        wtrWalletTransactionRecord.setCreateTime(null);
+        //钱包流水set完毕
+        //修改审核
+        wtaWalletTransactionAduitMapper.updateByPrimaryKeySelective(wtaWalletTransactionAduit);
+        //修改钱包fund
+        wafWalletAccountFundMapper.updateByPrimaryKeySelective(wafWalletAccountFund);
+        redisCache.setCacheObject("fundById"+wafWalletAccountFund.getBuyerId(),wafWalletAccountFund);
+        //添加钱包流水
+        wtrWalletTransactionRecordMapper.insertSelective(wtrWalletTransactionRecord);
+        return true;
+    }
+
 
 
 
