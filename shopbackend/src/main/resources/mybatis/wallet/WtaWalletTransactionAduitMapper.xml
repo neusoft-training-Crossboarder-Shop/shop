@@ -107,7 +107,7 @@
     </if>
   </delete>
   <insert id="insertSelective" parameterType="neu.train.project.wallet.pojo.WtaWalletTransactionAduit" >
-    <selectKey resultType="java.lang.Integer" keyProperty="transactionAuditId" order="BEFORE" >
+    <selectKey resultType="java.lang.Integer" keyProperty="transactionAuditId" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into wta_wallet_transaction_aduit

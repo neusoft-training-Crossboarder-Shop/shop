@@ -45,7 +45,7 @@ public interface WtaWalletTransactionAduitMapper {
         "#{createTime,jdbcType=TIMESTAMP}, #{lastUpdateBy,jdbcType=VARCHAR}, ",
         "#{lastUpdateTime,jdbcType=TIMESTAMP})"
     })
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="transactionAuditId", before=true, resultType=Integer.class)
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="transactionAuditId", before=false, resultType=Integer.class)
     int insert(WtaWalletTransactionAduit record);
 
     int insertSelective(WtaWalletTransactionAduit record);

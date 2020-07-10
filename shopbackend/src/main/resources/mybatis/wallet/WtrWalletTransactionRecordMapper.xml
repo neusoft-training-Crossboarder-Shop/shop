@@ -98,7 +98,7 @@
     </if>
   </delete>
   <insert id="insertSelective" parameterType="neu.train.project.wallet.pojo.WtrWalletTransactionRecord" >
-    <selectKey resultType="java.lang.Integer" keyProperty="transactionId" order="BEFORE" >
+    <selectKey resultType="java.lang.Integer" keyProperty="transactionId" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into wtr_wallet_transaction_record
