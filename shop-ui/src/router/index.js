@@ -117,6 +117,19 @@ export const constantRoutes = [
         meta: { title: '商店详情', icon: '' }
       }
     ]
+  },
+  {
+    path: '/bvo',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: 'order/orderDetail/:orderId(\\d+)',
+        component: (resolve) => require(['@/views/bvo/order/orderDetail'], resolve),
+        name: 'OrderDetail',
+        meta: { title: '订单详情', icon: '' }
+      }
+    ]
   }
 ]
 

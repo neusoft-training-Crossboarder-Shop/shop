@@ -236,6 +236,7 @@ export default {
     typeFormat(row, column) {
       return this.selectDictLabel(this.typeOptions, row.configType);
     },
+
     // 取消按钮
     cancel() {
       this.open = false;
