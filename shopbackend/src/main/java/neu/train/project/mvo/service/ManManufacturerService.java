@@ -12,12 +12,19 @@ import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * @Author: 高歌
+ * @Id: 20175045
+ * @Github : EvilicLufas
+ */
+
+
 @Service
 public class ManManufacturerService {
     @Resource
-    private ManManufacturerMapper brandMapper;
+    private ManManufacturerMapper manufacturerMapper;
     //    private Column[] columns = new Column[]{Column.brdId,Column.manId, Column.name, Column.desc, Column.picUrl, Column.floorPrice};
-    private Column[] columns = new Column[]{Column.manId,Column.sysUserId,Column.nameEn,Column.nameCn,Column.gmcReportType,Column.gmcReportUrl,Column.description,Column.createdBy,Column.createTime,Column.lastUpdateBy,Column.lastUpdateTime,Column.callCnt,Column.stsCd};
+    private Column[] columns = new Column[]{Column.manId,Column.sysUserId,Column.nameEn,Column.nameCn,Column.gmcReportType,Column.gmcReportUrl,Column.description,Column.createdBy,Column.createTime,Column.lastUpdateBy,Column.lastUpdateTime,Column.callCnt,Column.stsCd,Column.picUrl};
     public List<ManManufacturer> query(Integer page, Integer limit, String sort, String order) {
         ManManufacturerExample example = new ManManufacturerExample();
         example.or().andDeletedEqualTo(false);
@@ -25,7 +32,7 @@ public class ManManufacturerService {
             example.setOrderByClause(sort + " " + order);
         }
         PageHelper.startPage(page, limit);
-        return brandMapper.selectByExampleSelective(example, columns);
+        return manufacturerMapper.selectByExampleSelective(example, columns);
     }
 
     public List<ManManufacturer> query(Integer page, Integer limit) {
@@ -33,7 +40,7 @@ public class ManManufacturerService {
     }
 
     public ManManufacturer findById(Integer id) {
-        return brandMapper.selectByPrimaryKey(id);
+        return manufacturerMapper.selectByPrimaryKey(id);
     }
 
     public List<ManManufacturer> querySelective(String id, String name, Integer page, Integer size, String sort, String order) {
@@ -56,27 +63,27 @@ public class ManManufacturerService {
         }
 
         PageHelper.startPage(page, size);
-        return brandMapper.selectByExample(example);
+        return manufacturerMapper.selectByExample(example);
     }
 
     public int updateById(ManManufacturer manufacturer) {
         manufacturer.setLastUpdateTime(LocalDateTime.now());
-        return brandMapper.updateByPrimaryKeySelective(manufacturer);
+        return manufacturerMapper.updateByPrimaryKeySelective(manufacturer);
     }
 
     public void deleteById(Integer id) {
-        brandMapper.logicalDeleteByPrimaryKey(id);
+        manufacturerMapper.logicalDeleteByPrimaryKey(id);
     }
 
     public void add(ManManufacturer manufacturer) {
         manufacturer.setCreateTime(LocalDateTime.now());
         manufacturer.setLastUpdateTime(LocalDateTime.now());
-        brandMapper.insertSelective(manufacturer);
+        manufacturerMapper.insertSelective(manufacturer);
     }
 
     public List<ManManufacturer> all() {
         ManManufacturerExample example = new ManManufacturerExample();
         example.or().andDeletedEqualTo(false);
-        return brandMapper.selectByExample(example);
+        return manufacturerMapper.selectByExample(example);
     }
 }

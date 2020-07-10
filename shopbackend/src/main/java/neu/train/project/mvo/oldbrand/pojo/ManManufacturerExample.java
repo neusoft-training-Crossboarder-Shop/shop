@@ -1,4 +1,4 @@
-package neu.train.project.mvo.brand.pojo;
+package neu.train.project.mvo.oldbrand.pojo;
 
 import java.util.ArrayList;
 import java.util.Date;

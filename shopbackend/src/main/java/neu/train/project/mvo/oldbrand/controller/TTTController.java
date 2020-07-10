@@ -1,4 +1,4 @@
-package neu.train.project.mvo.brand.controller;
+package neu.train.project.mvo.oldbrand.controller;
 
 import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiOperation;
@@ -7,10 +7,10 @@ import neu.train.framework.redis.RedisCache;
 import neu.train.framework.web.controller.BaseController;
 import neu.train.framework.web.domain.AjaxResult;
 import neu.train.framework.web.page.TableDataInfo;
-import neu.train.project.mvo.brand.mapper.ManManufacturerMapper;
-import neu.train.project.mvo.brand.pojo.ManManufacturer;
-import neu.train.project.mvo.brand.pojo.ManManufacturerExample;
-import neu.train.project.mvo.brand.service.TTTService;
+import neu.train.project.mvo.oldbrand.mapper.ManManufacturerMapper;
+import neu.train.project.mvo.oldbrand.pojo.ManManufacturer;
+import neu.train.project.mvo.oldbrand.pojo.ManManufacturerExample;
+import neu.train.project.mvo.oldbrand.service.TTTService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;

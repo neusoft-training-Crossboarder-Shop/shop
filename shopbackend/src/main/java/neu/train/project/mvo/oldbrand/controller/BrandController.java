@@ -1,10 +1,9 @@
-package neu.train.project.mvo.brand.controller;
+package neu.train.project.mvo.oldbrand.controller;
 
 import com.github.pagehelper.PageHelper;
-import neu.train.framework.redis.RedisCache;
 import neu.train.framework.web.controller.BaseController;
 import neu.train.framework.web.domain.AjaxResult;
-import neu.train.project.mvo.brand.service.BrandService;
+import neu.train.project.mvo.oldbrand.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +35,7 @@ public class BrandController extends BaseController {
     }
 
 
-    /*Required request body is missing: public neu.train.framework.web.domain.AjaxResult neu.train.project.mvo.brand.controller.BrandController.getBrand(java.util.HashMap<java.lang.String, java.lang.Object>)
+    /*Required request body is missing: public neu.train.framework.web.domain.AjaxResult neu.train.project.mvo.oldbrand.controller.BrandController.getBrand(java.util.HashMap<java.lang.String, java.lang.Object>)
     * */
 
 

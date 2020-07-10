@@ -24,8 +24,15 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * @Author: 高歌
+ * @Id: 20175045
+ * @Github : EvilicLufas
+ */
+
+
 @RestController
-@RequestMapping("/brand")
+@RequestMapping("/mvo/brand")
 @Validated
 public class BrdBrandController {
     private final Log logger = LogFactory.getLog(BrdBrandController.class);
@@ -33,8 +40,8 @@ public class BrdBrandController {
     @Autowired
     private BrdBrandService brandService;
 
-//    @RequiresPermissions("admin:brand:list")
-//    @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "查询")
+//    @RequiresPermissions("mvo:brand:list")
+//    @RequiresPermissionsDesc(menu = {"Manufacturer Manager", "Brand Management"}, button = "Search")
     @GetMapping("/list")
     public Object list(String id, String name,
                        @RequestParam(defaultValue = "1") Integer page,
@@ -42,6 +49,7 @@ public class BrdBrandController {
                        @Sort @RequestParam(defaultValue = "create_time") String sort,
                        @Order @RequestParam(defaultValue = "") String order) {
         List<BrdBrand> brandList = brandService.querySelective(id, name, page, limit, sort, order);
+//        List<BrdBrand> brandList = brandService.query(page, limit);
         return ResponseUtil.okList(brandList);
     }
 
@@ -63,8 +71,8 @@ public class BrdBrandController {
         return null;
     }
 
-    @RequiresPermissions("admin:brand:create")
-    @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "添加")
+//    @RequiresPermissions("mvo:brand:create")
+//    @RequiresPermissionsDesc(menu = {"Manufacturer Manager", "Brand Management"}, button = "Add")
     @PostMapping("/create")
     public Object create(@RequestBody BrdBrand brand) {
         Object error = validate(brand);
@@ -75,16 +83,16 @@ public class BrdBrandController {
         return ResponseUtil.ok(brand);
     }
 
-    @RequiresPermissions("admin:brand:read")
-    @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "详情")
+//    @RequiresPermissions("mvo:brand:read")
+//    @RequiresPermissionsDesc(menu = {"Manufacturer Manager", "Brand Management"}, button = "Info")
     @GetMapping("/read")
     public Object read(@NotNull Integer id) {
         BrdBrand brand = brandService.findById(id);
         return ResponseUtil.ok(brand);
     }
 
-    @RequiresPermissions("admin:brand:update")
-    @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "编辑")
+//    @RequiresPermissions("mvo:brand:update")
+//    @RequiresPermissionsDesc(menu = {"Manufacturer Manager", "Brand Management"}, button = "Edit")
     @PostMapping("/update")
     public Object update(@RequestBody BrdBrand brand) {
         Object error = validate(brand);
@@ -97,8 +105,8 @@ public class BrdBrandController {
         return ResponseUtil.ok(brand);
     }
 
-    @RequiresPermissions("admin:brand:delete")
-    @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "删除")
+//    @RequiresPermissions("mvo:brand:delete")
+//    @RequiresPermissionsDesc(menu = {"Manufacturer Manager", "Brand Management"}, button = "Delete")
     @PostMapping("/delete")
     public Object delete(@RequestBody BrdBrand brand) {
         Integer id = brand.getBrdId();

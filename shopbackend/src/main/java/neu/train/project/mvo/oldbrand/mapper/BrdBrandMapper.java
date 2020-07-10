@@ -1,8 +1,8 @@
-package neu.train.project.mvo.brand.mapper;
+package neu.train.project.mvo.oldbrand.mapper;
 
 import java.util.List;
-import neu.train.project.mvo.brand.pojo.BrdBrand;
-import neu.train.project.mvo.brand.pojo.BrdBrandExample;
+import neu.train.project.mvo.oldbrand.pojo.BrdBrand;
+import neu.train.project.mvo.oldbrand.pojo.BrdBrandExample;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;

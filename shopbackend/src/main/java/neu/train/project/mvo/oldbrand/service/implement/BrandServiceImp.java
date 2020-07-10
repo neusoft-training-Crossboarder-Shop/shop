@@ -1,11 +1,10 @@
-package neu.train.project.mvo.brand.service.implement;
+package neu.train.project.mvo.oldbrand.service.implement;
 
 import neu.train.framework.redis.RedisCache;
-import neu.train.project.mvo.brand.mapper.BrdBrandMapper;
-import neu.train.project.mvo.brand.mapper.ManManufacturerMapper;
-import neu.train.project.mvo.brand.pojo.BrdBrand;
-import neu.train.project.mvo.brand.pojo.ManManufacturer;
-import neu.train.project.mvo.brand.service.BrandService;
+import neu.train.project.mvo.oldbrand.mapper.BrdBrandMapper;
+import neu.train.project.mvo.oldbrand.mapper.ManManufacturerMapper;
+import neu.train.project.mvo.oldbrand.pojo.BrdBrand;
+import neu.train.project.mvo.oldbrand.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

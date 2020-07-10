@@ -1,5 +1,6 @@
 package neu.train.project.mvo.controller;
 
+import neu.train.project.mvo.domain.BrdBrand;
 import neu.train.project.mvo.domain.ManManufacturer;
 import neu.train.project.mvo.domain.ManManufacturerExample;
 import org.apache.commons.logging.Log;
@@ -23,25 +24,33 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * @Author: 高歌
+ * @Id: 20175045
+ * @Github : EvilicLufas
+ */
+
+
 @RestController
-@RequestMapping("/company")
+@RequestMapping("/mvo/manufacturer")
 @Validated
 public class ManManufacturerController {
     private final Log logger = LogFactory.getLog(ManManufacturerController.class);
 
     @Autowired
-    private ManManufacturerService brandService;
+    private ManManufacturerService manufacturerService;
 
-    //    @RequiresPermissions("admin:manufacturer:list")
-//    @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "查询")
+//    @RequiresPermissions("mvo:manufacturer:list")
+//    @RequiresPermissionsDesc(menu = {"Manufacturer Manager", "Manufacturer Management"}, button = "Search")
     @GetMapping("/list")
     public Object list(String id, String name,
                        @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer limit,
                        @Sort @RequestParam(defaultValue = "create_time") String sort,
-                       @Order @RequestParam(defaultValue = "brd_id") String order) {
-        List<ManManufacturer> brandList = brandService.querySelective(id, name, page, limit, sort, order);
-        return ResponseUtil.okList(brandList);
+                       @Order @RequestParam(defaultValue = "") String order) {
+        List<ManManufacturer> manManufacturerList = manufacturerService.querySelective(id, name, page, limit, sort, order);
+//        List<ManManufacturer> manManufacturerList = manufacturerService.query(page, limit);
+        return ResponseUtil.okList(manManufacturerList);
     }
 
     private Object validate(ManManufacturer manufacturer) {
@@ -62,49 +71,49 @@ public class ManManufacturerController {
         return null;
     }
 
-    @RequiresPermissions("admin:manufacturer:create")
-    @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "添加")
+//    @RequiresPermissions("mvo:manufacturer:create")
+//    @RequiresPermissionsDesc(menu = {"Manufacturer Manager", "Manufacturer Management"}, button = "Add")
     @PostMapping("/create")
     public Object create(@RequestBody ManManufacturer manufacturer) {
         Object error = validate(manufacturer);
         if (error != null) {
             return error;
         }
-        brandService.add(manufacturer);
+        manufacturerService.add(manufacturer);
         return ResponseUtil.ok(manufacturer);
     }
 
-    @RequiresPermissions("admin:manufacturer:read")
-    @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "详情")
+//    @RequiresPermissions("mvo:manufacturer:read")
+//    @RequiresPermissionsDesc(menu = {"Manufacturer Manager", "Manufacturer Management"}, button = "Info")
     @GetMapping("/read")
     public Object read(@NotNull Integer id) {
-        ManManufacturer manufacturer = brandService.findById(id);
+        ManManufacturer manufacturer = manufacturerService.findById(id);
         return ResponseUtil.ok(manufacturer);
     }
 
-    @RequiresPermissions("admin:manufacturer:update")
-    @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "编辑")
+//    @RequiresPermissions("mvo:manufacturer:update")
+//    @RequiresPermissionsDesc(menu = {"Manufacturer Manager", "Manufacturer Management"}, button = "Edit")
     @PostMapping("/update")
     public Object update(@RequestBody ManManufacturer manufacturer) {
         Object error = validate(manufacturer);
         if (error != null) {
             return error;
         }
-        if (brandService.updateById(manufacturer) == 0) {
+        if (manufacturerService.updateById(manufacturer) == 0) {
             return ResponseUtil.updatedDataFailed();
         }
         return ResponseUtil.ok(manufacturer);
     }
 
-    @RequiresPermissions("admin:manufacturer:delete")
-    @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "删除")
+//    @RequiresPermissions("mvo:manufacturer:delete")
+//    @RequiresPermissionsDesc(menu = {"Manufacturer Manager", "Manufacturer Management"}, button = "Delete")
     @PostMapping("/delete")
     public Object delete(@RequestBody ManManufacturer manufacturer) {
         Integer id = manufacturer.getManId();
         if (id == null) {
             return ResponseUtil.badArgument();
         }
-        brandService.deleteById(id);
+        manufacturerService.deleteById(id);
         return ResponseUtil.ok();
     }
 

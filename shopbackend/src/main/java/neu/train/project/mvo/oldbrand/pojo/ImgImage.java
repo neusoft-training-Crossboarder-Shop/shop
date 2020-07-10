@@ -1,17 +1,15 @@
-package neu.train.project.mvo.brand.pojo;
+package neu.train.project.mvo.oldbrand.pojo;
 
 import java.util.Date;
 
-public class BrdBrand {
-    private Integer brdId;
-
-    private Integer manId;
-
-    private String nameEn;
-
-    private String nameCn;
-
+public class ImgImage {
     private Integer imgId;
+
+    private String uri;
+
+    private String typeCd;
+
+    private Integer proId;
 
     private String createdBy;
 
@@ -25,12 +23,11 @@ public class BrdBrand {
 
     private String stsCd;
 
-    public BrdBrand(Integer brdId, Integer manId, String nameEn, String nameCn, Integer imgId, String createdBy, Date createTime, String lastUpdateBy, Date lastUpdateTime, Integer callCnt, String stsCd) {
-        this.brdId = brdId;
-        this.manId = manId;
-        this.nameEn = nameEn;
-        this.nameCn = nameCn;
+    public ImgImage(Integer imgId, String uri, String typeCd, Integer proId, String createdBy, Date createTime, String lastUpdateBy, Date lastUpdateTime, Integer callCnt, String stsCd) {
         this.imgId = imgId;
+        this.uri = uri;
+        this.typeCd = typeCd;
+        this.proId = proId;
         this.createdBy = createdBy;
         this.createTime = createTime;
         this.lastUpdateBy = lastUpdateBy;
@@ -39,40 +36,8 @@ public class BrdBrand {
         this.stsCd = stsCd;
     }
 
-    public BrdBrand() {
+    public ImgImage() {
         super();
-    }
-
-    public Integer getBrdId() {
-        return brdId;
-    }
-
-    public void setBrdId(Integer brdId) {
-        this.brdId = brdId;
-    }
-
-    public Integer getManId() {
-        return manId;
-    }
-
-    public void setManId(Integer manId) {
-        this.manId = manId;
-    }
-
-    public String getNameEn() {
-        return nameEn;
-    }
-
-    public void setNameEn(String nameEn) {
-        this.nameEn = nameEn == null ? null : nameEn.trim();
-    }
-
-    public String getNameCn() {
-        return nameCn;
-    }
-
-    public void setNameCn(String nameCn) {
-        this.nameCn = nameCn == null ? null : nameCn.trim();
     }
 
     public Integer getImgId() {
@@ -81,6 +46,30 @@ public class BrdBrand {
 
     public void setImgId(Integer imgId) {
         this.imgId = imgId;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri == null ? null : uri.trim();
+    }
+
+    public String getTypeCd() {
+        return typeCd;
+    }
+
+    public void setTypeCd(String typeCd) {
+        this.typeCd = typeCd == null ? null : typeCd.trim();
+    }
+
+    public Integer getProId() {
+        return proId;
+    }
+
+    public void setProId(Integer proId) {
+        this.proId = proId;
     }
 
     public String getCreatedBy() {

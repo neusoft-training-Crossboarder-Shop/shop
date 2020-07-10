@@ -1,21 +1,17 @@
-package neu.train.project.mvo.brand.pojo;
-
-import neu.train.framework.web.domain.BaseEntity;
+package neu.train.project.mvo.oldbrand.pojo;
 
 import java.util.Date;
 
-public class ManManufacturer extends BaseEntity {
-    private Integer manId;
+public class BrdBrand {
+    private Integer brdId;
 
-    private Integer sysUserId;
+    private Integer manId;
 
     private String nameEn;
 
     private String nameCn;
 
-    private String gmcReportType;
-
-    private String gmcReportUrl;
+    private Integer imgId;
 
     private String createdBy;
 
@@ -29,26 +25,30 @@ public class ManManufacturer extends BaseEntity {
 
     private String stsCd;
 
-    private String description;
-
-    public ManManufacturer(Integer manId, Integer sysUserId, String nameEn, String nameCn, String gmcReportType, String gmcReportUrl, String createdBy, Date createTime, String lastUpdateBy, Date lastUpdateTime, Integer callCnt, String stsCd, String description) {
+    public BrdBrand(Integer brdId, Integer manId, String nameEn, String nameCn, Integer imgId, String createdBy, Date createTime, String lastUpdateBy, Date lastUpdateTime, Integer callCnt, String stsCd) {
+        this.brdId = brdId;
         this.manId = manId;
-        this.sysUserId = sysUserId;
         this.nameEn = nameEn;
         this.nameCn = nameCn;
-        this.gmcReportType = gmcReportType;
-        this.gmcReportUrl = gmcReportUrl;
+        this.imgId = imgId;
         this.createdBy = createdBy;
         this.createTime = createTime;
         this.lastUpdateBy = lastUpdateBy;
         this.lastUpdateTime = lastUpdateTime;
         this.callCnt = callCnt;
         this.stsCd = stsCd;
-        this.description = description;
     }
 
-    public ManManufacturer() {
+    public BrdBrand() {
         super();
+    }
+
+    public Integer getBrdId() {
+        return brdId;
+    }
+
+    public void setBrdId(Integer brdId) {
+        this.brdId = brdId;
     }
 
     public Integer getManId() {
@@ -57,14 +57,6 @@ public class ManManufacturer extends BaseEntity {
 
     public void setManId(Integer manId) {
         this.manId = manId;
-    }
-
-    public Integer getSysUserId() {
-        return sysUserId;
-    }
-
-    public void setSysUserId(Integer sysUserId) {
-        this.sysUserId = sysUserId;
     }
 
     public String getNameEn() {
@@ -83,20 +75,12 @@ public class ManManufacturer extends BaseEntity {
         this.nameCn = nameCn == null ? null : nameCn.trim();
     }
 
-    public String getGmcReportType() {
-        return gmcReportType;
+    public Integer getImgId() {
+        return imgId;
     }
 
-    public void setGmcReportType(String gmcReportType) {
-        this.gmcReportType = gmcReportType == null ? null : gmcReportType.trim();
-    }
-
-    public String getGmcReportUrl() {
-        return gmcReportUrl;
-    }
-
-    public void setGmcReportUrl(String gmcReportUrl) {
-        this.gmcReportUrl = gmcReportUrl == null ? null : gmcReportUrl.trim();
+    public void setImgId(Integer imgId) {
+        this.imgId = imgId;
     }
 
     public String getCreatedBy() {
@@ -145,13 +129,5 @@ public class ManManufacturer extends BaseEntity {
 
     public void setStsCd(String stsCd) {
         this.stsCd = stsCd == null ? null : stsCd.trim();
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
     }
 }

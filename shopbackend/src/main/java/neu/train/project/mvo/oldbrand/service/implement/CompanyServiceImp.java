@@ -1,9 +1,9 @@
-package neu.train.project.mvo.brand.service.implement;
+package neu.train.project.mvo.oldbrand.service.implement;
 
-import neu.train.project.mvo.brand.mapper.ManManufacturerMapper;
-import neu.train.project.mvo.brand.pojo.ManManufacturer;
-import neu.train.project.mvo.brand.pojo.ManManufacturerExample;
-import neu.train.project.mvo.brand.service.CompanyService;
+import neu.train.project.mvo.oldbrand.mapper.ManManufacturerMapper;
+import neu.train.project.mvo.oldbrand.pojo.ManManufacturer;
+import neu.train.project.mvo.oldbrand.pojo.ManManufacturerExample;
+import neu.train.project.mvo.oldbrand.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

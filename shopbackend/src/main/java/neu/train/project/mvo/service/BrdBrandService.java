@@ -12,12 +12,19 @@ import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * @Author: 高歌
+ * @Id: 20175045
+ * @Github : EvilicLufas
+ */
+
+
 @Service
 public class BrdBrandService {
     @Resource
     private BrdBrandMapper brandMapper;
 //    private Column[] columns = new Column[]{Column.brdId,Column.manId, Column.name, Column.desc, Column.picUrl, Column.floorPrice};
-    private Column[] columns = new Column[]{Column.brdId,Column.manId,Column.nameEn,Column.manId,Column.nameCn,Column.imgId,Column.createdBy,Column.createTime,Column.lastUpdateBy,Column.lastUpdateTime,Column.callCnt,Column.stsCd};
+    private Column[] columns = new Column[]{Column.brdId,Column.manId,Column.nameEn,Column.nameCn,Column.imgId,Column.createdBy,Column.createTime,Column.lastUpdateBy,Column.lastUpdateTime,Column.callCnt,Column.stsCd,Column.deleted,Column.brdDesc,Column.picUrl};
     public List<BrdBrand> query(Integer page, Integer limit, String sort, String order) {
         BrdBrandExample example = new BrdBrandExample();
         example.or().andDeletedEqualTo(false);
@@ -43,6 +50,9 @@ public class BrdBrandService {
         if (!StringUtils.isEmpty(id)) {
             criteria.andBrdIdEqualTo(Integer.valueOf(id));
         }
+        /**
+         * 判读是否包含名字
+         */
         if (!StringUtils.isEmpty(name)) {
             criteria.andNameCnLike("%" + name + "%");
         }
