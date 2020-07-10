@@ -104,7 +104,8 @@ export const constantRoutes = [
         meta: { title: '商品详情', icon: '' }
       }
     ]
-  }
+  },
+
 ]
 
 export default new Router({
@@ -112,3 +113,52 @@ export default new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
+
+
+
+export const asyncRouterMap = [
+
+  {
+    path: '/mvo',
+    component: Layout,
+    redirect: 'noredirect',
+    alwaysShow: true,
+    name: 'Manufacturer Manager',
+    meta: {
+      title: 'Manufacturer Management',
+      icon: 'chart'
+    },
+    children: [
+      // {
+      //   path: 'region',
+      //   component: () => import('@/views/mall/region'),
+      //   name: 'region',
+      //   meta: {
+      //     title: '行政区域',
+      //     noCache: true
+      //   }
+      // },
+      {
+        path: 'manufacturer',
+        component: () => import('@/views/mvo/manufacturer/manufacturer'),
+        name: 'manufacturer',
+        meta: {
+          perms: ['GET /mvo/manufacturer/list', 'POST /mvo/manufacturer/create', 'GET /mvo/manufacturer/read', 'POST /mvo/manufacturer/update', 'POST /mvo/manufacturer/delete'],
+          title: 'manufacturer',
+          noCache: true
+        }
+      },
+      {
+        path: 'brand',
+        component: () => import('@/views/mvo/manufacturer/brand'),
+        name: 'brand',
+        meta: {
+          perms: ['GET /mvo/brand/list', 'POST /mvo/brand/create', 'GET /mvo/brand/read', 'POST /mvo/brand/update', 'POST /mvo/brand/delete'],
+          title: 'brand',
+          noCache: true
+        }
+      },
+    ],
+    hidden: true
+  }
+]
