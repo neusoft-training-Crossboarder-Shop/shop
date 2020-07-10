@@ -33,5 +33,14 @@ public class test {
        walletService.insertWallet(waaWalletAccount);
     }
 
+    @Test
+    public void test2(){
+
+
+    }
+
+
+
+
 
 }

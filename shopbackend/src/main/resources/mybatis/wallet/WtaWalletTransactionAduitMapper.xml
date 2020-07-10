@@ -380,7 +380,6 @@
   <sql id="selectA">
     select transaction_audit_id, buyer_id, transaction_id, available_money_before, depositing_money_before, withdrawing_money_before, operate_money, operate_type, available_money_after, depositing_money_after,withdrawing_money_after,operate_by,status,created_By,create_time,last_update_by,last_update_by
     from wta_wallet_transaction_aduit
-    order by create_time desc
   </sql>
 
   <select id="selectByMany" parameterType="neu.train.project.wallet.vo.GetAnAuditQuery" resultMap="transactionAudit">
@@ -405,6 +404,7 @@
         and date_format(create_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
       </if>
     </where>
+    order by create_time desc
   </select>
 
 
