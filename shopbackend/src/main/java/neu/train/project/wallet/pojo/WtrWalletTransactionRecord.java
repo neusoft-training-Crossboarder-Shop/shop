@@ -10,7 +10,7 @@ public class WtrWalletTransactionRecord extends BaseEntity {
 
     private Integer buyerId;
 
-    private Integer bankCardId;
+    private String bankCardId;
 
     private Byte transactionType;
 
@@ -26,7 +26,7 @@ public class WtrWalletTransactionRecord extends BaseEntity {
 
     private Date createTime;
 
-    public WtrWalletTransactionRecord(Integer transactionId, Integer buyerId, Integer bankCardId, Byte transactionType, BigDecimal transactionMoney, Byte status, BigDecimal balance, Integer businessId, Byte financeType, Date createTime) {
+    public WtrWalletTransactionRecord(Integer transactionId, Integer buyerId, String bankCardId, Byte transactionType, BigDecimal transactionMoney, Byte status, BigDecimal balance, Integer businessId, Byte financeType, Date createTime) {
         this.transactionId = transactionId;
         this.buyerId = buyerId;
         this.bankCardId = bankCardId;
@@ -59,11 +59,11 @@ public class WtrWalletTransactionRecord extends BaseEntity {
         this.buyerId = buyerId;
     }
 
-    public Integer getBankCardId() {
+    public String getBankCardId() {
         return bankCardId;
     }
 
-    public void setBankCardId(Integer bankCardId) {
+    public void setBankCardId(String bankCardId) {
         this.bankCardId = bankCardId;
     }
 

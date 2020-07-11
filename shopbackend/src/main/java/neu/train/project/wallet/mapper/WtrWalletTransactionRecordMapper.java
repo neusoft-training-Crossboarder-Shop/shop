@@ -37,7 +37,7 @@ public interface WtrWalletTransactionRecordMapper {
         "#{balance,jdbcType=DECIMAL}, #{businessId,jdbcType=INTEGER}, ",
         "#{financeType,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP})"
     })
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="transactionId", before=true, resultType=Integer.class)
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="transactionId", before=false, resultType=Integer.class)
     int insert(WtrWalletTransactionRecord record);
 
     int insertSelective(WtrWalletTransactionRecord record);

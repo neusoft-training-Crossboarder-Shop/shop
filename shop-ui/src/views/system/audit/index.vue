@@ -138,11 +138,11 @@
 
            <el-table-column label="Transaction Id" align="center" prop="transactionId" :show-overflow-tooltip="true" />
 
-           <el-table-column label="Operate Money" align="center" prop="Operate Money"  />
+           <el-table-column label="Operate Money" align="center" prop="operateMoney"  />
 
            <el-table-column label="Operate Type" align="center" prop="operateType" :formatter="operateTypeFormatter" />
 
-           <el-table-column label="Status" align="center" prop="status" :show-overflow-tooltip="true"  :formatter="statusFormatter" />
+           <el-table-column label="Status" align="center" prop="status" :show-overflow-tooltip="true"  :formatter="transactionStatusFormatter" />
 
            <el-table-column label="Last Update Time" align="center" prop="lastUpdateTime" width="180">
              <template slot-scope="scope">
@@ -151,14 +151,27 @@
            </el-table-column>
 
            <el-table-column label="Operation" align="center" class-name="small-padding fixed-width">
+
              <template slot-scope="scope">
 <!--               v-hasPermi="['system:config:edit']"-->
-               <el-button
-                 type="success"
-                 :disabled="scope.row.status!=1"
-                 icon="el-icon-edit"
-                 @click="handle(scope.row)"
-               >审计</el-button>
+             <div v-if="scope.row.status!=1">
+                 <el-button
+                   type="success"
+                   :disabled="scope.row.status!=1"
+                   icon="el-icon-edit"
+                   @click="handleAccept(scope.row)"
+                 >同意</el-button>
+                 <el-button
+                   type="success"
+                   :disabled="scope.row.status!=1"
+                   icon="el-icon-edit"
+                   @click="handleRefuse(scope.row)"
+                 >同意</el-button>
+             </div>
+               <div v-else>
+                    <el-button :disabled="true" type="info">不可操作</el-button>
+
+               </div>
              </template>
            </el-table-column>
 
@@ -231,11 +244,12 @@
       },
       created(){
         // 1 -申请 , 2 -完成 , -3-失败
-        this.getDicts("wallet_transaction_status").then(response => {
-          let data=response.data;
-          data.forEach(item=>{
-            this.status.push(item.dictLabel);
-          })
+          this.getDicts("wallet_transaction_status").then(response => {
+            let data=response.data;
+            data.forEach(item=>{
+              this.status.push(item.dictLabel);
+            })
+           this.getList();
         })
 
         //业务类型 1-充值 2-提现 3-消费 4-退款
@@ -249,7 +263,7 @@
       methods:{
         getList() {
           this.loading = true;
-          listAuditRecord(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
+          listAuditRecord(this.queryParams).then(response => {
               this.record = response.rows;
               this.total = response.total;
               this.loading = false;
@@ -262,8 +276,7 @@
           this.getList();
         },
 
-        /** 删除按钮操作 */
-        handle(row) {
+        handleRefuse(row) {
           const auditIds = row.transactionAuditId || this.ids;
           this.$confirm('是否确认审计"' + auditIds + '"的数据项?', "警告", {
             confirmButtonText: "确定",
@@ -276,6 +289,20 @@
             this.msgSuccess("删除成功");
           }).catch(function() {});
         },
+        handleAccept(row) {
+          const auditIds = row.transactionAuditId || this.ids;
+          this.$confirm('是否确认审计"' + auditIds + '"的数据项?', "警告", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          }).then(function() {
+            return auditRecord(auditIds);
+          }).then(() => {
+            this.getList();
+            this.msgSuccess("删除成功");
+          }).catch(function() {});
+        },
+
 
         resetQuery() {
           this.dateRange = [];
@@ -295,10 +322,13 @@
 
           this.ids = selection.map(item => item.transactionAuditId)
           this.multiple = !selection.length
-
         },
-
-
+        operateTypeFormatter(row,cloumn){
+          return this.operateType[row.operateType-1]
+        },
+        transactionStatusFormatter(row,cloumn){
+          return this.status[row.status-1]
+        },
       },
     }
 </script>

@@ -5,7 +5,7 @@
     <constructor >
       <idArg column="transaction_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="buyer_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="bank_card_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bank_card_id" jdbcType="VARCHAR" javaType="java.lang.Integer" />
       <arg column="transaction_type" jdbcType="TINYINT" javaType="java.lang.Byte" />
       <arg column="transaction_money" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="status" jdbcType="TINYINT" javaType="java.lang.Byte" />
@@ -98,7 +98,7 @@
     </if>
   </delete>
   <insert id="insertSelective" parameterType="neu.train.project.wallet.pojo.WtrWalletTransactionRecord" >
-    <selectKey resultType="java.lang.Integer" keyProperty="transactionId" order="BEFORE" >
+    <selectKey resultType="java.lang.Integer" keyProperty="transactionId" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into wtr_wallet_transaction_record

@@ -38,7 +38,7 @@ export function updateWalletAccount(data) {
 }
 
 //5.返回钱包余额表信息  需要返回钱余额数据
-export function getWalletAccountFund(data) {
+export function getWalletAccountFund() {
   return request({
     url:'/wallet/fund/',
     method:'get',
@@ -57,7 +57,6 @@ export function getWalletTransaction(param) {
 }
 
 
-//6.分页返回钱包流水表数据  需要返回交易流水记录
 
 //
 //data:{
@@ -68,15 +67,15 @@ export function getWalletTransaction(param) {
 //
 export function withdrawAccount(data) {
   return request({
-    url:'/wallet/transaction/charge',
+    url:'/wallet/transaction/withdraw',
     method:'post',
     data:data
   })
 }
 
-export function depositeAccount(data) {
+export function depositAccount(data) {
   return request({
-    url:'/wallet/transaction/deposite',
+    url:'/wallet/transaction/deposit',
     method:'post',
     data:data
   })

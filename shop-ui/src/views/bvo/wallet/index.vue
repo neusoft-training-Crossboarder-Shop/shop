@@ -58,7 +58,7 @@
     <div v-else>
       <el-card class="account_fount">
         <div slot="header" class="clearfix">
-          <span>Account Fund</span>
+          <span>Account Fund</span><span style="margin-left: 10%;font-size: small;color: #d9d9d9">Last Update Time :{{parseTime(walletFund.lastUpdateTime)}}</span>
         </div>
         <div>
             <el-row :gutter="10" >
@@ -68,7 +68,7 @@
              <el-col :span="4" > <span class="price">{{currencyType}}{{walletFund.depositingMoney}}</span></el-col>
               <el-col :span="8">
                 <el-row :gutter="10" style="vertical-align: center;horiz-align: center">
-                  <el-button type="danger" @click="cardFormVisible=true">deposite</el-button><el-button type="primary" @click="refresh">refresh</el-button>
+                  <el-button type="danger" @click="cardFormVisible=true">deposit</el-button><el-button type="primary" @click="refresh">refresh</el-button>
                 </el-row>
               </el-col>
             </el-row>
@@ -80,26 +80,27 @@
           <span>Depositing</span>
         </div>
         <div>
-          <el-form ref="form" :model="depositeWithdrawForm" label-width="15%">
-              <el-form-item label="Amount">
-                 <el-input v-model="depositeWithdrawForm.operateMoney" placeholder="Amount"></el-input>
+          <el-form ref="depositForm"  :rules="depositeWithdrawFormRule" :model="depositeWithdrawForm" label-width="15%">
+              <el-form-item label="Amount" prop="operateMoney">
+                 <el-input v-model="depositeWithdrawForm.operateMoney"  placeholder="Amount"></el-input>
               </el-form-item>
-              <el-form-item label="Amount">
+              <el-form-item label="Bank Card Id" prop="bankCardId">
                 <el-input v-model="depositeWithdrawForm.bankCardId" placeholder="Bank Card Id"></el-input>
               </el-form-item>
+            <el-row :gutter="10">
+              <el-col :span="24">
+                <el-button type="primary" style="display:block;width: 80%;margin-left: 10%" @click="cardFormVisible = false">Cancel</el-button>
+              </el-col>
+            </el-row>
+
+            <el-row :gutter="10">
+              <el-col :span="24">
+                <el-button style="display: block;width: 80%;margin-left: 10%;margin-top: 2%" type="danger" @click="deposite('depositForm')">Deposite</el-button>
+              </el-col>
+            </el-row>
           </el-form>
 
-          <el-row :gutter="10">
-           <el-col :span="24">
-             <el-button type="primary" style="display:block;width: 80%;margin-left: 10%" @click="cardFormVisible = false">Cancel</el-button>
-           </el-col>
-          </el-row>
 
-          <el-row :gutter="10">
-            <el-col :span="24">
-              <el-button style="display: block;width: 80%;margin-left: 10%;margin-top: 2%" type="danger" @click="deposite">Deposite</el-button>
-            </el-col>
-          </el-row>
 
         </div>
       </el-card>
@@ -215,19 +216,19 @@
                 <el-form-item label="Balance">
                   <span>{{ props.row.balance }}</span>
                 </el-form-item>
+                <el-form-item label="BankCardId">
+                  <span>{{ props.row.bankCardId }}</span>
+                </el-form-item>
                 <el-form-item label="Business Id">
-                  <span>{{ props.row.shop }}</span>
+                  <span>{{ props.row.businessId }}</span>
                 </el-form-item>
-                <el-form-item label="Create By">
-                  <span>{{ props.row.id }}</span>
-                </el-form-item>
+
+
               </el-form>
             </template>
           </el-table-column>
 
           <el-table-column label="TransactionId" align="center" prop="transactionId" />
-
-          <el-table-column label="BankCardId" align="center" prop="bankCardId" :show-overflow-tooltip="true" />
 
           <el-table-column label="TransactionMoney" align="center" prop="transactionMoney" :show-overflow-tooltip="true" />
 
@@ -263,7 +264,15 @@
 </template>
 
 <script>
-  import {getWalletAccount,getWalletAccountFund,addWalletAccount,walletAccountLogin,updateWalletAccount,getWalletTransaction,depositeAccount} from "../../../api/bvo/wallet";
+  import {
+    getWalletAccount,
+    getWalletAccountFund,
+    addWalletAccount,
+    walletAccountLogin,
+    updateWalletAccount,
+    getWalletTransaction,
+    depositAccount
+  } from "../../../api/bvo/wallet";
   import {getDicts} from "../../../api/system/dict/data";
 
   export default {
@@ -272,7 +281,7 @@
       return {
         notRegistered: true,
         notInputPassword:true,
-        notShowTransaction:false,
+        notShowTransaction:true,
         isEdit: false,
         account: {
           buyerId: null,
@@ -306,6 +315,7 @@
           password: [
             {required: true, message: 'Password cannnot be empty ', trigger: 'blur'}
           ],
+
         },
 
 
@@ -335,6 +345,16 @@
         depositeWithdrawForm:{
             operateMoney: '',
             bankCardId:'',
+        },
+        depositeWithdrawFormRule:{
+          operateMoney: [
+            {required: true, message: 'Ammount cannot be empty ', trigger: 'blur'}
+          ],
+          bankCardId:[
+            {required: true, message: 'Bank Card cannot be empty ', trigger: 'blur'},
+            {min: 16, max: 20, message: 'invalid Bank Card Length', trigger: 'blur'}
+          ]
+
         },
 
         //业务类型 1-充值 2-提现 3-消费 4-退款
@@ -383,14 +403,7 @@
           return (this.walletFund.currency == 1)?'$':'￥'
         }
     },
-    refresh(){
-      getWalletAccountFund().then(response=>{
-        this.account=response.data.waaWalletAccount
-        this.account.currency=response.data.wafWalletAccountFund.currency
-        this.walletFund=response.data.wafWalletAccountFund
 
-      })
-    },
     created() {
       // 1 -申请 , 2 -完成 , -3-失败
       this.getDicts("wallet_transaction_status").then(response => {
@@ -453,6 +466,14 @@
         });
 
       },
+      refresh(){
+        getWalletAccountFund().then(response=>{
+          console.log(response)
+          this.account=response.data.waaWalletAccount
+          this.account.currency=response.data.wafWalletAccountFund.currency
+          this.walletFund=response.data.wafWalletAccountFund
+        })
+      },
 
       walletLogin(form){
         this.$refs[form].validate((valid) => {
@@ -497,7 +518,8 @@
       getList(){
         getWalletTransaction(this.queryParams).then(response=>{
           this.loading=false
-          console.log(response)
+          this.record=response.rows;
+          this.total=response.total;
         })
       },
       /** 重置按钮操作 */
@@ -506,24 +528,33 @@
         this.resetForm("queryForm");
         this.handleQuery();
       },
-      deposite(){
-        depositeAccount(this.depositeWithdrawForm).then(response=>{
-          this.cardFormVisible = false;
-          this.refresh()
-        })
+      deposite(form){
+        this.$refs[form].validate((valid) => {
+          if (valid) {
+            depositAccount(this.depositeWithdrawForm).then(response=>{
+              this.refresh()
+              this.getList()
+              this.cardFormVisible = false;
+            })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+
       },
       redirect(){
         this.notShowTransaction = false;
         this.getList()
       },
       transactionStatusFormatter(row,cloumn){
-          return this.walletTransactionStatus[row.status]
+          return this.walletTransactionStatus[row.status-1]
       },
       financeTypeFormatter(row,cloumn){
-        return this.walletFinanceType[row.financeType]
+        return this.walletFinanceType[row.financeType-1]
       },
       transactionTypeFormatter(row,cloumn){
-        return this.walletTransactionType[row.transactionType]
+        return this.walletTransactionType[row.transactionType-1]
       },
     }
   }

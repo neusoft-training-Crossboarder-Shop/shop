@@ -8,7 +8,7 @@ public class GetATransactionQuery {
 
     private Integer transactionId;
 
-    private Integer bankCardId;
+    private String bankCardId;
 
     private Byte transactionType;
 
@@ -20,7 +20,7 @@ public class GetATransactionQuery {
 
     private Date endTime;
 
-    public GetATransactionQuery(Integer buyerId, Integer transactionId, Integer bankCardId, Byte transactionType, Byte status, Byte financeType, Date beginTime, Date endTime) {
+    public GetATransactionQuery(Integer buyerId, Integer transactionId, String bankCardId, Byte transactionType, Byte status, Byte financeType, Date beginTime, Date endTime) {
         this.buyerId = buyerId;
         this.transactionId = transactionId;
         this.bankCardId = bankCardId;
@@ -47,11 +47,11 @@ public class GetATransactionQuery {
         this.transactionId = transactionId;
     }
 
-    public Integer getBankCardId() {
+    public String getBankCardId() {
         return bankCardId;
     }
 
-    public void setBankCardId(Integer bankCardId) {
+    public void setBankCardId(String bankCardId) {
         this.bankCardId = bankCardId;
     }
 
