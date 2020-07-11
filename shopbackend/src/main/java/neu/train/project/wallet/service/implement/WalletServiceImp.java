@@ -224,7 +224,7 @@ public class WalletServiceImp implements WalletService {
         wtaWalletTransactionAduitMapper.updateByPrimaryKeySelective(wtaWalletTransactionAduit);
         //修改钱包fund
         wafWalletAccountFundMapper.updateByPrimaryKeySelective(wafWalletAccountFund);
-        redisCache.setCacheObject("fundById:" + wafWalletAccountFund.getBuyerId(), waaWalletAccountMapper.selectByPrimaryKey(wafWalletAccountFund.getBuyerId()));
+        redisCache.setCacheObject("fundById:" + wafWalletAccountFund.getBuyerId(), wafWalletAccountFundMapper.selectByPrimaryKey(wafWalletAccountFund.getBuyerId()));
         //添加钱包流水
         wtrWalletTransactionRecordMapper.insertSelective(wtrWalletTransactionRecord);
         return true;
@@ -281,7 +281,7 @@ public class WalletServiceImp implements WalletService {
         wtaWalletTransactionAduitMapper.updateByPrimaryKeySelective(wtaWalletTransactionAduit);
         //修改钱包fund
         wafWalletAccountFundMapper.updateByPrimaryKeySelective(wafWalletAccountFund);
-        redisCache.setCacheObject("fundById:" + wafWalletAccountFund.getBuyerId(), waaWalletAccountMapper.selectByPrimaryKey(wafWalletAccountFund.getBuyerId()));
+        redisCache.setCacheObject("fundById:" + wafWalletAccountFund.getBuyerId(), wafWalletAccountFundMapper.selectByPrimaryKey(wafWalletAccountFund.getBuyerId()));
         //添加钱包流水
         wtrWalletTransactionRecordMapper.insertSelective(wtrWalletTransactionRecord);
         return true;
@@ -297,7 +297,7 @@ public class WalletServiceImp implements WalletService {
         wafWalletAccountFund.setUpdateBy(String.valueOf(buyerId));
         wafWalletAccountFund.setUpdateTime(null);
         wafWalletAccountFundMapper.updateByPrimaryKeySelective(wafWalletAccountFund);
-        redisCache.setCacheObject("fundById:" + wafWalletAccountFund.getBuyerId(), waaWalletAccountMapper.selectByPrimaryKey(buyerId));
+        redisCache.setCacheObject("fundById:" + wafWalletAccountFund.getBuyerId(), wafWalletAccountFundMapper.selectByPrimaryKey(buyerId));
         //先插入一条transaction,主键，创建时间自动生成
         WtrWalletTransactionRecord wtrWalletTransactionRecord = new WtrWalletTransactionRecord();
         wtrWalletTransactionRecord.setBuyerId(buyerId);
@@ -339,7 +339,7 @@ public class WalletServiceImp implements WalletService {
         wafWalletAccountFund.setUpdateBy(String.valueOf(buyerId));
         wafWalletAccountFund.setUpdateTime(null);
         wafWalletAccountFundMapper.updateByPrimaryKeySelective(wafWalletAccountFund);
-        redisCache.setCacheObject("fundById:" + wafWalletAccountFund.getBuyerId(), waaWalletAccountMapper.selectByPrimaryKey(buyerId));
+        redisCache.setCacheObject("fundById:" + wafWalletAccountFund.getBuyerId(), wafWalletAccountFundMapper.selectByPrimaryKey(buyerId));
         //先插入一条transaction,主键，创建时间自动生成
         WtrWalletTransactionRecord wtrWalletTransactionRecord = new WtrWalletTransactionRecord();
         wtrWalletTransactionRecord.setBuyerId(buyerId);
