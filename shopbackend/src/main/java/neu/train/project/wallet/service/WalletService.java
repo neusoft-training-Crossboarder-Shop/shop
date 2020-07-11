@@ -22,10 +22,10 @@ public interface WalletService {
     List<WtaWalletTransactionAduit> selectAudit(GetAnAuditQuery getAnAuditQuery);
     boolean doAudits(String managerId,Integer[] ids);
     boolean doAudit(String managerId,WtaWalletTransactionAduit wtaWalletTransactionAduit);
+    boolean rejectAudits(String managerId, Integer[] ids);
     boolean rejectAudit(String managerId,WtaWalletTransactionAduit wtaWalletTransactionAduit);
     boolean tryDeposit(int buyerId,MakeATransaction makeATransaction);
     boolean tryWithdraw(int buyerId,MakeATransaction makeATransaction);
-
 
     void  test(GetAnAuditQuery getAnAuditQuery);
 }
