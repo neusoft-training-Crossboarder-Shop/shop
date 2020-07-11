@@ -2,6 +2,7 @@ package neu.train.project.mvo.mapper;
 
 import neu.train.project.mvo.domain.BrdBrand;
 import neu.train.project.mvo.domain.BrdBrandExample;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -18,6 +18,7 @@ import java.util.TimeZone;
 @EnableAspectJAutoProxy(exposeProxy = true)
 // 指定要扫描的Mapper类的包的路径
 @MapperScan("neu.train.project.**.mapper")
+
 public class ApplicationConfig
 {
     /**

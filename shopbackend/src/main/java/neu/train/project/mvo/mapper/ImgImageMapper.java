@@ -2,9 +2,11 @@ package neu.train.project.mvo.mapper;
 
 import neu.train.project.mvo.domain.ImgImage;
 import neu.train.project.mvo.domain.ImgImageExample;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+
 
 public interface ImgImageMapper {
     /**
