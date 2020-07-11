@@ -133,13 +133,14 @@
               page: 1,
               limit: 20,
               brdId: 'brd_id',
-              nameCn: 'name_en',
+              name: '',
               sort: 'create_time',
               order: 'Desc' //order by create_time desc  mysql 语句
             },
             dataForm: {
               brdId: '',
               manId: '',
+              name: '',
               nameEn: '',
               nameCn: '',
               imgId: '',
