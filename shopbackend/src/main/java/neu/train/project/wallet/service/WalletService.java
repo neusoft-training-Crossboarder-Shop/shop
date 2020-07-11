@@ -25,4 +25,7 @@ public interface WalletService {
     boolean rejectAudit(String managerId,WtaWalletTransactionAduit wtaWalletTransactionAduit);
     boolean tryDeposit(int buyerId,MakeATransaction makeATransaction);
     boolean tryWithdraw(int buyerId,MakeATransaction makeATransaction);
+
+
+    void  test(GetAnAuditQuery getAnAuditQuery);
 }
