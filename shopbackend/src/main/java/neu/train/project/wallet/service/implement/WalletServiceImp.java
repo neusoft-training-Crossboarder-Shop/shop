@@ -175,6 +175,9 @@ public class WalletServiceImp implements WalletService {
     //同意单个钱包，缓存"fundById:"+buyerId
     @Override
     public boolean doAudit(String managerId, WtaWalletTransactionAduit wtaWalletTransactionAduit) {
+        if(wtaWalletTransactionAduit.getStatus()!=1){
+            throw new RuntimeException("You've already done this!");
+        }
         WafWalletAccountFund wafWalletAccountFund = selectFundById(wtaWalletTransactionAduit.getBuyerId());
         // 充值前余额，充值中金额，提现中金额
         BigDecimal availableMoney = wafWalletAccountFund.getAvailableMoney();
@@ -207,12 +210,12 @@ public class WalletServiceImp implements WalletService {
         //通过审核，写审核人
         wtaWalletTransactionAduit.setStatus((byte)2);
         wtaWalletTransactionAduit.setOperateBy(managerId);
-        wtaWalletTransactionAduit.setUpdateBy(managerId);
+        wtaWalletTransactionAduit.setLastUpdateBy(managerId);
         //至此审计表set完毕
         wafWalletAccountFund.setAvailableMoney(availableMoney);
         wafWalletAccountFund.setDepositingMoney(depositingMoney);
         wafWalletAccountFund.setWithdrawingMoney(withdrawingMoney);
-        wafWalletAccountFund.setUpdateBy(managerId);
+        wafWalletAccountFund.setLastUpdateBy(managerId);
         wafWalletAccountFund.setUpdateTime(null);
         //至此fund表set完毕
         WtrWalletTransactionRecord wtrWalletTransactionRecord = wtrWalletTransactionRecordMapper.selectByPrimaryKey(wtaWalletTransactionAduit.getTransactionId());
@@ -371,9 +374,5 @@ public class WalletServiceImp implements WalletService {
         return true;
     }
 
-    public void test(GetAnAuditQuery getAnAuditQuery){
-
-    System.out.println(selectAudit(getAnAuditQuery));
-    }
 
 }

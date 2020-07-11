@@ -408,13 +408,12 @@
   </select>
 
 
-  <select id="selectByIds" parameterType="Integer" resultMap="transactionAudit">
-    <include refid="selectA"/>
-    <where>
-      <foreach item="transactionAuditId" collection="array" open="(" separator="," close=")">
+  <select id="selectByIds" resultMap="transactionAudit">
+    select * from wta_wallet_transaction_aduit
+    where transaction_audit_id in
+    <foreach item="transactionAuditId" collection="array" open="(" separator="," close=")">
         #{transactionAuditId}
       </foreach>
-    </where>
   </select>
 
 

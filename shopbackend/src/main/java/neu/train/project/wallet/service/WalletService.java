@@ -27,5 +27,4 @@ public interface WalletService {
     boolean tryDeposit(int buyerId,MakeATransaction makeATransaction);
     boolean tryWithdraw(int buyerId,MakeATransaction makeATransaction);
 
-    void  test(GetAnAuditQuery getAnAuditQuery);
 }
