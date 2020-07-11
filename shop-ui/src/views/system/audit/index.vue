@@ -77,13 +77,21 @@
               <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">Search</el-button>
               <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">Reset</el-button>
 <!--              v-hasPermi="['system:config:edit']"-->
-              <el-button style="display: inline-block;width: 40%;float: right"
+              <el-button style="display: inline-block;width: 20%;float: right"
                   type="success"
                   icon="el-icon-edit"
                   size="big"
                   :disabled="multiple"
-                  @click="handle"
-                >多项审计</el-button>
+                  @click="handleAccept"
+                >多项同意</el-button>
+
+              <el-button style="display: inline-block;width: 20%;float: right"
+                         type="success"
+                         icon="el-icon-edit"
+                         size="big"
+                         :disabled="multiple"
+                         @click="handleRefuse"
+              >多项拒绝</el-button>
             </el-form-item>
 
           </el-col>
@@ -150,27 +158,30 @@
              </template>
            </el-table-column>
 
-           <el-table-column label="Operation" align="center" class-name="small-padding fixed-width">
+           <el-table-column label="Operation" align="center" width="200" class-name="small-padding fixed-width" >
 
              <template slot-scope="scope">
 <!--               v-hasPermi="['system:config:edit']"-->
-             <div v-if="scope.row.status!=1">
-                 <el-button
-                   type="success"
-                   :disabled="scope.row.status!=1"
-                   icon="el-icon-edit"
-                   @click="handleAccept(scope.row)"
-                 >同意</el-button>
-                 <el-button
-                   type="success"
-                   :disabled="scope.row.status!=1"
-                   icon="el-icon-edit"
-                   @click="handleRefuse(scope.row)"
-                 >同意</el-button>
+             <div v-if="scope.row.status == 1">
+               <el-row :gutter="10" class="mb8">
+                 <el-col :span="1.5">
+                   <el-button
+                     type="success"
+                     :disabled="scope.row.status!=1"
+                     @click="handleAccept(scope.row)"
+                   >同意</el-button>
+                 </el-col>
+                   <el-col :span="1.5">
+                     <el-button
+                       type="success"
+                       :disabled="scope.row.status!=1"
+                       @click="handleRefuse(scope.row)"
+                     >拒绝</el-button>
+                   </el-col>
+               </el-row>
              </div>
                <div v-else>
                     <el-button :disabled="true" type="info">不可操作</el-button>
-
                </div>
              </template>
            </el-table-column>
@@ -193,7 +204,7 @@
 
 <script>
   import {getDicts} from "../../../api/system/dict/data";
-  import {auditRecord, listAuditRecord} from "../../../api/system/audit";
+  import {acceptAuditRecord,refuseAuditRecord,listAuditRecord} from "../../../api/system/audit";
 
   export default {
         name: "index.vue",
@@ -263,7 +274,7 @@
       methods:{
         getList() {
           this.loading = true;
-          listAuditRecord(this.queryParams).then(response => {
+          listAuditRecord(this.addDateRange(this.queryParams,this.dateRange)).then(response => {
               this.record = response.rows;
               this.total = response.total;
               this.loading = false;
@@ -283,7 +294,10 @@
             cancelButtonText: "取消",
             type: "warning"
           }).then(function() {
-            return auditRecord(auditIds);
+            refuseAuditRecord(auditIds).then(response=>{
+              console.log(response)
+            });
+
           }).then(() => {
             this.getList();
             this.msgSuccess("删除成功");
@@ -296,7 +310,9 @@
             cancelButtonText: "取消",
             type: "warning"
           }).then(function() {
-            return auditRecord(auditIds);
+            acceptAuditRecord(auditIds).then(response=>{
+              console.log(response)
+            });
           }).then(() => {
             this.getList();
             this.msgSuccess("删除成功");
