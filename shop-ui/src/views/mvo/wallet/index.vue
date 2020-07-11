@@ -10,24 +10,24 @@
 
         <div>
           <el-form  ref="form" :rules="rules" :model="account" label-width="30%">
-              <el-form-item label="Account Name" prop="accountName">
-                <el-input v-model="account.accountName" @focus="changeEdit"  placeholder="Please Enter Account Name" ></el-input>
-              </el-form-item>
-              <el-form-item label="Account Type" prop="currency" :disabled="!notRegistered">
-                <el-radio-group v-model="account.currency">
-                  <el-radio :label="2"  >$ USD</el-radio>
-                  <el-radio :label="1" >￥ RMB</el-radio>
-                </el-radio-group>
-              </el-form-item>
+            <el-form-item label="Account Name" prop="accountName">
+              <el-input v-model="account.accountName" @focus="changeEdit"  placeholder="Please Enter Account Name" ></el-input>
+            </el-form-item>
+            <el-form-item label="Account Type" prop="currency" :disabled="!notRegistered">
+              <el-radio-group v-model="account.currency">
+                <el-radio :label="2"  >$ USD</el-radio>
+                <el-radio :label="1" >￥ RMB</el-radio>
+              </el-radio-group>
+            </el-form-item>
 
-              <el-form-item label="Email"  prop="email">
-                <el-input v-model="account.email" @focus="changeEdit"  placeholder="Please Enter Account Name" ></el-input>
-              </el-form-item>
+            <el-form-item label="Email"  prop="email">
+              <el-input v-model="account.email" @focus="changeEdit"  placeholder="Please Enter Account Name" ></el-input>
+            </el-form-item>
 
-              <el-form-item label="Password" prop="password">
-                <el-input placeholder="Enter Password" v-model="account.password" show-password></el-input>
-              </el-form-item>
-            </el-form>
+            <el-form-item label="Password" prop="password">
+              <el-input placeholder="Enter Password" v-model="account.password" show-password></el-input>
+            </el-form-item>
+          </el-form>
           <template v-if="notRegistered">
             <el-button  class="button-style" type="primary"   @click="register('form')">注册</el-button>
           </template>
@@ -38,22 +38,22 @@
         </div>
       </el-card>
 
-    <el-card v-else class="box-card-password">
-      <div slot="header" class="clearfix">
-        <span>Input Password </span>
-      </div>
-      <div>
-        <el-form ref="login" :rules="loginRule"  :model="loginAccount" label-width="80px">
-          <el-form-item prop="accountName" label="Account Name" label-width="20%">
-            <el-input v-model="loginAccount.accountName" placeholder="Account Name" show-password></el-input>
-          </el-form-item>
-          <el-form-item prop="password" label="Input Password " label-width="20%">
-            <el-input v-model="loginAccount.password" placeholder="Password" show-password></el-input>
-          </el-form-item>
-        </el-form>
-        <el-button  class="button-style" type="primary" @click="walletLogin('login')">LogIn</el-button>
-      </div>
-    </el-card>
+      <el-card v-else class="box-card-password">
+        <div slot="header" class="clearfix">
+          <span>Input Password </span>
+        </div>
+        <div>
+          <el-form ref="login" :rules="loginRule"  :model="loginAccount" label-width="80px">
+            <el-form-item prop="accountName" label="Account Name" label-width="20%">
+              <el-input v-model="loginAccount.accountName" placeholder="Account Name" show-password></el-input>
+            </el-form-item>
+            <el-form-item prop="password" label="Input Password " label-width="20%">
+              <el-input v-model="loginAccount.password" placeholder="Password" show-password></el-input>
+            </el-form-item>
+          </el-form>
+          <el-button  class="button-style" type="primary" @click="walletLogin('login')">LogIn</el-button>
+        </div>
+      </el-card>
     </div>
     <div v-else>
       <el-card class="account_fount">
@@ -61,17 +61,17 @@
           <span>Account Fund</span>
         </div>
         <div>
-            <el-row :gutter="10" >
-             <el-col :span="4" style=" font: italic 1em Georgia, serif; vertical-align: center">Avaliable Money</el-col>
-              <el-col :span="4" > <span class="price">{{currencyType}}{{walletFund.availableMoney}}</span></el-col>
-             <el-col :span="4" style="text-align: center; font: italic 1em Georgia, serif; vertical-align: center">Depositing Money</el-col>
-             <el-col :span="4" > <span class="price">{{currencyType}}{{walletFund.depositingMoney}}</span></el-col>
-              <el-col :span="8">
-                <el-row :gutter="10" style="vertical-align: center;horiz-align: center">
-                  <el-button type="danger" @click="cardFormVisible=true">deposite</el-button><el-button type="primary" @click="refresh">refresh</el-button>
-                </el-row>
-              </el-col>
-            </el-row>
+          <el-row :gutter="10" >
+            <el-col :span="4" style=" font: italic 1em Georgia, serif; vertical-align: center">Avaliable Money</el-col>
+            <el-col :span="4" > <span class="price">{{currencyType}}{{walletFund.availableMoney}}</span></el-col>
+            <el-col :span="4" style="text-align: center; font: italic 1em Georgia, serif; vertical-align: center">Withdrawing Money</el-col>
+            <el-col :span="4" > <span class="price">{{currencyType}}{{walletFund.withdrawingMoney}}</span></el-col>
+            <el-col :span="8">
+              <el-row :gutter="10" style="vertical-align: center;horiz-align: center">
+                <el-button type="danger" @click="cardFormVisible=true">deposite</el-button><el-button type="primary" @click="refresh">refresh</el-button>
+              </el-row>
+            </el-col>
+          </el-row>
         </div>
       </el-card>
 
@@ -81,18 +81,18 @@
         </div>
         <div>
           <el-form ref="form" :model="depositeWithdrawForm" label-width="15%">
-              <el-form-item label="Amount">
-                 <el-input v-model="depositeWithdrawForm.operateMoney" placeholder="Amount"></el-input>
-              </el-form-item>
-              <el-form-item label="Amount">
-                <el-input v-model="depositeWithdrawForm.bankCardId" placeholder="Bank Card Id"></el-input>
-              </el-form-item>
+            <el-form-item label="Amount">
+              <el-input v-model="depositeWithdrawForm.operateMoney" placeholder="Amount"></el-input>
+            </el-form-item>
+            <el-form-item label="Amount">
+              <el-input v-model="depositeWithdrawForm.bankCardId" placeholder="Bank Card Id"></el-input>
+            </el-form-item>
           </el-form>
 
           <el-row :gutter="10">
-           <el-col :span="24">
-             <el-button type="primary" style="display:block;width: 80%;margin-left: 10%" @click="cardFormVisible = false">Cancel</el-button>
-           </el-col>
+            <el-col :span="24">
+              <el-button type="primary" style="display:block;width: 80%;margin-left: 10%" @click="cardFormVisible = false">Cancel</el-button>
+            </el-col>
           </el-row>
 
           <el-row :gutter="10">
@@ -106,42 +106,42 @@
 
 
 
-    <div class="Query-From">
+      <div class="Query-From">
 
-      <el-collapse>
-        <el-collapse-item title="Filter Condition" style="margin-left: 3%;margin-right:3%">
-        <el-form :model="queryParams" ref="queryForm"  label-width="30%">
-          <el-row :gutter="10">
-           <el-col :span="10">
-                <el-form-item label-width="28%" label="Transaction ID" >
-                  <el-input
-                    v-model="queryParams.transactionId"
-                    placeholder="Please Enter Transaction Id"
-                    clearable
-                    size="small"
-                    style="display: inline-block;width: 90%"
-                    @keyup.enter.native="handleQuery"
-                  />
-                </el-form-item>
-           </el-col>
-            <el-col :span="10">
-              <el-form-item label="Bank Card ID" label-width="30%">
-                <el-input
+        <el-collapse>
+          <el-collapse-item title="Filter Condition" style="margin-left: 3%;margin-right:3%">
+            <el-form :model="queryParams" ref="queryForm"  label-width="30%">
+              <el-row :gutter="10">
+                <el-col :span="10">
+                  <el-form-item label-width="28%" label="Transaction ID" >
+                    <el-input
+                      v-model="queryParams.transactionId"
+                      placeholder="Please Enter Transaction Id"
+                      clearable
+                      size="small"
+                      style="display: inline-block;width: 90%"
+                      @keyup.enter.native="handleQuery"
+                    />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="10">
+                  <el-form-item label="Bank Card ID" label-width="30%">
+                    <el-input
 
-                  v-model="queryParams.bankCardId"
-                  placeholder="Please Enter Bank Card Id "
-                  clearable
-                  size="small"
-                  style="display: inline-block;width: 90%"
-                  @keyup.enter.native="handleQuery"
-                />
-              </el-form-item>
-            </el-col>
-        </el-row>
+                      v-model="queryParams.bankCardId"
+                      placeholder="Please Enter Bank Card Id "
+                      clearable
+                      size="small"
+                      style="display: inline-block;width: 90%"
+                      @keyup.enter.native="handleQuery"
+                    />
+                  </el-form-item>
+                </el-col>
+              </el-row>
 
-          <el-row :gutter="10">
-           <el-col :span="7">
-                <el-form-item label-width="40%" label="Transaction Type">
+              <el-row :gutter="10">
+                <el-col :span="7">
+                  <el-form-item label-width="40%" label="Transaction Type">
                     <el-select v-model="queryParams.transactionType" clearable placeholder="请选择">
                       <el-option
                         v-for="(item,index) in this.walletTransactionType"
@@ -150,10 +150,10 @@
                         :value="(index+1)">
                       </el-option>
                     </el-select>
-                </el-form-item>
-           </el-col>
-              <el-col :span="8">
-                <el-form-item label-width="50%" label="Transaction  Status">
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label-width="50%" label="Transaction  Status">
                     <el-select v-model="queryParams.walletTransactionStatus" clearable placeholder="请选择">
                       <el-option
                         v-for="(item,index) in this.walletTransactionStatus"
@@ -162,49 +162,49 @@
                         :value="(index+1)">
                       </el-option>
                     </el-select>
-                </el-form-item>
-              </el-col>
-            <el-col :span="7">
-              <el-form-item label-width="40%" label="Finance Type">
-                  <el-select v-model="queryParams.financeType" clearable placeholder="请选择">
-                    <el-option
-                      v-for="(item,index) in this.walletFinanceType"
-                      :key="index"
-                      :label="item"
-                      :value="(index+1)">
-                    </el-option>
-                  </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="7">
+                  <el-form-item label-width="40%" label="Finance Type">
+                    <el-select v-model="queryParams.financeType" clearable placeholder="请选择">
+                      <el-option
+                        v-for="(item,index) in this.walletFinanceType"
+                        :key="index"
+                        :label="item"
+                        :value="(index+1)">
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
 
-          <el-row :gutter="10">
-            <el-col :span="8">
-            <el-form-item label="Time Area" label-width="33%">
-              <el-date-picker
-                v-model="dateRange"
-                size="small"
-                style="width: 240px"
-                value-format="yyyy-MM-dd"
-                type="daterange"
-                range-separator="-"
-                start-placeholder="Begin Time"
-                end-placeholder="End Time"
-              ></el-date-picker>
-            </el-form-item>
-            </el-col>
-            <el-col :span="14">
-              <el-form-item>
-                <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">Search</el-button>
-                <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">Reset</el-button>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-        </el-collapse-item>
-      </el-collapse>
-    </div>
-    <el-divider><i class="el-icon-s-marketing"></i></el-divider>
+              <el-row :gutter="10">
+                <el-col :span="8">
+                  <el-form-item label="Time Area" label-width="33%">
+                    <el-date-picker
+                      v-model="dateRange"
+                      size="small"
+                      style="width: 240px"
+                      value-format="yyyy-MM-dd"
+                      type="daterange"
+                      range-separator="-"
+                      start-placeholder="Begin Time"
+                      end-placeholder="End Time"
+                    ></el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="14">
+                  <el-form-item>
+                    <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">Search</el-button>
+                    <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">Reset</el-button>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-form>
+          </el-collapse-item>
+        </el-collapse>
+      </div>
+      <el-divider><i class="el-icon-s-marketing"></i></el-divider>
       <div class="transaction">
 
         <el-table  :data="record" v-loading="loading">
@@ -333,8 +333,8 @@
         },
         cardFormVisible:false,
         depositeWithdrawForm:{
-            operateMoney: '',
-            bankCardId:'',
+          operateMoney: '',
+          bankCardId:'',
         },
 
         //业务类型 1-充值 2-提现 3-消费 4-退款
@@ -349,39 +349,39 @@
         total:0,
 
         record:[
-            {
-              transactionId:'',
-              bankCardId:'',
-              transactionMoney:'',
-              //
-              transactionType:1,
+          {
+            transactionId:'',
+            bankCardId:'',
+            transactionMoney:'',
+            //
+            transactionType:1,
 
-              //
-              financeType: 1,
+            //
+            financeType: 1,
 
-              //
-              status:1,
+            //
+            status:1,
 
-              createTime:'',
+            createTime:'',
 
-              //隐藏余额
-              balance:'',
-              businessId:'',
-              // createBy:'',
-            }
-          ]
+            //隐藏余额
+            balance:'',
+            businessId:'',
+            // createBy:'',
+          }
+        ]
       }
     },
     computed:{
       /**
        * @return {boolean}
        */
-        showFrom(){
-          return this.notRegistered || (!this.notInputPassword && !this.notRegistered)
-        },
-        currencyType(){
-          return (this.walletFund.currency == 1)?'$':'￥'
-        }
+      showFrom(){
+        return this.notRegistered || (!this.notInputPassword && !this.notRegistered)
+      },
+      currencyType(){
+        return (this.walletFund.currency == 1)?'$':'￥'
+      }
     },
     refresh(){
       getWalletAccountFund().then(response=>{
@@ -421,35 +421,35 @@
         this.isEdit = true;
       },
       getAccount(){
-          getWalletAccount().then((response)=>{
+        getWalletAccount().then((response)=>{
 
-            if (eval(response.data)){
-              this.notRegistered =  false;
-            } else{
-              this.notRegistered = true;
-            }
-          })
-          // if (response.data.waaWalletAccount === null){
-          //   this.notRegistered = true;
-          // }else{
-          //   console.log("有账号了")
-          // }
-            // this.buyer=response.data
-            // this.notRegistered = false;
+          if (eval(response.data)){
+            this.notRegistered =  false;
+          } else{
+            this.notRegistered = true;
+          }
+        })
+        // if (response.data.waaWalletAccount === null){
+        //   this.notRegistered = true;
+        // }else{
+        //   console.log("有账号了")
+        // }
+        // this.buyer=response.data
+        // this.notRegistered = false;
         // })
       },
       register(form){
-           this.$refs[form].validate((valid) => {
-             if (valid) {
-               console.log(this.account)
-               addWalletAccount(this.account).then(response=>{
-                 //注册成功
-                 this.notRegistered = false;
-               })
-             } else {
-               console.log('error submit!!');
-               return false;
-             }
+        this.$refs[form].validate((valid) => {
+          if (valid) {
+            console.log(this.account)
+            addWalletAccount(this.account).then(response=>{
+              //注册成功
+              this.notRegistered = false;
+            })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
         });
 
       },
@@ -458,24 +458,24 @@
         this.$refs[form].validate((valid) => {
           if (valid) {
             // login(this.account).then(response=>{
-              //注册成功
+            //注册成功
 
-                  walletAccountLogin(this.loginAccount).then(response=>{
-                    console.log(response)
-                  if (eval(response.data)){
-                    this.notInputPassword = false;
-                    getWalletAccountFund().then(response=>{
-                      this.account=response.data.waaWalletAccount
-                      this.account.currency=response.data.wafWalletAccountFund.currency
-                      this.walletFund = response.data.wafWalletAccountFund
-                    })
-                  }else{
-                    this.$notify({
-                      type:"error",
-                      message:"Wrong Password"
-                    })
-                  }
-              })
+            walletAccountLogin(this.loginAccount).then(response=>{
+              console.log(response)
+              if (eval(response.data)){
+                this.notInputPassword = false;
+                getWalletAccountFund().then(response=>{
+                  this.account=response.data.waaWalletAccount
+                  this.account.currency=response.data.wafWalletAccountFund.currency
+                  this.walletFund = response.data.wafWalletAccountFund
+                })
+              }else{
+                this.$notify({
+                  type:"error",
+                  message:"Wrong Password"
+                })
+              }
+            })
             // })
           } else {
             return false;
@@ -517,7 +517,7 @@
         this.getList()
       },
       transactionStatusFormatter(row,cloumn){
-          return this.walletTransactionStatus[row.status]
+        return this.walletTransactionStatus[row.status]
       },
       financeTypeFormatter(row,cloumn){
         return this.walletFinanceType[row.financeType]
@@ -562,35 +562,35 @@
     color: #99a9bf;
     font-weight: lighter;
   }
-.price{
-  font-weight: bold;
-  color: #ed5565;
-  letter-spacing: 5px;
-  font-size: x-large;
-  text-decoration: none;
-}
+  .price{
+    font-weight: bold;
+    color: #ed5565;
+    letter-spacing: 5px;
+    font-size: x-large;
+    text-decoration: none;
+  }
 
-.Query-From{
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-  margin-left: 1%;
-  margin-right: 1%;
-}
-.table-expand {
+  .Query-From{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+  .table-expand {
     font-size: 0;
   }
-.table-expand label {
+  .table-expand label {
     width: 90px;
     color: #99a9bf;
   }
-.table-expand .el-form-item {
+  .table-expand .el-form-item {
     margin-right: 0;
     margin-bottom: 0;
     width: 50%;
   }
-.transaction{
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-  margin: 2%;
-}
+  .transaction{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+    margin: 2%;
+  }
 
 
 </style>

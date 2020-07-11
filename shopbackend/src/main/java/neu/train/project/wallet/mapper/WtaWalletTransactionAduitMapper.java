@@ -3,6 +3,7 @@ package neu.train.project.wallet.mapper;
 import java.util.List;
 import neu.train.project.wallet.pojo.WtaWalletTransactionAduit;
 import neu.train.project.wallet.pojo.WtaWalletTransactionAduitExample;
+import neu.train.project.wallet.vo.GetAnAuditQuery;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -10,7 +11,9 @@ import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface WtaWalletTransactionAduitMapper {
     int countByExample(WtaWalletTransactionAduitExample example);
 
@@ -88,4 +91,8 @@ public interface WtaWalletTransactionAduitMapper {
         "where transaction_audit_id = #{transactionAuditId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(WtaWalletTransactionAduit record);
+
+    List<WtaWalletTransactionAduit> selectByMany(GetAnAuditQuery getAnAuditQuery);
+
+    List<WtaWalletTransactionAduit> selectByIds(Integer[] ids);
 }

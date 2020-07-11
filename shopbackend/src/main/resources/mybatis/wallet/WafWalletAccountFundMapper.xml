@@ -97,7 +97,7 @@
     </if>
   </delete>
   <insert id="insertSelective" parameterType="neu.train.project.wallet.pojo.WafWalletAccountFund" >
-    <selectKey resultType="java.lang.Integer" keyProperty="buyerId" order="BEFORE" >
+    <selectKey resultType="java.lang.Integer" keyProperty="buyerId" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into waf_wallet_account_fund

@@ -9,6 +9,7 @@ import neu.train.framework.web.page.TableDataInfo;
 import neu.train.project.validate.SelectGroup;
 import neu.train.project.validate.UpdateGroup;
 import neu.train.project.wallet.pojo.WaaWalletAccount;
+import neu.train.project.wallet.pojo.WtaWalletTransactionAduit;
 import neu.train.project.wallet.pojo.WtrWalletTransactionRecord;
 import neu.train.project.wallet.service.WalletService;
 import neu.train.project.wallet.vo.*;
@@ -113,36 +114,51 @@ public TableDataInfo selectTransaction(GetATransactionQuery getATransactionQuery
 
 @ApiOperation(value="返回流水审计表数据，给管理员用的",httpMethod = "GET",notes ="可选参数：用户Id buyerId，流水Id transactionId，操作类型operationType1申请2提现3消费4退款,起时间beginTime,止时间endTime")
 @GetMapping("system/audit/list")
-public TableDataInfo selectAudit(){
-return null;
+public TableDataInfo selectAudit(GetAnAuditQuery getAnAuditQuery){
+    startPage();
+    List<WtaWalletTransactionAduit> wtaWalletTransactionAduits=walletService.selectAudit(getAnAuditQuery);
+    return getDataTable(wtaWalletTransactionAduits);
 }
 
 @ApiOperation(value="审计通过,给管理员用的",httpMethod = "PUT",notes = "必选参数：一个列表，每一项包含：流水审计Id transactionAuditId")
+@Transactional
 @PutMapping("system/audit/accept/{ids}")
-public AjaxResult acceptAudit(@PathVariable List<Integer> ids){
-return null;
+public AjaxResult acceptAudit(@PathVariable Integer[] ids){
+        walletService.doAudits(String.valueOf(SecurityUtils.getLoginUser().getUser().getUserId()),ids);
+        return AjaxResult.success();
 }
 
+
 @ApiOperation(value="审计拒绝,给管理员用的",httpMethod = "PUT",notes = "必选参数：一个列表，每一项包含：流水审计Id transactionAuditId")
+@Transactional
 @PutMapping("system/audit/refuse/{ids}")
-public AjaxResult refuseAudit(@PathVariable List<Integer> ids){
+public AjaxResult refuseAudit(@PathVariable Integer[] ids){
+    walletService.doAudits(String.valueOf(SecurityUtils.getLoginUser().getUser().getUserId()),ids);
+    return AjaxResult.success();
+}
+
+
+
+@ApiOperation(value="充值")
+public AjaxResult emmm(){
+    return null;
+}
+
+
+@ApiOperation(value="提现")
+@RequestMapping("/idontknow")
+public AjaxResult emmmm(){
     return null;
 }
 
 
 
-@ApiOperation(value="充值转账申请要不要做？")
-@RequestMapping("/idontknow")
-public AjaxResult emmm(){
-return null;
+
+@ApiOperation(value = "xxx")
+@GetMapping("test")
+public AjaxResult test() {
+    System.out.println("####################################");
+    System.out.println(walletService.test(2));
+    return AjaxResult.success();
 }
-
-
-    @ApiOperation(value = "xxx")
-    @GetMapping("test")
-    public AjaxResult test() {
-        System.out.println("####################################");
-        System.out.println(walletService.test(2));
-        return AjaxResult.success();
-    }
 }
