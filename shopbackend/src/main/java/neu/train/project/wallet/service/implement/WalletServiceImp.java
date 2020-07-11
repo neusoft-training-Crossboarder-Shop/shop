@@ -156,17 +156,17 @@ public class WalletServiceImp implements WalletService {
     public boolean doAudits(String managerId, Integer[] ids) {
         List<WtaWalletTransactionAduit> wtaWalletTransactionAduits = wtaWalletTransactionAduitMapper.selectByIds(ids);
         for (WtaWalletTransactionAduit wtaWalletTransactionAduit : wtaWalletTransactionAduits) {
-            //状态 1 -申请 , 2 -完成 , -3-失败
-            if (wtaWalletTransactionAduit.getStatus() == 2) {
+            doAudit(managerId, wtaWalletTransactionAduit);
+        }
+        return true;
+    }
 
-                doAudit(managerId, wtaWalletTransactionAduit);
-
-            } else if (wtaWalletTransactionAduit.getStatus() == 3) {
-
+    //批量驳回审核
+    @Override
+    public boolean rejectAudits(String managerId, Integer[] ids) {
+        List<WtaWalletTransactionAduit> wtaWalletTransactionAduits = wtaWalletTransactionAduitMapper.selectByIds(ids);
+        for (WtaWalletTransactionAduit wtaWalletTransactionAduit : wtaWalletTransactionAduits) {
                 rejectAudit(managerId, wtaWalletTransactionAduit);
-            } else {
-                throw new RuntimeException("Some unpleasant things must have happened");
-            }
         }
         return true;
     }
@@ -205,6 +205,7 @@ public class WalletServiceImp implements WalletService {
         wtaWalletTransactionAduit.setDepositingMoneyAfter(depositingMoney);
         wtaWalletTransactionAduit.setWithdrawingMoneyAfter(withdrawingMoney);
         //通过审核，写审核人
+        wtaWalletTransactionAduit.setStatus((byte)2);
         wtaWalletTransactionAduit.setOperateBy(managerId);
         wtaWalletTransactionAduit.setUpdateBy(managerId);
         //至此审计表set完毕
@@ -262,6 +263,7 @@ public class WalletServiceImp implements WalletService {
         wtaWalletTransactionAduit.setDepositingMoneyAfter(depositingMoney);
         wtaWalletTransactionAduit.setWithdrawingMoneyAfter(withdrawingMoney);
         //驳回审核，写审核人
+        wtaWalletTransactionAduit.setStatus((byte)3);
         wtaWalletTransactionAduit.setOperateBy(managerId);
         wtaWalletTransactionAduit.setUpdateBy(managerId);
         //至此审计表set完毕

@@ -289,39 +289,43 @@
 
         handleRefuse(row) {
           const auditIds = row.transactionAuditId || this.ids;
-          this.$confirm('是否确认审计"' + auditIds + '"的数据项?', "警告", {
+          console.log(auditIds)
+          let fatherThis=this;
+
+          this.$confirm('是否确认拒绝"' + auditIds + '"的数据项?', "警告", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"
           }).then(function() {
             refuseAuditRecord(auditIds).then(response=>{
-              console.log(response)
-
-              this.getList()
+              console.log("拒绝成功")
+              fatherThis.getList()
             });
-
           }).then(() => {
-            this.getList();
-            this.msgSuccess("删除成功");
+
           }).catch(function() {});
+
         },
         handleAccept(row) {
           const auditIds = row.transactionAuditId || this.ids;
-          this.$confirm('是否确认审计"' + auditIds + '"的数据项?', "警告", {
+          console.log(auditIds)
+          let fatherThis=this;
+          this.$confirm('是否确认同意"' + auditIds + '"的数据项?', "警告", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"
           }).then(function() {
-            console.log(auditIds)
             acceptAuditRecord(auditIds).then(response=>{
-              console.log(response)
-              this.getList()
-
+              console.log("同意成功")
+              fatherThis.getList()
             });
+
+
           }).then(() => {
-            this.getList();
-            this.msgSuccess("删除成功");
+
+
           }).catch(function() {});
+
         },
 
 

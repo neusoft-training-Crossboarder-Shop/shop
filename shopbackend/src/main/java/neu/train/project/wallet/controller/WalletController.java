@@ -131,14 +131,11 @@ public AjaxResult acceptAudit(@PathVariable Integer[] ids) {
 
 
 
-
-
-
 @ApiOperation(value = "审计拒绝,给管理员用的", httpMethod = "PUT", notes = "必选参数：一个列表，每一项包含：流水审计Id transactionAuditId")
 @Transactional
 @PutMapping("system/audit/refuse/{ids}")
 public AjaxResult refuseAudit(@PathVariable Integer[] ids) {
-    walletService.doAudits(String.valueOf(SecurityUtils.getLoginUser().getUser().getUserId()), ids);
+    walletService.rejectAudits(String.valueOf(SecurityUtils.getLoginUser().getUser().getUserId()), ids);
     return AjaxResult.success();
 }
 

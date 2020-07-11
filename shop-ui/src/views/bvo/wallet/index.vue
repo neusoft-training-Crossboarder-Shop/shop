@@ -468,7 +468,6 @@
       },
       refresh(){
         getWalletAccountFund().then(response=>{
-          console.log(response)
           this.account=response.data.waaWalletAccount
           this.account.currency=response.data.wafWalletAccountFund.currency
           this.walletFund=response.data.wafWalletAccountFund

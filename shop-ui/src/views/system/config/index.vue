@@ -53,6 +53,7 @@
       <el-col :span="1.5">
         <el-button
           type="primary"
+          icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
           v-hasPermi="['system:config:add']"
@@ -61,6 +62,7 @@
       <el-col :span="1.5">
         <el-button
           type="success"
+          icon="el-icon-edit"
           size="mini"
           :disabled="single"
           @click="handleUpdate"

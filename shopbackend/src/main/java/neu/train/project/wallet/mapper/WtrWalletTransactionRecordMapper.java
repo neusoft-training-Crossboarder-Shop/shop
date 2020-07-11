@@ -32,7 +32,7 @@ public interface WtrWalletTransactionRecordMapper {
         "balance, business_id, ",
         "finance_type, create_time)",
         "values (#{transactionId,jdbcType=INTEGER}, #{buyerId,jdbcType=INTEGER}, ",
-        "#{bankCardId,jdbcType=INTEGER}, #{transactionType,jdbcType=TINYINT}, ",
+        "#{bankCardId,jdbcType=VARCHAR}, #{transactionType,jdbcType=TINYINT}, ",
         "#{transactionMoney,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT}, ",
         "#{balance,jdbcType=DECIMAL}, #{businessId,jdbcType=INTEGER}, ",
         "#{financeType,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP})"
@@ -63,7 +63,7 @@ public interface WtrWalletTransactionRecordMapper {
     @Update({
         "update wtr_wallet_transaction_record",
         "set buyer_id = #{buyerId,jdbcType=INTEGER},",
-          "bank_card_id = #{bankCardId,jdbcType=INTEGER},",
+          "bank_card_id = #{bankCardId,jdbcType=VARCHAR},",
           "transaction_type = #{transactionType,jdbcType=TINYINT},",
           "transaction_money = #{transactionMoney,jdbcType=DECIMAL},",
           "status = #{status,jdbcType=TINYINT},",
