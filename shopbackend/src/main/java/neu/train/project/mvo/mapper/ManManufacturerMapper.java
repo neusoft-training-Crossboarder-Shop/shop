@@ -2,7 +2,6 @@ package neu.train.project.mvo.mapper;
 
 import neu.train.project.mvo.domain.ManManufacturer;
 import neu.train.project.mvo.domain.ManManufacturerExample;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

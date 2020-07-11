@@ -7,6 +7,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import neu.train.project.bvo.domain.productDomain.Manufacturer;
 import neu.train.project.bvo.domain.productDomain.ManufacturerExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional(isolation = Isolation.REPEATABLE_READ,propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 
 public interface ManufacturerMapper {
     long countByExample(ManufacturerExample example);

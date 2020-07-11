@@ -5,10 +5,10 @@ import neu.train.project.mvo.domain.ManManufacturer;
 import neu.train.project.mvo.domain.ManManufacturer.Column;
 import neu.train.project.mvo.domain.ManManufacturerExample;
 import neu.train.project.mvo.mapper.ManManufacturerMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -19,13 +19,13 @@ import java.util.List;
  * @Github : EvilicLufas
  */
 
-
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Service
 public class ManManufacturerService {
-    @Resource
+    @Autowired
     private ManManufacturerMapper manufacturerMapper;
     //    private Column[] columns = new Column[]{Column.brdId,Column.manId, Column.name, Column.desc, Column.picUrl, Column.floorPrice};
-    private Column[] columns = new Column[]{Column.manId, Column.sysUserId, Column.nameEn, Column.nameCn, Column.gmcReportType, Column.gmcReportUrl, Column.description, Column.createdBy, Column.createTime, Column.lastUpdateBy, Column.lastUpdateTime, Column.callCnt, Column.stsCd, Column.picUrl};
+    private Column[] columns = new Column[]{Column.manId,Column.sysUserId,Column.nameEn,Column.nameCn,Column.gmcReportType,Column.gmcReportUrl,Column.description,Column.createdBy,Column.createTime,Column.lastUpdateBy,Column.lastUpdateTime,Column.callCnt,Column.stsCd,Column.picUrl};
     public List<ManManufacturer> query(Integer page, Integer limit, String sort, String order) {
         ManManufacturerExample example = new ManManufacturerExample();
         example.or().andDeletedEqualTo(false);
