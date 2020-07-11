@@ -56,7 +56,7 @@
             </el-form-item>
           </el-col>
         </el-row>
- 
+
         <el-row :gutter="10">
           <el-col :span="10">
             <el-form-item label="Time Area" >
@@ -312,6 +312,7 @@
             cancelButtonText: "取消",
             type: "warning"
           }).then(function() {
+            console.log(auditIds)
             acceptAuditRecord(auditIds).then(response=>{
               console.log(response)
               this.getList()
