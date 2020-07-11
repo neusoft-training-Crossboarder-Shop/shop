@@ -1,5 +1,36 @@
 <template>
     <div class="main_container">
+
+      <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="68px">
+        <el-form-item label="Transaction Id" prop="configName">
+          <el-input
+            v-model="queryParams.storeOrderId"
+            placeholder="storeOrderId"
+            clearable
+            size="small"
+            style="width: 240px"
+            @keyup.enter.native="handleQuery"
+          />
+        </el-form-item>
+        <el-form-item label="创建时间">
+          <el-date-picker
+            v-model="dateRange"
+            size="small"
+            style="width: 240px"
+            value-format="yyyy-MM-dd"
+            type="daterange"
+            range-separator="-"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+          ></el-date-picker>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+          <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        </el-form-item>
+      </el-form>
+
+
       <el-table @row-click="redirect" class="el-table--enable-row-hover el-table__body"  :data="tableData" v-loading="loading" >
         <el-table-column label="Store Order Id" align="center" prop="stoId"   />
         <el-table-column label="Product Name" align="center" prop="product.title" :show-overflow-tooltip="true">
@@ -102,6 +133,7 @@
 
 <script>
   import {getDicts} from "../../../api/system/dict/data";
+  import {listOrders} from "../../../api/bvo/order";
 
   export default {
         name: "index.vue",
@@ -111,9 +143,11 @@
             loading: true,
             total:0,
             queryParams:{
+              storeOrderId:'',
               pageNum:1,
               pageSize:10
             },
+            dateRange: [],
             tableData:[
               {
                 stoId:'1',
@@ -187,6 +221,15 @@
         },
         getList(){
           this.loading = true;
+
+          // this.loading = true;
+          // listOrders(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
+          //     this.configList = response.rows;
+          //     this.total = response.total;
+          //     this.loading = false;
+          //   }
+          // );
+
           setTimeout(()=>{
             this.tableData=[
               {

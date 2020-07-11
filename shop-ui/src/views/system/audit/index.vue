@@ -56,12 +56,12 @@
             </el-form-item>
           </el-col>
         </el-row>
-
+ 
         <el-row :gutter="10">
           <el-col :span="10">
             <el-form-item label="Time Area" >
               <el-date-picker
-                v-model="dateRange"
+                v-model="dataRange"
                 size="small"
                 style="width: 240px"
                 value-format="yyyy-MM-dd"
@@ -296,6 +296,8 @@
           }).then(function() {
             refuseAuditRecord(auditIds).then(response=>{
               console.log(response)
+
+              this.getList()
             });
 
           }).then(() => {
@@ -312,6 +314,8 @@
           }).then(function() {
             acceptAuditRecord(auditIds).then(response=>{
               console.log(response)
+              this.getList()
+
             });
           }).then(() => {
             this.getList();
