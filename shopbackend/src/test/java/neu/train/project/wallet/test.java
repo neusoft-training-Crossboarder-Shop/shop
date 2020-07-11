@@ -3,7 +3,10 @@ package neu.train.project.wallet;
 
 import neu.train.common.utils.SecurityUtils;
 import neu.train.project.wallet.pojo.WaaWalletAccount;
+import neu.train.project.wallet.pojo.WafWalletAccountFund;
+import neu.train.project.wallet.pojo.WtrWalletTransactionRecord;
 import neu.train.project.wallet.service.WalletService;
+import neu.train.project.wallet.vo.GetAnAuditQuery;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +38,10 @@ public class test {
 
     @Test
     public void test2(){
+        GetAnAuditQuery getAnAuditQuery=new GetAnAuditQuery(null,null,null,null,null,null);
+        getAnAuditQuery.setTransactionId(3);
 
-
+        walletService.test(getAnAuditQuery);
     }
 
 

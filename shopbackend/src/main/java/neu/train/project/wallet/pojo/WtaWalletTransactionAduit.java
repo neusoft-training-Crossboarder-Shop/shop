@@ -199,4 +199,27 @@ public class WtaWalletTransactionAduit extends BaseEntity {
     public void setLastUpdateTime(Date lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
     }
+
+    @Override
+    public String toString() {
+        return "WtaWalletTransactionAduit{" +
+                "transactionAuditId=" + transactionAuditId +
+                ", buyerId=" + buyerId +
+                ", transactionId=" + transactionId +
+                ", availableMoneyBefore=" + availableMoneyBefore +
+                ", depositingMoneyBefore=" + depositingMoneyBefore +
+                ", withdrawingMoneyBefore=" + withdrawingMoneyBefore +
+                ", operateMoney=" + operateMoney +
+                ", operateType=" + operateType +
+                ", availableMoneyAfter=" + availableMoneyAfter +
+                ", depositingMoneyAfter=" + depositingMoneyAfter +
+                ", withdrawingMoneyAfter=" + withdrawingMoneyAfter +
+                ", operateBy='" + operateBy + '\'' +
+                ", status=" + status +
+                ", createdBy='" + createdBy + '\'' +
+                ", createTime=" + createTime +
+                ", lastUpdateBy='" + lastUpdateBy + '\'' +
+                ", lastUpdateTime=" + lastUpdateTime +
+                '}';
+    }
 }

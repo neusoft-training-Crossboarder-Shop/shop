@@ -1,6 +1,5 @@
 package neu.train.project.wallet.service.implement;
 
-import neu.train.common.utils.SecurityUtils;
 import neu.train.framework.redis.RedisCache;
 import neu.train.project.wallet.mapper.WaaWalletAccountMapper;
 import neu.train.project.wallet.mapper.WafWalletAccountFundMapper;
@@ -12,11 +11,10 @@ import neu.train.project.wallet.vo.GetATransactionQuery;
 import neu.train.project.wallet.vo.GetAnAuditQuery;
 import neu.train.project.wallet.vo.MakeATransaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.awt.event.WindowAdapter;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -109,8 +107,8 @@ public class WalletServiceImp implements WalletService {
         wafWalletAccountFund.setAvailableMoney(new BigDecimal(0));
         wafWalletAccountFund.setDepositingMoney(new BigDecimal(0));
         wafWalletAccountFund.setWithdrawingMoney(new BigDecimal(0));
-        wafWalletAccountFund.setCreatedBy(String.valueOf(SecurityUtils.getLoginUser().getUser().getUserId()));
-        wafWalletAccountFund.setLastUpdateBy(String.valueOf(SecurityUtils.getLoginUser().getUser().getUserId()));
+        wafWalletAccountFund.setCreatedBy(String.valueOf(buyerId));
+        wafWalletAccountFund.setLastUpdateBy(String.valueOf(buyerId));
         wafWalletAccountFund.setCurrency(currency);
         redisTemplate.opsForValue().set("fundById:" + buyerId, wafWalletAccountFund);
         wafWalletAccountFundMapper.insertSelective(wafWalletAccountFund);
@@ -132,12 +130,12 @@ public class WalletServiceImp implements WalletService {
     //根据用户Id，检索钱包余额之类的东西，缓存"fundById:"+buyerId
     @Override
     public WafWalletAccountFund selectFundById(int buyerId) {
-        WafWalletAccountFund wafWalletAccountFund = redisCache.getCacheObject("fundById" + buyerId);
+        WafWalletAccountFund wafWalletAccountFund = redisCache.getCacheObject("fundById:" + buyerId);
         if (wafWalletAccountFund != null) {
             return wafWalletAccountFund;
         }
         wafWalletAccountFund = wafWalletAccountFundMapper.selectByPrimaryKey(buyerId);
-        redisCache.setCacheObject("fundById" + buyerId, wafWalletAccountFund);
+        redisCache.setCacheObject("fundById:" + buyerId, wafWalletAccountFund);
         return wafWalletAccountFund;
     }
 
@@ -203,10 +201,9 @@ public class WalletServiceImp implements WalletService {
         wtaWalletTransactionAduit.setAvailableMoneyAfter(availableMoney);
         wtaWalletTransactionAduit.setDepositingMoneyAfter(depositingMoney);
         wtaWalletTransactionAduit.setWithdrawingMoneyAfter(withdrawingMoney);
-        //通过审核，写审核人，写空更新时间
+        //通过审核，写审核人
         wtaWalletTransactionAduit.setOperateBy(managerId);
         wtaWalletTransactionAduit.setUpdateBy(managerId);
-        wtaWalletTransactionAduit.setUpdateTime(null);
         //至此审计表set完毕
         wafWalletAccountFund.setAvailableMoney(availableMoney);
         wafWalletAccountFund.setDepositingMoney(depositingMoney);
@@ -220,13 +217,14 @@ public class WalletServiceImp implements WalletService {
         wtrWalletTransactionRecord.setStatus((byte) 2);
         wtrWalletTransactionRecord.setBalance(availableMoney);
         wtrWalletTransactionRecord.setCreateBy(managerId);
+        //重写创建时间
         wtrWalletTransactionRecord.setCreateTime(null);
         //钱包流水set完毕
         //修改审核
         wtaWalletTransactionAduitMapper.updateByPrimaryKeySelective(wtaWalletTransactionAduit);
         //修改钱包fund
         wafWalletAccountFundMapper.updateByPrimaryKeySelective(wafWalletAccountFund);
-        redisCache.setCacheObject("fundById" + wafWalletAccountFund.getBuyerId(), waaWalletAccountMapper.selectByPrimaryKey(wafWalletAccountFund.getBuyerId()));
+        redisCache.setCacheObject("fundById:" + wafWalletAccountFund.getBuyerId(), waaWalletAccountMapper.selectByPrimaryKey(wafWalletAccountFund.getBuyerId()));
         //添加钱包流水
         wtrWalletTransactionRecordMapper.insertSelective(wtrWalletTransactionRecord);
         return true;
@@ -260,10 +258,9 @@ public class WalletServiceImp implements WalletService {
         wtaWalletTransactionAduit.setAvailableMoneyAfter(availableMoney);
         wtaWalletTransactionAduit.setDepositingMoneyAfter(depositingMoney);
         wtaWalletTransactionAduit.setWithdrawingMoneyAfter(withdrawingMoney);
-        //驳回审核，写审核人，写空更新时间
+        //驳回审核，写审核人
         wtaWalletTransactionAduit.setOperateBy(managerId);
         wtaWalletTransactionAduit.setUpdateBy(managerId);
-        wtaWalletTransactionAduit.setUpdateTime(null);
         //至此审计表set完毕
         wafWalletAccountFund.setAvailableMoney(availableMoney);
         wafWalletAccountFund.setDepositingMoney(depositingMoney);
@@ -277,13 +274,14 @@ public class WalletServiceImp implements WalletService {
         wtrWalletTransactionRecord.setStatus((byte) 3);
         wtrWalletTransactionRecord.setBalance(availableMoney);
         wtrWalletTransactionRecord.setCreateBy(managerId);
+        //重写创建时间
         wtrWalletTransactionRecord.setCreateTime(null);
         //钱包流水set完毕
         //修改审核
         wtaWalletTransactionAduitMapper.updateByPrimaryKeySelective(wtaWalletTransactionAduit);
         //修改钱包fund
         wafWalletAccountFundMapper.updateByPrimaryKeySelective(wafWalletAccountFund);
-        redisCache.setCacheObject("fundById" + wafWalletAccountFund.getBuyerId(), waaWalletAccountMapper.selectByPrimaryKey(wafWalletAccountFund.getBuyerId()));
+        redisCache.setCacheObject("fundById:" + wafWalletAccountFund.getBuyerId(), waaWalletAccountMapper.selectByPrimaryKey(wafWalletAccountFund.getBuyerId()));
         //添加钱包流水
         wtrWalletTransactionRecordMapper.insertSelective(wtrWalletTransactionRecord);
         return true;
@@ -299,7 +297,7 @@ public class WalletServiceImp implements WalletService {
         wafWalletAccountFund.setUpdateBy(String.valueOf(buyerId));
         wafWalletAccountFund.setUpdateTime(null);
         wafWalletAccountFundMapper.updateByPrimaryKeySelective(wafWalletAccountFund);
-        redisCache.setCacheObject("fundById" + wafWalletAccountFund.getBuyerId(), waaWalletAccountMapper.selectByPrimaryKey(buyerId));
+        redisCache.setCacheObject("fundById:" + wafWalletAccountFund.getBuyerId(), waaWalletAccountMapper.selectByPrimaryKey(buyerId));
         //先插入一条transaction,主键，创建时间自动生成
         WtrWalletTransactionRecord wtrWalletTransactionRecord = new WtrWalletTransactionRecord();
         wtrWalletTransactionRecord.setBuyerId(buyerId);
@@ -310,6 +308,7 @@ public class WalletServiceImp implements WalletService {
         wtrWalletTransactionRecord.setBalance(wafWalletAccountFund.getAvailableMoney());
         wtrWalletTransactionRecord.setFinanceType((byte) 1);
         wtrWalletTransactionRecord.setCreateBy(String.valueOf(buyerId));
+        wtrWalletTransactionRecord.setUpdateBy(String.valueOf(buyerId));
         wtrWalletTransactionRecordMapper.insertSelective(wtrWalletTransactionRecord);
         //插入一条audit,主键，创建时间自动生成，所有未来数据为空
         WtaWalletTransactionAduit wtaWalletTransactionAduit = new WtaWalletTransactionAduit();
@@ -320,6 +319,7 @@ public class WalletServiceImp implements WalletService {
         wtaWalletTransactionAduit.setOperateBy(String.valueOf(buyerId));
         wtaWalletTransactionAduit.setStatus((byte) 1);
         wtaWalletTransactionAduit.setCreatedBy(String.valueOf(buyerId));
+        wtaWalletTransactionAduit.setUpdateBy(String.valueOf(buyerId));
         wtaWalletTransactionAduitMapper.insertSelective(wtaWalletTransactionAduit);
         return true;
     }
@@ -339,7 +339,7 @@ public class WalletServiceImp implements WalletService {
         wafWalletAccountFund.setUpdateBy(String.valueOf(buyerId));
         wafWalletAccountFund.setUpdateTime(null);
         wafWalletAccountFundMapper.updateByPrimaryKeySelective(wafWalletAccountFund);
-        redisCache.setCacheObject("fundById" + wafWalletAccountFund.getBuyerId(), waaWalletAccountMapper.selectByPrimaryKey(buyerId));
+        redisCache.setCacheObject("fundById:" + wafWalletAccountFund.getBuyerId(), waaWalletAccountMapper.selectByPrimaryKey(buyerId));
         //先插入一条transaction,主键，创建时间自动生成
         WtrWalletTransactionRecord wtrWalletTransactionRecord = new WtrWalletTransactionRecord();
         wtrWalletTransactionRecord.setBuyerId(buyerId);
@@ -350,6 +350,7 @@ public class WalletServiceImp implements WalletService {
         wtrWalletTransactionRecord.setBalance(wafWalletAccountFund.getAvailableMoney());
         wtrWalletTransactionRecord.setFinanceType((byte) 2);
         wtrWalletTransactionRecord.setCreateBy(String.valueOf(buyerId));
+        wtrWalletTransactionRecord.setUpdateBy(String.valueOf(buyerId));
         wtrWalletTransactionRecordMapper.insertSelective(wtrWalletTransactionRecord);
         //插入一条audit,主键，创建时间自动生成，所有未来数据为空
         WtaWalletTransactionAduit wtaWalletTransactionAduit = new WtaWalletTransactionAduit();
@@ -360,8 +361,14 @@ public class WalletServiceImp implements WalletService {
         wtaWalletTransactionAduit.setOperateBy(String.valueOf(buyerId));
         wtaWalletTransactionAduit.setStatus((byte) 1);
         wtaWalletTransactionAduit.setCreatedBy(String.valueOf(buyerId));
+        wtaWalletTransactionAduit.setUpdateBy(String.valueOf(buyerId));
         wtaWalletTransactionAduitMapper.insertSelective(wtaWalletTransactionAduit);
         return true;
+    }
+
+    public void test(GetAnAuditQuery getAnAuditQuery){
+
+    System.out.println(selectAudit(getAnAuditQuery));
     }
 
 }
