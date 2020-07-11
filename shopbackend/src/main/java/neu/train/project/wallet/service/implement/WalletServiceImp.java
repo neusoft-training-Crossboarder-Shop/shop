@@ -240,6 +240,9 @@ public class WalletServiceImp implements WalletService {
     // 驳回单个钱包，缓存"fundById:"+buyerId
     @Override
     public boolean rejectAudit(String managerId, WtaWalletTransactionAduit wtaWalletTransactionAduit) {
+        if(wtaWalletTransactionAduit.getStatus()!=1){
+            throw new RuntimeException("You've already done this!");
+        }
         WafWalletAccountFund wafWalletAccountFund = selectFundById(wtaWalletTransactionAduit.getBuyerId());
         // 充值前余额，充值中金额，提现中金额
         BigDecimal availableMoney = wafWalletAccountFund.getAvailableMoney();
