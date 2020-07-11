@@ -9,7 +9,7 @@
     <!-- 查询和其他操作 -->
     <div class="filter-container">
       <el-input v-model="listQuery.id" clearable class="filter-item" style="width: 200px;" placeholder="Enter the ID of manufacturer"></el-input>
-      <el-input v-model="listQuery.name" clearable class="filter-item" style="width: 200px;" placeholder="Enter the name of manufacturer"></el-input>
+      <el-input v-model="listQuery.name" clearable class="filter-item" style="width: 300px;" placeholder="Enter the name of manufacturer"></el-input>
       <el-button  class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">Search</el-button>
       <el-button  class="filter-item" type="success" icon="el-icon-edit" @click="handleCreate">Add</el-button>
       <!--      <el-button v-permission="['GET /mvo/manufacturer/list']" class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">Search</el-button>-->
@@ -132,13 +132,14 @@
           page: 1,
           limit: 20,
           manId: 'man_id',
-          nameCn: 'name_en',
+          name: '',
           sort: 'create_time',
           order: 'Desc' //order by create_time desc  mysql 语句
         },
         dataForm: {
           manId: '',
-          manId: '',
+          sysUserId: '',
+          name: '',
           nameEn: '',
           nameCn: '',
           picUrl: '',
