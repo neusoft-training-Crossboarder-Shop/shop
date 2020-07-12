@@ -5,6 +5,7 @@ import neu.train.project.mvo.mapper.ManManufacturerMapper;
 import neu.train.project.mvo.domain.ManManufacturer;
 import neu.train.project.mvo.domain.ManManufacturerExample;
 import neu.train.project.mvo.domain.ManManufacturer.Column;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -19,10 +20,10 @@ import java.util.List;
  * @Github : EvilicLufas
  */
 
-
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Service
 public class ManManufacturerService {
-    @Resource
+    @Autowired
     private ManManufacturerMapper manufacturerMapper;
     //    private Column[] columns = new Column[]{Column.brdId,Column.manId, Column.name, Column.desc, Column.picUrl, Column.floorPrice};
     private Column[] columns = new Column[]{Column.manId,Column.sysUserId,Column.nameEn,Column.nameCn,Column.gmcReportType,Column.gmcReportUrl,Column.description,Column.createdBy,Column.createTime,Column.lastUpdateBy,Column.lastUpdateTime,Column.callCnt,Column.stsCd,Column.picUrl};
@@ -68,9 +69,9 @@ public class ManManufacturerService {
 
         if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
             exampleCn.setOrderByClause(sort + " " + order);
-            System.out.println("EEEEEEEEEEEEEEEEEEEEEEccccccccccc"+exampleCn.toString());
+//            System.out.println("EEEEEEEEEEEEEEEEEEEEEEccccccccccc"+exampleCn.toString());
             exampleEn.setOrderByClause(sort + " " + order);
-            System.out.println("EEEEEEEEEEEEEEEEEEEEEEeeeeeeeeeee"+exampleEn.toString());
+//            System.out.println("EEEEEEEEEEEEEEEEEEEEEEeeeeeeeeeee"+exampleEn.toString());
         }
 
         PageHelper.startPage(page, size);

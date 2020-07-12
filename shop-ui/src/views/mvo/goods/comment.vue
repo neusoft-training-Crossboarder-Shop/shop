@@ -55,12 +55,12 @@
 </template>
 
 <script>
-import { listComment, deleteComment } from '@/api/comment'
-import { replyComment } from '@/api/order'
+import { listComment, deleteComment } from '@/api/mvo/comment'
+import { replyComment } from '@/api/mvo/order'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
 export default {
-  name: 'Comment',
+  name: 'GoodsComment',
   components: { Pagination },
   data() {
     return {

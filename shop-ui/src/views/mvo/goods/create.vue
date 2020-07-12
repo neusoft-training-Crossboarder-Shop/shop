@@ -337,8 +337,8 @@
 </style>
 
 <script>
-import { publishGoods, listCatAndBrand } from '@/api/goods'
-import { createStorage, uploadPath } from '@/api/storage'
+import { publishGoods, listCatAndBrand } from '@/api/mvo/goods'
+import { createStorage, uploadPath } from '@/api/mvo/storage'
 import Editor from '@tinymce/tinymce-vue'
 import { MessageBox } from 'element-ui'
 import { getToken } from '@/utils/auth'

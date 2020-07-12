@@ -127,9 +127,8 @@
     width: 100%;
   }
 </style>
-
 <script>
-import { listGoods, deleteGoods } from '@/api/goods'
+import { listGoods, deleteGoods } from '@/api/mvo/goods'
 import BackToTop from '@/components/BackToTop'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
