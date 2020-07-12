@@ -95,7 +95,7 @@
         </el-form-item>
 
         <el-form-item label="商品详细介绍">
-          <editor v-model="goods.detail" :init="editorInit" />
+          <editor api-key="yyul5scv3a316au3a4bbjm23ikpi7qufwiybrgs83cn7yghv"  v-model="goods.detail" :init="editorInit" />
         </el-form-item>
       </el-form>
     </el-card>

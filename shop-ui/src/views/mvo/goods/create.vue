@@ -99,7 +99,8 @@
         </el-form-item>
 
         <el-form-item label="商品详细介绍">
-          <editor v-model="goods.detail" :init="editorInit" />
+<!--          <editor api-key="no-api-key" v-model="goods.detail" :init="editorInit" />-->
+          <editor api-key="yyul5scv3a316au3a4bbjm23ikpi7qufwiybrgs83cn7yghv" v-model="goods.detail" :init="editorInit" />
         </el-form-item>
       </el-form>
     </el-card>
@@ -345,7 +346,8 @@ import { getToken } from '@/utils/auth'
 
 export default {
   name: 'GoodsCreate',
-  components: { Editor },
+  components: {  Editor },
+  // components: { 'editorInit' : Editor },
 
   data() {
     return {
