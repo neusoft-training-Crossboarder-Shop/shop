@@ -174,10 +174,10 @@ export default {
       this.getList()
     },
     handleCreate() {
-      this.$router.push({ path: '/goods/create' })
+      this.$router.push({ path: 'GoodsCreate' })
     },
     handleUpdate(row) {
-      this.$router.push({ path: '/goods/edit', query: { id: row.id }})
+      this.$router.push({ path: 'GoodsEdit', query: { id: row.id }})
     },
     showDetail(detail) {
       this.goodsDetail = detail
