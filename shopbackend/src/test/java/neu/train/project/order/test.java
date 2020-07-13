@@ -1,8 +1,11 @@
 package neu.train.project.order;
 
+import com.sun.corba.se.spi.servicecontext.SendingContextServiceContext;
 import neu.train.project.order.service.OrderService;
+import neu.train.project.order.vo.GetASaoQueryByTime;
 import neu.train.project.order.vo.GetAStoOrderQueryByTime;
 import neu.train.project.order.vo.SendASimpleSto;
+import neu.train.project.order.vo.SendComplexSao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +31,12 @@ public class test {
         System.out.println(sendASimpleStos.isEmpty());
         System.out.println(sendASimpleStos.get(0));
         System.out.println(sendASimpleStos.get(0).toString());
+    }
+
+    @Test
+    public void test2(){
+        GetASaoQueryByTime getASaoQueryByTime=new GetASaoQueryByTime(1,1,null,null);
+        List<SendComplexSao> sendComplexSaos=orderService.selectSaoStrProByTime(getASaoQueryByTime);
+        System.out.println(sendComplexSaos.size());
     }
 }

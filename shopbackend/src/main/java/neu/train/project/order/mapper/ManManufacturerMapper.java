@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component(value = "orderManMapper")
 public interface ManManufacturerMapper {
     int countByExample(ManManufacturerExample example);
 
