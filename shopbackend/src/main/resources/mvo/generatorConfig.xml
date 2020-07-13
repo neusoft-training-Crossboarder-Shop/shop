@@ -76,14 +76,14 @@
         </javaClientGenerator>
 
         <!--表名-->
-        <table tableName="brd_brand">
-            <generatedKey column="brd_id" sqlStatement="MySql" identity="true"/>
+        <table tableName="pro_product">
+            <generatedKey column="pro_id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="man_manufacturer">
-            <generatedKey column="man_id" sqlStatement="MySql" identity="true"/>
+        <table tableName="prc_product_category">
+            <generatedKey column="prc_id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="img_image">
-            <generatedKey column="img_id" sqlStatement="MySql" identity="true"/>
+        <table tableName="pdn_product_description">
+            <generatedKey column="pdn_id" sqlStatement="MySql" identity="true"/>
         </table>
 
 
