@@ -76,14 +76,17 @@
         </javaClientGenerator>
 
         <!--表名-->
-        <table tableName="pro_product">
-            <generatedKey column="pro_id" sqlStatement="MySql" identity="true"/>
-        </table>
-        <table tableName="prc_product_category">
-            <generatedKey column="prc_id" sqlStatement="MySql" identity="true"/>
-        </table>
-        <table tableName="pdn_product_description">
-            <generatedKey column="pdn_id" sqlStatement="MySql" identity="true"/>
+<!--        <table tableName="pro_product">-->
+<!--            <generatedKey column="pro_id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table tableName="prc_product_category">-->
+<!--            <generatedKey column="prc_id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table tableName="pdn_product_description">-->
+<!--            <generatedKey column="pdn_id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+        <table tableName="pck_package_info">
+            <generatedKey column="pck_id" sqlStatement="MySql" identity="true"/>
         </table>
 
 
