@@ -2,33 +2,33 @@ package neu.train.project.order.vo;
 
 import java.util.Date;
 
-public class GetAStoOrderQueryByTime {
-    private Integer bvoId;
-    private Integer stoId;
+public class GetASaoQueryByTime {
+    private Integer mvoId;
+    private Integer salId;
     private Date startTime;
     private Date endTime;
 
-    public GetAStoOrderQueryByTime(Integer bvoId, Integer stoId, Date startTime, Date endTime) {
-        this.bvoId = bvoId;
-        this.stoId = stoId;
+    public GetASaoQueryByTime(Integer mvoId, Integer salId, Date startTime, Date endTime) {
+        this.mvoId = mvoId;
+        this.salId = salId;
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public Integer getBvoId() {
-        return bvoId;
+    public Integer getMvoId() {
+        return mvoId;
     }
 
-    public void setBvoId(Integer bvoId) {
-        this.bvoId = bvoId;
+    public void setMvoId(Integer mvoId) {
+        this.mvoId = mvoId;
     }
 
-    public Integer getStoId() {
-        return stoId;
+    public Integer getSalId() {
+        return salId;
     }
 
-    public void setStoId(Integer stoId) {
-        this.stoId = stoId;
+    public void setSalId(Integer salId) {
+        this.salId = salId;
     }
 
     public Date getStartTime() {

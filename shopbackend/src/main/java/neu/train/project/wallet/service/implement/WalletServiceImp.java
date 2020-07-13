@@ -118,13 +118,11 @@ public class WalletServiceImp implements WalletService {
     //根据用户Id，检索钱包，缓存"walletById:"+buyerId
     @Override
     public WaaWalletAccount selectWalletById(int buyerId) {
-        WaaWalletAccount waaWalletAccount = redisCache.getCacheObject("walletById:" + buyerId);
-        if (waaWalletAccount != null) {
-            return waaWalletAccount;
+        if(ifWallet(buyerId)){
+            return redisCache.getCacheObject("walletById:" + buyerId);
+        }else{
+          throw new RuntimeException("You have no wallet,come and get you one!");
         }
-        waaWalletAccount = waaWalletAccountMapper.selectByPrimaryKey(buyerId);
-        redisCache.setCacheObject("walletById:" + buyerId, waaWalletAccount);
-        return waaWalletAccount;
     }
 
     //根据用户Id，检索钱包余额之类的东西，缓存"fundById:"+buyerId
@@ -377,5 +375,46 @@ public class WalletServiceImp implements WalletService {
         return true;
     }
 
-
+    //其实在支付一个原始订单，改余额，加流水，缓存"fundById:"+buyerId
+    @Override
+    public boolean pay(int bvoId, int mvoId, BigDecimal total){
+       selectWalletById(bvoId);
+       selectWalletById(mvoId);
+       WafWalletAccountFund bvoFund=selectFundById(bvoId);
+       WafWalletAccountFund mvoFund=selectFundById(mvoId);
+       //钱不够
+       if(bvoFund.getAvailableMoney().compareTo(total)==-1){
+           throw new RuntimeException("Insufficient funds!");
+       }
+       //转款，直接写流水，避开审核
+        bvoFund.setAvailableMoney(bvoFund.getAvailableMoney().subtract(total));
+       bvoFund.setLastUpdateBy(String.valueOf(bvoId));
+       mvoFund.setAvailableMoney(mvoFund.getAvailableMoney().add(total));
+       mvoFund.setLastUpdateBy(String.valueOf(mvoId));
+       wafWalletAccountFundMapper.updateByPrimaryKeySelective(bvoFund);
+        wafWalletAccountFundMapper.updateByPrimaryKeySelective(mvoFund);
+        redisCache.setCacheObject("fundById:" + bvoId, wafWalletAccountFundMapper.selectByPrimaryKey(bvoId));
+        redisCache.setCacheObject("fundById:" + mvoId, wafWalletAccountFundMapper.selectByPrimaryKey(mvoId));
+        //写bvo流水
+        WtrWalletTransactionRecord bvoTransaction=new WtrWalletTransactionRecord();
+        bvoTransaction.setBuyerId(bvoId);
+        bvoTransaction.setTransactionType((byte)3);
+        bvoTransaction.setTransactionMoney(total.negate());
+        bvoTransaction.setStatus((byte)2);
+        bvoTransaction.setBalance(bvoFund.getAvailableMoney());
+        bvoTransaction.setFinanceType((byte)2);
+        bvoTransaction.setCreateBy(String.valueOf(bvoId));
+        wtrWalletTransactionRecordMapper.insertSelective(bvoTransaction);
+        //写mvo流水
+        WtrWalletTransactionRecord mvoTransaction=new WtrWalletTransactionRecord();
+        mvoTransaction.setBuyerId(mvoId);
+        mvoTransaction.setTransactionType((byte)3);
+        mvoTransaction.setTransactionMoney(total);
+        mvoTransaction.setStatus((byte)2);
+        mvoTransaction.setBalance(mvoFund.getAvailableMoney());
+        mvoTransaction.setFinanceType((byte)1);
+        mvoTransaction.setCreateBy(String.valueOf(mvoId));
+        wtrWalletTransactionRecordMapper.insertSelective(mvoTransaction);
+        return true;
+    }
 }

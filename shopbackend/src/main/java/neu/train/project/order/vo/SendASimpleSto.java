@@ -6,11 +6,7 @@ import java.util.Date;
 public class SendASimpleSto {
     private Integer stoId;
 
-    private SimplePro simplePro;
-
     private Integer qty;
-
-    private SimpleStr simpleStr;
 
     private BigDecimal purchasePrice;
 
@@ -22,16 +18,13 @@ public class SendASimpleSto {
 
     private Date lastUpdateTime;
 
-    public SendASimpleSto(Integer stoId, SimplePro simplePro, Integer qty, SimpleStr simpleStr, BigDecimal purchasePrice, String paidTime, Integer orderStatus, Date createTime, Date lastUpdateTime) {
-        this.stoId = stoId;
-        this.simplePro = simplePro;
-        this.qty = qty;
-        this.simpleStr = simpleStr;
-        this.purchasePrice = purchasePrice;
-        this.paidTime = paidTime;
-        this.orderStatus = orderStatus;
-        this.createTime = createTime;
-        this.lastUpdateTime = lastUpdateTime;
+    private SimpleStr store;
+
+    private SimplePro product;
+
+
+    public SendASimpleSto() {
+
     }
 
     public Integer getStoId() {
@@ -42,12 +35,12 @@ public class SendASimpleSto {
         this.stoId = stoId;
     }
 
-    public SimplePro getSimplePro() {
-        return simplePro;
+    public SimplePro getProduct() {
+        return product;
     }
 
-    public void setSimplePro(SimplePro simplePro) {
-        this.simplePro = simplePro;
+    public void setProduct(SimplePro product) {
+        this.product = product;
     }
 
     public Integer getQty() {
@@ -58,12 +51,12 @@ public class SendASimpleSto {
         this.qty = qty;
     }
 
-    public SimpleStr getSimpleStr() {
-        return simpleStr;
+    public SimpleStr getStore() {
+        return store;
     }
 
-    public void setSimpleStr(SimpleStr simpleStr) {
-        this.simpleStr = simpleStr;
+    public void setStore(SimpleStr store) {
+        this.store = store;
     }
 
     public BigDecimal getPurchasePrice() {
@@ -104,5 +97,20 @@ public class SendASimpleSto {
 
     public void setLastUpdateTime(Date lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "SendASimpleSto{" +
+                "stoId=" + stoId +
+                ", qty=" + qty +
+                ", purchasePrice=" + purchasePrice +
+                ", paidTime='" + paidTime + '\'' +
+                ", orderStatus=" + orderStatus +
+                ", createTime=" + createTime +
+                ", lastUpdateTime=" + lastUpdateTime +
+                ", store=" + store +
+                ", product=" + product +
+                '}';
     }
 }

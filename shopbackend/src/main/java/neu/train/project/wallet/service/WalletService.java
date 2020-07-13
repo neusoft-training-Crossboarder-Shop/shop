@@ -8,6 +8,7 @@ import neu.train.project.wallet.vo.GetATransactionQuery;
 import neu.train.project.wallet.vo.GetAnAuditQuery;
 import neu.train.project.wallet.vo.MakeATransaction;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface WalletService {
@@ -26,5 +27,7 @@ public interface WalletService {
     boolean rejectAudit(String managerId,WtaWalletTransactionAduit wtaWalletTransactionAduit);
     boolean tryDeposit(int buyerId,MakeATransaction makeATransaction);
     boolean tryWithdraw(int buyerId,MakeATransaction makeATransaction);
+    boolean pay(int bvoId, int mvoId, BigDecimal total);
+
 
 }

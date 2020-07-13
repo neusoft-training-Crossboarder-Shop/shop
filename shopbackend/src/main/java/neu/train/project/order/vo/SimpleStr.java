@@ -9,10 +9,9 @@ public class SimpleStr {
 
     private String storeName;
 
-    public SimpleStr(Integer storeId, Integer platformType, String storeName) {
-        this.storeId = storeId;
-        this.platformType = platformType;
-        this.storeName = storeName;
+
+    public SimpleStr() {
+
     }
 
     public Integer getStoreId() {

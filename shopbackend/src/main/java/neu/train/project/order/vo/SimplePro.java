@@ -11,10 +11,9 @@ public class SimplePro {
 
     private BigDecimal retailPrice;
 
-    public SimplePro(Integer proId, String title, BigDecimal retailPrice) {
-        this.proId = proId;
-        this.title = title;
-        this.retailPrice = retailPrice;
+
+    public SimplePro() {
+
     }
 
     public Integer getProId() {

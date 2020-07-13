@@ -1,11 +1,9 @@
 package neu.train.project.order.service;
 
+import neu.train.project.order.pojo.SaoSalesOrder;
 import neu.train.project.order.pojo.ShaShippingAddress;
 import neu.train.project.order.pojo.StoStoreOrder;
-import neu.train.project.order.vo.GetAStoOrderQueryByTime;
-import neu.train.project.order.vo.GetUpdateASto;
-import neu.train.project.order.vo.SendASimpleSto;
-import neu.train.project.order.vo.SendAStoOrder;
+import neu.train.project.order.vo.*;
 
 import java.util.List;
 
@@ -19,4 +17,8 @@ public interface OrderService {
     boolean insertOneAddress(ShaShippingAddress shaShippingAddress);
     boolean updateOneAddress(ShaShippingAddress shaShippingAddress);
     ShaShippingAddress selectAddressByStoId(int stoId);
+    boolean pay(int bvoId, GetAPayMessage getAPayMessage);
+    SendComplexSao selectSaoStrProByStoId(int stoId);
+    List<SendComplexSao> selectSaoStrProByTime(GetASaoQueryByTime getASaoQueryByTime);
+    boolean updateStoStatus(GetStoStatusQuery getStoStatusQuery);
 }
