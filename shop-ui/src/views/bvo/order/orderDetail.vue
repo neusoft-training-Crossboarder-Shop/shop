@@ -46,7 +46,7 @@
                        </el-col>
 
                         <el-col v-if="stoOrder.orderStatus == 1" :span="2">
-                          <el-button type="primary">Save</el-button>
+                          <el-button type="primary" @click="click_updateStoByStoId">Save</el-button>
                         </el-col>
 
                         <el-col :span="2">
@@ -145,7 +145,7 @@
 
                <el-col :span="12" style="horiz-align: center">
                  <el-form-item>
-                   <el-button type="primary" v-if="stoInfo.orderStatus==1" @click="onSubmit">SAVE</el-button>
+                   <el-button type="primary" v-if="stoOrder.orderStatus==1" @click="click_updateShippingAddress">SAVE</el-button>
                    <el-button type="primary" v-else :disabled="true" >Forbidding SAVE</el-button>
                  </el-form-item>
                </el-col>
@@ -155,7 +155,7 @@
             </el-form>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="Waiting For Dispatching" name="2" :disabled="stoInfo.orderStatus<2">
+        <el-tab-pane label="Waiting For Dispatching" name="2" :disabled="stoOrder.orderStatus<2">
           <h2>Waiting For The Manufacturer Dispatching</h2>
           <div class="main_content detail_info">
               <div>
@@ -170,7 +170,7 @@
           </div>
 
         </el-tab-pane>
-        <el-tab-pane  label="Waiting For Arriving" name="3" :disabled="stoInfo.orderStatus<3">
+        <el-tab-pane  label="Waiting For Arriving" name="3" :disabled="stoOrder.orderStatus<3">
           <div>
             <h2>Your patch is on the road .... </h2>
             <div><span class="tag">Carrier Name </span> <span>{{shippingAddress.carrierName}}</span></div>
@@ -200,7 +200,7 @@
 
           </div>
         </el-tab-pane>
-        <el-tab-pane  label="Waiting For Accepting" name="4" :disabled="stoInfo.orderStatus<4">
+        <el-tab-pane  label="Waiting For Accepting" name="4" :disabled="stoOrder.orderStatus<4">
           <div>
             <el-card class="box-card" style="position: relative;left: 30%;top: 50%; width: 40%">
               <div slot="header" class="clearfix">
@@ -214,7 +214,7 @@
             </el-card>
           </div>
         </el-tab-pane>
-        <el-tab-pane  label="Eventually Completed" name="5" :disabled="stoInfo.orderStatus<5">
+        <el-tab-pane  label="Eventually Completed" name="5" :disabled="stoOrder.orderStatus<5">
 
           <el-card class="box-card" style="position: relative;left: 30%;top: 50%; width: 40%">
               <div slot="header" class="clearfix">
@@ -236,166 +236,183 @@
         </el-tab-pane>
       </el-tabs>
     </el-row>
-
     </div>
   </div>
 </template>
-
-<script>
-    export default {
-        name: "orderDetail.vue",
-        data:function () {
-          return{
-            active:2,
-            status:2,
-            stoOrder:{
-              stoId:'',
-              qty:'1',
-              product:{
-                proId:'1',
-                title:'汉堡',
-                retailPrice:'180',
+      <script>
+        import {getStoByStoId,
+          updateStoByStoId,
+          payStoBySto,
+          getShippingAddressByStoId,
+          insertShippingAddress,
+          updateShippingAddress
+        } from "../../../api/bvo/order";
+        export default {
+          name: "orderDetail.vue",
+          data:function () {
+            return{
+              active:2,
+              status:2,
+              stoOrder:{
+                stoId:'',
+                qty:'1',
+                product:{
+                  proId:'1',
+                  title:'汉堡',
+                  retailPrice:'180',
+                },
+                store:{
+                  strId:'23',
+                  storeName:'KFC',
+                  platformType:1,
+                },
+                purchasePrice:1280,
+                paidTime:'',
+                createTime:'',
+                lastUpdateTime:'',
+                orderStatus:5 ,
               },
-              store:{
-                strId:'23',
-                storeName:'KFC',
-                platformType:1,
+              purchaseVisible:false,
+              shippingAddress:{
+                stoId:undefined,
+                familyName:'',
+                givenName:'',
+                countryName:'',
+                stateOrProvinceName:'',
+                stateOrProvinceCd:'',
+                cityName:'',
+                postalCd:'',
+                email:'',
+                contactPhoneNo:'',
+                addressLine1:'',
+                freightCost:5,
+                carrierName:'顺丰快递',
               },
-              purchasePrice:1280,
-              paidTime:'',
-              createTime:'',
-              lastUpdateTime:'',
-              orderStatus:1,
-            },
-            purchaseVisible:false,
-            shippingAddress:{
-              familyName:'',
-              givenName:'',
-              countryName:'',
-              stateOrProvinceName:'',
-              stateOrProvinceCd:'',
-              cityName:'',
-              postalCd:'',
-              email:'',
-              contactPhoneNo:'',
-              addressLine1:'',
-              freightCost:5,
-              carrierName:'顺丰快递',
-            },
-            stoInfo: {
-              stoId:'1',
-              qty:'1',
-              product:{
-                proId:'1',
-                title:'汉堡',
-                retailPrice:'180',
-              },
-              //str
-              store:{
-                strId:'23',
-                storeName:'KFC',
-                platformType:1,
-              },
-
-              purchasePrice:1280,
-
-              paidTime:'',
-              createTime:'',
-              lastUpdateTime:'',
-              orderStatus:2,
-            },
-            password:'',
-            salInfo:{
-              qty:13,
-              product:{
-                proId:'1',
-                title:'汉堡',
-                retailPrice:180,
-              },
-              manufacturer:{
-                nameEn:'江南皮革厂',
-                description:'江南皮革厂好鞋造江南皮革厂造好鞋江南皮革厂造好鞋江南皮革厂造好鞋江南皮革厂造好鞋',
-              },
-              //总价格
-              price:12.12,
-              purchasePrice:12.12,
-              trackingNo:'BE661664243JP',
-              rate:3,
-              colors: ['#99A9BF', '#F7BA2A', '#FF9900']  // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
+              password:'',
+              salInfo:{
+                qty:13,
+                product:{
+                  proId:'1',
+                  title:'汉堡',
+                  retailPrice:180,
+                },
+                manufacturer:{
+                  nameEn:'江南皮革厂',
+                  description:'江南皮革厂好鞋造江南皮革厂造好鞋江南皮革厂造好鞋江南皮革厂造好鞋江南皮革厂造好鞋',
+                },
+                //总价格
+                price:12.12,
+                purchasePrice:12.12,
+                trackingNo:'BE661664243JP',
+                rate:3,
+                colors: ['#99A9BF', '#F7BA2A', '#FF9900']  // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
+              }
             }
-          }
-        },
-      created() {
-        const stoId = this.$route.params && this.$route.params.orderId;
-        // this.getType(dictId);
-        // this.getTypeList();
-        // this.getDicts("sys_normal_disable").then(response => {
-        //   this.statusOptions = response.data;
-        // });
+          },
+          created() {
+            const stoId = this.$route.params && this.$route.params.orderId;
+            // this.getType(dictId);
+            // this.getTypeList();
+            // this.getDicts("sys_normal_disable").then(response => {
+            //   this.statusOptions = response.data;
+            // });
 
-        this.$notify({
-          type : "success",
-          message:`你当前正在访问的订单详情为${stoId}`
-        })
-      },
-      created(){
+            this.$notify({
+              type : "success",
+              message:`你当前正在访问的订单详情为${stoId}`
+            })
 
-        on_click(this.stoInfo.orderStatus)
+            // getStoByStoId(stoId).then(response=>{
+            //   this.stoOrder = response.data;
+            // })
 
-      },
-      methods:{
-        on_click(e){
-          if (e > this.stoInfo.orderStatus) {
+            // getShippingAddressByStoId(stoId).then(response=>{
+            //    this.shippingAddress=response.data;
+            // })
+            on_click(this.stoOrder.orderStatus)
+          },
+        methods:{
+          on_click(e){
+            if (e > this.stoOrder.orderStatus) {
               this.$notify({
                 type:'info',
                 message:'You cannot click'
               })
-          }else{
-            this.active=''+e
+            }else{
+              this.active=''+e
+            }
+          },
+          click_updateStoByStoId(){
+            console.log("click_updateStoByStoId")
+
+            // updateStoByStoId({
+              //   stoId:this.stoOrder.stoId,
+              //   qty:this.stoOrder.qty
+              // }).then(response=>{
+              //   getStoByStoId(this.stoOrder.stoId).then(response=>{
+              //     this.stoOrder = response.data;
+              //   })
+              // })
+
+          },
+          purchaseUi(){
+            this.$prompt('Please Enter Wallet Password ', `Total Price ${this.stoOrder.qty*this.stoOrder.product.retailPrice+this.shippingAddress.freightCost}`, {
+              confirmButtonText: 'Yes',
+              cancelButtonText: 'Cancel',
+              inputPattern: /.+/,
+              inputErrorMessage: 'Password Cannot be Empty'
+            }).then(({ value }) => {
+              let data = {
+                password:value,
+                stoId:this.stoOrder.stoId,
+                freightCost: this.shippingAddress.freightCost
+              }
+              // payStoBySto(data).then(response=>{
+              //
+              // })
+            }).catch(() => {
+              this.$message({
+                type: 'info',
+                message: '取消输入'
+              });
+
+            });
+
+          },
+          click_updateShippingAddress(){
+            console.log("click_updateShippingAddress")
+             // if (this.shippingAddress.stoId) {
+             //   updateShippingAddress(this.shippingAddress).then((response)=>{
+             //
+             //   })
+             // }else{
+             //   insertShippingAddress(this.shippingAddress).then((response)=>{
+             //
+             //   })
+             // }
+          },
+          redirectToBrowse(){
+            this.$router.push({
+              name:"Browse"
+            })
+          },
+          redirectToMyStore(){
+            this.$router.push({
+              name:"Store"
+            })
+          },
+          handleTabClick(tab,event){
+            console.log(tab)
+            console.log(event)
+            this.$notify({
+              type:'info',
+              message:`You cannot click ${tab.name}`
+            })
+
           }
-        },
-        purchaseUi(){
-          this.$prompt('Please Enter Wallet Password ', `Total Price ${this.stoOrder.qty*this.stoOrder.product.retailPrice+this.shippingAddress.freightCost}`, {
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'Cancel',
-            inputPattern: /.+/,
-            inputErrorMessage: 'Password Cannot be Empty'
-          }).then(({ value }) => {
-            //成功
-            this.$message({
-              type: 'success',
-              message: 'Pay Success: ' + value
-            });
-          }).catch(() => {
-            this.$message({
-              type: 'info',
-              message: '取消输入'
-            });
-          });
-
-        },
-        redirectToBrowse(){
-          this.$router.push({
-            name:"Browse"
-          })
-        },
-        redirectToMyStore(){
-          this.$router.push({
-            name:"Store"
-          })
-        },
-        handleTabClick(tab,event){
-          console.log(tab)
-          console.log(event)
-          this.$notify({
-            type:'info',
-            message:`You cannot click ${tab.name}`
-          })
-
         }
-      }
-    }
-</script>
+        }
+      </script>
 
 <style scoped>
 .clickable{
