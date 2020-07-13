@@ -8,23 +8,23 @@
 
     <!-- 查询和其他操作 -->
     <div class="filter-container">
-      <el-input v-model="listQuery.id" clearable class="filter-item" style="width: 200px;" placeholder="Enter the ID of brand"></el-input>
-      <el-input v-model="listQuery.name" clearable class="filter-item" style="width: 200px;" placeholder="Enter the name of brand"></el-input>
+      <el-input v-model="listQuery.id" clearable class="filter-item" style="width: 200px;" placeholder="Enter the ID of category"></el-input>
+      <el-input v-model="listQuery.name" clearable class="filter-item" style="width: 200px;" placeholder="Enter the name of category"></el-input>
       <el-button  class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">Search</el-button>
       <el-button  class="filter-item" type="success" icon="el-icon-edit" @click="handleCreate">Add</el-button>
-      <!--      <el-button v-permission="['GET /mvo/brand/list']" class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">Search</el-button>-->
-      <!--      <el-button v-permission="['POST /mvo/brand/create']" class="filter-item" type="success" icon="el-icon-edit" @click="handleCreate">Add</el-button>-->
+      <!--      <el-button v-permission="['GET /mvo/category/list']" class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">Search</el-button>-->
+      <!--      <el-button v-permission="['POST /mvo/category/create']" class="filter-item" type="success" icon="el-icon-edit" @click="handleCreate">Add</el-button>-->
       <el-button :loading="downloadLoading" class="filter-item" type="info" icon="el-icon-download" @click="handleDownload">Export</el-button>
     </div>
 
     <!-- 查询结果 -->
     <el-table v-loading="listLoading" :data="list" element-loading-text="Searching now..." border fit highlight-current-row>
 
-      <el-table-column align="center" label="brdId" prop="brdId"></el-table-column>
-      <el-table-column align="center" label="manId" prop="manId"></el-table-column>
+      <el-table-column align="center" label="prcId" prop="prcId"></el-table-column>
+      <el-table-column align="center" label="proId" prop="proId"></el-table-column>
 
-      <el-table-column align="center" label="nameEn" prop="nameEn"></el-table-column>
-      <el-table-column align="center" label="nameCn" prop="nameCn"></el-table-column>
+      <el-table-column align="center" label="categoryName" prop="categoryName"></el-table-column>
+      <el-table-column align="center" label="CategoryPath" prop="CategoryPath"></el-table-column>
       <el-table-column align="center" label="imgId" prop="imgId"></el-table-column>
 
       <el-table-column align="center" property="picUrl" label="picUrl">
@@ -54,8 +54,8 @@
         <template slot-scope="scope">
           <el-button  type="primary" size="middle" @click="handleUpdate(scope.row)">Edit</el-button>
           <el-button  type="danger" size="middle" @click="handleDelete(scope.row)">Delete</el-button>
-          <!--          <el-button v-permission="['POST /mvo/brand/update']" type="primary" size="mini" @click="handleUpdate(scope.row)">Edit</el-button>-->
-          <!--          <el-button v-permission="['POST /mvo/brand/delete']" type="danger" size="mini" @click="handleDelete(scope.row)">Delete</el-button>-->
+          <!--          <el-button v-permission="['POST /mvo/category/update']" type="primary" size="mini" @click="handleUpdate(scope.row)">Edit</el-button>-->
+          <!--          <el-button v-permission="['POST /mvo/category/delete']" type="danger" size="mini" @click="handleDelete(scope.row)">Delete</el-button>-->
         </template>
       </el-table-column>
     </el-table>
@@ -67,25 +67,25 @@
     <!-- 添加或修改对话框 -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="dataForm" status-icon label-position="left" label-width="180px" style="width: 800px; margin-left:50px;">
-        <el-form-item label="Name (CHN)" prop="nameEn">
-          <el-input v-model="dataForm.nameCn"></el-input>
+        <el-form-item label="categoryName" prop="categoryName">
+          <el-input v-model="dataForm.CategoryPath"></el-input>
         </el-form-item>
-        <el-form-item label="Name (EN)" prop="nameCn">
-          <el-input v-model="dataForm.nameEn"></el-input>
-        </el-form-item>
-
-        <el-form-item label="Description" prop="brdDesc">
-
-          <el-card style="height: 700px;width:620px">
-            <!--            <quill-editor v-model="dataForm.desc" ref="myQuillEditor" style="height: 580px;width : 580px" :options="editorOption">-->
-            <quill-editor v-model="dataForm.brdDesc" ref="myQuillEditor" style="height: 580px;width : 580px" >
-            </quill-editor>
-          </el-card>
-
+        <el-form-item label="CategoryPath" prop="CategoryPath">
+          <el-input v-model="dataForm.categoryName"></el-input>
         </el-form-item>
 
+<!--        <el-form-item label="Description" prop="brdDesc">-->
 
-        <el-form-item label="brand_img" prop="imgId">
+<!--          <el-card style="height: 700px;width:620px">-->
+<!--            &lt;!&ndash;            <quill-editor v-model="dataForm.desc" ref="myQuillEditor" style="height: 580px;width : 580px" :options="editorOption">&ndash;&gt;-->
+<!--            <quill-editor v-model="dataForm.brdDesc" ref="myQuillEditor" style="height: 580px;width : 580px" >-->
+<!--            </quill-editor>-->
+<!--          </el-card>-->
+
+<!--        </el-form-item>-->
+
+
+        <el-form-item label="category_img" prop="imgId">
           <el-upload
             :headers="headers"
             :action="uploadPath"
@@ -109,7 +109,7 @@
 </template>
 
 <script>
-  import { listBrand, createBrand, updateBrand, deleteBrand } from '@/api/mvo/brand'
+  import { listCategory, createCategory, updateCategory, deleteCategory } from '@/api/mvo/category'
   import { uploadPath } from '@/api/mvo/storage'
   import { getToken } from '@/utils/auth'
   import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
@@ -121,7 +121,7 @@
   import 'quill/dist/quill.bubble.css'
 
   export default {
-    name: "brand",
+    name: "GoodsCategory",
     components: { Pagination, quillEditor },
     data() {
       return {
@@ -132,17 +132,17 @@
         listQuery: {
           page: 1,
           limit: 20,
-          brdId: 'brd_id',
+          prcId: 'brd_id',
           name: '',
           sort: 'create_time',
           order: 'Desc' //order by create_time desc  mysql 语句
         },
         dataForm: {
-          brdId: '',
-          manId: '',
+          prcId: '',
+          proId: '',
           name: '',
-          nameEn: '',
-          nameCn: '',
+          categoryName: '',
+          CategoryPath: '',
           imgId: '',
           createdBy: '',
           createTime: '',
@@ -181,7 +181,7 @@
     methods: {
       getList() {
         this.listLoading = true
-        listBrand(this.listQuery)
+        listCategory(this.listQuery)
           .then(response => {
             this.list = response.data.list;
             this.total = response.data.total;
@@ -199,10 +199,10 @@
       },
       resetForm() {
         this.dataForm = {
-          brdId: undefined,
-          manId: undefined,
-          nameEn: undefined,
-          nameCn: undefined,
+          prcId: undefined,
+          proId: undefined,
+          categoryName: undefined,
+          CategoryPath: undefined,
           imgId: undefined,
           createdBy: undefined,
           createTime: undefined,
@@ -227,7 +227,7 @@
       createData() {
         this.$refs['dataForm'].validate(valid => {
           if (valid) {
-            createBrand(this.dataForm)
+            createCategory(this.dataForm)
               .then(response => {
                 this.list.unshift(response.data.data)
                 this.dialogFormVisible = false
@@ -256,10 +256,10 @@
       updateData() {
         this.$refs['dataForm'].validate(valid => {
           if (valid) {
-            updateBrand(this.dataForm)
+            updateCategory(this.dataForm)
               .then(() => {
                 for (const v of this.list) {
-                  if (v.id === this.dataForm.brdId) {
+                  if (v.id === this.dataForm.prcId) {
                     const index = this.list.indexOf(v)
                     this.list.splice(index, 1, this.dataForm)
                     break
@@ -281,7 +281,7 @@
         })
       },
       handleDelete(row) {
-        deleteBrand(row)
+        deleteCategory(row)
           .then(response => {
             this.$notify.success({
               title: 'Success',
@@ -301,19 +301,19 @@
         this.downloadLoading = true
         import('@/vendor/Export2Excel').then(excel => {
           const tHeader = [
-            'brand_ID',
+            'category_ID',
             'manufacturer_ID',
-            'nameEn',
-            'nameCn',
+            'categoryName',
+            'CategoryPath',
             'Desc',
             'imgId'
           ]
-          const filterVal = ['brdId','manId', 'nameEn','nameCn', 'brdDesc', 'imgId']
+          const filterVal = ['prcId','proId', 'categoryName','CategoryPath', 'brdDesc', 'imgId']
           excel.export_json_to_excel2(
             tHeader,
             this.list,
             filterVal,
-            'brand'
+            'category'
           )
           this.downloadLoading = false
         })
