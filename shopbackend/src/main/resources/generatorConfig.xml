@@ -17,21 +17,21 @@
                 password="UZIUZIUZI">
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
-        <javaModelGenerator targetPackage="neu.train.project.wallet.pojo" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="neu.train.project.order.pojo" targetProject="src/main/java">
             <property name="constructorBased" value="true"/>
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
-        <sqlMapGenerator targetPackage="mybatis.wallet" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="mybatis.order" targetProject="src/main/resources">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
-        <javaClientGenerator targetPackage="neu.train.project.wallet.mapper" targetProject="src/main/java"
+        <javaClientGenerator targetPackage="neu.train.project.order.mapper" targetProject="src/main/java"
                              type="MIXEDMAPPER">
             <property name="enableSubPackages" value="false"/>
             <property name="exampleMethodVisibility" value="public"/>
         </javaClientGenerator>
-        <table tableName="wta_wallet_transaction_aduit" schema="bsp_database">
-            <generatedKey column="transaction_audit_id" sqlStatement="Mysql"/>
+        <table tableName="sha_shipping_address" schema="bsp_database">
+            <generatedKey column="sha_id" sqlStatement="Mysql"/>
         </table>
     </context>
 </generatorConfiguration>
