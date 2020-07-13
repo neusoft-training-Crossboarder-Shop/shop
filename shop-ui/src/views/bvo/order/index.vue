@@ -103,15 +103,18 @@
 
         <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template slot-scope="scope">
-              <el-button v-if="scope.row.orderStatus == 1" type="success" @click="setCardVisible">
+              <el-button v-if="scope.row.orderStatus == 1" type="success" >
                 付款
               </el-button>
 
-              <el-button v-if="scope.row.orderStatus == 4" type="success">
-                确认送达
+              <el-button v-if="scope.row.orderStatus == 2" type="primary">发货</el-button>
+              <el-button v-if="scope.row.orderStatus == 3"  type="primary">送达</el-button>
+
+              <el-button v-if="scope.row.orderStatus == 4" type="info">
+                等待确认
               </el-button>
 
-             <el-button type="info" v-if="scope.row.orderStatus != 1 && scope.row.orderStatus != 4 ">buttonCont
+             <el-button type="info" v-if="scope.row.orderStatus == 5 ">buttonCont
                 不可操作
              </el-button>
 

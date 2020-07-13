@@ -265,7 +265,7 @@
               paidTime:'',
               createTime:'',
               lastUpdateTime:'',
-              orderStatus:1,
+              orderStatus:1 ,
             },
             purchaseVisible:false,
             shippingAddress:{
@@ -302,7 +302,7 @@
               paidTime:'',
               createTime:'',
               lastUpdateTime:'',
-              orderStatus:2,
+              orderStatus:1,
             },
             password:'',
             salInfo:{
