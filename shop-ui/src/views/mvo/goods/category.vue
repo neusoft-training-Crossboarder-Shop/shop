@@ -25,7 +25,6 @@
 
       <el-table-column align="center" label="categoryName" prop="categoryName"></el-table-column>
       <el-table-column align="center" label="CategoryPath" prop="CategoryPath"></el-table-column>
-      <el-table-column align="center" label="imgId" prop="imgId"></el-table-column>
 
       <el-table-column align="center" property="picUrl" label="picUrl">
         <template slot-scope="scope">
@@ -37,18 +36,15 @@
 
       <el-table-column align="center" label="Creater" prop="createdBy"></el-table-column>
 
-
       <el-table-column align="center" label="Create_date" prop="createTime"></el-table-column>
 
       <el-table-column align="center" label="Updater" prop="lastUpdateBy"></el-table-column>
 
       <el-table-column align="center" label="Update_date" prop="lastUpdateTime"></el-table-column>
-      <!--      <el-table-column align="center" label="Remark" prop="callCnt"></el-table-column>-->
+      <el-table-column align="center" label="Remark" prop="callCnt"></el-table-column>
 
-      <!--      <el-table-column align="center" label="State" prop="stsCd"></el-table-column>-->
-      <!--      <el-table-column align="center" label="Deleted" prop="deleted"></el-table-column>-->
-
-      <el-table-column align="center" min-width="400px" label="brdDesc" prop="brdDesc"></el-table-column>
+      <el-table-column align="center" label="State" prop="stsCd"></el-table-column>
+      <el-table-column align="center" label="Deleted" prop="deleted"></el-table-column>
 
       <el-table-column align="center" label="Operation" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
