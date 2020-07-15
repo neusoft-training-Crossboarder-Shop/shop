@@ -32,7 +32,12 @@
           <img :src="codeUrl" @click="getCode" />
         </div>
       </el-form-item>
-      <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
+
+      <el-form-item>
+        <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
+        <span class="register" @click="handleRegister">注册</span>
+      </el-form-item>
+
       <el-form-item style="width:100%;">
         <el-button
           :loading="loading"
@@ -41,8 +46,8 @@
           style="width:100%;"
           @click.native.prevent="handleLogin"
         >
-          <span v-if="!loading">登 录</span>
-          <span v-else>登 录 中...</span>
+          <span v-if="!loading">Log In</span>
+          <span v-else>Login ing....</span>
         </el-button>
       </el-form-item>
     </el-form>
@@ -50,6 +55,113 @@
     <div class="el-login-footer">
       <span>Copyright © 2020 NeuSoft All Rights Reserved.</span>
     </div>
+
+    <!-- 添加或修改参数配置对话框 -->
+    <el-dialog :title="title" :visible.sync="open" width="35%"  append-to-body>
+      <el-form ref="registerForm" :model="registerForm" :rules="registerRules" label-width="30%">
+        <el-row>
+          <el-col :span="24">
+            <el-form-item label="账号类型">
+              <el-switch
+                  v-model="registerForm.roleIds"
+                  active-value='3'
+                  inactive-value='4'
+                  active-text="供应商"
+                  inactive-text="借卖商">
+              </el-switch>
+            </el-form-item>
+<!--            <el-form-item label="角色">-->
+<!--              <el-select v-model="registerForm.roleIds" multiple placeholder="请选择">-->
+<!--                <el-option-->
+<!--                  v-for="item in roleOptions"-->
+<!--                  :key="item.roleId"-->
+<!--                  :label="item.roleName"-->
+<!--                  :value="item.roleId"-->
+<!--                  :disabled="item.status == 1"-->
+<!--                ></el-option>-->
+<!--              </el-select>-->
+<!--            </el-form-item>-->
+
+
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="24">
+            <el-form-item  label="用户名称" prop="userName">
+              <el-input v-model="registerForm.userName" placeholder="请输入用户名称" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row :gutter="10">
+          <el-col :span="24">
+            <el-form-item label="用户密码" prop="password">
+              <el-input v-model="registerForm.password" placeholder="请输入用户密码" type="password" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="24">
+            <el-form-item label="用户昵称" prop="nickName">
+              <el-input v-model="registerForm.nickName" placeholder="请输入用户昵称" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="24">
+            <el-form-item label="手机号码" prop="phonenumber">
+              <el-input v-model="registerForm.phonenumber" placeholder="请输入手机号码" maxlength="11" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+
+
+
+        <el-row :gutter="10">
+          <el-col :span="24">
+            <el-form-item label="邮箱" prop="email">
+              <el-input v-model="registerForm.email" placeholder="请输入邮箱" maxlength="50" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="24">
+            <el-form-item label="用户性别">
+<!--              <el-select v-model="registerForm.sex" placeholder="请选择">-->
+<!--                <el-option-->
+<!--                  v-for="dict in sexOptions"-->
+<!--                  :key="dict.dictValue"-->
+<!--                  :label="dict.dictLabel"-->
+<!--                  :value="dict.dictValue"-->
+<!--                ></el-option>-->
+<!--              </el-select>-->
+
+              <el-radio-group v-model="registerForm.sex">
+                <el-radio
+                      v-for="item in sexOptions"
+                      :label="item.dictValue"
+                      :key="item.dictValue"
+                    >{{item.dictLabel}}
+                </el-radio>
+              </el-radio-group>
+
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -57,6 +169,7 @@
 import { getCodeImg } from "@/api/login";
 import Cookies from "js-cookie";
 import { encrypt, decrypt } from '@/utils/jsencrypt'
+import {addUser} from "../api/login";
 
 export default {
   name: "Login",
@@ -81,8 +194,57 @@ export default {
         code: [{ required: true, trigger: "change", message: "验证码不能为空" }]
       },
       loading: false,
-      redirect: undefined
-    };
+      redirect: undefined,
+
+      title:'',
+      open:false,
+
+      sexOptions: [{dictLabel:'男',dictValue:'1'},{dictLabel:'女',dictValue:'2'}],
+      initPassword:'123456',
+
+      registerForm: {
+        userId: undefined,
+        // deptId: undefined,
+        userName: undefined,
+        nickName: undefined,
+        password: undefined,
+        phonenumber: undefined,
+        email: undefined,
+        sex: undefined,
+        status: "0",
+        remark: undefined,
+        roleIds: []
+      },
+
+        registerRules: {
+          userName: [
+            { required: true, message: "用户名称不能为空", trigger: "blur" }
+          ],
+          nickName: [
+            { required: true, message: "用户昵称不能为空", trigger: "blur" }
+          ],
+
+          password: [
+            { required: true, message: "用户密码不能为空", trigger: "blur" }
+          ],
+          email: [
+            { required: true, message: "邮箱地址不能为空", trigger: "blur" },
+            {
+              type: "email",
+              message: "'请输入正确的邮箱地址",
+              trigger: ["blur", "change"]
+            }
+          ],
+          phonenumber: [
+            { required: true, message: "手机号码不能为空", trigger: "blur" },
+            {
+              pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/,
+              message: "请输入正确的手机号码",
+              trigger: "blur"
+            }
+          ]
+        }
+      };
   },
   watch: {
     $route: {
@@ -96,6 +258,7 @@ export default {
   created() {
     this.getCode();
     this.getCookie();
+
   },
   methods: {
     //获取一个二维码图片 和 这个图片对应的uuid
@@ -114,6 +277,61 @@ export default {
         password: password === undefined ? this.loginForm.password : decrypt(password),
         rememberMe: rememberMe === undefined ? false : Boolean(rememberMe)
       };
+    },
+
+    reset() {
+      this.registerForm = {
+        userId: undefined,
+        // deptId: undefined,
+        userName: undefined,
+        nickName: undefined,
+        password: undefined,
+        phonenumber: undefined,
+        email: undefined,
+        sex: undefined,
+        status: "0",
+        remark: undefined,
+        roleIds: []
+      };
+      this.resetForm("registerForm");
+    },
+    handleRegister() {
+
+      this.reset();
+
+      console.log(this.sexOptions)
+      // this.getTreeselect();
+      this.open = true;
+      this.title = "Register";
+      this.registerForm.password = this.initPassword;
+    },
+
+    /** 提交按钮 */
+    submitForm: function() {
+      this.$refs["registerForm"].validate(valid => {
+        if (valid) {
+            let id=this.registerForm.roleIds;
+            this.registerForm.roleIds=[]
+            this.registerForm.roleIds.push(id[0])
+
+            console.log(this.registerForm)
+            addUser(this.registerForm).then(response=>{
+              this.$notify(
+                {
+                  type:'success',
+                  message:'注册成功'
+                }
+              )
+              this.open = false;
+
+            })
+
+          }
+      });
+    },
+    cancel() {
+      this.open = false;
+      this.reset();
     },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
@@ -158,6 +376,8 @@ export default {
   background-image: url("../assets/image/login-background.jpg");
   background-size: cover;
 }
+
+
 .title {
   margin: 0px auto 30px auto;
   text-align: center;
@@ -206,5 +426,15 @@ export default {
   font-family: Arial;
   font-size: 12px;
   letter-spacing: 1px;
+}
+.register:hover{
+   text-decoration: underline;
+   cursor: pointer;
+   color: #3A71A8;
+}
+.register{
+  float: right;
+  font-size: medium;
+  color: #ed5565;
 }
 </style>
