@@ -1,7 +1,7 @@
 package neu.train.project.order.service;
 
-import neu.train.project.order.pojo.SaoSalesOrder;
 import neu.train.project.order.pojo.ShaShippingAddress;
+import neu.train.project.order.pojo.StiStoreDropshipItem;
 import neu.train.project.order.pojo.StoStoreOrder;
 import neu.train.project.order.vo.*;
 
@@ -21,4 +21,11 @@ public interface OrderService {
     SendComplexSao selectSaoStrProByStoId(int stoId);
     List<SendComplexSao> selectSaoStrProByTime(GetASaoQueryByTime getASaoQueryByTime);
     boolean updateStoStatus(GetStoStatusQuery getStoStatusQuery);
+    boolean insertStos(int bvoId,GetPurchaseMessage getPurchaseMessage);
+    boolean acceptSto(int bvoId,int stoId);
+    boolean insertDropItem(int bvoId,int stoId);
+    boolean onOffShelf(int someoneId,int dilId,String status);
+    StiStoreDropshipItem selectStiRedisById(int dilId);
+    boolean updateShelfPriceAmount(int someoneId,GetShelfPriceAmount getShelfPriceAmount);
+    List<SendSti> selectSTIs(GetStiQuery getStiQuery);
 }

@@ -30,8 +30,8 @@
             <property name="enableSubPackages" value="false"/>
             <property name="exampleMethodVisibility" value="public"/>
         </javaClientGenerator>
-        <table tableName="sao_sales_order" schema="bsp_database">
-            <generatedKey column="sales_oder_id" sqlStatement="Mysql"/>
+        <table tableName="sti_store_dropship_item" schema="bsp_database">
+            <generatedKey column="dil_id" sqlStatement="Mysql"/>
         </table>
     </context>
 </generatorConfiguration>

@@ -101,7 +101,7 @@
     </if>
   </delete>
   <insert id="insertSelective" parameterType="neu.train.project.order.pojo.StoStoreOrder" >
-    <selectKey resultType="java.lang.Integer" keyProperty="stoId" order="BEFORE" >
+    <selectKey resultType="java.lang.Integer" keyProperty="stoId" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into sto_store_order

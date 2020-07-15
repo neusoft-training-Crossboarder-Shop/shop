@@ -2,6 +2,7 @@ package neu.train.project.order.service.imp;
 
 
 import neu.train.common.core.lang.UUID;
+import neu.train.common.utils.DateUtils;
 import neu.train.framework.redis.RedisCache;
 import neu.train.project.order.mapper.*;
 import neu.train.project.order.pojo.*;
@@ -36,6 +37,8 @@ public class OrderServiceImp implements OrderService {
     ManManufacturerMapper manManufacturerMapper;
     @Autowired
     SaoSalesOrderMapper saoSalesOrderMapper;
+    @Resource(name="DDMapper")
+    StiStoreDropshipItemMapper stiStoreDropshipItemMapper;
 
     //根据stoId起始终止时间模糊查询StoStrPro
     @Override
@@ -132,6 +135,7 @@ public class OrderServiceImp implements OrderService {
         walletService.pay(bvoId, manManufacturerMapper.selectByPrimaryKey(proProduct.getManId()).getSysUserId(), total);
         //原始订单修改
         stoStoreOrder.setPurchasePrice(proProduct.getRetailPrice());
+        stoStoreOrder.setPaidTime(DateUtils.getTime());
         stoStoreOrder.setOrderStatus(2);
         stoStoreOrder.setLastUpdateBy(String.valueOf(bvoId));
         stoStoreOrderMapper.updateByPrimaryKey(stoStoreOrder);
@@ -188,4 +192,106 @@ public class OrderServiceImp implements OrderService {
         redisCache.setCacheObject("stoById:" + stoStoreOrder.getStoId(), stoStoreOrder);
         return true;
     }
+
+    //插入一批sto订单，缓存"stoById:"+stoId
+    @Override
+    public boolean insertStos(int bvoId,GetPurchaseMessage getPurchaseMessage){
+        for(int i=0;i<getPurchaseMessage.getStoreIds().length;i++){
+            StoStoreOrder stoStoreOrder=new StoStoreOrder();
+            stoStoreOrder.setProid(getPurchaseMessage.getProId());
+            stoStoreOrder.setQty(getPurchaseMessage.getAmount());
+            stoStoreOrder.setStoreId(getPurchaseMessage.getStoreIds()[i]);
+            stoStoreOrder.setPurchasePrice(proProductMapper.selectByPrimaryKey(getPurchaseMessage.getProId()).getRetailPrice());
+            stoStoreOrder.setOrderStatus(1);
+            stoStoreOrder.setCreatedBy(String.valueOf(bvoId));
+            stoStoreOrder.setLastUpdateBy(String.valueOf(bvoId));
+            stoStoreOrder.setCallCnt(1);
+            stoStoreOrder.setStsCd("1");
+            stoStoreOrderMapper.insertSelective(stoStoreOrder);
+            redisCache.setCacheObject("stoById:" + stoStoreOrder.getStoId(), stoStoreOrderMapper.selectByPrimaryKey(stoStoreOrder.getStoId()));
+        }
+        return true;
+    }
+
+    //收货，缓存"stoById:"+stoId
+    @Override
+    public boolean acceptSto(int bvoId,int stoId){
+        StoStoreOrder stoStoreOrder=new StoStoreOrder();
+        stoStoreOrder.setStoId(stoId);
+        stoStoreOrder.setOrderStatus(3);
+        stoStoreOrder.setLastUpdateBy(String.valueOf(bvoId));
+        stoStoreOrderMapper.updateByPrimaryKeySelective(stoStoreOrder);
+        stoStoreOrderMapper.selectByPrimaryKey(stoId);
+        redisCache.setCacheObject("stoById:" + stoId, stoStoreOrder);
+        return true;
+    }
+
+    //插入到手的货,写缓存stiById:
+    @Override
+    public boolean insertDropItem(int bvoId,int stoId){
+        StoStoreOrder stoStoreOrder=selectStoById(stoId);
+        StiStoreDropshipItem stiStoreDropshipItem=new StiStoreDropshipItem();
+        stiStoreDropshipItem.setProId(stoStoreOrder.getProid());
+        stiStoreDropshipItem.setStrId(stoStoreOrder.getStoreId());
+        stiStoreDropshipItem.setSalPrice(proProductMapper.selectByPrimaryKey(stoStoreOrder.getProid()).getRetailPrice());
+        stiStoreDropshipItem.setDropshipPrice(stiStoreDropshipItem.getSalPrice());
+        stiStoreDropshipItem.setStoreRetentionAmount(stoStoreOrder.getQty());
+        stiStoreDropshipItem.setShelfStockAmount(0);
+        stiStoreDropshipItem.setDropshipStatus("2");
+        stiStoreDropshipItem.setCreatedBy(String.valueOf(bvoId));
+        stiStoreDropshipItem.setCallCnt(1);
+        stiStoreDropshipItem.setStsCd("1");
+        stiStoreDropshipItem.setLastUpdateBy(String.valueOf(bvoId));
+        stiStoreDropshipItemMapper.insertSelective(stiStoreDropshipItem);
+        stiStoreDropshipItem=stiStoreDropshipItemMapper.selectByPrimaryKey(stiStoreDropshipItem.getDilId());
+        redisCache.setCacheObject("stiById:" + stiStoreDropshipItem.getDilId(), stiStoreDropshipItem);
+        return true;
+    }
+
+    //主键查询sti，写缓存stiById:
+    @Override
+    public StiStoreDropshipItem selectStiRedisById(int dilId){
+        StiStoreDropshipItem stiStoreDropshipItem=redisCache.getCacheObject("stiById:"+dilId);
+        if(stiStoreDropshipItem!=null){
+            return stiStoreDropshipItem;
+        }
+        stiStoreDropshipItem=stiStoreDropshipItemMapper.selectByPrimaryKey(dilId);
+        redisCache.setCacheObject("stiById:" + dilId, stiStoreDropshipItem);
+        return stiStoreDropshipItem;
+    }
+
+    //就改个上架状态，写缓存stiById:
+    @Override
+    public boolean onOffShelf(int someoneId,int dilId,String status){
+        StiStoreDropshipItem stiStoreDropshipItem=selectStiRedisById(dilId);
+        stiStoreDropshipItem.setDropshipStatus(status);
+        stiStoreDropshipItem.setLastUpdateBy(String.valueOf(someoneId));
+        stiStoreDropshipItemMapper.updateByPrimaryKeySelective(stiStoreDropshipItem);
+        stiStoreDropshipItem=stiStoreDropshipItemMapper.selectByPrimaryKey(dilId);
+        redisCache.setCacheObject("stiById:" + dilId, stiStoreDropshipItem);
+        return true;
+    }
+
+    //改个上架的数量和价格，写缓存stiById:
+    @Override
+    public boolean updateShelfPriceAmount(int someoneId,GetShelfPriceAmount getShelfPriceAmount){
+        StiStoreDropshipItem stiStoreDropshipItem=selectStiRedisById(getShelfPriceAmount.getDilId());
+        stiStoreDropshipItem.setSalPrice(getShelfPriceAmount.getSalPrice());
+        if(getShelfPriceAmount.getShelfStockAmount()>stiStoreDropshipItem.getStoreRetentionAmount()){
+            throw new RuntimeException("You sell more than you deserve.");
+        }
+        stiStoreDropshipItem.setShelfStockAmount(getShelfPriceAmount.getShelfStockAmount());
+        stiStoreDropshipItem.setLastUpdateBy(String.valueOf(someoneId));
+        stiStoreDropshipItemMapper.updateByPrimaryKeySelective(stiStoreDropshipItem);
+        stiStoreDropshipItem=stiStoreDropshipItemMapper.selectByPrimaryKey(stiStoreDropshipItem.getDilId());
+        redisCache.setCacheObject("stiById:" + stiStoreDropshipItem.getDilId(), stiStoreDropshipItem);
+        return true;
+    }
+
+    //模糊查询Sti
+    @Override
+    public List<SendSti> selectSTIs(GetStiQuery getStiQuery){
+        return stiStoreDropshipItemMapper.selectSTIByMany(getStiQuery);
+    }
+
 }

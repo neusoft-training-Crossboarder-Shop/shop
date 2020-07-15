@@ -1,7 +1,8 @@
 package neu.train.project.order.controller;
 
-
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import javafx.scene.control.Tab;
 import neu.train.common.utils.SecurityUtils;
 import neu.train.framework.web.controller.BaseController;
 import neu.train.framework.web.domain.AjaxResult;
@@ -9,6 +10,7 @@ import neu.train.framework.web.page.TableDataInfo;
 import neu.train.project.order.pojo.ShaShippingAddress;
 import neu.train.project.order.service.OrderService;
 import neu.train.project.order.vo.*;
+import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -80,7 +82,7 @@ public class OrderController extends BaseController {
     }
 
 
-    @ApiOperation(value="拿到销售订单商店产品的信息，需要注意的是，商品返回的是现价，不是买入价格，买入价格记录在sao中的purchasePrice中，给BVO用的？",httpMethod = "GET",notes = "必选参数：原始订单Id stoId")
+    @ApiOperation(value="拿到销售订单商店产品的信息，需要注意的是，商品返回的是现价，不是买入价格，买入价格记录在sao中的purchasePrice中，给BVO用的",httpMethod = "GET",notes = "必选参数：原始订单Id stoId")
     @GetMapping("bvo/order/salOrder/")
     public AjaxResult getSaoByStoId(@RequestParam("stoId") int stoId){
         return AjaxResult.success(orderService.selectSaoStrProByStoId(stoId));
@@ -103,5 +105,50 @@ public class OrderController extends BaseController {
         orderService.updateStoStatus(getStoStatusQuery);
         return AjaxResult.updateSuccess();
     }
+
+    @ApiOperation(value="多商店下订单，生成一堆sto，给BVO用的",httpMethod = "POST",notes = "必选参数：amount:订购数量，proId:产品ID,storeIds[]:商店Id们")
+    @Transactional
+    @PostMapping("bvo/browse/purchase")
+    public AjaxResult makeStos(@RequestBody  GetPurchaseMessage getPurchaseMessage){
+        orderService.insertStos(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()),getPurchaseMessage);
+        return AjaxResult.success();
+    }
+
+    @ApiOperation(value = "确认收货，给BVO用的",httpMethod = "PUT",notes = "必选参数：stoId")
+    @Transactional
+    @PutMapping("bvo/order/accept/{stoId}")
+    public AjaxResult acceptProduct(@PathVariable Integer stoId){
+        orderService.acceptSto(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()),stoId);
+        orderService.insertDropItem(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()),stoId);
+        return AjaxResult.success();
+    }
+
+    @ApiOperation(value = "上下架，给BVO用的",httpMethod = "PUT",notes = "必选参数：dilId:到手的商品Id,status:要改到的状态")
+    @Transactional
+    @PutMapping("store/storeDetail/{dilId}/{status}")
+    public AjaxResult onOffShelf(@PathVariable Integer dilId,@PathVariable String status){
+            orderService.onOffShelf(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()),dilId,status);
+            return AjaxResult.success();
+    }
+
+    @ApiOperation(value = "修改上架的物品价格和数量",httpMethod = "PUT",notes = "可选参数：dilId:到手的商品Id，salPrice：上架价格，shelfStockAmount")
+    @Transactional
+    @PutMapping("store/storeDetail")
+    public AjaxResult updateShelfPriceAmount(GetShelfPriceAmount getShelfPriceAmount){
+        orderService.updateShelfPriceAmount(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()),getShelfPriceAmount);
+        return AjaxResult.success();
+    }
+
+    @ApiOperation(value = "搜索到手的货",httpMethod = "GET",notes = "可选参数：货Id proId,起始截止时间startTime endTime")
+    @GetMapping("store/storeDetail/list")
+    public TableDataInfo selectSTIs(GetStiQuery getStiQuery){
+        startPage();
+        List<SendSti> sendStis=orderService.selectSTIs(getStiQuery);
+        return getDataTable(sendStis);
+    }
+
+
+
+
 
 }

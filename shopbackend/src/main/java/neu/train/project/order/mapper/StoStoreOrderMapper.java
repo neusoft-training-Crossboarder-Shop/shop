@@ -40,7 +40,7 @@ public interface StoStoreOrderMapper {
         "#{lastUpdateBy,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, ",
         "#{callCnt,jdbcType=INTEGER}, #{stsCd,jdbcType=CHAR})"
     })
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="stoId", before=true, resultType=Integer.class)
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="stoId", before=false, resultType=Integer.class)
     int insert(StoStoreOrder record);
 
     int insertSelective(StoStoreOrder record);

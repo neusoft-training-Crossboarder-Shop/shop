@@ -1,11 +1,7 @@
 package neu.train.project.order;
 
-import com.sun.corba.se.spi.servicecontext.SendingContextServiceContext;
 import neu.train.project.order.service.OrderService;
-import neu.train.project.order.vo.GetASaoQueryByTime;
-import neu.train.project.order.vo.GetAStoOrderQueryByTime;
-import neu.train.project.order.vo.SendASimpleSto;
-import neu.train.project.order.vo.SendComplexSao;
+import neu.train.project.order.vo.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +38,22 @@ public class test {
         System.out.println(sendComplexSaos.get(0));
         System.out.println(sendComplexSaos.get(0).toString());
 
+    }
+
+    @Test
+    public void test3(){
+        Integer[] x={1};
+        GetPurchaseMessage getPurchaseMessage=new GetPurchaseMessage(1,1,x);
+        orderService.insertStos(1,getPurchaseMessage);
+    }
+
+    @Test
+    public void test4(){
+        GetStiQuery getStiQuery=new GetStiQuery(1,1,null,null);
+        List<SendSti> sendStis=orderService.selectSTIs(getStiQuery);
+        System.out.println(sendStis.size());
+        System.out.println(sendStis.isEmpty());
+        System.out.println(sendStis.get(0));
+        System.out.println(sendStis.get(0).toString());
     }
 }
