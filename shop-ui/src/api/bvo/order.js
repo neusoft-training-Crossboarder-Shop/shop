@@ -13,7 +13,7 @@ import request from '@/utils/request'
 export function listOrders(params) {
   return request(
     {
-      url:'bvo/order/list',
+      url:'/bvo/order/stoOrder/list',
       get:'method',
       params:params
     }

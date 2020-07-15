@@ -1,10 +1,10 @@
 <template>
   <div class="main_container">
 
-    <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="68px">
-      <el-form-item label="Transaction Id" prop="configName">
+    <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="100px">
+      <el-form-item label="Transaction Id" prop="configName" label-width="150px">
         <el-input
-          v-model="queryParams.salesOrderId"
+          v-model="queryParams.salId"
           placeholder="Sales Order Id"
           clearable
           size="small"
@@ -91,7 +91,7 @@
       >
         <template slot-scope="scope">
           <el-tag effect="dark" :type="getTypeTag(scope.row.orderStatus)">
-            {{orderStatusFormatter(scope.row.orderStatus)}}
+            {{orderStatusFormatter(scope.row)}}
           </el-tag>
         </template>
 
@@ -141,9 +141,12 @@
         loading: true,
         total:0,
         queryParams:{
-          salesOrderId:'',
+          mvoId:undefined,
+          salId:'',
           pageNum:1,
-          pageSize:10
+          pageSize:10,
+          startTime:undefined,
+          endTime:undefined
         },
         dateRange: [],
 
@@ -179,10 +182,9 @@
       }
     },
     created(){
-      this.getList()
+      this.getDicts("order_status").then(response => {
 
       // 1 -申请 , 2 -完成 , -3-失败
-      this.getDicts("order_status").then(response => {
         let data=response.data;
         data.forEach((item,index)=>{
           this.status[index]=
@@ -201,7 +203,10 @@
               value:item.dictValue
             }
         })
+
       });
+
+      this.getList()
 
       // setTimeout(()=>{
       //   console.log(this.platformType)
@@ -219,43 +224,13 @@
       getList(){
         this.loading = true;
 
-        // this.loading = true;
-        // listOrders(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-        //     this.configList = response.rows;
-        //     this.total = response.total;
-        //     this.loading = false;
-        //   }
-        // );
+        listOrders(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
+            this.tableData = response.rows;
+            this.total = response.total;
+            this.loading = false;
+          }
+        );
 
-        setTimeout(()=>{
-          this.tableData=[
-            {
-              stoId:'1',
-              qty:'1',
-              product:{
-                proId:'1',
-                title:'汉堡',
-                retailPrice:'180',
-              },
-              //str
-              store:{
-                strId:'23',
-                storeName:'KFC',
-                platformType:1,
-              },
-
-              purchasePrice:1280,
-
-              paidTime:'',
-              createTime:'',
-              lastUpdateTime:'',
-              orderStatus:1,
-
-            }
-          ],
-            this.loading=false
-
-        },500)
       },
       getTypeTag(status){
         let s = parseInt(status);
@@ -304,11 +279,11 @@
       },
 
       platformTypeFormatter(row,column){
-        return this.platformType[parseInt(row.store.platformType)-1].text
+        return this.platformType[parseInt(row.store.platformType)]['text']
       },
 
-      orderStatusFormatter(status){
-        return this.status[parseInt(status)-1].text
+      orderStatusFormatter(row,column){
+        return this.status[parseInt(row.orderStatus)-1]['text']
       },
     }
   }

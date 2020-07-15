@@ -35,7 +35,7 @@
         <el-table-column label="Store Order Id" align="center" prop="stoId"   />
         <el-table-column label="Product Name" align="center" prop="product.title" :show-overflow-tooltip="true">
           <template slot-scope="scope">
-             <el-button type="text" @click="redirect(scope.row.product.proId)">{{scope.row.product.proId}}</el-button>
+             <el-button type="text" @click.stop="redirectToProduct(scope.row.product.proId)">{{scope.row.product.title}}</el-button>
           </template>
         </el-table-column>
 
@@ -66,15 +66,15 @@
         </el-table-column>
 
 
-        <el-table-column label="Pay Time" align="center" prop="paidTime" >
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.paidTime) }}</span>
-          </template>
-        </el-table-column>
-
         <el-table-column label="Create Time" align="center" prop="createTime" >
           <template slot-scope="scope">
             <span>{{ parseTime(scope.row.createTime) }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Pay Time" align="center" prop="paidTime" >
+          <template slot-scope="scope">
+            <span>{{ parseTime(scope.row.paidTime) }}</span>
           </template>
         </el-table-column>
 
@@ -93,7 +93,7 @@
         >
           <template slot-scope="scope">
             <el-tag effect="dark" :type="getTypeTag(scope.row.orderStatus)">
-              {{orderStatusFormatter(scope.row.orderStatus)}}
+              {{orderStatusFormatter(scope.row)}}
             </el-tag>
           </template>
 
@@ -135,6 +135,7 @@
 </template>
 
 <script>
+  import {parseTime} from "../../../utils/shop";
   import {getDicts} from "../../../api/system/dict/data";
   import {listOrders} from "../../../api/bvo/order";
 
@@ -177,91 +178,90 @@
               }
             ],
             platformType:[
-              // {text:'Amazon',value:1}, {text:'Ebay',value:2}
+              {text:'Amazon',value:1}, {text:'Ebay',value:2}
             ],
             status:[
-              // {text:'待支付',value:1}, {text:'待发货',value:2}, {text:'待送达',value:3}, {text:'已送达',value:4}, {text:'已完成',value:5}
+              {text:'待支付',value:1}, {text:'待发货',value:2}, {text:'待送达',value:3}, {text:'已送达',value:4}, {text:'已完成',value:5}
             ],
           }
         },
       created(){
-        this.getList()
-
+        // this.getDicts("order_status").then(response => {
+        //
+        //   let data=response.data;
+        //   data.forEach((item,index)=>{
+        //     this.status[index]=
+        //       {
+        //         text:item.dictLabel,
+        //         value:item.dictValue
+        //       }
+        //   })
+        // });
+        // this.getDicts("store_platform_type").then(response => {
+        //   let data=response.data;
+        //   data.forEach((item,index)=>{
+        //     this.platformType[index]=
+        //       {
+        //         text:item.dictLabel,
+        //         value:item.dictValue
+        //       }
+        //   })
+        // });
         // 1 -申请 , 2 -完成 , -3-失败
-        this.getDicts("order_status").then(response => {
-          let data=response.data;
-          data.forEach((item,index)=>{
-            this.status[index]=
-              {
-                text:item.dictLabel,
-                value:item.dictValue
-              }
-          })
-        });
-        this.getDicts("store_platform_type").then(response => {
-          let data=response.data;
-          data.forEach((item,index)=>{
-            this.platformType[index]=
-              {
-                text:item.dictLabel,
-                value:item.dictValue
-              }
-          })
-        });
 
         // setTimeout(()=>{
         //   console.log(this.platformType)
         //   console.log(this.status)
         // },500)
+        this.getList()
 
       },
 
       methods:{
-        redirect(id){
+        redirectToProduct(id){
           this.$router.push({
             path:`/bvo/good/${id}`
           })
         },
         getList(){
+
           this.loading = true;
+          listOrders(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
+              this.tableData = response.rows;
+              this.total = response.total;
+              this.loading = false;
+            }
+          );
 
-          // this.loading = true;
-          // listOrders(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-          //     this.configList = response.rows;
-          //     this.total = response.total;
-          //     this.loading = false;
-          //   }
-          // );
+          // setTimeout(()=>{
+          //   this.tableData=[
+          //     {
+          //       stoId:'1',
+          //       qty:'1',
+          //       product:{
+          //         proId:'1',
+          //         title:'汉堡',
+          //         retailPrice:'180',
+          //       },
+          //       //str
+          //       store:{
+          //         strId:'23',
+          //         storeName:'KFC',
+          //         platformType:1,
+          //       },
+          //
+          //       purchasePrice:1280,
+          //
+          //       paidTime:'',
+          //       createTime:'',
+          //       lastUpdateTime:'',
+          //       orderStatus:1,
+          //
+          //     }
+          //   ],
+          //   this.loading=false
 
-          setTimeout(()=>{
-            this.tableData=[
-              {
-                stoId:'1',
-                qty:'1',
-                product:{
-                  proId:'1',
-                  title:'汉堡',
-                  retailPrice:'180',
-                },
-                //str
-                store:{
-                  strId:'23',
-                  storeName:'KFC',
-                  platformType:1,
-                },
-
-                purchasePrice:1280,
-
-                paidTime:'',
-                createTime:'',
-                lastUpdateTime:'',
-                orderStatus:1,
-
-              }
-            ],
-            this.loading=false
-
-          },500)
+          // },500)
         },
         getTypeTag(status){
           let s = parseInt(status);
@@ -310,11 +310,11 @@
         },
 
         platformTypeFormatter(row,column){
-          return this.platformType[parseInt(row.store.platformType)-1].text
+          return this.platformType[parseInt(row.store.platformType)]['text']
         },
 
-        orderStatusFormatter(status){
-          return this.status[parseInt(status)-1].text
+        orderStatusFormatter(row,column){
+          return this.status[parseInt(row.orderStatus)-1]['text']
         },
       }
     }

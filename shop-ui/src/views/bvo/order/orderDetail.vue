@@ -322,14 +322,16 @@
               message:`你当前正在访问的订单详情为${stoId}`
             })
 
-            // getStoByStoId(stoId).then(response=>{
-            //   this.stoOrder = response.data;
-            // })
+            getStoByStoId(stoId).then(response=>{
+              this.stoOrder = response.data;
+            })
 
-            // getShippingAddressByStoId(stoId).then(response=>{
-            //    this.shippingAddress=response.data;
-            // })
+            getShippingAddressByStoId(stoId).then(response=>{
+               this.shippingAddress=response.data;
+            })
+
             on_click(this.stoOrder.orderStatus)
+
           },
         methods:{
           on_click(e){
@@ -345,14 +347,14 @@
           click_updateStoByStoId(){
             console.log("click_updateStoByStoId")
 
-            // updateStoByStoId({
-              //   stoId:this.stoOrder.stoId,
-              //   qty:this.stoOrder.qty
-              // }).then(response=>{
-              //   getStoByStoId(this.stoOrder.stoId).then(response=>{
-              //     this.stoOrder = response.data;
-              //   })
-              // })
+            updateStoByStoId({
+                stoId:this.stoOrder.stoId,
+                qty:this.stoOrder.qty
+              }).then(response=>{
+                getStoByStoId(this.stoOrder.stoId).then(response=>{
+                  this.stoOrder = response.data;
+                })
+              })
 
           },
           purchaseUi(){
@@ -365,11 +367,21 @@
               let data = {
                 password:value,
                 stoId:this.stoOrder.stoId,
-                freightCost: this.shippingAddress.freightCost
+                freightCost: this.shippingAddress.freightCost || 5
               }
-              // payStoBySto(data).then(response=>{
-              //
-              // })
+              payStoBySto(data).then(response=>{
+
+                getStoByStoId(this.stoOrder.stoId).then(response=>{
+                  this.stoOrder = response.data;
+                })
+                this.$notify(
+                  {
+                    type:"success",
+                    message:"支付成功"
+                  }
+                )
+
+              })
             }).catch(() => {
               this.$message({
                 type: 'info',
@@ -381,15 +393,13 @@
           },
           click_updateShippingAddress(){
             console.log("click_updateShippingAddress")
-             // if (this.shippingAddress.stoId) {
-             //   updateShippingAddress(this.shippingAddress).then((response)=>{
-             //
-             //   })
-             // }else{
-             //   insertShippingAddress(this.shippingAddress).then((response)=>{
-             //
-             //   })
-             // }
+             if (this.shippingAddress.stoId) {
+               updateShippingAddress(this.shippingAddress).then((response)=>{
+               })
+             }else{
+               insertShippingAddress(this.shippingAddress).then((response)=>{
+               })
+             }
           },
           redirectToBrowse(){
             this.$router.push({

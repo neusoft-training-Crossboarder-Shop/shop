@@ -1,3 +1,6 @@
+import request from '@/utils/request'
+
+
 // queryParams:{
 //   storeOrderId:'',
 //     pageNum:1,
@@ -15,5 +18,9 @@ export function listOrders(params) {
       params:params
     }
   )
+}
+
+export function f() {
+  
 }
 
