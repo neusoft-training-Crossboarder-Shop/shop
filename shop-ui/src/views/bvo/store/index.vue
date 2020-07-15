@@ -99,7 +99,7 @@
           <el-table-column label="Creator" align="center" prop="createdBy"  />
           <el-table-column label="CreateTime" align="center" prop="createTime" width="150">
             <template slot-scope="scope">
-              <span>{{ parseTime(scope.row.createTime) }}</span>
+              <span>{{ scope.row.createTime }}</span>
             </template>
           </el-table-column>
 
@@ -107,7 +107,7 @@
 
           <el-table-column label="Last Update Time" align="center" prop="lastUpdateTime" width="150">
             <template slot-scope="scope">
-              <span>{{ parseTime(scope.row.lastUpdateTime) }}</span>
+              <span>{{ scope.row.lastUpdateTime }}</span>
             </template>
           </el-table-column>
           <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -237,6 +237,7 @@
               platformType:"",
               remark:"",
             },
+
           }
         },
       created() {

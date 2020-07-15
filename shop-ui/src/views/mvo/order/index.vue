@@ -32,7 +32,7 @@
 
 
     <el-table @row-click="redirect" class="el-table--enable-row-hover el-table__body"  :data="tableData" v-loading="loading" >
-      <el-table-column label="Sales Order Id" align="center" prop="salesOrderId"   />
+      <el-table-column label="Sales Order Id" align="center" prop="salesOderId"   />
       <el-table-column label="Product Name" align="center" prop="product.title" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           <el-button type="text" @click="redirect(scope.row.product.proId)">{{scope.row.product.title}}</el-button>
@@ -55,13 +55,13 @@
       <el-table-column
         label="Store Platform Type"
         align="center"
-        prop="product.platformType"
+        prop="store.platformType"
         min-width="100px"
         :filters="platformType"
         :filter-method="filterPlatformType"
       >
         <template slot-scope="scope">
-          <el-tag  :type=" (scope.row.store.platformType === '1')?'success':'primary'">
+          <el-tag  :type=" (scope.row.store.platformType == '0')?'success':'primary'">
             {{platformTypeFormatter(scope.row)}}
           </el-tag>
         </template>
@@ -102,8 +102,8 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
 
-          <el-button v-if="scope.row.orderStatus == 2" type="primary">发货</el-button>
-          <el-button v-if="scope.row.orderStatus == 3"  type="primary">送达</el-button>
+          <el-button v-if="scope.row.orderStatus == 2" type="primary" @click.stop="update_status(scope.row.stoId,3)">发货</el-button>
+          <el-button v-if="scope.row.orderStatus == 3"  type="primary" @click.stop="update_status(scope.row.stoId,4)">送达</el-button>
 
           <el-button v-if="scope.row.orderStatus == 4" type="info">
             等待确认
@@ -131,7 +131,7 @@
 
 <script>
   import {getDicts} from "../../../api/system/dict/data";
-  import {listOrders} from "../../../api/mvo/order";
+  import {listOrders,updateOrderStatus} from "../../../api/mvo/order";
 
   export default {
     name: "index.vue",
@@ -152,7 +152,7 @@
 
         tableData:[
           {
-            salesOrderId:'',
+            salesOderId:'',
             stoId:'',
             qty:13,
             product:{
@@ -174,10 +174,10 @@
           }
         ],
         platformType:[
-          // {text:'Amazon',value:1}, {text:'Ebay',value:2}
+          {text:'Amazon',value:1}, {text:'Ebay',value:2}
         ],
         status:[
-          // {text:'待支付',value:1}, {text:'待发货',value:2}, {text:'待送达',value:3}, {text:'已送达',value:4}, {text:'已完成',value:5}
+          {text:'待支付',value:1}, {text:'待发货',value:2}, {text:'待送达',value:3}, {text:'已送达',value:4}, {text:'已完成',value:5}
         ],
       }
     },
@@ -208,10 +208,6 @@
 
       this.getList()
 
-      // setTimeout(()=>{
-      //   console.log(this.platformType)
-      //   console.log(this.status)
-      // },500)
 
     },
 
@@ -270,12 +266,21 @@
           path:`/mvo/order/orderDetail/${row.stoId}`
         })
       },
-
+      update_status(stoId,status){
+         let data={
+           mvoId:undefined,
+           stoId:stoId,
+           status:status
+         }
+         updateOrderStatus(data).then(res=>{
+           this.getList();
+         })
+      },
       filterStatus(value,row){
         return row.orderStatus == value
       },
       filterPlatformType(value,row){
-        return row.store.platformType == value
+        return (row.store.platformType+1) == value
       },
 
       platformTypeFormatter(row,column){

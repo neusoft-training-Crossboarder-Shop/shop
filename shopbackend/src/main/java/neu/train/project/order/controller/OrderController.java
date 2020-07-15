@@ -108,7 +108,7 @@ public class OrderController extends BaseController {
     @PreAuthorize("@ss.hasPermi('mvo:order:list')")
     @Transactional
     @PutMapping("mvo/order/stoOrder/status")
-    public AjaxResult updateStoStatus(GetStoStatusQuery getStoStatusQuery){
+    public AjaxResult updateStoStatus(@RequestBody GetStoStatusQuery getStoStatusQuery){
         getStoStatusQuery.setMvoId(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()));
         orderService.updateStoStatus(getStoStatusQuery);
         return AjaxResult.updateSuccess();

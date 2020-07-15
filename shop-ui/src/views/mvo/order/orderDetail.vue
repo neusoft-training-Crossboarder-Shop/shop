@@ -141,7 +141,7 @@
             </div>
           </el-tab-pane>
           <el-tab-pane label="Waiting For Dispatching" name="2" :disabled="stoOrder.orderStatus<2">
-            <el-button type="primary" @click="dispatch" :disabled="stoOrder.orderStatus>2" style="display: inline-block;width: 20%;margin-left: 5%">发货</el-button>
+            <el-button type="primary" @click="update_status(stoOrder.stoId,3)" :disabled="stoOrder.orderStatus>2" style="display: inline-block;width: 20%;margin-left: 5%">发货</el-button>
             <div class="main_content detail_info">
               <div>
                 <h3 style=" font: italic 1em Georgia, serif">Your Commodity</h3>
@@ -157,7 +157,7 @@
           </el-tab-pane>
           <el-tab-pane  label="Waiting For Arriving" name="3" :disabled="stoOrder.orderStatus<3">
             <div>
-              <el-button type="primary" @click="arrive" :disabled="stoOrder.orderStatus>3" style="display: inline-block;width: 20%;margin-left: 5%">送达</el-button>
+              <el-button type="primary" @click="update_status(stoOrder.stoId,3)" :disabled="stoOrder.orderStatus>3" style="display: inline-block;width: 20%;margin-left: 5%">送达</el-button>
               <div><span class="tag">Carrier Name </span> <span>{{shippingAddress.carrierName}}</span></div>
               <div><span class="tag">Tracking Number </span> <span>{{salInfo.trackingNo}}</span></div>
               <div>
@@ -229,6 +229,9 @@
     insertShippingAddress,
     updateShippingAddress
   } from "../../../api/bvo/order";
+
+  import {updateOrderStatus} from "../../../api/mvo/order";
+
   export default {
     name: "orderDetail.vue",
     data:function () {
@@ -291,28 +294,35 @@
       }
     },
     created() {
-      const stoId = this.$route.params && this.$route.params.orderId;
-      // this.getType(dictId);
-      // this.getTypeList();
-      // this.getDicts("sys_normal_disable").then(response => {
-      //   this.statusOptions = response.data;
-      // });
-
       this.$notify({
         type : "success",
         message:`你当前正在访问的订单详情为${stoId}`
       })
+      const stoId = this.$route.params && this.$route.params.orderId;
 
-      // getStoByStoId(stoId).then(response=>{
-      //   this.stoOrder = response.data;
-      // })
+      getStoByStoId(stoId).then(response=>{
+        this.stoOrder = response.data;
+      })
 
-      // getShippingAddressByStoId(stoId).then(response=>{
-      //    this.shippingAddress=response.data;
-      // })
+      getShippingAddressByStoId(stoId).then(response=>{
+        this.shippingAddress=response.data;
+      })
+
       on_click(this.stoOrder.orderStatus)
     },
     methods:{
+      update_status(stoId,status){
+        let data={
+          mvoId:undefined,
+          stoId:stoId,
+          status:status
+        }
+        updateOrderStatus(data).then(res=>{
+          getStoByStoId(stoId).then(response=>{
+            this.stoOrder = response.data;
+          })
+        })
+      },
       on_click(e){
         if (e > this.stoOrder.orderStatus) {
           this.$notify({

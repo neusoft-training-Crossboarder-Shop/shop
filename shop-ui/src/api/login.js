@@ -23,6 +23,14 @@ export function getInfo() {
   })
 }
 
+export function addUser(data) {
+  return request({
+    url: '/register',
+    method: 'post',
+    data: data
+  })
+}
+
 // 退出方法
 export function logout() {
   return request({
