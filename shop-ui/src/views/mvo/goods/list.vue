@@ -3,12 +3,12 @@
 
     <!-- 查询和其他操作 -->
     <div class="filter-container">
-      <el-input v-model="listQuery.goodsId" clearable class="filter-item" style="width: 160px;" placeholder="请输入商品ID" />
-      <el-input v-model="listQuery.goodsSn" clearable class="filter-item" style="width: 160px;" placeholder="请输入商品编号" />
-      <el-input v-model="listQuery.name" clearable class="filter-item" style="width: 160px;" placeholder="请输入商品名称" />
-      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查找</el-button>
-      <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="handleCreate">添加</el-button>
-      <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
+      <el-input v-model="listQuery.goodsId" clearable class="filter-item" style="width: 260px;" placeholder="Please Enter product's ID" />
+      <el-input v-model="listQuery.goodsSn" clearable class="filter-item" style="width: 260px;" placeholder="Please Enter product's SKU" />
+      <el-input v-model="listQuery.name" clearable class="filter-item" style="width: 260px;" placeholder="Please Enter product's Title" />
+      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">Search</el-button>
+      <el-button class="filter-item" type="success" icon="el-icon-edit" @click="handleCreate">Add</el-button>
+      <el-button :loading="downloadLoading" class="filter-item" type="info" icon="el-icon-download" @click="handleDownload">Export</el-button>
     </div>
 
     <!-- 查询结果 -->
@@ -40,8 +40,8 @@
             </el-form-item>
 
           </el-form>
-        </template>
-      </el-table-column>
+      </template>
+    </el-table-column>
 
       <el-table-column align="center" label="商品ID" prop="id" />
 

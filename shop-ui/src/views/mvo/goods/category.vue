@@ -23,27 +23,29 @@
       <el-table-column align="center" label="prcId" prop="prcId"></el-table-column>
       <el-table-column align="center" label="proId" prop="proId"></el-table-column>
 
+      <el-table-column align="center" label="title" prop="title"></el-table-column>
+
       <el-table-column align="center" label="categoryName" prop="categoryName"></el-table-column>
       <el-table-column align="center" label="CategoryPath" prop="CategoryPath"></el-table-column>
 
-      <el-table-column align="center" property="picUrl" label="picUrl">
+      <el-table-column align="center" property="uri" label="uri">
         <template slot-scope="scope">
-          <img v-if="scope.row.picUrl" :src="scope.row.picUrl" width="80"  alt="">
+          <img v-if="scope.row.uri" :src="scope.row.uri" width="80"  alt="">
         </template>
       </el-table-column>
 
 
 
-      <el-table-column align="center" label="Creater" prop="createdBy"></el-table-column>
+      <el-table-column align="center" label="createdBy" prop="createdBy"></el-table-column>
 
-      <el-table-column align="center" label="Create_date" prop="createTime"></el-table-column>
+      <el-table-column align="center" label="createTime" prop="createTime"></el-table-column>
 
-      <el-table-column align="center" label="Updater" prop="lastUpdateBy"></el-table-column>
+      <el-table-column align="center" label="lastUpdateBy" prop="lastUpdateBy"></el-table-column>
 
-      <el-table-column align="center" label="Update_date" prop="lastUpdateTime"></el-table-column>
-      <el-table-column align="center" label="Remark" prop="callCnt"></el-table-column>
+      <el-table-column align="center" label="lastUpdateTime" prop="lastUpdateTime"></el-table-column>
+      <el-table-column align="center" label="callCnt" prop="callCnt"></el-table-column>
 
-      <el-table-column align="center" label="State" prop="stsCd"></el-table-column>
+      <el-table-column align="center" label="proState" prop="proState"></el-table-column>
       <el-table-column align="center" label="Deleted" prop="deleted"></el-table-column>
 
       <el-table-column align="center" label="Operation" width="200" class-name="small-padding fixed-width">
