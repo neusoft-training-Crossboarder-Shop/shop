@@ -328,7 +328,7 @@
     <result property="lastUpdateTime"    column="saoLUT"    />
     <result property="callCnt"    column="saoCC"    />
     <result property="stsCd"    column="saoSC"    />
-
+    <result property="orderStatus"    column="stoOS"    />
     <association property="store" javaType="neu.train.project.order.vo.SimpleStr">
       <id     property="storeId"      column="strId"      />
       <result property="platformType"    column="strPT"    />
@@ -343,7 +343,7 @@
 
   <select id="selectSaoStrProByMany" parameterType="neu.train.project.order.vo.GetASaoQueryByTime" resultMap="complexResult">
     select sao.sales_oder_id saoSOI,sao.man_id saoMID,sao.qty saoQTY,sao.price saoP,sao.sto_id saoSTOID,sao.purchase_price saoPP,sao.tracking_no sapTN,sao.created_by saoCB,
-    sao.create_time saoCT,sao.last_update_by saoLUB,sao.last_update_time saoLUT,sao.call_cnt saoCC,sao.sts_cd saoSC,
+    sao.create_time saoCT,sao.last_update_by saoLUB,sao.last_update_time saoLUT,sao.call_cnt saoCC,sao.sts_cd saoSC,sto.order_status stoOS,
     str.store_id strId,str.platform_type strPT,str.store_name strSN,pro.pro_id proId,pro.title proT,pro.retail_price proRP
     from sao_sales_order sao,sto_store_order sto,str_store str,pro_product pro
     <where>

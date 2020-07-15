@@ -2,6 +2,7 @@ package neu.train.project.order.vo;
 
 import neu.train.project.order.pojo.ProProduct;
 import neu.train.project.order.pojo.SaoSalesOrder;
+import neu.train.project.order.pojo.StoStoreOrder;
 import neu.train.project.order.pojo.StrStore;
 
 import java.math.BigDecimal;
@@ -35,6 +36,8 @@ public class SendComplexSao {
 
     private String stsCd;
 
+    private Integer orderStatus;
+
     private SimpleStr store;
 
     private SimplePro product;
@@ -43,7 +46,7 @@ public class SendComplexSao {
 
     }
 
-    public SendComplexSao(SaoSalesOrder saoSalesOrder, ProProduct proProduct, StrStore strStore){
+    public SendComplexSao(SaoSalesOrder saoSalesOrder, StoStoreOrder stoStoreOrder,ProProduct proProduct, StrStore strStore){
         this.salesOderId=saoSalesOrder.getSalesOderId();
         this.manId=saoSalesOrder.getManId();
         this.qty=saoSalesOrder.getQty();
@@ -57,6 +60,7 @@ public class SendComplexSao {
         this.lastUpdateTime=saoSalesOrder.getLastUpdateTime();
         this.callCnt=saoSalesOrder.getCallCnt();
         this.stsCd=saoSalesOrder.getStsCd();
+        this.orderStatus=stoStoreOrder.getOrderStatus();
         this.product=new SimplePro();
         this.product.setProId(proProduct.getProId());
         this.product.setRetailPrice(proProduct.getRetailPrice());
@@ -68,8 +72,7 @@ public class SendComplexSao {
     }
 
 
-
-    public SendComplexSao(Integer salesOderId, Integer manId, Integer qty, BigDecimal price, Integer stoId, BigDecimal purchasePrice, String trackingNo, String createdBy, Date createTime, String lastUpdateBy, Date lastUpdateTime, Integer callCnt, String stsCd, SimpleStr store, SimplePro product) {
+    public SendComplexSao(Integer salesOderId, Integer manId, Integer qty, BigDecimal price, Integer stoId, BigDecimal purchasePrice, String trackingNo, String createdBy, Date createTime, String lastUpdateBy, Date lastUpdateTime, Integer callCnt, String stsCd, Integer orderStatus, SimpleStr store, SimplePro product) {
         this.salesOderId = salesOderId;
         this.manId = manId;
         this.qty = qty;
@@ -83,6 +86,7 @@ public class SendComplexSao {
         this.lastUpdateTime = lastUpdateTime;
         this.callCnt = callCnt;
         this.stsCd = stsCd;
+        this.orderStatus = orderStatus;
         this.store = store;
         this.product = product;
     }
@@ -207,6 +211,15 @@ public class SendComplexSao {
         this.product = product;
     }
 
+    public Integer getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(Integer orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+
     @Override
     public String toString() {
         return "SendComplexSao{" +
@@ -223,6 +236,7 @@ public class SendComplexSao {
                 ", lastUpdateTime=" + lastUpdateTime +
                 ", callCnt=" + callCnt +
                 ", stsCd='" + stsCd + '\'' +
+                ", orderStatus=" + orderStatus +
                 ", store=" + store +
                 ", product=" + product +
                 '}';

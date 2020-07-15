@@ -167,7 +167,7 @@ public class OrderServiceImp implements OrderService {
         SaoSalesOrder saoSalesOrder = saoSalesOrders.get(0);
         ProProduct proProduct = proProductMapper.selectByPrimaryKey(saoSalesOrder.getProid());
         StrStore strStore = strStoreMapper.selectByPrimaryKey(stoStoreOrderMapper.selectByPrimaryKey(saoSalesOrder.getStoId()).getStoreId());
-        return new SendComplexSao(saoSalesOrder, proProduct, strStore);
+        return new SendComplexSao(saoSalesOrder,selectStoById(stoId),proProduct, strStore);
     }
 
     //根据时间和id模糊查询saostrpro
