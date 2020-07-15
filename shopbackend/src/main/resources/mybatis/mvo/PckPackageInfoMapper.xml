@@ -19,7 +19,7 @@
     <result column="call_cnt" jdbcType="INTEGER" property="callCnt" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="sts_cd" jdbcType="CHAR" property="stsCd" />
-    <result column="deleted" jdbcType="TINYINT" property="deleted" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -223,7 +223,7 @@
       #{length,jdbcType=DECIMAL}, #{weight,jdbcType=DECIMAL}, #{createdBy,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateBy,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
       #{callCnt,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{stsCd,jdbcType=CHAR}, 
-      #{deleted,jdbcType=TINYINT})
+      #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="neu.train.project.mvo.domain.PckPackageInfo">
     <!--
@@ -313,7 +313,7 @@
         #{stsCd,jdbcType=CHAR},
       </if>
       <if test="deleted != null">
-        #{deleted,jdbcType=TINYINT},
+        #{deleted,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -374,7 +374,7 @@
         sts_cd = #{record.stsCd,jdbcType=CHAR},
       </if>
       <if test="record.deleted != null">
-        deleted = #{record.deleted,jdbcType=TINYINT},
+        deleted = #{record.deleted,jdbcType=BIT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -400,7 +400,7 @@
       call_cnt = #{record.callCnt,jdbcType=INTEGER},
       remark = #{record.remark,jdbcType=VARCHAR},
       sts_cd = #{record.stsCd,jdbcType=CHAR},
-      deleted = #{record.deleted,jdbcType=TINYINT}
+      deleted = #{record.deleted,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -449,7 +449,7 @@
         sts_cd = #{stsCd,jdbcType=CHAR},
       </if>
       <if test="deleted != null">
-        deleted = #{deleted,jdbcType=TINYINT},
+        deleted = #{deleted,jdbcType=BIT},
       </if>
     </set>
     where pck_id = #{pckId,jdbcType=INTEGER}
@@ -472,7 +472,7 @@
       call_cnt = #{callCnt,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       sts_cd = #{stsCd,jdbcType=CHAR},
-      deleted = #{deleted,jdbcType=TINYINT}
+      deleted = #{deleted,jdbcType=BIT}
     where pck_id = #{pckId,jdbcType=INTEGER}
   </update>
   <select id="selectOneByExample" parameterType="neu.train.project.mvo.domain.PckPackageInfoExample" resultMap="BaseResultMap">

@@ -16,7 +16,7 @@
     <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
     <result column="call_cnt" jdbcType="INTEGER" property="callCnt" />
     <result column="sts_cd" jdbcType="CHAR" property="stsCd" />
-    <result column="deleted" jdbcType="TINYINT" property="deleted" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="neu.train.project.mvo.domain.PdnProductDescription">
     <!--
@@ -260,7 +260,7 @@
     values (#{proId,jdbcType=INTEGER}, #{typeCd,jdbcType=VARCHAR}, #{platformType,jdbcType=VARCHAR}, 
       #{createdBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateBy,jdbcType=VARCHAR}, 
       #{lastUpdateTime,jdbcType=TIMESTAMP}, #{callCnt,jdbcType=INTEGER}, #{stsCd,jdbcType=CHAR}, 
-      #{deleted,jdbcType=TINYINT}, #{descrition,jdbcType=LONGVARCHAR})
+      #{deleted,jdbcType=BIT}, #{descrition,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="neu.train.project.mvo.domain.PdnProductDescription">
     <!--
@@ -335,7 +335,7 @@
         #{stsCd,jdbcType=CHAR},
       </if>
       <if test="deleted != null">
-        #{deleted,jdbcType=TINYINT},
+        #{deleted,jdbcType=BIT},
       </if>
       <if test="descrition != null">
         #{descrition,jdbcType=LONGVARCHAR},
@@ -390,7 +390,7 @@
         sts_cd = #{record.stsCd,jdbcType=CHAR},
       </if>
       <if test="record.deleted != null">
-        deleted = #{record.deleted,jdbcType=TINYINT},
+        deleted = #{record.deleted,jdbcType=BIT},
       </if>
       <if test="record.descrition != null">
         descrition = #{record.descrition,jdbcType=LONGVARCHAR},
@@ -416,7 +416,7 @@
       last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
       call_cnt = #{record.callCnt,jdbcType=INTEGER},
       sts_cd = #{record.stsCd,jdbcType=CHAR},
-      deleted = #{record.deleted,jdbcType=TINYINT},
+      deleted = #{record.deleted,jdbcType=BIT},
       descrition = #{record.descrition,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -438,7 +438,7 @@
       last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
       call_cnt = #{record.callCnt,jdbcType=INTEGER},
       sts_cd = #{record.stsCd,jdbcType=CHAR},
-      deleted = #{record.deleted,jdbcType=TINYINT}
+      deleted = #{record.deleted,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -478,7 +478,7 @@
         sts_cd = #{stsCd,jdbcType=CHAR},
       </if>
       <if test="deleted != null">
-        deleted = #{deleted,jdbcType=TINYINT},
+        deleted = #{deleted,jdbcType=BIT},
       </if>
       <if test="descrition != null">
         descrition = #{descrition,jdbcType=LONGVARCHAR},
@@ -501,7 +501,7 @@
       last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
       call_cnt = #{callCnt,jdbcType=INTEGER},
       sts_cd = #{stsCd,jdbcType=CHAR},
-      deleted = #{deleted,jdbcType=TINYINT},
+      deleted = #{deleted,jdbcType=BIT},
       descrition = #{descrition,jdbcType=LONGVARCHAR}
     where pdn_id = #{pdnId,jdbcType=INTEGER}
   </update>
@@ -520,7 +520,7 @@
       last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
       call_cnt = #{callCnt,jdbcType=INTEGER},
       sts_cd = #{stsCd,jdbcType=CHAR},
-      deleted = #{deleted,jdbcType=TINYINT}
+      deleted = #{deleted,jdbcType=BIT}
     where pdn_id = #{pdnId,jdbcType=INTEGER}
   </update>
   <select id="selectOneByExample" parameterType="neu.train.project.mvo.domain.PdnProductDescriptionExample" resultMap="BaseResultMap">
