@@ -5,7 +5,7 @@
     <el-row :gutter="10">
      <el-col :span="4">
        <div style="position: relative;left: 14%">
-         <el-progress type="circle" :percentage="20" ></el-progress>
+         <el-progress type="circle" :percentage="stoOrder.orderStatus*20" ></el-progress>
        </div>
      </el-col>
       <el-col :span="20">
@@ -208,7 +208,7 @@
               </div>
               <el-form ref="form" :model="form" style="padding: 3%">
                 <el-input v-model="password" show-password placeholder="Input Your wallet password"></el-input>
-                <el-button v-if="stoOrder.orderStatus==4" style="display: inline-block;width: 100%;margin-top: 3%;margin-bottom: 3%" type="primary">确认收货</el-button>
+                <el-button v-if="stoOrder.orderStatus==4" style="display: inline-block;width: 100%;margin-top: 3%;margin-bottom: 3%" type="primary" @click="acceptGood">确认收货</el-button>
                 <el-button v-else style="display: inline-block;width: 100%;margin-top: 3%;margin-bottom: 3%" type="info">不可点击</el-button>
               </el-form>
             </el-card>
@@ -245,7 +245,8 @@
           payStoBySto,
           getShippingAddressByStoId,
           insertShippingAddress,
-          updateShippingAddress
+          updateShippingAddress,
+          acceptProduct
         } from "../../../api/bvo/order";
         export default {
           name: "orderDetail.vue",
@@ -310,17 +311,11 @@
             }
           },
           created() {
-            const stoId = this.$route.params && this.$route.params.orderId;
-            // this.getType(dictId);
-            // this.getTypeList();
-            // this.getDicts("sys_normal_disable").then(response => {
-            //   this.statusOptions = response.data;
-            // });
-
             this.$notify({
               type : "success",
               message:`你当前正在访问的订单详情为${stoId}`
             })
+            const stoId = this.$route.params && this.$route.params.orderId;
 
             getStoByStoId(stoId).then(response=>{
               this.stoOrder = response.data;
@@ -400,6 +395,14 @@
                insertShippingAddress(this.shippingAddress).then((response)=>{
                })
              }
+          },
+          acceptGood(){
+            //确认收货
+
+            // acceptProduct(this.stoOrder.stoId).then(res=>{
+            //
+            // })
+
           },
           redirectToBrowse(){
             this.$router.push({

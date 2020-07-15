@@ -186,27 +186,27 @@
           }
         },
       created(){
-        // this.getDicts("order_status").then(response => {
-        //
-        //   let data=response.data;
-        //   data.forEach((item,index)=>{
-        //     this.status[index]=
-        //       {
-        //         text:item.dictLabel,
-        //         value:item.dictValue
-        //       }
-        //   })
-        // });
-        // this.getDicts("store_platform_type").then(response => {
-        //   let data=response.data;
-        //   data.forEach((item,index)=>{
-        //     this.platformType[index]=
-        //       {
-        //         text:item.dictLabel,
-        //         value:item.dictValue
-        //       }
-        //   })
-        // });
+        this.getDicts("order_status").then(response => {
+
+          let data=response.data;
+          data.forEach((item,index)=>{
+            this.status[index]=
+              {
+                text:item.dictLabel,
+                value:item.dictValue
+              }
+          })
+        });
+        this.getDicts("store_platform_type").then(response => {
+          let data=response.data;
+          data.forEach((item,index)=>{
+            this.platformType[index]=
+              {
+                text:item.dictLabel,
+                value:item.dictValue
+              }
+          })
+        });
         // 1 -申请 , 2 -完成 , -3-失败
 
         // setTimeout(()=>{

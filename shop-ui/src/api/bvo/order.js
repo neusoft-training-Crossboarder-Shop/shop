@@ -9,6 +9,36 @@ import request from '@/utils/request'
 //     endTime:'',
 // },
 //
+//生成订单
+// let data = {
+//   amount:this.amount,  数量
+//   productId:this.pro.proId,  产品id
+//   storeIds:this.selectedStore, 商店列表 Array
+// }
+//
+export function purchaseProduct(data) {
+   return request({
+     url:'bvo/browse/purchase',
+     method:'post',
+     data:data
+   })
+}
+//返回Ajax.insertSuccess
+
+//确认收货
+//1.修改原订单状态为已完成 5
+//2.在 sti_store_dropship_item 中生成一条记录
+
+
+//原始订单ID
+export function acceptProduct(stoId) {
+  return request({
+    url:'bvo/order/accept/'+stoId,
+    method:'put',
+  })
+}
+
+//返回Ajax.updateSuccess
 
 export function listOrders(params) {
   return request(

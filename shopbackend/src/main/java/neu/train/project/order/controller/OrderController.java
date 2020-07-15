@@ -98,7 +98,7 @@ public class OrderController extends BaseController {
     @ApiOperation(value="更新原始订单状态，只有原始订单有状态",httpMethod = "PUT",notes = "必选参数：原始订单Id stoId,将要变成的状态status")
     @Transactional
     @PutMapping("mvo/order/stoOrder/status")
-    public AjaxResult updateStoStatus(GetStoStatusQuery getStoStatusQuery){
+    public AjaxResult updateStoStatus(@RequestBody GetStoStatusQuery getStoStatusQuery){
         getStoStatusQuery.setMvoId(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()));
         orderService.updateStoStatus(getStoStatusQuery);
         return AjaxResult.updateSuccess();

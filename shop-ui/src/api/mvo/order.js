@@ -14,13 +14,18 @@ export function listOrders(params) {
   return request(
     {
       url:'mvo/order/salOrder/list',
-      get:'method',
+      method:'get',
       params:params
     }
   )
 }
 
-export function f() {
+export function updateOrderStatus(data) {
+  return request({
+    url: 'mvo/order/stoOrder/status',
+    method: 'put',
+    data : data
+  })
   
 }
 

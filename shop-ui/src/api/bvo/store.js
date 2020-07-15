@@ -37,3 +37,5 @@ export function delStore(storeId) {
      method:'delete',
   })
 }
+
+
