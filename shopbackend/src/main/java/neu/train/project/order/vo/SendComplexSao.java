@@ -39,6 +39,10 @@ public class SendComplexSao {
 
     private SimplePro product;
 
+    public SendComplexSao(){
+
+    }
+
     public SendComplexSao(SaoSalesOrder saoSalesOrder, ProProduct proProduct, StrStore strStore){
         this.salesOderId=saoSalesOrder.getSalesOderId();
         this.manId=saoSalesOrder.getManId();
@@ -201,5 +205,26 @@ public class SendComplexSao {
 
     public void setProduct(SimplePro product) {
         this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        return "SendComplexSao{" +
+                "salesOderId=" + salesOderId +
+                ", manId=" + manId +
+                ", qty=" + qty +
+                ", price=" + price +
+                ", stoId=" + stoId +
+                ", purchasePrice=" + purchasePrice +
+                ", trackingNo='" + trackingNo + '\'' +
+                ", createdBy='" + createdBy + '\'' +
+                ", createTime=" + createTime +
+                ", lastUpdateBy='" + lastUpdateBy + '\'' +
+                ", lastUpdateTime=" + lastUpdateTime +
+                ", callCnt=" + callCnt +
+                ", stsCd='" + stsCd + '\'' +
+                ", store=" + store +
+                ", product=" + product +
+                '}';
     }
 }

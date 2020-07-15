@@ -38,5 +38,9 @@ public class test {
         GetASaoQueryByTime getASaoQueryByTime=new GetASaoQueryByTime(1,1,null,null);
         List<SendComplexSao> sendComplexSaos=orderService.selectSaoStrProByTime(getASaoQueryByTime);
         System.out.println(sendComplexSaos.size());
+        System.out.println(sendComplexSaos.isEmpty());
+        System.out.println(sendComplexSaos.get(0));
+        System.out.println(sendComplexSaos.get(0).toString());
+
     }
 }
