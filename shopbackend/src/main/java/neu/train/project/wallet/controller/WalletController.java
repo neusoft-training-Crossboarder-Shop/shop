@@ -15,6 +15,7 @@ import neu.train.project.wallet.service.WalletService;
 import neu.train.project.wallet.vo.*;
 import neu.train.project.validate.InsertGroup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -34,14 +35,15 @@ public class WalletController extends BaseController {
 
 
     @ApiOperation(value = "返回是否存在钱包,给MVO，BVO用的不用带参数", httpMethod = "GET")
+    @PreAuthorize("@ss.hasAnyPermi('bvo:wallet:use,mvo:wallet:index')")
     @GetMapping("/wallet/account")
     public AjaxResult hasWallet() {
         return AjaxResult.success(walletService.ifWallet(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId())));
     }
 
 
-
-    @ApiOperation(value = "注册钱包", httpMethod = "POST", notes = "必选参数有：账户名称accountName,账户邮箱email，账户密码password,账户币种currency")
+    @ApiOperation(value = "注册钱包,给MVO,BVO用的", httpMethod = "POST", notes = "必选参数有：账户名称accountName,账户邮箱email，账户密码password,账户币种currency")
+    @PreAuthorize("@ss.hasAnyPermi('bvo:wallet:use,mvo:wallet:index')")
     @Transactional
     @PostMapping("/wallet/account")
     public AjaxResult registerWallet(@Validated({InsertGroup.class}) @RequestBody GetANewWallet getANewWallet, BindingResult bindingResult) {
@@ -67,7 +69,8 @@ public class WalletController extends BaseController {
         return AjaxResult.insertSuccess();
     }
 
-    @ApiOperation(value = "登录", notes = "必选参数：账号accountName，密码password")
+    @ApiOperation(value = "登录,给MVO，BVO用的", notes = "必选参数：账号accountName，密码password")
+    @PreAuthorize("@ss.hasAnyPermi('bvo:wallet:use,mvo:wallet:index')")
     @PostMapping("/wallet/account/login")
     public AjaxResult walletLogin(@Validated({SelectGroup.class}) @RequestBody GetLogin getLogin, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -76,7 +79,8 @@ public class WalletController extends BaseController {
         return AjaxResult.success(walletService.selectWalletLogin(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()), getLogin.getAccountName(), getLogin.getPassword()));
     }
 
-    @ApiOperation(value = "更新钱包", httpMethod = "PUT", notes = "必选参数：账号accountName,密码password，邮箱email,注意：币种是不可以改的!!!!!!!")
+    @ApiOperation(value = "更新钱包，给MVO，BVO用的", httpMethod = "PUT", notes = "必选参数：账号accountName,密码password，邮箱email,注意：币种是不可以改的!!!!!!!")
+    @PreAuthorize("@ss.hasAnyPermi('bvo:wallet:use,mvo:wallet:index')")
     @Transactional
     @PutMapping("/wallet/account")
     public AjaxResult updateWallet(@Validated({UpdateGroup.class}) @RequestBody GetANewWallet getANewWallet, BindingResult bindingResult) {
@@ -95,7 +99,7 @@ public class WalletController extends BaseController {
         }
     }
 
-    @ApiOperation(value = "返回当前用户钱包和钱包余额，给用户用的", httpMethod = "GET", notes = "参数:压根没有")
+    @ApiOperation(value = "返回当前用户钱包和钱包余额，感觉爱谁用谁用", httpMethod = "GET", notes = "参数:压根没有")
     @GetMapping("/wallet/fund")
     public AjaxResult selectWalletAndFund() {
         int buyerId = Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId());
@@ -103,7 +107,7 @@ public class WalletController extends BaseController {
     }
 
 
-    @ApiOperation(value = "返回钱包流水表数据，给用户用的", httpMethod = "GET", notes = "可选参数：流水Id,银行卡号bankCardId,流水状态status1申请2完成3失败，业务类型transactionType1充值2提现3消费4退款,起时间beginTime,止时间endTime")
+    @ApiOperation(value = "返回钱包流水表数据，感觉爱谁用谁用", httpMethod = "GET", notes = "可选参数：流水Id,银行卡号bankCardId,流水状态status1申请2完成3失败，业务类型transactionType1充值2提现3消费4退款,起时间beginTime,止时间endTime")
     @GetMapping("/wallet/transaction")
     public TableDataInfo selectTransaction(GetATransactionQuery getATransactionQuery) {
         getATransactionQuery.setBuyerId(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()));
@@ -113,6 +117,7 @@ public class WalletController extends BaseController {
     }
 
     @ApiOperation(value = "返回流水审计表数据，给管理员用的", httpMethod = "GET", notes = "可选参数：用户Id buyerId，流水Id transactionId，操作类型operationType1申请2提现3消费4退款,起时间beginTime,止时间endTime")
+    @PreAuthorize("@ss.hasPermi('system:audit:list')")
     @GetMapping("system/audit/list")
     public TableDataInfo selectAudit(GetAnAuditQuery getAnAuditQuery) {
         startPage();
@@ -121,38 +126,41 @@ public class WalletController extends BaseController {
     }
 
 
-@ApiOperation(value = "审计通过,给管理员用的", httpMethod = "PUT", notes = "必选参数：一个列表，每一项包含：流水审计Id transactionAuditId")
-@Transactional
-@PutMapping("system/audit/accept/{ids}")
-public AjaxResult acceptAudit(@PathVariable Integer[] ids) {
-    walletService.doAudits(String.valueOf(SecurityUtils.getLoginUser().getUser().getUserId()), ids);
-    return AjaxResult.success();
-}
+    @ApiOperation(value = "审计通过,给管理员用的", httpMethod = "PUT", notes = "必选参数：一个列表，每一项包含：流水审计Id transactionAuditId")
+    @PreAuthorize("@ss.hasPermi('system:audit:list')")
+    @Transactional
+    @PutMapping("system/audit/accept/{ids}")
+    public AjaxResult acceptAudit(@PathVariable Integer[] ids) {
+        walletService.doAudits(String.valueOf(SecurityUtils.getLoginUser().getUser().getUserId()), ids);
+        return AjaxResult.success();
+    }
 
 
+    @ApiOperation(value = "审计拒绝,给管理员用的", httpMethod = "PUT", notes = "必选参数：一个列表，每一项包含：流水审计Id transactionAuditId")
+    @PreAuthorize("@ss.hasPermi('system:audit:list')")
+    @Transactional
+    @PutMapping("system/audit/refuse/{ids}")
+    public AjaxResult refuseAudit(@PathVariable Integer[] ids) {
+        walletService.rejectAudits(String.valueOf(SecurityUtils.getLoginUser().getUser().getUserId()), ids);
+        return AjaxResult.success();
+    }
 
-@ApiOperation(value = "审计拒绝,给管理员用的", httpMethod = "PUT", notes = "必选参数：一个列表，每一项包含：流水审计Id transactionAuditId")
-@Transactional
-@PutMapping("system/audit/refuse/{ids}")
-public AjaxResult refuseAudit(@PathVariable Integer[] ids) {
-    walletService.rejectAudits(String.valueOf(SecurityUtils.getLoginUser().getUser().getUserId()), ids);
-    return AjaxResult.success();
-}
-
-@ApiOperation(value = "充值", httpMethod = "POST", notes = "必选参数：操作钱数operateMoney 和 银行卡号bankCardId")
-@Transactional
-@PostMapping("/wallet/transaction/deposit")
-public AjaxResult deposit(@RequestBody MakeATransaction makeATransaction) {
-    walletService.tryDeposit(SecurityUtils.getLoginUser().getUser().getUserId().intValue(),makeATransaction);
-    return AjaxResult.success();
-}
+    @ApiOperation(value = "充值，给MVO,BVO用的", httpMethod = "POST", notes = "必选参数：操作钱数operateMoney 和 银行卡号bankCardId")
+    @PreAuthorize("@ss.hasAnyPermi('bvo:wallet:use,mvo:wallet:index')")
+    @Transactional
+    @PostMapping("/wallet/transaction/deposit")
+    public AjaxResult deposit(@RequestBody MakeATransaction makeATransaction) {
+        walletService.tryDeposit(SecurityUtils.getLoginUser().getUser().getUserId().intValue(), makeATransaction);
+        return AjaxResult.success();
+    }
 
 
-@ApiOperation(value = "提现", httpMethod = "POST", notes = "必选参数：操作钱数operateMoney 和 银行卡号bankCardId")
-@Transactional
-@PostMapping("/wallet/transaction/withdraw")
-public AjaxResult withdraw(@RequestBody MakeATransaction makeATransaction) {
-    walletService.tryWithdraw(SecurityUtils.getLoginUser().getUser().getUserId().intValue(),makeATransaction);
-    return AjaxResult.success();
-}
+    @ApiOperation(value = "提现，给MVO,BVO用的", httpMethod = "POST", notes = "必选参数：操作钱数operateMoney 和 银行卡号bankCardId")
+    @PreAuthorize("@ss.hasAnyPermi('bvo:wallet:use,mvo:wallet:index')")
+    @Transactional
+    @PostMapping("/wallet/transaction/withdraw")
+    public AjaxResult withdraw(@RequestBody MakeATransaction makeATransaction) {
+        walletService.tryWithdraw(SecurityUtils.getLoginUser().getUser().getUserId().intValue(), makeATransaction);
+        return AjaxResult.success();
+    }
 }
