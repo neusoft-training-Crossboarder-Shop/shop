@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="neu.train.project.wallet.mapper.WtrWalletTransactionRecordMapper" >
+  <resultMap id="BaseResultMap" type="neu.train.project.wallet.pojo.WtrWalletTransactionRecord" >
+    <constructor >
+      <idArg column="transaction_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="buyer_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bank_card_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="transaction_type" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="transaction_money" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="status" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="balance" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="business_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="finance_type" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    transaction_id, buyer_id, bank_card_id, transaction_type, transaction_money, status, 
+    balance, business_id, finance_type, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="neu.train.project.wallet.pojo.WtrWalletTransactionRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wtr_wallet_transaction_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="neu.train.project.wallet.pojo.WtrWalletTransactionRecordExample" >
+    delete from wtr_wallet_transaction_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insertSelective" parameterType="neu.train.project.wallet.pojo.WtrWalletTransactionRecord" >
+    <selectKey resultType="java.lang.Integer" keyProperty="transactionId" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into wtr_wallet_transaction_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      transaction_id,
+      <if test="buyerId != null" >
+        buyer_id,
+      </if>
+      <if test="bankCardId != null" >
+        bank_card_id,
+      </if>
+      <if test="transactionType != null" >
+        transaction_type,
+      </if>
+      <if test="transactionMoney != null" >
+        transaction_money,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="financeType != null" >
+        finance_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{transactionId,jdbcType=INTEGER},
+      <if test="buyerId != null" >
+        #{buyerId,jdbcType=INTEGER},
+      </if>
+      <if test="bankCardId != null" >
+        #{bankCardId,jdbcType=INTEGER},
+      </if>
+      <if test="transactionType != null" >
+        #{transactionType,jdbcType=TINYINT},
+      </if>
+      <if test="transactionMoney != null" >
+        #{transactionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="financeType != null" >
+        #{financeType,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="neu.train.project.wallet.pojo.WtrWalletTransactionRecordExample" resultType="java.lang.Integer" >
+    select count(*) from wtr_wallet_transaction_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wtr_wallet_transaction_record
+    <set >
+      <if test="record.transactionId != null" >
+        transaction_id = #{record.transactionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.buyerId != null" >
+        buyer_id = #{record.buyerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankCardId != null" >
+        bank_card_id = #{record.bankCardId,jdbcType=INTEGER},
+      </if>
+      <if test="record.transactionType != null" >
+        transaction_type = #{record.transactionType,jdbcType=TINYINT},
+      </if>
+      <if test="record.transactionMoney != null" >
+        transaction_money = #{record.transactionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.balance != null" >
+        balance = #{record.balance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.businessId != null" >
+        business_id = #{record.businessId,jdbcType=INTEGER},
+      </if>
+      <if test="record.financeType != null" >
+        finance_type = #{record.financeType,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wtr_wallet_transaction_record
+    set transaction_id = #{record.transactionId,jdbcType=INTEGER},
+      buyer_id = #{record.buyerId,jdbcType=INTEGER},
+      bank_card_id = #{record.bankCardId,jdbcType=INTEGER},
+      transaction_type = #{record.transactionType,jdbcType=TINYINT},
+      transaction_money = #{record.transactionMoney,jdbcType=DECIMAL},
+      status = #{record.status,jdbcType=TINYINT},
+      balance = #{record.balance,jdbcType=DECIMAL},
+      business_id = #{record.businessId,jdbcType=INTEGER},
+      finance_type = #{record.financeType,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="neu.train.project.wallet.pojo.WtrWalletTransactionRecord" >
+    update wtr_wallet_transaction_record
+    <set >
+      <if test="buyerId != null" >
+        buyer_id = #{buyerId,jdbcType=INTEGER},
+      </if>
+      <if test="bankCardId != null" >
+        bank_card_id = #{bankCardId,jdbcType=INTEGER},
+      </if>
+      <if test="transactionType != null" >
+        transaction_type = #{transactionType,jdbcType=TINYINT},
+      </if>
+      <if test="transactionMoney != null" >
+        transaction_money = #{transactionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="financeType != null" >
+        finance_type = #{financeType,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where transaction_id = #{transactionId,jdbcType=INTEGER}
+  </update>
+
+
+
+  <resultMap type="neu.train.project.wallet.pojo.WtrWalletTransactionRecord" id="transactionRecord">
+    <id     property="transactionId"      column="transaction_id"      />
+    <result property="buyerId"    column="buyer_id"    />
+    <result property="bankCardId"     column="bank_card_id"     />
+    <result property="transactionType"   column="transaction_type"   />
+    <result property="transactionMoney"    column="transaction_money"    />
+    <result property="status"      column="status"      />
+    <result property="balance"    column="balance"    />
+    <result property="businessId"      column="business_id"      />
+    <result property="financeType"    column="finance_type"    />
+    <result property="createTime"    column="create_time"    />
+  </resultMap>
+
+  <sql id="selectT">
+    select transaction_id, buyer_id, bank_card_id, transaction_type, transaction_money, status, balance, business_id, finance_type, create_time
+    from wtr_wallet_transaction_record
+    order by create_time desc
+  </sql>
+
+  <select id="selectByMany" parameterType="neu.train.project.wallet.vo.GetATransactionQuery" resultMap="transactionRecord">
+    <include refid="selectT"/>
+    <where>
+      <if test="buyerId != null and buyerId != '' and buyerId!=0">
+        AND buyer_id = #{buyerId}
+      </if>
+      <if test="transactionId != null and transactionId != '' and transactionId!=0">
+        AND transaction_id = #{transactionId}
+      </if>
+      <if test="bankCardId != null and bankCardId != '' and bankCardId!=0 ">
+        AND bank_card_id = #{bankCardId}
+      </if>
+      <if test="transactionType != null and transactionType != '' ">
+        AND transaction_type = #{transactionType}
+      </if>
+      <if test="status != null and status != '' ">
+        AND status = #{status}
+      </if>
+      <if test="financeType != null and financeType != '' ">
+        AND finance_type = #{financeType}
+      </if>
+      <if test="beginTime != null and beginTime != ''"><!-- 开始时间检索 -->
+        and date_format(create_time,'%y%m%d') &gt;= date_format(#{beginTime},'%y%m%d')
+      </if>
+      <if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+        and date_format(create_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
+      </if>
+    </where>
+  </select>
+
+
+
+
+</mapper>
