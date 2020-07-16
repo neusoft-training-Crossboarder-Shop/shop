@@ -207,8 +207,7 @@
                   <span>Accepting</span>
                 </div>
                 <el-form ref="form" :model="form" style="padding: 3%">
-                  <el-input v-model="password" show-password placeholder="Input Your wallet password"></el-input>
-                  <el-button v-if="stoOrder.orderStatus==4" style="display: inline-block;width: 100%;margin-top: 3%;margin-bottom: 3%" type="primary" @click="acceptGood">确认收货</el-button>
+                  <el-button v-if="stoOrder.orderStatus == 4" style="display: inline-block;width: 100%;margin-top: 3%;margin-bottom: 3%" type="primary" @click="acceptGood">确认收货</el-button>
                   <el-button v-else style="display: inline-block;width: 100%;margin-top: 3%;margin-bottom: 3%" type="info">不可点击</el-button>
                 </el-form>
               </el-card>
@@ -289,7 +288,6 @@
           freightCost:5,
           carrierName:'顺丰快递',
         },
-        password:'',
         salInfo:{
           qty:13,
           product:{
@@ -311,12 +309,8 @@
       }
     },
     created() {
-      this.$notify({
-        type : "success",
-        message:`你当前正在访问的订单详情为${stoId}`
-      })
       const stoId = this.$route.params && this.$route.params.orderId;
-
+      this.stoOrder.stoId=stoId
       getStoByStoId(stoId).then(response=>{
         this.stoOrder = response.data;
       })
@@ -390,18 +384,27 @@
         console.log("click_updateShippingAddress")
         if (this.shippingAddress.stoId) {
           updateShippingAddress(this.shippingAddress).then((response)=>{
+            getShippingAddressByStoId(stoId).then(response=>{
+              this.shippingAddress=response.data;
+            })
           })
         }else{
           insertShippingAddress(this.shippingAddress).then((response)=>{
+            getShippingAddressByStoId(stoId).then(response=>{
+              this.shippingAddress=response.data;
+            })
           })
         }
+
+
       },
       acceptGood(){
         //确认收货
-
-        // acceptProduct(this.stoOrder.stoId).then(res=>{
-        //
-        // })
+        acceptProduct(this.stoOrder.stoId).then(res=>{
+          getStoByStoId(this.stoOrder.stoId).then(response=>{
+            this.stoOrder = response.data;
+          })
+        })
 
       },
       redirectToBrowse(){

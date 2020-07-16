@@ -133,6 +133,7 @@
   import {getGoodDetail} from "../../../api/bvo/browse";
   import {addProIntoWishList} from "../../../api/bvo/wishlist";
   import {getStoreList} from "../../../api/bvo/store";
+  import {purchaseProduct} from "../../../api/bvo/order";
 
   export default {
         name: "GoodDetail",
@@ -256,15 +257,19 @@
           pushToStore:function () {
             let data = {
                 amount:this.amount,
-               productId:this.pro.proId,
+               proId:this.pro.proId,
                storeIds:this.selectedStore,
             }
             console.log(data)
-            this.$notify({
-              type:"success",
-              title:"执行中",
-              message:"添加到商店"
+
+            purchaseProduct(data).then(res=>{
+              this.$notify({
+                type:"success",
+                title:"执行",
+                message:"已经添加到商店"
+              })
             })
+
           },
           addToWishList:function () {
             addProIntoWishList({proId:this.pro.proId}).then(response=>{

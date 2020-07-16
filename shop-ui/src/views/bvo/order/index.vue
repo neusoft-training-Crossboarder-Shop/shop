@@ -109,10 +109,10 @@
             付款
           </el-button>
 
-          <el-button v-if="scope.row.orderStatus == 2" type="primary">发货</el-button>
-          <el-button v-if="scope.row.orderStatus == 3" type="primary">送达</el-button>
+          <el-button v-if="scope.row.orderStatus == 2" type="info">发货</el-button>
+          <el-button v-if="scope.row.orderStatus == 3" type="info">送达</el-button>
 
-          <el-button v-if="scope.row.orderStatus == 4" type="info">
+          <el-button v-if="scope.row.orderStatus == 4" type="primary">
             等待确认
           </el-button>
 
