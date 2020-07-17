@@ -1,6 +1,6 @@
 <template>
   <div class="main_container">
-    <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="68px">
+    <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="100px">
       <el-form-item label="Product ID" prop="configName">
         <el-input
           v-model="queryParams.proId"
@@ -31,16 +31,16 @@
 
     <el-table class="el-table--enable-row-hover el-table__body" :data="tableData"
               v-loading="loading">
-      <el-table-column label="Product Id" align="center" prop="product.proId"/>
-      <el-table-column label="Product Name" align="center" prop="product.title" :show-overflow-tooltip="true">
+      <el-table-column label="Dil Id" align="center" prop="dilId"/>
+      <el-table-column label="Product Name" align="center" prop="title" :show-overflow-tooltip="true">
         <template slot-scope="scope">
-          <el-button type="text" @click.stop="redirectToProduct(scope.row.product.proId)">{{scope.row.product.title}}
+          <el-button type="text" @click.stop="redirectToProduct(scope.row.proId)">{{scope.row.title}}
           </el-button>
         </template>
       </el-table-column>
 
-      <el-table-column label="Sale Price" align="center" prop="salePrice" :show-overflow-tooltip="true"/>
-      <el-table-column label="Drop Ship Price" align="center" prop="dropShipPrice" :show-overflow-tooltip="true"/>
+      <el-table-column label="Sale Price" align="center" prop="salPrice" :show-overflow-tooltip="true"/>
+      <el-table-column label="Drop Ship Price" align="center" prop="dropshipPrice" :show-overflow-tooltip="true"/>
       <el-table-column label="Store Retention Amount" align="center" prop="storeRetentionAmount" :show-overflow-tooltip="true"/>
       <el-table-column label="Shelf Stock Amount" align="center" prop="shelfStockAmount" :show-overflow-tooltip="true"/>
 
@@ -58,9 +58,9 @@
 
       <el-table-column
         align="center"
-        prop="dropShipStatus"
+        prop="dropshipStatus"
         label="Status"
-        :filters="status"
+        :filters="statusOptions"
         :filter-method="filterStatus"
       >
         <template slot-scope="scope">
@@ -70,12 +70,14 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="200px">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.dropShipStatus == 1" type="success">下架</el-button>
-          <el-button v-if="scope.row.orderStatus == 2" type="primary">上架</el-button>
+          <el-button v-if="scope.row.dropshipStatus == 1" type="success" @click="OnOutShelf(scope.row.dilId,2)">下架</el-button>
+          <el-button v-if="scope.row.dropshipStatus == 1" type="success" @click="modifyPage(scope.row)">修改</el-button>
+          <el-button v-else type="primary" @click="OnOutShelf(scope.row.dilId,1)">上架</el-button>
         </template>
       </el-table-column>
+
     </el-table>
 
     <pagination
@@ -85,52 +87,70 @@
       :limit.sync="queryParams.pageSize"
       @pagination="getList"
     />
+
+
+    <el-dialog title="OnShelf Modify" :visible.sync="dialogFormVisible" width="25%">
+      <el-form :model="selectedRow" label-position="top">
+        <el-form-item label="Sales Price" label-width="100px">
+          <el-input v-model="selectedRow.salPrice" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="Shelf StockAmount" label-width="100px">
+          <el-input v-model="selectedRow.shelfStockAmount" autocomplete="off"></el-input>
+        </el-form-item>
+
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="updateOnShelfPriceAmount">确 定</el-button>
+      </div>
+    </el-dialog>
+
+
   </div>
 </template>
 
 <script>
-  import {listOrders} from "../../../api/bvo/order";
+  import {listDropshipItem,updateDropshipStatus,updateDropshipPriceAmount} from "../../../api/bvo/storeDetail";
 
   export default {
     name: "storeDetail",
     data: function () {
       return {
+        storeId:undefined,
         loading: false,
         total: 0,
+        dialogFormVisible:false,
         queryParams: {
+          storeId:undefined,
           proId:undefined,
           pageNum: 1,
           pageSize: 10
         },
+        selectedRow:{},
         dateRange: [],
         tableData: [
           {
-            product: {
-              proId: '1',
-              title: '汉堡',
-            },
-
-            salePrice: 1280,
-            dropShipPrice: 1000,
+            dilId:'',
+            proId: '1',
+            title: '汉堡',
+            salPrice: 1280,
+            dropshipPrice: 1000,
             storeRetentionAmount: 100,
             shelfStockAmount: 80,
             createTime: '',
             lastUpdateTime: '',
-            dropShipStatus: 1,
+            dropshipStatus: 1,
           }
         ],
-        status: [
+        statusOptions: [
           {text: '上架', value: 1}, {text: '下架', value: 2}
         ]
       }
     },
     created() {
       const storeId = this.$route.params && this.$route.params.storeId;
-      // this.getType(dictId);
-      // this.getTypeList();
-      // this.getDicts("sys_normal_disable").then(response => {
-      //   this.statusOptions = response.data;
-      // });
+      this.storeId=storeId
+      this.queryParams.storeId=storeId
       this.$notify({
         type: "success",
         message: `你当前正在访问的商店ID为${storeId}`
@@ -139,13 +159,13 @@
     },
     methods: {
       getList() {
-        // this.loading = true;
-        // listOrders(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-        //     this.tableData = response.rows;
-        //     this.total = response.total;
-        //     this.loading = false;
-        //   }
-        // );
+        this.loading = true;
+        listDropshipItem(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
+            this.tableData = response.rows;
+            this.total = response.total;
+            this.loading = false;
+          }
+        );
       },
       /** 搜索按钮操作 */
       handleQuery() {
@@ -165,13 +185,38 @@
         });
         this.$refs[formName].resetFields();
       },
+
+      modifyPage(row){
+        this.selectedRow=row
+        this.dialogFormVisible=true
+      },
+      OnOutShelf(dilId,status){
+          updateDropshipStatus(dilId,status).then(res=>{
+            this.getList()
+          })
+      },
+      updateOnShelfPriceAmount(){
+        let data={
+               dilId:this.selectedRow.dilId,
+               salPrice:this.selectedRow.salPrice,
+               shelfStockAmount:this.selectedRow.shelfStockAmount
+            }
+          updateDropshipPriceAmount(data).then(res=>{
+            this.$notify({
+              type:'success',
+              title:'update successfully'
+            })
+            this.dialogFormVisible=false
+            this.getList()
+          })
+      },
       redirectToProduct(id) {
         this.$router.push({
           path: `/bvo/good/${id}`
         })
       },
       filterStatus(value, row) {
-        return row.dropShipStatus == value
+        return row.dropshipStatus == value
       },
       getTypeTag(status) {
         let s = parseInt(status);
@@ -182,7 +227,7 @@
         }
       },
       dropShipStatusFormatter(row, column) {
-        return this.status[parseInt(row.dropShipStatus) - 1]['text']
+        return this.statusOptions[parseInt(row.dropshipStatus) - 1]['text']
       }
     }
   }

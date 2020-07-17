@@ -36,7 +36,7 @@ export function updateDropshipStatus(dilId,status){
 //    shelfStockAmount
 // }
 //3.
-export function updateDropshipPriceAmount() {
+export function updateDropshipPriceAmount(data) {
   return request({
     url:'store/storeDetail/',
     method: 'put',

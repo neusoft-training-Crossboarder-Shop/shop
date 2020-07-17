@@ -127,7 +127,7 @@ public class OrderController extends BaseController {
     @PreAuthorize("@ss.hasPermi('sys:order:list')")
     @Transactional
     @PutMapping("bvo/order/accept/{stoId}")
-    public AjaxResult acceptProduct(@PathVariable Integer stoId){
+    public AjaxResult acceptProduct(@PathVariable(value = "stoId") Integer stoId){
         orderService.acceptSto(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()),stoId);
         orderService.insertDropItem(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()),stoId);
         return AjaxResult.success();
@@ -139,14 +139,14 @@ public class OrderController extends BaseController {
     @PutMapping("store/storeDetail/{dilId}/{status}")
     public AjaxResult onOffShelf(@PathVariable Integer dilId,@PathVariable String status){
             orderService.onOffShelf(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()),dilId,status);
-            return AjaxResult.success();
+            return AjaxResult.updateSuccess();
     }
 
     @ApiOperation(value = "修改上架的物品价格和数量",httpMethod = "PUT",notes = "可选参数：dilId:到手的商品Id，salPrice：上架价格，shelfStockAmount")
     @PreAuthorize("@ss.hasPermi('sys:order:list')")
     @Transactional
     @PutMapping("store/storeDetail")
-    public AjaxResult updateShelfPriceAmount(GetShelfPriceAmount getShelfPriceAmount){
+    public AjaxResult updateShelfPriceAmount(@RequestBody GetShelfPriceAmount getShelfPriceAmount){
         orderService.updateShelfPriceAmount(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()),getShelfPriceAmount);
         return AjaxResult.success();
     }
@@ -159,9 +159,5 @@ public class OrderController extends BaseController {
         List<SendSti> sendStis=orderService.selectSTIs(getStiQuery);
         return getDataTable(sendStis);
     }
-
-
-
-
 
 }
