@@ -8,7 +8,6 @@ import neu.train.framework.web.domain.AjaxResult;
 import neu.train.framework.web.page.TableDataInfo;
 import neu.train.project.validate.SelectGroup;
 import neu.train.project.validate.UpdateGroup;
-import neu.train.project.wallet.pojo.WaaWalletAccount;
 import neu.train.project.wallet.pojo.WtaWalletTransactionAduit;
 import neu.train.project.wallet.pojo.WtrWalletTransactionRecord;
 import neu.train.project.wallet.service.WalletService;
@@ -50,8 +49,7 @@ public class WalletController extends BaseController {
         if (bindingResult.hasErrors()) {
             throw new RuntimeException("Some not null is null now,too bad");
         }
-        int userType=0;
-        WaaWalletAccount waaWalletAccount = new WaaWalletAccount();
+        int userType;
         if (permissionService.hasRole("MVO")) {
             userType=2;
         } else if (permissionService.hasRole("BVO")) {

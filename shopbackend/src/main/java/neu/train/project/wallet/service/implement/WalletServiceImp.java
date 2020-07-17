@@ -14,7 +14,7 @@ import neu.train.project.wallet.vo.GetAnAuditQuery;
 import neu.train.project.wallet.vo.MakeATransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.nio.ch.WindowsAsynchronousFileChannelImpl;
+
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -52,10 +52,7 @@ public class WalletServiceImp implements WalletService {
     @Override
     public boolean selectWalletLogin(int buyerId, String accountName, String password) {
        WaaWalletAccount waaWalletAccount=selectWalletById(buyerId);
-        if(waaWalletAccount.getAccountName().equals(accountName) && SecurityUtils.matchesPassword(password,waaWalletAccount.getPassword())){
-            return true;
-        }
-        return false;
+        return waaWalletAccount.getAccountName().equals(accountName) && SecurityUtils.matchesPassword(password, waaWalletAccount.getPassword());
     }
 
     //用于更新,缓存"walletById:"+buyerId
@@ -436,7 +433,7 @@ public class WalletServiceImp implements WalletService {
     }
 
 
-    public void canOperate(int fundId,int version){
+    private void canOperate(int fundId,int version){
         WafWalletAccountFund wafWalletAccountFund=selectFundById(fundId);
         if(wafWalletAccountFund.getVersion()!=version){
             throw new RuntimeException("Data out-of-date");
