@@ -50,21 +50,16 @@ public class WalletController extends BaseController {
         if (bindingResult.hasErrors()) {
             throw new RuntimeException("Some not null is null now,too bad");
         }
+        int userType=0;
         WaaWalletAccount waaWalletAccount = new WaaWalletAccount();
         if (permissionService.hasRole("MVO")) {
-            waaWalletAccount.setAccountType(2);
+            userType=2;
         } else if (permissionService.hasRole("BVO")) {
-            waaWalletAccount.setAccountType(1);
+            userType=1;
         } else {
             throw new RuntimeException("Who are you at all？");
         }
-        waaWalletAccount.setBuyerId(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()));
-        waaWalletAccount.setAccountName(getANewWallet.getAccountName());
-        waaWalletAccount.setEmail(getANewWallet.getEmail());
-        waaWalletAccount.setPassword(getANewWallet.getPassword());
-        waaWalletAccount.setCreatedBy(String.valueOf(SecurityUtils.getLoginUser().getUser().getUserId()));
-        waaWalletAccount.setLastUpdateBy(String.valueOf(SecurityUtils.getLoginUser().getUser().getUserId()));
-        walletService.insertWallet(waaWalletAccount);
+        walletService.insertWallet(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()),userType,getANewWallet);
         walletService.insertFund(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()), getANewWallet.getCurrency());
         return AjaxResult.insertSuccess();
     }
@@ -87,12 +82,7 @@ public class WalletController extends BaseController {
         if (bindingResult.hasErrors()) {
             return AjaxResult.error("Some not null is null now,too bad");
         }
-        WaaWalletAccount waaWalletAccount = new WaaWalletAccount();
-        waaWalletAccount.setBuyerId(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()));
-        waaWalletAccount.setAccountName(getANewWallet.getAccountName());
-        waaWalletAccount.setPassword(getANewWallet.getPassword());
-        waaWalletAccount.setEmail(getANewWallet.getEmail());
-        if (walletService.updateWallet(waaWalletAccount)) {
+        if (walletService.updateWallet(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()),getANewWallet)) {
             return AjaxResult.success();
         } else {
             return AjaxResult.error("Haven't found your wallet,but how can you get this step?");

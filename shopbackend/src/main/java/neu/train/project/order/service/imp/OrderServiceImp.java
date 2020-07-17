@@ -9,7 +9,6 @@ import neu.train.project.order.pojo.*;
 import neu.train.project.order.service.OrderService;
 import neu.train.project.order.vo.*;
 import neu.train.project.wallet.pojo.WaaWalletAccount;
-import neu.train.project.wallet.pojo.WafWalletAccountFund;
 import neu.train.project.wallet.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

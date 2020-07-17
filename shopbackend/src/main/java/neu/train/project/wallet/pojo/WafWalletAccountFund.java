@@ -25,7 +25,9 @@ public class WafWalletAccountFund extends BaseEntity {
 
     private String currency;
 
-    public WafWalletAccountFund(Integer buyerId, BigDecimal availableMoney, BigDecimal depositingMoney, BigDecimal withdrawingMoney, String createdBy, Date createTime, String lastUpdateBy, Date lastUpdateTime, String currency) {
+    private Integer version;
+
+    public WafWalletAccountFund(Integer buyerId, BigDecimal availableMoney, BigDecimal depositingMoney, BigDecimal withdrawingMoney, String createdBy, Date createTime, String lastUpdateBy, Date lastUpdateTime, String currency, Integer version) {
         this.buyerId = buyerId;
         this.availableMoney = availableMoney;
         this.depositingMoney = depositingMoney;
@@ -35,6 +37,7 @@ public class WafWalletAccountFund extends BaseEntity {
         this.lastUpdateBy = lastUpdateBy;
         this.lastUpdateTime = lastUpdateTime;
         this.currency = currency;
+        this.version = version;
     }
 
     public WafWalletAccountFund() {
@@ -111,5 +114,13 @@ public class WafWalletAccountFund extends BaseEntity {
 
     public void setCurrency(String currency) {
         this.currency = currency == null ? null : currency.trim();
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

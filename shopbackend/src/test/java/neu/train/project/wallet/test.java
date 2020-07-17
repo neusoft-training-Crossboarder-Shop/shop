@@ -1,21 +1,16 @@
 package neu.train.project.wallet;
 
 
-import neu.train.common.utils.SecurityUtils;
 import neu.train.project.wallet.mapper.WtaWalletTransactionAduitMapper;
 import neu.train.project.wallet.pojo.WaaWalletAccount;
-import neu.train.project.wallet.pojo.WafWalletAccountFund;
 import neu.train.project.wallet.pojo.WtaWalletTransactionAduit;
-import neu.train.project.wallet.pojo.WtrWalletTransactionRecord;
 import neu.train.project.wallet.service.WalletService;
-import neu.train.project.wallet.vo.GetAnAuditQuery;
+import neu.train.project.wallet.vo.GetANewWallet;
 import neu.train.project.wallet.vo.MakeATransaction;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.filter.TypeExcludeFilters;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
@@ -41,7 +36,7 @@ public class test {
         waaWalletAccount.setPassword("getANewWallet.getPassword()");
         waaWalletAccount.setCreatedBy("20");
         waaWalletAccount.setLastUpdateBy("20");
-       walletService.insertWallet(waaWalletAccount);
+       //walletService.insertWallet(waaWalletAccount);
     }
 
     /*
@@ -104,6 +99,17 @@ public class test {
         System.out.println("!!!!!!!!!");
     }
 
+    //BCryptPasswordEncoder加密
+    @Test
+    public void test6(){
+        GetANewWallet getANewWallet=new GetANewWallet("testA","108","2500921","USD");
+         walletService.insertWallet(2,2,getANewWallet);
+    }
+
+    @Test
+    public void test10(){
+        System.out.println(walletService.selectWalletLogin(2,"testA","2500921"));
+    }
 
 
 }
