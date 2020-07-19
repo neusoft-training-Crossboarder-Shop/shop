@@ -1,5 +1,6 @@
 <template>
-  <div class="login">
+
+  <div class="login" >
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
       <h3 class="title">CrossBoarderShop</h3>
       <el-form-item prop="username">
@@ -70,19 +71,6 @@
                   inactive-text="借卖商">
               </el-switch>
             </el-form-item>
-<!--            <el-form-item label="角色">-->
-<!--              <el-select v-model="registerForm.roleIds" multiple placeholder="请选择">-->
-<!--                <el-option-->
-<!--                  v-for="item in roleOptions"-->
-<!--                  :key="item.roleId"-->
-<!--                  :label="item.roleName"-->
-<!--                  :value="item.roleId"-->
-<!--                  :disabled="item.status == 1"-->
-<!--                ></el-option>-->
-<!--              </el-select>-->
-<!--            </el-form-item>-->
-
-
           </el-col>
         </el-row>
 
@@ -373,7 +361,9 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-image: url("../assets/image/login-background.jpg");
+  background-position: center;
+
+  background-image: url("../assets/background/image4.png");
   background-size: cover;
 }
 
@@ -386,7 +376,7 @@ export default {
 
 .login-form {
   border-radius: 6px;
-  background: #ffffff;
+  background: #ffb0a4;
   width: 400px;
   padding: 25px 25px 5px 25px;
   .el-input {

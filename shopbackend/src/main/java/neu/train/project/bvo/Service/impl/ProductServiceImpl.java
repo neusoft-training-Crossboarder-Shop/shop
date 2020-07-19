@@ -1,7 +1,6 @@
 package neu.train.project.bvo.Service.impl;
 
 import neu.train.common.utils.SecurityUtils;
-import neu.train.framework.security.LoginUser;
 import neu.train.project.bvo.Service.ProductService;
 import neu.train.project.bvo.domain.SearchProduct;
 import neu.train.project.bvo.domain.SimpleProduct;
@@ -26,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     WishListMapper wishListMapper;
     @Autowired
-    CommonService commonService;
+    BvoCommonService bvoCommonService;
 
     @Override
     public Product getProductDetail(Integer proId) {
@@ -35,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<SimpleProduct> getWishListByDsrId() {
-        Integer id=commonService.getDsrId();
+        Integer id= bvoCommonService.getDsrId();
         WishListExample wishListExample = new WishListExample();
         wishListExample.createCriteria().andDsrIdEqualTo(id);
         List<WishList> wishLists = wishListMapper.selectByExample(wishListExample);
@@ -52,7 +51,9 @@ public class ProductServiceImpl implements ProductService {
             result.setBrandName(product.getProductBrand().getNameEn());
             result.setCategoryName(product.getCategories().get(0).getCategoryName());
             result.setPrice(product.getRetailPrice());
+
             result.setManufacturerName(product.getManufacturer().getNameEn());
+
             results.add(result);
         }
         return results;
@@ -62,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
     public int deleteProInWishlistByProId(Integer proId) {
         SysUser user= SecurityUtils.getLoginUser().getUser();
 
-        Integer id=commonService.getDsrId();
+        Integer id= bvoCommonService.getDsrId();
 
         WishListExample wishListExample = new WishListExample();
         wishListExample.createCriteria().andDsrIdEqualTo(id).andProIdEqualTo(proId);
@@ -73,7 +74,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int addProInWishListByProId(WishList wishList){
         SysUser sysUser = SecurityUtils.getLoginUser().getUser();
-        int dsrId = commonService.getDsrId();
+        int dsrId = bvoCommonService.getDsrId();
         wishList.setDsrId(dsrId);
 
         WishListExample wishListExample = new WishListExample();

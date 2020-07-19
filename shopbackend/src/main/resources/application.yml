@@ -9,7 +9,8 @@ shop:
   # 实例演示开关
   demoEnabled: true
 #   文件路径 示例（ Windows配置D:/shop/uploadPath，Linux配置 /home/shop/uploadPath）
-  profile: C:/shop/uploadPath
+#  profile: C:/shop/uploadPath
+  profile: C:/Users/xiaobin/Desktop/线上实训/project/git-test/shop/uploadPath
   # 获取ip地址开关
   addressEnabled: false
 

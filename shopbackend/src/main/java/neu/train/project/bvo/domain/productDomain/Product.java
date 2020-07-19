@@ -15,9 +15,10 @@ public class Product implements Serializable {
 
     private Integer brdId;
 
-    private ProductBrand productBrand;
 
     private Integer manId;
+
+    private ProductBrand productBrand;
 
     private List<ProductCategory> categories;
 

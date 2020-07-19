@@ -35,6 +35,7 @@
 
 
     <collection property="categories" ofType="neu.train.project.bvo.domain.productDomain.ProductCategory"
+
                 column="pro_id" javaType="ArrayList"
                 fetchType="lazy" select="neu.train.project.bvo.mapper.productMapper.ProductCategoryMapper.selectByProId">
 
@@ -84,31 +85,27 @@
     <result column="retail_price" jdbcType="DECIMAL" property="retailPrice" />
 
 
-    <association property="manufacturer" column="{manId=man_id,manufacturerName=manufacturer_name}"
-                 select="neu.train.project.bvo.mapper.productMapper.ManufacturerMapper.selectByParams"
-                 javaType="neu.train.project.bvo.domain.productDomain.Manufacturer"/>
+    <association property="manufacturer" javaType="neu.train.project.bvo.domain.productDomain.Manufacturer">
+      <id property="manId" column="man_id"/>
+      <result property="nameEn" column="man_name_en"/>
+    </association>
 
+    <association property="productBrand" javaType="neu.train.project.bvo.domain.productDomain.ProductBrand">
+      <id property="brdId" column="brd_id"/>
+      <result property="nameEn" column="brand_name_en"/>
+    </association>
 
-    <association property="productBrand" column="{brdId=brd_id,brandName=brand_name}"
-                 select="neu.train.project.bvo.mapper.productMapper.ProductBrandMapper.selectByParams"
-                 javaType="neu.train.project.bvo.domain.productDomain.ProductBrand"/>
-
-
-
-
-    <collection property="categories" ofType="neu.train.project.bvo.domain.productDomain.ProductCategory"
-                column="{proId=pro_id,categoryName=category_name}" javaType="ArrayList"
-                select="neu.train.project.bvo.mapper.productMapper.ProductCategoryMapper.selectByParams">
-
-      <!--            <id property="prcId" column="prc_id"/>-->
-      <!--            <result property="categoryName" column="category_name"/>-->
+    <collection property="categories" ofType="neu.train.project.bvo.domain.productDomain.ProductCategory">
+      <id property="prcId" column="prc_id"/>
+      <result property="proId" column="pro_id"/>
+      <result property="categoryName" column="category_name"/>
+      <result property="categoryPath" column="category_path"/>
     </collection>
 
-
-    <collection property="imageList" ofType="neu.train.project.bvo.domain.productDomain.ProductImage"
-                column="{proId=pro_id}" javaType="ArrayList"
-                fetchType="lazy" select="neu.train.project.bvo.mapper.productMapper.ProductImageMapper.selectByParams">
-      <result property="imgId" column="img_id"/>
+    <collection property="imageList" ofType="neu.train.project.bvo.domain.productDomain.ProductImage">
+      <id property="imgId" column="img_id"/>
+      <result property="proId" column="pro_id"/>
+      <result property="typeCd" column="type_cd"/>
       <result property="uri" column="uri"/>
     </collection>
 
@@ -201,24 +198,51 @@
   </select>
 
   <select id="selectProductListBySimpleProduct" parameterType="neu.train.project.bvo.domain.SimpleProduct" resultMap="SimpleProductResultMap">
+
     select
-    pro_id, man_id, brd_id, title,retail_price,
-    IFNULL(#{categoryName},'') category_name,
-    IFNULL(#{manufacturerName},'') manufacturer_name,
-    IFNULL(#{brandName},'') brand_name
-    FROM
-        pro_product
-    <where>
-      <if test="title != null and title != ''">
-          AND title like concat('%', #{title}, '%')
-      </if>
-      <if test="lowPrice != null and lowPrice != ''and topPrice != 0">
-          AND retail_price  <![CDATA[ >= ]]> #{lowPrice,jdbcType=DOUBLE}
-      </if>
-      <if test="topPrice != null and topPrice != '' and topPrice != 0 ">
-          AND retail_price  <![CDATA[ <= ]]> #{topPrice,jdbcType=DOUBLE}
-      </if>
-    </where>
+
+    p.pro_id , p.brd_id, p.title, p.man_id , p.retail_price , p.proState ,
+
+    b.name_en brand_name_en, b.name_cn brand_name_cn,
+
+    m.name_en man_name_en, m.name_cn man_name_cn,
+
+    category.prc_id,category.category_name , category.category_path,
+
+    img.img_id,img.uri , img.type_cd
+
+    from pro_product p ,brd_brand b , prc_product_category category ,img_image img ,man_manufacturer m
+
+    where p.brd_id=b.brd_id  and p.pro_id = category.pro_id and p.pro_id = img.pro_id and p.man_id = m.man_id
+
+    AND type_cd = 0
+
+    AND proState = 'In Shelf'
+
+    <if test="title != null and title != ''">
+      AND title like concat('%', #{title}, '%')
+    </if>
+
+    <if test="categoryName != null and categoryName != ''">
+      AND ( category_path like concat('%', #{categoryName}, '%') or category_name like concat('%', #{categoryName}, '%')  )
+    </if>
+
+    <if test="brandName != null and brandName != ''">
+      AND (b.name_en like concat('%', #{brandName}, '%') or b.name_cn like concat('%', #{brandName}, '%'))
+    </if>
+
+    <if test="manufacturerName != null and manufacturerName != ''">
+      AND (m.name_en like concat('%', #{manufacturerName}, '%') or m.name_cn like concat('%', #{manufacturerName}, '%'))
+    </if>
+
+    <if test="lowPrice != null and lowPrice != ''and topPrice != 0">
+      AND retail_price  <![CDATA[ >= ]]> #{lowPrice,jdbcType=DOUBLE}
+    </if>
+
+    <if test="topPrice != null and topPrice != '' and topPrice != 0 ">
+      AND retail_price  <![CDATA[ <= ]]> #{topPrice,jdbcType=DOUBLE}
+    </if>
+
   </select>
 
 

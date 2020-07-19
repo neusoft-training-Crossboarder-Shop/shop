@@ -52,7 +52,7 @@
       </p>
 
          <p >
-           <span  class="tag " style="padding-right: 45%" >Weight×Width×Height×Length</span>
+           <span  class="tag" style="padding-right: 45%" >Weight×Width×Height×Length</span>
 
            <span>{{pro.productPackageInfos[0].weight}}</span>
            <span  >×</span>
@@ -121,7 +121,16 @@
         <el-collapse-item v-for="description in pro.productDescriptions" :key="description.pdnId" :title="description.platformType.concat(' Description').toUpperCase()" name="2" style="padding: 1%">
           <div>
             <div><span class="tag">Last Update Time</span> <span>{{parseTime(description.lastUpdateTime)}}</span></div>
-            <div><span class="tag">Description</span><span style="display: block;position: relative;left: 15%;top: -35px">{{description.descrition}}</span></div>
+            <div>
+              <span class="tag">Description
+
+              </span>
+
+              <span style="display: block;position: relative;left: 15%;top: -35px" v-html="description.descrition">
+
+              </span>
+
+            </div>
           </div>
         </el-collapse-item>
       </el-collapse>
@@ -151,14 +160,16 @@
             storeList:[],
             options: [
             {
-              label: 'Amazon',
-              options: [{
-                value: 1,
-                label: 'storeName1'
-              }, {
-                value: 2,
-                label: 'storeName2'
-              }]
+                  label: 'Amazon',
+                  options: [{
+                    value: 1,
+                    label: 'storeName1'
+                  },
+                  {
+                    value: 2,
+                    label: 'storeName2'
+                  }
+                ]
             },
             {
               label: 'Ebay',
@@ -233,6 +244,11 @@
           const proID = this.$route.params && this.$route.params.proID;
           getGoodDetail(proID).then(response=>{
             this.pro=response.data;
+            this.pro.images.forEach(image=>{
+              if(image.uri!=undefined || image.uri!='' ){
+                image.uri=process.env.VUE_APP_BASE_API+image.uri
+              }
+            })
           });
 
           // this.getDicts("store_platform_type").then(response => {

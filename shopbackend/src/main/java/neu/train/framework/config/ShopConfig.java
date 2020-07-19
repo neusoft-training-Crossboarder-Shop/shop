@@ -98,6 +98,14 @@ public class ShopConfig
         return getProfile() + "/avatar";
     }
 
+    public static String getBrandImagePath(){
+        return getProfile() + "/brand";
+    }
+
+    public static String getProductImagePath(){
+        return getProfile() + "/product";
+    }
+
     /**
      * 获取下载路径
      */

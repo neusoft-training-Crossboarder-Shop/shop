@@ -18,7 +18,7 @@ public class StoreServiceImpl implements StoreService {
     StoreMapper storeMapper ;
 
     @Autowired
-    CommonService commonService;
+    BvoCommonService bvoCommonService;
     @Override
     public Store selectStoreByStoreId(Long storeId) {
         return storeMapper.selectByPrimaryKey(Math.toIntExact(storeId));
@@ -26,7 +26,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public List<Store> getStoreList(Store store) {
-        int id =commonService.getDsrId();
+        int id = bvoCommonService.getDsrId();
         store.setDsrId(id);
         StoreExample storeExample = new StoreExample();
 
@@ -51,7 +51,7 @@ public class StoreServiceImpl implements StoreService {
         String name =SecurityUtils.getLoginUser().getUsername();
         store.setCreatedBy(name);
         store.setLastUpdateBy(name);
-        store.setDsrId(commonService.getDsrId());
+        store.setDsrId(bvoCommonService.getDsrId());
         return storeMapper.insertSelective(store);
     }
 

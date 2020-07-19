@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="neu.train.project.mvo.brand.mapper.ImgImageMapper" >
-  <resultMap id="BaseResultMap" type="neu.train.project.mvo.brand.pojo.ImgImage" >
+<mapper namespace="neu.train.project.mvo.productBrand.mapper.ImgImageMapper" >
+  <resultMap id="BaseResultMap" type="neu.train.project.mvo.productBrand.pojo.ImgImage" >
     <constructor >
       <idArg column="img_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="uri" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -77,7 +77,7 @@
     img_id, uri, type_cd, pro_id, created_by, create_time, last_update_by, last_update_time, 
     call_cnt, sts_cd
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="neu.train.project.mvo.brand.pojo.ImgImageExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="neu.train.project.mvo.productBrand.pojo.ImgImageExample" >
     select
     <if test="distinct" >
       distinct
@@ -91,13 +91,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="neu.train.project.mvo.brand.pojo.ImgImageExample" >
+  <delete id="deleteByExample" parameterType="neu.train.project.mvo.productBrand.pojo.ImgImageExample" >
     delete from img_image
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insertSelective" parameterType="neu.train.project.mvo.brand.pojo.ImgImage" >
+  <insert id="insertSelective" parameterType="neu.train.project.mvo.productBrand.pojo.ImgImage" >
     insert into img_image
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="imgId != null" >
@@ -164,7 +164,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="neu.train.project.mvo.brand.pojo.ImgImageExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="neu.train.project.mvo.productBrand.pojo.ImgImageExample" resultType="java.lang.Integer" >
     select count(*) from img_image
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -224,7 +224,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="neu.train.project.mvo.brand.pojo.ImgImage" >
+  <update id="updateByPrimaryKeySelective" parameterType="neu.train.project.mvo.productBrand.pojo.ImgImage" >
     update img_image
     <set >
       <if test="uri != null" >

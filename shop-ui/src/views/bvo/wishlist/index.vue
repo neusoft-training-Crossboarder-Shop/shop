@@ -81,6 +81,7 @@
           getList(){
               getWishList().then(response=>{
                 this.items = response.data;
+
                 setTimeout(() => {
                   this.loadingInstance.close();
                 }, 500);
