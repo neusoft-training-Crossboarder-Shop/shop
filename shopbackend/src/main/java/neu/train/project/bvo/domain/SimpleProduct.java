@@ -11,8 +11,8 @@ public class SimpleProduct implements Serializable {
     private Integer proId;
     private String categoryName;
     private String title;
-    private String manufacturerName;
     private String brandName;
+    private String manufacturerName;
     private BigDecimal price;
     private BigDecimal lowPrice;
     private BigDecimal topPrice;

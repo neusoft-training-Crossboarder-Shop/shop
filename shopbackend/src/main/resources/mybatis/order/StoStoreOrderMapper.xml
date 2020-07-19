@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="neu.train.project.order.mapper.StoStoreOrderMapper" >
+  <resultMap id="BaseResultMap" type="neu.train.project.order.pojo.StoStoreOrder" >
+    <constructor >
+      <idArg column="sto_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="proId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="qty" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="store_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="purchase_price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="paid_time" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="order_status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="created_by" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="last_update_by" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="last_update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="call_cnt" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="sts_cd" jdbcType="CHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sto_id, proId, qty, store_id, purchase_price, paid_time, order_status, create_time, 
+    created_by, last_update_by, last_update_time, call_cnt, sts_cd
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="neu.train.project.order.pojo.StoStoreOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sto_store_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="neu.train.project.order.pojo.StoStoreOrderExample" >
+    delete from sto_store_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insertSelective" parameterType="neu.train.project.order.pojo.StoStoreOrder" >
+    <selectKey resultType="java.lang.Integer" keyProperty="stoId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sto_store_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      sto_id,
+      <if test="proid != null" >
+        proId,
+      </if>
+      <if test="qty != null" >
+        qty,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="purchasePrice != null" >
+        purchase_price,
+      </if>
+      <if test="paidTime != null" >
+        paid_time,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="lastUpdateBy != null" >
+        last_update_by,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="callCnt != null" >
+        call_cnt,
+      </if>
+      <if test="stsCd != null" >
+        sts_cd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{stoId,jdbcType=INTEGER},
+      <if test="proid != null" >
+        #{proid,jdbcType=INTEGER},
+      </if>
+      <if test="qty != null" >
+        #{qty,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="purchasePrice != null" >
+        #{purchasePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="paidTime != null" >
+        #{paidTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateBy != null" >
+        #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callCnt != null" >
+        #{callCnt,jdbcType=INTEGER},
+      </if>
+      <if test="stsCd != null" >
+        #{stsCd,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="neu.train.project.order.pojo.StoStoreOrderExample" resultType="java.lang.Integer" >
+    select count(*) from sto_store_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sto_store_order
+    <set >
+      <if test="record.stoId != null" >
+        sto_id = #{record.stoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.proid != null" >
+        proId = #{record.proid,jdbcType=INTEGER},
+      </if>
+      <if test="record.qty != null" >
+        qty = #{record.qty,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.purchasePrice != null" >
+        purchase_price = #{record.purchasePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paidTime != null" >
+        paid_time = #{record.paidTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStatus != null" >
+        order_status = #{record.orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateBy != null" >
+        last_update_by = #{record.lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateTime != null" >
+        last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.callCnt != null" >
+        call_cnt = #{record.callCnt,jdbcType=INTEGER},
+      </if>
+      <if test="record.stsCd != null" >
+        sts_cd = #{record.stsCd,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sto_store_order
+    set sto_id = #{record.stoId,jdbcType=INTEGER},
+      proId = #{record.proid,jdbcType=INTEGER},
+      qty = #{record.qty,jdbcType=INTEGER},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      purchase_price = #{record.purchasePrice,jdbcType=DECIMAL},
+      paid_time = #{record.paidTime,jdbcType=VARCHAR},
+      order_status = #{record.orderStatus,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      last_update_by = #{record.lastUpdateBy,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      call_cnt = #{record.callCnt,jdbcType=INTEGER},
+      sts_cd = #{record.stsCd,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="neu.train.project.order.pojo.StoStoreOrder" >
+    update sto_store_order
+    <set >
+      <if test="proid != null" >
+        proId = #{proid,jdbcType=INTEGER},
+      </if>
+      <if test="qty != null" >
+        qty = #{qty,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="purchasePrice != null" >
+        purchase_price = #{purchasePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="paidTime != null" >
+        paid_time = #{paidTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateBy != null" >
+        last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callCnt != null" >
+        call_cnt = #{callCnt,jdbcType=INTEGER},
+      </if>
+      <if test="stsCd != null" >
+        sts_cd = #{stsCd,jdbcType=CHAR},
+      </if>
+    </set>
+    where sto_id = #{stoId,jdbcType=INTEGER}
+  </update>
+
+
+
+  <resultMap type="neu.train.project.order.vo.SendASimpleSto" id="simpleStoResult" >
+    <id     property="stoId"      column="stoId"      />
+    <result property="qty"    column="stoQty"    />
+    <result property="purchasePrice"     column="stoPP"     />
+    <result property="paidTime"   column="stoPT"   />
+    <result property="orderStatus"    column="stoOS"    />
+    <result property="createTime"      column="stoCT"      />
+    <result property="lastUpdateTime"    column="stoLUT"    />
+    <association property="store" javaType="neu.train.project.order.vo.SimpleStr">
+      <id     property="storeId"      column="strId"      />
+      <result property="platformType"    column="strPT"    />
+      <result property="storeName"     column="strSN"     />
+    </association>
+    <association property="product" javaType="neu.train.project.order.vo.SimplePro">
+      <id     property="proId"      column="proId"      />
+      <result property="title"    column="proT"    />
+      <result property="retailPrice"     column="proRP"     />
+    </association>
+  </resultMap>
+
+
+  <select id="selectStoStrProByMany" parameterType="neu.train.project.order.vo.GetAStoOrderQueryByTime" resultMap="simpleStoResult">
+    select sto.sto_id stoId,sto.qty stoQty,sto.purchase_price stoPP,sto.paid_time stoPT,sto.order_status stoOS,sto.create_time stoCT,sto.last_update_time stoLUT,str.store_id strId,str.platform_type strPT,str.store_name strSN,pro.pro_id proId,pro.title proT,pro.retail_price proRP
+    from sto_store_order sto,str_store str,pro_product pro
+    <where>
+      <if test="bvoId != null and bvoId != ''">
+        AND str.dsr_id = #{bvoId}
+      </if>
+      <if test="stoId != null and stoId != ''">
+      AND sto.sto_id like concat ('%', #{stoId},'%')
+      </if>
+      <if test="startTime != null and startTime != ''"><!-- 开始时间检索 -->
+        and date_format(sto.create_time,'%y%m%d') &gt;= date_format(#{startTime},'%y%m%d')
+      </if>
+      <if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+        and date_format(sto.create_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
+      </if>
+      and str.store_id=sto.store_id
+      and pro.pro_id=sto.proId
+    </where>
+    order by sto.create_time desc
+  </select>
+
+
+
+
+
+
+</mapper>

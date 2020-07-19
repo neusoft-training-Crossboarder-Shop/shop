@@ -16,7 +16,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.stereotype.Service;
 
 /**
  * spring security配置
@@ -24,9 +23,8 @@ import org.springframework.stereotype.Service;
  * @author
  */
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-@Service
-public class SecurityConfig extends WebSecurityConfigurerAdapter
+public class
+SecurityConfig extends WebSecurityConfigurerAdapter
 {
     /**
      * 自定义用户认证逻辑
@@ -93,8 +91,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 // 过滤请求
                 .authorizeRequests()
-                // 对于登录login 验证码captchaImage 允许匿名访问
-                .antMatchers("/login", "/captchaImage").anonymous()
+                // 对于登录login 注册 验证码captchaImage 允许匿名访问
+                .antMatchers("/login", "/captchaImage","/register").anonymous()
+
                 .antMatchers(
                         HttpMethod.GET,
                         "/*.html",

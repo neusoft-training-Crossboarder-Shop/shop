@@ -29,12 +29,12 @@ public interface WafWalletAccountFundMapper {
         "depositing_money, withdrawing_money, ",
         "created_By, create_time, ",
         "last_update_by, last_update_time, ",
-        "currency)",
+        "currency, version)",
         "values (#{buyerId,jdbcType=INTEGER}, #{availableMoney,jdbcType=DECIMAL}, ",
         "#{depositingMoney,jdbcType=DECIMAL}, #{withdrawingMoney,jdbcType=DECIMAL}, ",
         "#{createdBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{lastUpdateBy,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, ",
-        "#{currency,jdbcType=VARCHAR})"
+        "#{currency,jdbcType=VARCHAR}, #{version,jdbcType=INTEGER})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="buyerId", before=true, resultType=Integer.class)
     int insert(WafWalletAccountFund record);
@@ -46,7 +46,7 @@ public interface WafWalletAccountFundMapper {
     @Select({
         "select",
         "buyer_id, available_money, depositing_money, withdrawing_money, created_By, ",
-        "create_time, last_update_by, last_update_time, currency",
+        "create_time, last_update_by, last_update_time, currency, version",
         "from waf_wallet_account_fund",
         "where buyer_id = #{buyerId,jdbcType=INTEGER}"
     })
@@ -68,7 +68,8 @@ public interface WafWalletAccountFundMapper {
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},",
           "last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},",
-          "currency = #{currency,jdbcType=VARCHAR}",
+          "currency = #{currency,jdbcType=VARCHAR},",
+          "version = #{version,jdbcType=INTEGER}",
         "where buyer_id = #{buyerId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(WafWalletAccountFund record);

@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="neu.train.project.order.mapper.SaoSalesOrderMapper" >
+  <resultMap id="BaseResultMap" type="neu.train.project.order.pojo.SaoSalesOrder" >
+    <constructor >
+      <idArg column="sales_oder_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="man_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="proId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="qty" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="sto_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="purchase_price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="tracking_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="created_by" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="last_update_by" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="last_update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="call_cnt" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="sts_cd" jdbcType="CHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sales_oder_id, man_id, proId, qty, price, sto_id, purchase_price, tracking_no, created_by, 
+    create_time, last_update_by, last_update_time, call_cnt, sts_cd
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="neu.train.project.order.pojo.SaoSalesOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sao_sales_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="neu.train.project.order.pojo.SaoSalesOrderExample" >
+    delete from sao_sales_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insertSelective" parameterType="neu.train.project.order.pojo.SaoSalesOrder" >
+    <selectKey resultType="java.lang.Integer" keyProperty="salesOderId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sao_sales_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      sales_oder_id,
+      <if test="manId != null" >
+        man_id,
+      </if>
+      <if test="proid != null" >
+        proId,
+      </if>
+      <if test="qty != null" >
+        qty,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="stoId != null" >
+        sto_id,
+      </if>
+      <if test="purchasePrice != null" >
+        purchase_price,
+      </if>
+      <if test="trackingNo != null" >
+        tracking_no,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUpdateBy != null" >
+        last_update_by,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="callCnt != null" >
+        call_cnt,
+      </if>
+      <if test="stsCd != null" >
+        sts_cd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{salesOderId,jdbcType=INTEGER},
+      <if test="manId != null" >
+        #{manId,jdbcType=INTEGER},
+      </if>
+      <if test="proid != null" >
+        #{proid,jdbcType=INTEGER},
+      </if>
+      <if test="qty != null" >
+        #{qty,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stoId != null" >
+        #{stoId,jdbcType=INTEGER},
+      </if>
+      <if test="purchasePrice != null" >
+        #{purchasePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="trackingNo != null" >
+        #{trackingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null" >
+        #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callCnt != null" >
+        #{callCnt,jdbcType=INTEGER},
+      </if>
+      <if test="stsCd != null" >
+        #{stsCd,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="neu.train.project.order.pojo.SaoSalesOrderExample" resultType="java.lang.Integer" >
+    select count(*) from sao_sales_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sao_sales_order
+    <set >
+      <if test="record.salesOderId != null" >
+        sales_oder_id = #{record.salesOderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.manId != null" >
+        man_id = #{record.manId,jdbcType=INTEGER},
+      </if>
+      <if test="record.proid != null" >
+        proId = #{record.proid,jdbcType=INTEGER},
+      </if>
+      <if test="record.qty != null" >
+        qty = #{record.qty,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.stoId != null" >
+        sto_id = #{record.stoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.purchasePrice != null" >
+        purchase_price = #{record.purchasePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.trackingNo != null" >
+        tracking_no = #{record.trackingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateBy != null" >
+        last_update_by = #{record.lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateTime != null" >
+        last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.callCnt != null" >
+        call_cnt = #{record.callCnt,jdbcType=INTEGER},
+      </if>
+      <if test="record.stsCd != null" >
+        sts_cd = #{record.stsCd,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sao_sales_order
+    set sales_oder_id = #{record.salesOderId,jdbcType=INTEGER},
+      man_id = #{record.manId,jdbcType=INTEGER},
+      proId = #{record.proid,jdbcType=INTEGER},
+      qty = #{record.qty,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      sto_id = #{record.stoId,jdbcType=INTEGER},
+      purchase_price = #{record.purchasePrice,jdbcType=DECIMAL},
+      tracking_no = #{record.trackingNo,jdbcType=VARCHAR},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      last_update_by = #{record.lastUpdateBy,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      call_cnt = #{record.callCnt,jdbcType=INTEGER},
+      sts_cd = #{record.stsCd,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="neu.train.project.order.pojo.SaoSalesOrder" >
+    update sao_sales_order
+    <set >
+      <if test="manId != null" >
+        man_id = #{manId,jdbcType=INTEGER},
+      </if>
+      <if test="proid != null" >
+        proId = #{proid,jdbcType=INTEGER},
+      </if>
+      <if test="qty != null" >
+        qty = #{qty,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stoId != null" >
+        sto_id = #{stoId,jdbcType=INTEGER},
+      </if>
+      <if test="purchasePrice != null" >
+        purchase_price = #{purchasePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="trackingNo != null" >
+        tracking_no = #{trackingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null" >
+        last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callCnt != null" >
+        call_cnt = #{callCnt,jdbcType=INTEGER},
+      </if>
+      <if test="stsCd != null" >
+        sts_cd = #{stsCd,jdbcType=CHAR},
+      </if>
+    </set>
+    where sales_oder_id = #{salesOderId,jdbcType=INTEGER}
+  </update>
+
+
+  <resultMap type="neu.train.project.order.vo.SendComplexSao" id="complexResult" >
+    <id     property="salesOderId"      column="saoSOI"      />
+    <result property="manId"    column="saoMID"    />
+    <result property="qty"     column="saoQTY"     />
+    <result property="price"   column="saoP"   />
+    <result property="stoId"    column="saoSTOID"    />
+    <result property="purchasePrice"      column="saoPP"      />
+    <result property="trackingNo"    column="sapTN"    />
+    <result property="createdBy"    column="saoCB"    />
+    <result property="createTime"    column="saoCT"    />
+    <result property="lastUpdateBy"    column="saoLUB"    />
+    <result property="lastUpdateTime"    column="saoLUT"    />
+    <result property="callCnt"    column="saoCC"    />
+    <result property="stsCd"    column="saoSC"    />
+    <result property="orderStatus"    column="stoOS"    />
+    <association property="store" javaType="neu.train.project.order.vo.SimpleStr">
+      <id     property="storeId"      column="strId"      />
+      <result property="platformType"    column="strPT"    />
+      <result property="storeName"     column="strSN"     />
+    </association>
+    <association property="product" javaType="neu.train.project.order.vo.SimplePro">
+      <id     property="proId"      column="proId"      />
+      <result property="title"    column="proT"    />
+      <result property="retailPrice"     column="proRP"     />
+    </association>
+  </resultMap>
+
+  <select id="selectSaoStrProByMany" parameterType="neu.train.project.order.vo.GetASaoQueryByTime" resultMap="complexResult">
+    select sao.sales_oder_id saoSOI,sao.man_id saoMID,sao.qty saoQTY,sao.price saoP,sao.sto_id saoSTOID,sao.purchase_price saoPP,sao.tracking_no sapTN,sao.created_by saoCB,
+    sao.create_time saoCT,sao.last_update_by saoLUB,sao.last_update_time saoLUT,sao.call_cnt saoCC,sao.sts_cd saoSC,sto.order_status stoOS,
+    str.store_id strId,str.platform_type strPT,str.store_name strSN,pro.pro_id proId,pro.title proT,pro.retail_price proRP
+    from sao_sales_order sao,sto_store_order sto,str_store str,pro_product pro
+    <where>
+      <if test="mvoId != null and mvoId != '' ">
+        AND str.dsr_id = #{mvoId}
+      </if>
+      <if test="salId != null and salId != ''">
+        AND sao.sales_oder_id like concat ('%', #{salId},'%')
+      </if>
+      <if test="startTime != null and startTime != ''"><!-- 开始时间检索 -->
+        and date_format(sao.create_time,'%y%m%d') &gt;= date_format(#{startTime},'%y%m%d')
+      </if>
+      <if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+        and date_format(sao.create_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
+      </if>
+      and str.store_id=sto.store_id
+      and pro.pro_id=sao.proId
+      and sao.sto_id=sto.sto_id
+    </where>
+    order by sao.create_time desc
+  </select>
+
+
+
+
+</mapper>

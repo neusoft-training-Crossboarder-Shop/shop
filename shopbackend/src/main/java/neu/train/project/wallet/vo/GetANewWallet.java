@@ -1,17 +1,18 @@
 package neu.train.project.wallet.vo;
 
 import neu.train.project.validate.InsertGroup;
+import neu.train.project.validate.UpdateGroup;
 
 import javax.validation.constraints.NotNull;
 
 public class GetANewWallet {
-    @NotNull(message = "accountName can not be null",groups = {InsertGroup.class})
+    @NotNull(message = "accountName can not be null",groups = {InsertGroup.class, UpdateGroup.class})
     private String accountName;
 
-    @NotNull(message = "email can not be null",groups = {InsertGroup.class})
+    @NotNull(message = "email can not be null",groups ={InsertGroup.class, UpdateGroup.class})
     private String email;
 
-    @NotNull(message = "password can not be null",groups = {InsertGroup.class})
+    @NotNull(message = "password can not be null",groups = {InsertGroup.class, UpdateGroup.class})
     private String password;
 
     @NotNull(message = "currency can not be null",groups = {InsertGroup.class})

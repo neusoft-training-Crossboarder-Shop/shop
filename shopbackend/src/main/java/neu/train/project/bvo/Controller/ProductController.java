@@ -10,10 +10,7 @@ import neu.train.project.bvo.Service.ProductService;
 import neu.train.project.bvo.domain.SimpleProduct;
 import neu.train.project.bvo.domain.productDomain.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 //@RequestMapping("swagger-resources/bvo")
@@ -27,8 +24,6 @@ public class ProductController extends BaseController {
     @ApiOperation("try to get good detail")
     public AjaxResult getProductDetail(@PathVariable("proId") Integer proId){
         Product productDetail = productService.getProductDetail(proId);
-        System.out.println(productDetail.getManufacturer());
-        System.out.println(productDetail.getProductBrand());
         return AjaxResult.success(productDetail);
     }
 

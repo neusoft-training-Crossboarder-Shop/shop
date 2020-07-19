@@ -108,16 +108,20 @@ public class FileUploadUtils
         {
             throw new FileNameLengthLimitExceededException(FileUploadUtils.DEFAULT_FILE_NAME_LENGTH);
         }
-
+        //判断是否是允许的类型
         assertAllowed(file, allowedExtension);
-
+        //编码名称
         String fileName = extractFilename(file);
-
+        //绝对地址路径
         File desc = getAbsoluteFile(baseDir, fileName);
+        //移动文件到目的地址
         file.transferTo(desc);
+        //得到文件的url地址,可以用该url来访问到这个文件
         String pathFileName = getPathFileName(baseDir, fileName);
         return pathFileName;
     }
+
+
 
     /**
      * 编码文件名
@@ -147,7 +151,9 @@ public class FileUploadUtils
 
     private static final String getPathFileName(String uploadDir, String fileName) throws IOException
     {
+
         int dirLastIndex = ShopConfig.getProfile().length() + 1;
+        //
         String currentDir = StringUtils.substring(uploadDir, dirLastIndex);
         String pathFileName = Constants.RESOURCE_PREFIX + "/" + currentDir + "/" + fileName;
         return pathFileName;

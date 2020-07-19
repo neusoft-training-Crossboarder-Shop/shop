@@ -1,9 +1,11 @@
 package neu.train.project.wallet.pojo;
 
+import neu.train.framework.web.domain.BaseEntity;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class WtaWalletTransactionAduit {
+public class WtaWalletTransactionAduit extends BaseEntity {
     private Integer transactionAuditId;
 
     private Integer buyerId;
@@ -196,5 +198,28 @@ public class WtaWalletTransactionAduit {
 
     public void setLastUpdateTime(Date lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "WtaWalletTransactionAduit{" +
+                "transactionAuditId=" + transactionAuditId +
+                ", buyerId=" + buyerId +
+                ", transactionId=" + transactionId +
+                ", availableMoneyBefore=" + availableMoneyBefore +
+                ", depositingMoneyBefore=" + depositingMoneyBefore +
+                ", withdrawingMoneyBefore=" + withdrawingMoneyBefore +
+                ", operateMoney=" + operateMoney +
+                ", operateType=" + operateType +
+                ", availableMoneyAfter=" + availableMoneyAfter +
+                ", depositingMoneyAfter=" + depositingMoneyAfter +
+                ", withdrawingMoneyAfter=" + withdrawingMoneyAfter +
+                ", operateBy='" + operateBy + '\'' +
+                ", status=" + status +
+                ", createdBy='" + createdBy + '\'' +
+                ", createTime=" + createTime +
+                ", lastUpdateBy='" + lastUpdateBy + '\'' +
+                ", lastUpdateTime=" + lastUpdateTime +
+                '}';
     }
 }
