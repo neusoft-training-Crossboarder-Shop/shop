@@ -1,14 +1,15 @@
 package neu.train.project.mvo.service;
 
 import com.github.pagehelper.PageHelper;
-import neu.train.project.mvo.domain.BrdBrand;
-import neu.train.project.mvo.domain.BrdBrand.Column;
-import neu.train.project.mvo.domain.BrdBrandExample;
 import neu.train.project.mvo.mapper.BrdBrandMapper;
+import neu.train.project.mvo.domain.BrdBrand;
+import neu.train.project.mvo.domain.BrdBrandExample;
+import neu.train.project.mvo.domain.BrdBrand.Column;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -25,7 +26,7 @@ public class BrdBrandService {
     @Autowired
     private BrdBrandMapper brandMapper;
 //    private Column[] columns = new Column[]{Column.brdId,Column.manId, Column.name, Column.desc, Column.picUrl, Column.floorPrice};
-    private Column[] columns = new Column[]{Column.brdId, Column.manId, Column.nameEn, Column.nameCn, Column.imgId, Column.createdBy, Column.createTime, Column.lastUpdateBy, Column.lastUpdateTime, Column.callCnt, Column.stsCd, Column.deleted, Column.brdDesc, Column.picUrl};
+    private Column[] columns = new Column[]{Column.brdId,Column.manId,Column.nameEn,Column.nameCn,Column.imgId,Column.createdBy,Column.createTime,Column.lastUpdateBy,Column.lastUpdateTime,Column.callCnt,Column.stsCd,Column.deleted,Column.brdDesc,Column.picUrl};
     public List<BrdBrand> query(Integer page, Integer limit, String sort, String order) {
         BrdBrandExample example = new BrdBrandExample();
         example.or().andDeletedEqualTo(false);
