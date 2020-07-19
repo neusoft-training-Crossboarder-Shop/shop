@@ -11,13 +11,21 @@
               <el-form-item label="English Name" prop="nameEn">
                 <el-input v-model="manufacturer.nameEn" placeholder="Enter English Name"></el-input>
               </el-form-item>
-              <el-form-item label="Description" prop="Description" >
-                <el-input
-                  type="textarea"
-                  :rows="2"
-                  placeholder="请输入内容"
-                  v-model="manufacturer.description">
-                </el-input>
+              <el-form-item label="manDesc" prop="manDesc" >
+<!--                <el-input-->
+<!--                  type="textarea"-->
+<!--                  :rows="2"-->
+<!--                  placeholder="请输入内容"-->
+<!--                  v-model="manufacturer.manDesc">-->
+<!--                </el-input>-->
+<!--                <editor v-model="description.descrition" :maxSize="maxSize" ></editor>-->
+
+                <div style="margin-top: 5%;margin-bottom: 5%;padding-top: 10%;padding-bottom: 10%">
+                  <p style="display: block;text-align: center;font-size: large">{{manufacturer.manDesc}}</p>
+                  <editor v-model="manufacturer.manDesc" :maxSize="maxSize" ></editor>
+                </div>
+
+
               </el-form-item>
 
 
@@ -50,7 +58,54 @@
           <div class="app-container">
 
             <el-table  class="el-table--enable-row-hover el-table__body" v-loading="manufacturerLoading" :data="manufacturers" >
+              <el-table-column type="expand">
+                <template slot-scope="props">
+                  <el-form label-position="left" class="table-expand">
+                    <el-form-item label="brdId">
+                      <span>{{ props.row.brdId }}</span>
+                    </el-form-item>
+                    <el-form-item label="manId">
+                      <span>{{ props.row.manId }}</span>
+                    </el-form-item>
+                    <el-form-item label="nameEn">
+                      <span>{{ props.row.nameEn }}</span>
+                    </el-form-item>
+                    <el-form-item label="nameCn">
+                      <span>{{ props.row.nameCn }}</span>
+                    </el-form-item>
+                    <el-form-item label="imgId">
+                      <span>{{ props.row.imgId }}</span>
+                    </el-form-item>
 
+                    <el-form-item label="picUrl">
+              <span>
+                <template>
+                  <img v-if="props.row.picUrl" :src="props.row.picUrl" width="220"  alt="">
+                </template>
+              </span>
+                    </el-form-item>
+                    <el-form-item label="createdBy">
+                      <span>{{ props.row.createdBy }}</span>
+                    </el-form-item>
+                    <el-form-item label="createTime">
+                      <span>{{ props.row.createTime }}</span>
+                    </el-form-item>
+                    <el-form-item label="lastUpdateBy">
+                      <span>{{ props.row.lastUpdateBy }}</span>
+                    </el-form-item>
+                    <el-form-item label="lastUpdateTime">
+                      <span>{{ props.row.lastUpdateTime }}</span>
+                    </el-form-item>
+                    <el-form-item label="manDesc">
+                      <span>{{ props.row.manDesc }}</span>
+                    </el-form-item>
+                    <el-form-item label="deleted">
+                      <span>{{ props.row.deleted }}</span>
+                    </el-form-item>
+
+                  </el-form>
+                </template>
+              </el-table-column>
               <el-table-column label="Chinese Name" align="center" prop="nameCn" />
               <el-table-column label="English Name" align="center" prop="nameEn" />
 
@@ -78,10 +133,10 @@
                   <!--         el-button 权限里面v-hasPermi="['system:config:edit']"-->
                   <el-button
                     size="middle"
-                    type="text"
+                    type="primary"
                     icon="el-icon-edit"
                     @click.stop="modifyProfile = true"
-                  >修改</el-button>
+                  >Modify</el-button>
 
                 </template>
               </el-table-column>
@@ -144,7 +199,7 @@
                   size="middle"
                   :disabled="single"
                   @click="handleUpdate"
-                >修改</el-button>
+                >Modify</el-button>
               </el-col>
               <!--                        v-hasPermi="['bvo:store:remove']"
               -->
@@ -155,7 +210,7 @@
                   size="middle"
                   :disabled="multiple"
                   @click="handleDelete"
-                >删除
+                >Delete
                 </el-button>
               </el-col>
 <!--@click="handleClearCache"-->
@@ -170,11 +225,61 @@
             </el-row>
 
             <el-table   class="el-table--enable-row-hover el-table__body" v-loading="loading" :data="brandList"  @selection-change="handleSelectionChange">
+
+              <el-table-column type="expand">
+                <template slot-scope="props">
+                  <el-form label-position="left" class="table-expand">
+                    <el-form-item label="brdId">
+                      <span>{{ props.row.brdId }}</span>
+                    </el-form-item>
+                    <el-form-item label="manId">
+                      <span>{{ props.row.manId }}</span>
+                    </el-form-item>
+                    <el-form-item label="nameEn">
+                      <span>{{ props.row.nameEn }}</span>
+                    </el-form-item>
+                    <el-form-item label="nameCn">
+                      <span>{{ props.row.nameCn }}</span>
+                    </el-form-item>
+                    <el-form-item label="imgId">
+                      <span>{{ props.row.imgId }}</span>
+                    </el-form-item>
+
+                    <el-form-item label="picUrl">
+              <span>
+                <template>
+                  <img v-if="props.row.picUrl" :src="props.row.picUrl" width="220"  alt="">
+                </template>
+              </span>
+                    </el-form-item>
+                    <el-form-item label="createdBy">
+                      <span>{{ props.row.createdBy }}</span>
+                    </el-form-item>
+                    <el-form-item label="createTime">
+                      <span>{{ props.row.createTime }}</span>
+                    </el-form-item>
+                    <el-form-item label="lastUpdateBy">
+                      <span>{{ props.row.lastUpdateBy }}</span>
+                    </el-form-item>
+                    <el-form-item label="lastUpdateTime">
+                      <span>{{ props.row.lastUpdateTime }}</span>
+                    </el-form-item>
+                    <el-form-item label="brdDesc">
+                      <span>{{ props.row.brdDesc }}</span>
+                    </el-form-item>
+                    <el-form-item label="deleted">
+                      <span>{{ props.row.deleted }}</span>
+                    </el-form-item>
+
+                  </el-form>
+                </template>
+              </el-table-column>
+
               <el-table-column type="selection" width="55" align="center" />
               <el-table-column label="Brand Id" align="center" prop="brdId" />
               <el-table-column label="Manufacturer Id" align="center" prop="manId" />
-              <el-table-column label="English Name" align="center" prop="nameEn" />
-              <el-table-column label="Chinese Name" align="center" prop="nameCn" />
+              <el-table-column label="En_Name" align="center" prop="nameEn" />
+              <el-table-column label="Ch_Name" align="center" prop="nameCn" />
 
 
               <el-table-column label="Brand Image" align="center" prop="picUrl" width="200">
@@ -193,23 +298,25 @@
 
               <el-table-column label="Updater" align="center" prop="lastUpdateBy" ></el-table-column>
 
-              <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+              <el-table-column label="操作" width = 280px align="center" class-name="small-padding fixed-width">
                 <template slot-scope="scope">
                   <!--         el-button 权限里面v-hasPermi="['system:config:edit']"-->
                   <el-button
-                    size="middle"
-                    type="text"
+                    size="small"
+                    align="center"
+                    type="primary"
                     icon="el-icon-edit"
                     @click.stop="handleUpdate(scope.row)"
-                  >修改</el-button>
+                  >Modify</el-button>
 
                   <el-button
-                    size="middle"
-                    type="text"
+                    size="small"
+                    align="center"
+                    type="danger"
                     icon="el-icon-delete"
                     @click.stop="handleDelete(scope.row)"
                     v-hasPermi="['system:config:remove']"
-                  >删除</el-button>
+                  >Delete</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -231,10 +338,28 @@
                 <el-form-item label="Chinese Name" prop="nameCn">
                   <el-input v-model="form.nameCn" placeholder="Please enter Authentication Code" />
                 </el-form-item>
+
+
+                <el-form-item label="Brand Image"  prop="picUrl">
+                  <el-upload action="#" :http-request="requestUpload" :show-file-list="false" :before-upload="beforeUpload">
+                    <el-button size="middle">
+                      上传
+                      <i class="el-icon-upload el-icon--right"></i>
+                    </el-button>
+                  </el-upload>
+
+                </el-form-item>
+
+<!--                  <el-button v-bind:src="scope.row.picUrl" @click="editCropper(scope.row)" title="点击上传" class="img-list" />-->
+
+
+
               </el-form>
               <div slot="footer" class="dialog-footer">
+<!--                <el-button type="success"  @click="editCropper(scope.row)"-->
+<!--                           title="点击上传" class="img-list">Upload Picture</el-button>-->
                 <el-button type="primary" @click="submitForm">确 定</el-button>
-                <el-button @click="cancel">取 消</el-button>
+                <el-button type="danger" @click="cancel">取 消</el-button>
               </div>
             </el-dialog>
 
@@ -299,10 +424,12 @@
   import {api_uploadBrand} from "../../../api/mvo/brand";
   import {api_getBrand,api_getBrandList,api_updateBrand,api_addBrand,api_delBrand} from "../../../api/mvo/brand";
   import {api_getManufacturer,api_insertManufacturer,api_updateManufacturer} from "../../../api/mvo/manufacturer";
+  import editor from "../../../components/Editor/index"
+
 
   export default {
     name: "index.vue",
-    components: { VueCropper },
+    components: { editor,VueCropper },
     data:  function () {
       return{
 
@@ -315,7 +442,7 @@
           sysUserId:undefined,
           nameCn:undefined,
           nameEn:'',
-          description:'1',
+          manDesc:'1',
           gmcReportType:'1',
           gmcReportUrl:'1',
           createdBy:'1',
@@ -330,7 +457,7 @@
           //   sysUserId:1,
           //   nameCn:'123',
           //   nameEn:'123',
-          //   description:'1',
+          //   manDesc:'1',
           //   gmcReportType:'1',
           //   gmcReportUrl:'1',
           //   createdBy:'1',
