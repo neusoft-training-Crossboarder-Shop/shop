@@ -6,11 +6,14 @@ import neu.train.project.mvo.domain.mvoBrand;
 import neu.train.project.mvo.domain.mvoBrandExample;
 import neu.train.project.mvo.mapper.mvoBrandMapper;
 import neu.train.project.mvo.service.IBrandService;
+import neu.train.project.mvo.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static neu.train.project.mvo.util.AdminResponseCode.BRAND_NAME_EXIST;
 
 @Service
 public class BrandServiceImpl implements IBrandService {
@@ -37,10 +40,10 @@ public class BrandServiceImpl implements IBrandService {
 
         neu.train.project.mvo.domain.mvoBrandExample.Criteria criteria = mvoBrandExample.createCriteria().andManIdEqualTo(id);
         if (StringUtils.isNotEmpty(brand.getNameCn())) {
-            criteria.andNameCnLike(brand.getNameCn());
+            criteria.andNameCnLike("%" + brand.getNameCn() + "%");
         }
         if (StringUtils.isNotEmpty(brand.getNameEn())) {
-            criteria.andNameEnLike(brand.getNameEn());
+            criteria.andNameEnLike("%" + brand.getNameEn() + "%");
         }
         if (brand.getBrdId()!=null){
             criteria.andBrdIdEqualTo(brand.getBrdId());
@@ -57,15 +60,46 @@ public class BrandServiceImpl implements IBrandService {
         return mvoBrandMapper.selectByExample(mvoBrandExample);
     }
 
+
+    public boolean checkExistByNameCn(String name) {
+        mvoBrandExample example = new mvoBrandExample();
+        example.or().andNameCnEqualTo(name).andDeletedEqualTo(false);
+        return mvoBrandMapper.countByExample(example) != 0;
+    }
+
+    public boolean checkExistByNameEn(String name) {
+        mvoBrandExample example = new mvoBrandExample();
+        example.or().andNameEnEqualTo(name).andDeletedEqualTo(false);
+        return mvoBrandMapper.countByExample(example) != 0;
+    }
+
+
     @Override
     public int insertBrand(mvoBrand brand) {
-        String name =SecurityUtils.getLoginUser().getUsername();
-        brand.setCreatedBy(name);
-        brand.setLastUpdateBy(name);
-        brand.setCreateTime(LocalDateTime.now());
-        brand.setLastUpdateTime(LocalDateTime.now());
-        brand.setManId(mvoCommonService.getManId());
-        return mvoBrandMapper.insertSelective(brand);
+        String nameCn = brand.getNameCn();
+        String nameEn = brand.getNameEn();
+
+        //判断是否重名
+        if (checkExistByNameCn(nameCn)&checkExistByNameEn(nameEn)) {
+            return (int) ResponseUtil.fail(BRAND_NAME_EXIST, "The same name already exist!");
+        }else {
+
+            String name =SecurityUtils.getLoginUser().getUsername();
+            //获取当前用户名
+            brand.setCreatedBy(name);
+            brand.setLastUpdateBy(name);
+            brand.setCreateTime(LocalDateTime.now());
+            brand.setLastUpdateTime(LocalDateTime.now());
+            brand.setManId(mvoCommonService.getManId());
+            //默认图片
+            brand.setPicUrl("profile/upload/2020/07/20/8a2f6a7ab20343350c1ce513e4ec61cf.jpg");
+
+            return mvoBrandMapper.insertSelective(brand);
+            //不重名的话完成添加
+        }
+        //新建一个图片对象
+
+
     }
 
     @Override
