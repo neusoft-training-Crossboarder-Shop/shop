@@ -3,8 +3,8 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span style="font-weight: bold;font-size: large;margin-right: 2%">Profile</span>
-        <span v-if="!notRegistered" class="foot">注册日期:{{parseTime(this.buyer.createTime)}}  </span>
-        <span v-if="!notRegistered" class="foot">注册日期:{{this.buyer.createdBy}}</span>
+        <span v-if="!notRegistered" class="foot">注册日期:{{this.buyer.createTime}}  </span>
+        <span v-if="!notRegistered" class="foot">注册人:{{this.buyer.createdBy}}</span>
       </div>
         <div>
           <el-form ref="form" :model="buyer" label-width="80px">
@@ -97,7 +97,7 @@
     left: 25%;
     top: 20%;
     width: 50%;
-    height: 35%;
+    height: 50%;
   }
 .button-style{
   margin-top: 2%;

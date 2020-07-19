@@ -101,7 +101,7 @@ export const constantRoutes = [
         path: 'good/:proID(\\d+)',
         component: (resolve) => require(['@/views/bvo/good/GoodDetail'], resolve),
         name: 'GoodDetail',
-        meta: { title: '商品详情', icon: '' }
+        meta: { title: 'Good Detail', icon: '' }
       }
     ]
   },
@@ -114,7 +114,33 @@ export const constantRoutes = [
         path: 'storeDetail/:storeId(\\d+)',
         component: (resolve) => require(['@/views/bvo/store/storeDetail'], resolve),
         name: 'StoreDetail',
-        meta: { title: '商店详情', icon: '' }
+        meta: { title: 'Store Detail', icon: '' }
+      }
+    ]
+  },
+  {
+    path: '/bvo',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: 'order/orderDetail/:orderId(\\d+)',
+        component: (resolve) => require(['@/views/bvo/order/orderDetail'], resolve),
+        name: 'Order Detail',
+        meta: { title: 'Order Detail', icon: '' }
+      }
+    ]
+  },
+  {
+    path: '/mvo',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: 'order/orderDetail/:orderId(\\d+)',
+        component: (resolve) => require(['@/views/mvo/order/orderDetail'], resolve),
+        name: 'Order Detail',
+        meta: { title: '订单详情', icon: '' }
       }
     ]
   }

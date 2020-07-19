@@ -1,41 +1,27 @@
 import request from '@/utils/request'
 
-export function listManufacturer(query) {
+export function api_getManufacturer(data) {
+    return request({
+      url:'mvo/manufacturer/',
+      method:'get',
+    })
+}
+
+export function api_insertManufacturer(data){
   return request({
-    url: '/mvo/manufacturer/list',
-    method: 'get',
-    params: query
+    url:'mvo/manufacturer/',
+    method:'post',
+    data:data
   })
 }
 
-export function createManufacturer(data) {
+
+export function api_updateManufacturer(data){
   return request({
-    url: '/mvo/manufacturer/create',
-    method: 'post',
-    data
+    url:'mvo/manufacturer/',
+    method:'put',
+    data:data
   })
 }
 
-export function readManufacturer(data) {
-  return request({
-    url: '/mvo/manufacturer/read',
-    method: 'get',
-    data
-  })
-}
 
-export function updateManufacturer(data) {
-  return request({
-    url: '/mvo/manufacturer/update',
-    method: 'post',
-    data
-  })
-}
-
-export function deleteManufacturer(data) {
-  return request({
-    url: '/mvo/manufacturer/delete',
-    method: 'post',
-    data
-  })
-}

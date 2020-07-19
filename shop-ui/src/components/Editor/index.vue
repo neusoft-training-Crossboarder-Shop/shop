@@ -11,7 +11,9 @@
       :on-error="uploadError"
       :before-upload="quillImgBefore"
       accept='.jpg,.jpeg,.png,.gif'
-    ></el-upload>
+    >
+
+    </el-upload>
 
     <!-- 富文本组件 -->
     <quill-editor
@@ -23,6 +25,8 @@
       @focus="onEditorFocus($event)"
       @change="onEditorChange($event)"
     ></quill-editor>
+
+
   </div>
 </template>
 
@@ -64,9 +68,7 @@ export default {
   data() {
     return {
       content: this.value,
-      uploadImgUrl: "",
       editorOption: {
-        placeholder: "",
         theme: "snow", // or 'bubble'
         placeholder: "请输入内容",
         modules: {

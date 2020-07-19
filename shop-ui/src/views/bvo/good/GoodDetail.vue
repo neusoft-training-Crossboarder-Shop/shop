@@ -9,7 +9,7 @@
              class="img"
              style="width: 100%; height: 100%"
              :src="image.uri"
-             :fit="fill">`
+             fit="fill">`
              <div slot="error" class="image-slot">
                <i class="el-icon-picture-outline"></i>
              </div>
@@ -52,7 +52,7 @@
       </p>
 
          <p >
-           <span  class="tag " style="padding-right: 45%" >Weight×Width×Height×Length</span>
+           <span  class="tag" style="padding-right: 45%" >Weight×Width×Height×Length</span>
 
            <span>{{pro.productPackageInfos[0].weight}}</span>
            <span  >×</span>
@@ -79,7 +79,7 @@
        </div>
 
        <el-row :gutter="10">
-          <el-input-number size="medium" v-model="num"   ></el-input-number>
+          <el-input-number size="medium" v-model="amount"   ></el-input-number>
           <el-button-group>
             <el-button icon="el-icon-star-off" @click="addToWishList">Add to wishlist</el-button>
           </el-button-group>
@@ -87,18 +87,15 @@
             placement="top-start"
             trigger="click">
             <div>
-              <el-select v-model="value" placeholder="请选择">
-                <el-option-group
-                  v-for="group in options"
-                  :key="group.label"
-                  :label="group.label">
-                  <el-option
-                    v-for="item in group.options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                  </el-option>
-                </el-option-group>
+              <el-select v-model="selectedStore" placeholder="请选择"  multiple collapse-tags>
+                <el-option
+                  v-for="item in storeList"
+                  :key="item.storeId"
+                  :label="item.storeName"
+                  :value="item.storeId">
+                  <span style="float: left">{{ item.storeName }}</span>
+<!--                  <span style="float: right; color: #8492a6; font-size: 13px">{{ platformTypeFormatter(item.platformType)}}</span>-->
+                </el-option>
               </el-select>
               <el-button type="primary" @click="pushToStore">PUSH</el-button>
             </div>
@@ -124,7 +121,16 @@
         <el-collapse-item v-for="description in pro.productDescriptions" :key="description.pdnId" :title="description.platformType.concat(' Description').toUpperCase()" name="2" style="padding: 1%">
           <div>
             <div><span class="tag">Last Update Time</span> <span>{{parseTime(description.lastUpdateTime)}}</span></div>
-            <div><span class="tag">Description</span><span style="display: block;position: relative;left: 15%;top: -35px">{{description.descrition}}</span></div>
+            <div>
+              <span class="tag">Description
+
+              </span>
+
+              <span style="display: block;position: relative;left: 15%;top: -35px" v-html="description.descrition">
+
+              </span>
+
+            </div>
           </div>
         </el-collapse-item>
       </el-collapse>
@@ -135,21 +141,37 @@
 <script>
   import {getGoodDetail} from "../../../api/bvo/browse";
   import {addProIntoWishList} from "../../../api/bvo/wishlist";
+  import {getStoreList} from "../../../api/bvo/store";
+  import {purchaseProduct} from "../../../api/bvo/order";
 
   export default {
         name: "GoodDetail",
         data:function() {
           return {
-            options: [{
-              label: 'Amazon',
-              options: [{
-                value: 1,
-                label: 'storeName1'
-              }, {
-                value: 2,
-                label: 'storeName2'
-              }]
-            }, {
+
+            queryParams :{
+              pageNum: 1,
+              pageSize: 100,
+              storeId:undefined,
+              storeName: undefined,
+              platformType: undefined
+            },
+
+            storeList:[],
+            options: [
+            {
+                  label: 'Amazon',
+                  options: [{
+                    value: 1,
+                    label: 'storeName1'
+                  },
+                  {
+                    value: 2,
+                    label: 'storeName2'
+                  }
+                ]
+            },
+            {
               label: 'Ebay',
               options: [{
                 value: 1,
@@ -165,7 +187,10 @@
                 label: 'storeName1'
               }]
             }],
-            value: '',
+
+           selectedStore:{},
+           amount:1,
+
             pro:{
               proId:'',
               images:[
@@ -203,40 +228,78 @@
               timeUnit:'',
               warranty:'',
 
+              platformType:[
+                {text:'Amazon',value:1}, {text:'Ebay',value:2}
+              ],
+
               //评论
               productDescriptions:[
                 {pdnId:1,lastUpdateTime:'',platformType:'',descrition:''}
               ],
               //打包信息
             },
-              num:1,
-          }
-        },
-        methods:{
-          pushToStore:function () {
-            this.$notify({
-              type:"success",
-              title:"执行中",
-              message:"添加到商店"
-            })
-          },
-          addToWishList:function () {
-            addProIntoWishList({proId:this.pro.proId}).then(response=>{
-                //  添加成功了
-            })
           }
         },
         created() {
           const proID = this.$route.params && this.$route.params.proID;
           getGoodDetail(proID).then(response=>{
             this.pro=response.data;
+            this.pro.images.forEach(image=>{
+              if(image.uri!=undefined || image.uri!='' ){
+                image.uri=process.env.VUE_APP_BASE_API+image.uri
+              }
+            })
           });
-          // this.getType(dictId);
-          // this.getTypeList();
-          // this.getDicts("sys_normal_disable").then(response => {
-          //   this.statusOptions = response.data;
+
+          // this.getDicts("store_platform_type").then(response => {
+          //   let data=response.data;
+          //   data.forEach((item,index)=>{
+          //     this.platformType[index]=
+          //       {
+          //         text:item.dictLabel,
+          //         value:item.dictValue
+          //       }
+          //   })
           // });
-        }
+
+
+          getStoreList(this.queryParams).then(response => {
+              this.storeList = response.rows;
+            }
+          );
+
+        },
+        methods:{
+          pushToStore:function () {
+            let data = {
+                amount:this.amount,
+               proId:this.pro.proId,
+               storeIds:this.selectedStore,
+            }
+            console.log(data)
+
+            purchaseProduct(data).then(res=>{
+              this.$notify({
+                type:"success",
+                title:"执行",
+                message:"已经添加到商店"
+              })
+            })
+
+          },
+          addToWishList:function () {
+            addProIntoWishList({proId:this.pro.proId}).then(response=>{
+                //  添加成功了
+            })
+          },
+          platformTypeFormatter(platformType){
+            // console.log(platformType)
+            // console.log(this.platformType[parseInt(platformType)+1])
+            return this.platformType[parseInt(platformType)+1]['text']
+          },
+
+        },
+
     }
 </script>
 

@@ -1,60 +1,31 @@
 import request from '@/utils/request'
-import Qs from 'qs'
 
-export function listOrder(query) {
-  return request({
-    url: '/order/list',
-    method: 'get',
-    params: query,
-    paramsSerializer: function(params) {
-      return Qs.stringify(params, { arrayFormat: 'repeat' })
+
+// queryParams:{
+//   storeOrderId:'',
+//     pageNum:1,
+//     pageSize:10
+//     startTime:'',
+//     endTime:'',
+// },
+//
+
+export function listOrders(params) {
+  return request(
+    {
+      url:'mvo/order/salOrder/list',
+      method:'get',
+      params:params
     }
-  })
+  )
 }
 
-export function detailOrder(id) {
+export function updateOrderStatus(data) {
   return request({
-    url: '/order/detail',
-    method: 'get',
-    params: { id }
+    url: 'mvo/order/stoOrder/status',
+    method: 'put',
+    data : data
   })
+  
 }
 
-export function shipOrder(data) {
-  return request({
-    url: '/order/ship',
-    method: 'post',
-    data
-  })
-}
-
-export function refundOrder(data) {
-  return request({
-    url: '/order/refund',
-    method: 'post',
-    data
-  })
-}
-
-export function deleteOrder(data) {
-  return request({
-    url: '/order/delete',
-    method: 'post',
-    data
-  })
-}
-
-export function replyComment(data) {
-  return request({
-    url: '/order/reply',
-    method: 'post',
-    data
-  })
-}
-
-export function listChannel(id) {
-  return request({
-    url: '/order/channel',
-    method: 'get'
-  })
-}

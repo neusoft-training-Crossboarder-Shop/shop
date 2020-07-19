@@ -90,7 +90,7 @@
       </el-col>
     </el-row>
 
-    <el-table v-loading="loading" :data="configList" @selection-change="handleSelectionChange">
+    <el-table :data="configList" v-loading="loading"  @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="参数主键" align="center" prop="configId" />
       <el-table-column label="参数名称" align="center" prop="configName" :show-overflow-tooltip="true" />
@@ -180,7 +180,7 @@ export default {
       // 非多个禁用
       multiple: true,
       // 总条数
-      total: 0,
+      total: 10,
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -236,6 +236,7 @@ export default {
     typeFormat(row, column) {
       return this.selectDictLabel(this.typeOptions, row.configType);
     },
+
     // 取消按钮
     cancel() {
       this.open = false;

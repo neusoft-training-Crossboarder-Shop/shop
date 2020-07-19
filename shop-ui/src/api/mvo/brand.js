@@ -1,6 +1,6 @@
 import request from '@/utils/request'
-
-export function listBrand(query) {
+//
+export function api_getBrandList(query) {
   return request({
     url: '/mvo/brand/list',
     method: 'get',
@@ -8,34 +8,44 @@ export function listBrand(query) {
   })
 }
 
-export function createBrand(data) {
+export  function api_getBrand(id){
   return request({
-    url: '/mvo/brand/create',
-    method: 'post',
-    data
+    url:'/mvo/brand/'+id,
+    method: 'get'
   })
 }
 
-export function readBrand(data) {
+export  function api_updateBrand(brand){
   return request({
-    url: '/mvo/brand/read',
-    method: 'get',
-    data
+    url:'/mvo/brand',
+    method:'put',
+    data:brand
   })
 }
 
-export function updateBrand(data) {
+export function api_addBrand(store){
   return request({
-    url: '/mvo/brand/update',
-    method: 'post',
-    data
+    url:'/mvo/brand',
+    method:'post',
+    data:store
   })
 }
 
-export function deleteBrand(data) {
+export function api_delBrand(storeId) {
   return request({
-    url: '/mvo/brand/delete',
-    method: 'post',
-    data
+    url:'/mvo/brand/'+storeId,
+    method:'delete',
   })
 }
+
+
+
+export function api_uploadBrand(data) {
+  return request({
+    url: '/mvo/brand/image',
+    method: 'post',
+    data: data
+  })
+}
+
+
