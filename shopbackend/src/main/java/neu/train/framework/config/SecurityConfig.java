@@ -16,6 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Service;
 
 /**
  * spring security配置
@@ -23,8 +24,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @author
  */
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class
-SecurityConfig extends WebSecurityConfigurerAdapter
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+@Service
+public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
     /**
      * 自定义用户认证逻辑

@@ -1,4 +1,4 @@
-//package neu.train.project.mvo.controller;
+package neu.train.project.mvo.controller;//package neu.train.project.mvo.controller;
 //
 //import neu.train.project.mvo.domain.PrcProductCategory;
 //import neu.train.project.mvo.service.BrdBrandService;

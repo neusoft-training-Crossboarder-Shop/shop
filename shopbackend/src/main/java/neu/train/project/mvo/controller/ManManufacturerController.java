@@ -1,28 +1,25 @@
 package neu.train.project.mvo.controller;
 
-import neu.train.project.mvo.domain.BrdBrand;
 import neu.train.project.mvo.domain.ManManufacturer;
-import neu.train.project.mvo.domain.ManManufacturerExample;
+import neu.train.project.mvo.service.ManManufacturerService;
+import neu.train.project.mvo.util.ResponseUtil;
+import neu.train.project.mvo.validator.Order;
+import neu.train.project.mvo.validator.Sort;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import neu.train.project.mvo.annotation.*;
-import neu.train.project.mvo.util.*;
-import neu.train.project.mvo.validator.*;
-import neu.train.project.mvo.service.ManManufacturerService;
-//import neu.train.project.mvo.annotation.util.ResponseUtil;
-//import org.linlinjava.litemall.core.validator.Order;
-//import org.linlinjava.litemall.core.validator.Sort;
-//import org.linlinjava.litemall.db.domain.ManManufacturer;
-//import org.linlinjava.litemall.db.service.ManManufacturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.util.List;
+
+//import neu.train.project.mvo.annotation.util.ResponseUtil;
+//import org.linlinjava.litemall.core.validator.Order;
+//import org.linlinjava.litemall.core.validator.Sort;
+//import org.linlinjava.litemall.db.domain.ManManufacturer;
+//import org.linlinjava.litemall.db.service.ManManufacturerService;
 
 /**
  * @Author: 高歌

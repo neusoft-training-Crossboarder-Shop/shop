@@ -20,6 +20,55 @@
     <!-- 查询结果 -->
     <el-table v-loading="listLoading" :data="list" element-loading-text="Searching now..." border fit highlight-current-row>
 
+      <el-table-column type="expand">
+        <template slot-scope="props">
+          <el-form label-position="left" class="table-expand">
+            <el-form-item label="brdId">
+              <span>{{ props.row.brdId }}</span>
+            </el-form-item>
+            <el-form-item label="manId">
+              <span>{{ props.row.manId }}</span>
+            </el-form-item>
+            <el-form-item label="nameEn">
+              <span>{{ props.row.nameEn }}</span>
+            </el-form-item>
+            <el-form-item label="nameCn">
+              <span>{{ props.row.nameCn }}</span>
+            </el-form-item>
+            <el-form-item label="imgId">
+              <span>{{ props.row.imgId }}</span>
+            </el-form-item>
+
+            <el-form-item label="picUrl">
+              <span>
+                <template>
+                  <img v-if="props.row.picUrl" :src="props.row.picUrl" width="220"  alt="">
+                </template>
+              </span>
+            </el-form-item>
+            <el-form-item label="createdBy">
+              <span>{{ props.row.createdBy }}</span>
+            </el-form-item>
+            <el-form-item label="createTime">
+              <span>{{ props.row.createTime }}</span>
+            </el-form-item>
+            <el-form-item label="lastUpdateBy">
+              <span>{{ props.row.lastUpdateBy }}</span>
+            </el-form-item>
+            <el-form-item label="lastUpdateTime">
+              <span>{{ props.row.lastUpdateTime }}</span>
+            </el-form-item>
+            <el-form-item label="brdDesc">
+              <span>{{ props.row.brdDesc }}</span>
+            </el-form-item>
+            <el-form-item label="deleted">
+              <span>{{ props.row.deleted }}</span>
+            </el-form-item>
+
+          </el-form>
+      </template>
+    </el-table-column>
+
       <el-table-column align="center" label="manId" prop="manId"></el-table-column>
       <el-table-column align="center" label="sysUserId" prop="sysUserId"></el-table-column>
 

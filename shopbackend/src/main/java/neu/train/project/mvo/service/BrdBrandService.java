@@ -1,15 +1,14 @@
 package neu.train.project.mvo.service;
 
 import com.github.pagehelper.PageHelper;
-import neu.train.project.mvo.mapper.BrdBrandMapper;
 import neu.train.project.mvo.domain.BrdBrand;
-import neu.train.project.mvo.domain.BrdBrandExample;
 import neu.train.project.mvo.domain.BrdBrand.Column;
+import neu.train.project.mvo.domain.BrdBrandExample;
+import neu.train.project.mvo.mapper.BrdBrandMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;

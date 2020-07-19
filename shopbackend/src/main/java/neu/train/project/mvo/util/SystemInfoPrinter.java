@@ -2,11 +2,14 @@ package neu.train.project.mvo.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
-
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+@Service
 public class SystemInfoPrinter {
-
+    @Autowired
     private static final Log logger = LogFactory.getLog(SystemInfoPrinter.class);
     public static final String CREATE_PART_COPPER = "XOXOXOXOX";
 

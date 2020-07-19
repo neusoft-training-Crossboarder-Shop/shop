@@ -1,4 +1,4 @@
-//package neu.train.project.mvo.service;
+package neu.train.project.mvo.service;//package neu.train.project.mvo.service;
 //
 //import com.github.pagehelper.PageHelper;
 //import neu.train.project.mvo.domain.PrcProductCategory;
