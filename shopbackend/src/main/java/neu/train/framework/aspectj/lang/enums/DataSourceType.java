@@ -1,7 +1,7 @@
 package neu.train.framework.aspectj.lang.enums;
 
 /**
- * 数据源
+ * Data 源
  * 
  * @author
  */

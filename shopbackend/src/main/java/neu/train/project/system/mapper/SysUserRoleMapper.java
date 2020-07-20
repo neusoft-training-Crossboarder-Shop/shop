@@ -6,57 +6,57 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 用户与角色关联表 数据层
+ * User 与Role关联表 Data 层
  * 
  * @author
  */
 public interface SysUserRoleMapper
 {
     /**
-     * 通过用户ID删除用户和角色关联
+     * 通过User ID Delete User 和Role关联
      * 
-     * @param userId 用户ID
+     * @param userId User ID
      * @return 结果
      */
     public int deleteUserRoleByUserId(Long userId);
 
     /**
-     * 批量删除用户和角色关联
+     * 批量 Delete User 和Role关联
      * 
-     * @param ids 需要删除的数据ID
+     * @param ids 需要 Delete 的Data ID
      * @return 结果
      */
     public int deleteUserRole(Long[] ids);
 
     /**
-     * 通过角色ID查询角色使用数量
+     * 通过RoleID查询Role使用数量
      * 
-     * @param roleId 角色ID
+     * @param roleId RoleID
      * @return 结果
      */
     public int countUserRoleByRoleId(Long roleId);
 
     /**
-     * 批量新增用户角色信息
+     * 批量Add User Role信息
      * 
-     * @param userRoleList 用户角色列表
+     * @param userRoleList User Role列表
      * @return 结果
      */
     public int batchUserRole(List<SysUserRole> userRoleList);
 
     /**
-     * 删除用户和角色关联信息
+     *  Delete User 和Role关联信息
      * 
-     * @param userRole 用户和角色关联信息
+     * @param userRole User 和Role关联信息
      * @return 结果
      */
     public int deleteUserRoleInfo(SysUserRole userRole);
 
     /**
-     * 批量取消授权用户角色
+     * 批量取消授权User Role
      * 
-     * @param roleId 角色ID
-     * @param userIds 需要删除的用户数据ID
+     * @param roleId RoleID
+     * @param userIds 需要 Delete 的User Data ID
      * @return 结果
      */
     public int deleteUserRoleInfos(@Param("roleId") Long roleId, @Param("userIds") Long[] userIds);

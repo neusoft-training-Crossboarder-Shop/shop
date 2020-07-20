@@ -11,18 +11,19 @@
               <el-form-item label="English Name" prop="nameEn">
                 <el-input v-model="manufacturer.nameEn" placeholder="Enter English Name"></el-input>
               </el-form-item>
-              <el-form-item label="manDesc" prop="manDesc" >
+              <el-form-item label="manDesc" prop="manDesc" height = 200px wodth = 200px>
 <!--                <el-input-->
 <!--                  type="textarea"-->
 <!--                  :rows="2"-->
-<!--                  placeholder="请输入内容"-->
+<!--                  placeholder="Please Enter 内容"-->
 <!--                  v-model="manufacturer.manDesc">-->
 <!--                </el-input>-->
 <!--                <editor v-model="description.descrition" :maxSize="maxSize" ></editor>-->
 
-                <div style="margin-top: 5%;margin-bottom: 5%;padding-top: 10%;padding-bottom: 10%">
-                  <p style="display: block;text-align: center;font-size: large">{{manufacturer.manDesc}}</p>
-                  <editor v-model="manufacturer.manDesc" :maxSize="maxSize" ></editor>
+                <div class="ql-editor" >
+<!--                <div class="ql-editor" style="margin-top: 50%;margin-bottom: 50%;padding-top: 10%;padding-bottom: 10%">-->
+<!--                  <p class="ql-editor" style="display: block;text-align: center;font-size: small">{{manufacturer.manDesc}}</p>-->
+                  <editor class="ql-editor" v-model="manufacturer.manDesc" :maxSize="maxSize" ></editor>
                 </div>
 
 
@@ -61,9 +62,7 @@
               <el-table-column type="expand">
                 <template slot-scope="props">
                   <el-form label-position="left" class="table-expand">
-                    <el-form-item label="brdId">
-                      <span>{{ props.row.brdId }}</span>
-                    </el-form-item>
+
                     <el-form-item label="manId">
                       <span>{{ props.row.manId }}</span>
                     </el-form-item>
@@ -73,9 +72,9 @@
                     <el-form-item label="nameCn">
                       <span>{{ props.row.nameCn }}</span>
                     </el-form-item>
-                    <el-form-item label="imgId">
-                      <span>{{ props.row.imgId }}</span>
-                    </el-form-item>
+<!--                    <el-form-item label="imgId">-->
+<!--                      <span>{{ props.row.imgId }}</span>-->
+<!--                    </el-form-item>-->
 
                     <el-form-item label="picUrl">
               <span>
@@ -124,9 +123,9 @@
               </el-table-column>
 
 
-              <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+              <el-table-column label="Operation" align="center" class-name="small-padding fixed-width">
                 <template slot-scope="scope">
-                  <!--         el-button 权限里面v-hasPermi="['system:config:edit']"-->
+                  <!--         el-button Authority 里面v-hasPermi="['system:config:edit']"-->
                   <el-button
                     size="middle"
                     type="primary"
@@ -185,10 +184,12 @@
                   icon="el-icon-plus"
                   size="middle"
                   @click="handleAdd"
+
                   v-hasPermi="['mvo:brand:add']"
-                >新增</el-button>
+                >Add</el-button>
               </el-col>
               <el-col :span="1.5">
+
                 <el-button
                   type="success"
                   icon="el-icon-edit"
@@ -209,7 +210,19 @@
                 >Delete
                 </el-button>
               </el-col>
+<<<<<<< HEAD
 
+=======
+<!--@click="handleClearCache"-->
+              <el-col :span="1.5">
+                <el-button
+                  type="danger"
+                  icon="el-icon-refresh"
+                  size="middle"
+                  v-hasPermi="['system:config:remove']"
+                >Clean Cache</el-button>
+              </el-col>
+>>>>>>> 43c996df0e61f274f732ddae27441bc889feeb4e
             </el-row>
 
             <el-table   class="el-table--enable-row-hover el-table__body" v-loading="loading" :data="brandList"  @selection-change="handleSelectionChange">
@@ -286,8 +299,12 @@
 
               <el-table-column label="Updater" align="center" prop="lastUpdateBy" ></el-table-column>
 
-              <el-table-column label="操作" width = 280px align="center" class-name="small-padding fixed-width">
+              <el-table-column label="Operation" width = 280px align="center" class-name="small-padding fixed-width">
                 <template slot-scope="scope">
+<<<<<<< HEAD
+=======
+                  <!--         el-button Authority 里面v-hasPermi="['system:config:edit']"-->
+>>>>>>> 43c996df0e61f274f732ddae27441bc889feeb4e
                   <el-button
                     size="small"
                     align="center"
@@ -317,7 +334,7 @@
               @pagination="getList"
             />
 
-            <!-- 添加或修改参数配置对话框 -->
+            <!--  Add  或 Modify  参数配置对话框 -->
             <el-dialog :title="title" :visible.sync="open" width="80%" append-to-body>
               <el-form ref="form" :model="form" :rules="rules" label-width="30%">
                 <el-form-item label="English Name" prop="nameEn">
@@ -497,7 +514,7 @@
         title: "",
         // 是否显示弹出层
         open: false,
-        // 参数表格数据
+        // 参数表格Data
         typeOptions:[
           // "Amazon",
           // "Ebay"
@@ -528,7 +545,7 @@
         // 是否显示cropper
         visible: false,
         // 弹出层标题
-        title: "修改头像",
+        title: " Modify  头像",
         options: {
           img: '', //裁剪图片的地址
           autoCrop: true, // 是否默认生成截图框
@@ -619,7 +636,7 @@
       handleAdd() {
         this.reset();
         this.open = true;
-        this.title = "添加品牌";
+        this.title = " Add  品牌";
       },
       reset() {
         this.form = {
@@ -629,12 +646,12 @@
         };
         this.resetForm("form");
       },
-      /** 搜索按钮操作 */
+      /** Search 按钮Operation */
       handleQuery() {
         this.queryParams.pageNum = 1;
         this.getList();
       },
-      /** 重置按钮操作 */
+      /** Reset  按钮Operation */
       resetQuery() {
         this.resetForm("queryForm");
         this.handleQuery();
@@ -643,26 +660,26 @@
       resetForm(formName) {
         // this.$notify({
         //   title: '执行',
-        //   message: '重置按钮',
+        //   message: 'Reset  按钮',
         //   type: 'success'
         // });
         if (this.$refs[formName]!==undefined) {
           this.$refs[formName].resetFields();
         }
       },
-      /** 新增按钮操作 */
+      /** Add 按钮Operation */
       handleAdd() {
         this.reset();
         this.open = true;
-        this.title = "添加参数";
+        this.title = " Add  参数";
       },
-      // 多选框选中数据
+      // 多选框选中Data
       handleSelectionChange(selection) {
         this.ids = selection.map(item => item.brdId)
         this.single = selection.length!=1
         this.multiple = !selection.length
       },
-      /** 修改按钮操作 */
+      /**  Modify  按钮Operation */
       handleUpdate(row) {
         this.reset();
         const brdId = row.brdId || this.ids;
@@ -683,7 +700,7 @@
               });
             } else {
               api_addBrand(this.form).then(response => {
-                //添加成功
+                // Add  Success
                 this.getList();
                 this.open = false;
 
@@ -692,7 +709,7 @@
           }
         });
       },
-      /** 删除按钮操作 */
+      /**  Delete 按钮Operation */
       handleDelete(row) {
         const brdId = row.brdId || this.ids;
         this.$confirm('Are you sure to delete No."' + brdId + '"?', "Warning", {
@@ -711,7 +728,7 @@
         this.options.img=row.picUrl;
         this.options.brdId=row.brdId;
       },
-      // 打开弹出层结束时的回调
+      // 打开弹出层End   时的回调
       modalOpened() {
         this.visible = true;
       },
@@ -735,7 +752,7 @@
       // 上传预处理
       beforeUpload(file) {
         if (file.type.indexOf("image/") == -1) {
-          this.msgError("文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。");
+          this.msgError("文件格式错误，请上传图片Type ,如：JPG，PNG后缀的文件。");
         } else {
           const reader = new FileReader();
           reader.readAsDataURL(file);
@@ -768,7 +785,7 @@
 </script>
 
 <style scoped>
-  /*表格每一行被hover时的样式设置*/
+  /*表格每一行 be hover时的样式设置*/
   .el-table >>> .el-table__body tr:hover>td {
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
     cursor: pointer;

@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Mybatis支持*匹配扫描包
- * xiaosama :  这个文件是可以删除的 可以用注解的mybatis 代替
+ * xiaosama :  这个文件是可以 Delete 的 可以用注解的mybatis 代替
  * @author
  */
 

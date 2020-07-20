@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 /**
- * 字典表 数据层
+ * Dict   表 Data 层
  * 
  * @author
  */
@@ -14,72 +14,72 @@ import java.util.List;
 public interface SysDictTypeMapper
 {
     /**
-     * 根据条件分页查询字典类型
+     * 根据条件分页查询Dict   Type
      * 
-     * @param dictType 字典类型信息
-     * @return 字典类型集合信息
+     * @param dictType Dict   Type 信息
+     * @return Dict   Type 集合信息
      */
     public List<SysDictType> selectDictTypeList(SysDictType dictType);
 
     /**
-     * 根据所有字典类型
+     * 根据所有Dict   Type
      * 
-     * @return 字典类型集合信息
+     * @return Dict   Type 集合信息
      */
     public List<SysDictType> selectDictTypeAll();
 
     /**
-     * 根据字典类型ID查询信息
+     * 根据Dict   Type ID查询信息
      * 
-     * @param dictId 字典类型ID
-     * @return 字典类型
+     * @param dictId Dict   Type ID
+     * @return Dict   Type
      */
     public SysDictType selectDictTypeById(Long dictId);
 
     /**
-     * 根据字典类型查询信息
+     * 根据Dict   Type 查询信息
      * 
-     * @param dictType 字典类型
-     * @return 字典类型
+     * @param dictType Dict   Type
+     * @return Dict   Type
      */
     public SysDictType selectDictTypeByType(String dictType);
 
     /**
-     * 通过字典ID删除字典信息
+     * 通过Dict   ID Delete Dict   信息
      * 
-     * @param dictId 字典ID
+     * @param dictId Dict   ID
      * @return 结果
      */
     public int deleteDictTypeById(Long dictId);
 
     /**
-     * 批量删除字典类型信息
+     * 批量 Delete Dict   Type 信息
      * 
-     * @param dictIds 需要删除的字典ID
+     * @param dictIds 需要 Delete 的Dict   ID
      * @return 结果
      */
     public int deleteDictTypeByIds(Long[] dictIds);
 
     /**
-     * 新增字典类型信息
+     * Add Dict   Type 信息
      * 
-     * @param dictType 字典类型信息
+     * @param dictType Dict   Type 信息
      * @return 结果
      */
     public int insertDictType(SysDictType dictType);
 
     /**
-     * 修改字典类型信息
+     *  Modify  Dict   Type 信息
      * 
-     * @param dictType 字典类型信息
+     * @param dictType Dict   Type 信息
      * @return 结果
      */
     public int updateDictType(SysDictType dictType);
 
     /**
-     * 校验字典类型称是否唯一
+     * 校验Dict   Type 称是否唯一
      * 
-     * @param dictType 字典类型
+     * @param dictType Dict   Type
      * @return 结果
      */
     public SysDictType checkDictTypeUnique(String dictType);

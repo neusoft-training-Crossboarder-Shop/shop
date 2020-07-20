@@ -8,8 +8,8 @@
         <h1 class="text-jumbo text-ginormous">
           401错误!
         </h1>
-        <h2>您没有访问权限！</h2>
-        <h6>对不起，您没有访问权限，请不要进行非法操作！您可以返回主页面</h6>
+        <h2>You do not have  访问Authority ！</h2>
+        <h6>对不起，You do not have  访问Authority ，请不要进行非法Operation！您可以返回主页面</h6>
         <ul class="list-unstyled">
           <li class="link-type">
             <router-link to="/">

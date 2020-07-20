@@ -21,7 +21,7 @@ export function downLoadZip(str, filename) {
 /**
  * 解析blob响应内容并下载
  * @param {*} res blob响应内容
- * @param {String} mimeType MIME类型
+ * @param {String} mimeType MIMEType 
  */
 export function resolveBlob(res, mimeType) {
   const aLink = document.createElement('a')
@@ -33,7 +33,7 @@ export function resolveBlob(res, mimeType) {
   var fileName = result[1]
   fileName = fileName.replace(/\"/g, '')
   aLink.href = URL.createObjectURL(blob)
-  aLink.setAttribute('download', fileName) // 设置下载文件名称
+  aLink.setAttribute('download', fileName) // 设置下载文件Name
   document.body.appendChild(aLink)
   aLink.click()
   document.body.appendChild(aLink)

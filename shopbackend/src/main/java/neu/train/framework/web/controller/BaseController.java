@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * web层通用数据处理
+ * web层通用Data 处理
  * 
  * @author
  */
@@ -29,12 +29,12 @@ public class BaseController
     protected final Logger logger = LoggerFactory.getLogger(BaseController.class);
 
     /**
-     * 将前台传递过来的日期格式的字符串，自动转化为Date类型
+     * 将前台传递过来的Time   格式的Code串，自动转化为DateType
      */
     @InitBinder
     public void initBinder(WebDataBinder binder)
     {
-        // Date 类型转换
+        // Date Type 转换
         binder.registerCustomEditor(Date.class, new PropertyEditorSupport()
         {
             @Override
@@ -43,10 +43,11 @@ public class BaseController
                 setValue(DateUtils.parseDate(text));
             }
         });
+
     }
 
     /**
-     * 设置请求分页数据
+     * 设置请求分页Data
      */
     protected void startPage()
     {
@@ -63,14 +64,14 @@ public class BaseController
     }
 
     /**
-     * 响应请求分页数据
+     * 响应请求分页Data
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     protected TableDataInfo getDataTable(List<?> list)
     {
         TableDataInfo rspData = new TableDataInfo();
         rspData.setCode(HttpStatus.SUCCESS);
-        rspData.setMsg("查询成功");
+        rspData.setMsg("查询Success");
         rspData.setRows(list);
         rspData.setTotal(new PageInfo(list).getTotal());
         return rspData;
@@ -80,7 +81,7 @@ public class BaseController
      * 响应返回结果
      * 
      * @param rows 影响行数
-     * @return 操作结果
+     * @return Operation结果
      */
     protected AjaxResult toAjax(int rows)
     {

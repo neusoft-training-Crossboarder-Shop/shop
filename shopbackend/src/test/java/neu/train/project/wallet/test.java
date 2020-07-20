@@ -86,7 +86,7 @@ public class test {
      }
 
 
-     //批量搜索
+     //批量Search
     @Test
     public void test5(){
          Integer[] ids={17};

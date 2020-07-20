@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityUtils
 {
     /**
-     * 获取用户账户
+     * 获取User 账户
      **/
     public static String getUsername()
     {
@@ -25,12 +25,12 @@ public class SecurityUtils
         }
         catch (Exception e)
         {
-            throw new CustomException("获取用户账户异常", HttpStatus.UNAUTHORIZED);
+            throw new CustomException("获取User 账户异常", HttpStatus.UNAUTHORIZED);
         }
     }
 
     /**
-     * 获取用户
+     * 获取User
      **/
     public static LoginUser getLoginUser()
     {
@@ -40,7 +40,7 @@ public class SecurityUtils
         }
         catch (Exception e)
         {
-            throw new CustomException("获取用户信息异常", HttpStatus.UNAUTHORIZED);
+            throw new CustomException("获取User 信息异常", HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -56,7 +56,7 @@ public class SecurityUtils
      * 生成BCryptPasswordEncoder密码
      *
      * @param password 密码
-     * @return 加密字符串
+     * @return 加密Code串
      */
     public static String encryptPassword(String password)
     {
@@ -68,7 +68,7 @@ public class SecurityUtils
      * 判断密码是否相同
      *
      * @param rawPassword 真实密码
-     * @param encodedPassword 加密后字符
+     * @param encodedPassword 加密后Code
      * @return 结果
      */
     public static boolean matchesPassword(String rawPassword, String encodedPassword)
@@ -80,7 +80,7 @@ public class SecurityUtils
     /**
      * 是否为管理员
      * 
-     * @param userId 用户ID
+     * @param userId User ID
      * @return 结果
      */
     public static boolean isAdmin(Long userId)

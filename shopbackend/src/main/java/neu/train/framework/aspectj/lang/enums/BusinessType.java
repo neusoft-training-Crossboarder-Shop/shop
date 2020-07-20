@@ -1,7 +1,7 @@
 package neu.train.framework.aspectj.lang.enums;
 
 /**
- * 业务操作类型
+ * 业务OperationType
  * 
  * @author
  */
@@ -13,17 +13,17 @@ public enum BusinessType
     OTHER,
 
     /**
-     * 新增
+     * Add
      */
     INSERT,
 
     /**
-     * 修改
+     *  Modify
      */
     UPDATE,
 
     /**
-     * 删除
+     *  Delete
      */
     DELETE,
 
@@ -33,7 +33,7 @@ public enum BusinessType
     GRANT,
 
     /**
-     * 导出
+     * Export
      */
     EXPORT,
 
@@ -53,7 +53,7 @@ public enum BusinessType
     GENCODE,
     
     /**
-     * 清空数据
+     * 清空Data
      */
     CLEAN,
 }

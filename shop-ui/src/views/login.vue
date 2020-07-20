@@ -23,7 +23,7 @@
         <el-input
           v-model="loginForm.code"
           auto-complete="off"
-          placeholder="验证码"
+          placeholder="Validation Code "
           style="width: 63%"
           @keyup.enter.native="handleLogin"
         >
@@ -35,8 +35,8 @@
       </el-form-item>
 
       <el-form-item>
-        <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
-        <span class="register" @click="handleRegister">注册</span>
+        <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">Remember the Password</el-checkbox>
+        <span class="register" @click="handleRegister">Register </span>
       </el-form-item>
 
       <el-form-item style="width:100%;">
@@ -57,12 +57,12 @@
       <span>Copyright © 2020 NeuSoft All Rights Reserved.</span>
     </div>
 
-    <!-- 添加或修改参数配置对话框 -->
+    <!--  Add  或 Modify  参数配置对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="35%"  append-to-body>
       <el-form ref="registerForm" :model="registerForm" :rules="registerRules" label-width="30%">
         <el-row>
           <el-col :span="24">
-            <el-form-item label="账号类型">
+            <el-form-item label="账号Type ">
               <el-switch
                   v-model="registerForm.roleIds"
                   active-value='3'
@@ -76,32 +76,32 @@
 
         <el-row>
           <el-col :span="24">
-            <el-form-item  label="用户名称" prop="userName">
-              <el-input v-model="registerForm.userName" placeholder="请输入用户名称" />
+            <el-form-item  label="User Name" prop="userName">
+              <el-input v-model="registerForm.userName" placeholder="Please Enter User Name" />
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row :gutter="10">
           <el-col :span="24">
-            <el-form-item label="用户密码" prop="password">
-              <el-input v-model="registerForm.password" placeholder="请输入用户密码" type="password" />
+            <el-form-item label="User 密码" prop="password">
+              <el-input v-model="registerForm.password" placeholder="Please Enter User 密码" type="password" />
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row>
           <el-col :span="24">
-            <el-form-item label="用户昵称" prop="nickName">
-              <el-input v-model="registerForm.nickName" placeholder="请输入用户昵称" />
+            <el-form-item label="User Name" prop="nickName">
+              <el-input v-model="registerForm.nickName" placeholder="Please Enter User Name" />
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row>
           <el-col :span="24">
-            <el-form-item label="手机号码" prop="phonenumber">
-              <el-input v-model="registerForm.phonenumber" placeholder="请输入手机号码" maxlength="11" />
+            <el-form-item label="Tele-Number" prop="phonenumber">
+              <el-input v-model="registerForm.phonenumber" placeholder="Please Enter Tele-Number" maxlength="11" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -112,15 +112,15 @@
         <el-row :gutter="10">
           <el-col :span="24">
             <el-form-item label="邮箱" prop="email">
-              <el-input v-model="registerForm.email" placeholder="请输入邮箱" maxlength="50" />
+              <el-input v-model="registerForm.email" placeholder="Please Enter 邮箱" maxlength="50" />
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row>
           <el-col :span="24">
-            <el-form-item label="用户性别">
-<!--              <el-select v-model="registerForm.sex" placeholder="请选择">-->
+            <el-form-item label="User 性别">
+<!--              <el-select v-model="registerForm.sex" placeholder="请 Selection  ">-->
 <!--                <el-option-->
 <!--                  v-for="dict in sexOptions"-->
 <!--                  :key="dict.dictValue"-->
@@ -174,12 +174,12 @@ export default {
       },
       loginRules: {
         username: [
-          { required: true, trigger: "blur", message: "用户名不能为空" }
+          { required: true, trigger: "blur", message: "User 名不能为空" }
         ],
         password: [
           { required: true, trigger: "blur", message: "密码不能为空" }
         ],
-        code: [{ required: true, trigger: "change", message: "验证码不能为空" }]
+        code: [{ required: true, trigger: "change", message: "Validation Code 不能为空" }]
       },
       loading: false,
       redirect: undefined,
@@ -206,28 +206,28 @@ export default {
 
         registerRules: {
           userName: [
-            { required: true, message: "用户名称不能为空", trigger: "blur" }
+            { required: true, message: "User Name不能为空", trigger: "blur" }
           ],
           nickName: [
-            { required: true, message: "用户昵称不能为空", trigger: "blur" }
+            { required: true, message: "User Name不能为空", trigger: "blur" }
           ],
 
           password: [
-            { required: true, message: "用户密码不能为空", trigger: "blur" }
+            { required: true, message: "User 密码不能为空", trigger: "blur" }
           ],
           email: [
             { required: true, message: "邮箱地址不能为空", trigger: "blur" },
             {
               type: "email",
-              message: "'请输入正确的邮箱地址",
+              message: "'Please Enter 正确的邮箱地址",
               trigger: ["blur", "change"]
             }
           ],
           phonenumber: [
-            { required: true, message: "手机号码不能为空", trigger: "blur" },
+            { required: true, message: "Tele-Number不能为空", trigger: "blur" },
             {
               pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/,
-              message: "请输入正确的手机号码",
+              message: "Please Enter 正确的Tele-Number",
               trigger: "blur"
             }
           ]
@@ -236,7 +236,7 @@ export default {
   },
   watch: {
     $route: {
-      //这个会让用户导回原来的路由
+      //这个会让User 导回原来的路由
       handler: function(route) {
         this.redirect = route.query && route.query.redirect;
       },
@@ -307,7 +307,7 @@ export default {
               this.$notify(
                 {
                   type:'success',
-                  message:'注册成功'
+                  message:'Register Success'
                 }
               )
               this.open = false;
@@ -324,7 +324,7 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          //开始加载
+          //Start  加载
           this.loading = true;
           if (this.loginForm.rememberMe) {
             //保存账号密码
@@ -332,7 +332,7 @@ export default {
             Cookies.set("password", encrypt(this.loginForm.password), { expires: 30 });
             Cookies.set('rememberMe', this.loginForm.rememberMe, { expires: 30 });
           } else {
-            //删除
+            // Delete
             Cookies.remove("username");
             Cookies.remove("password");
             Cookies.remove('rememberMe');
@@ -340,12 +340,12 @@ export default {
           this.$store
             .dispatch("Login", this.loginForm)
             .then(() => {
-              //登陆成功 路由跳转
+              //登陆Success 路由跳转
               this.$router.push({ path: this.redirect || "/" });
             })
             .catch(() => {
               this.loading = false;
-              //登陆失败,更换验证码
+              //登陆Fail,更换Validation Code
               this.getCode();
             });
         }

@@ -4,8 +4,8 @@
       <el-card class="box-card" v-if="showFrom">
         <div slot="header" class="clearfix">
           <span style="font-weight: bold;font-size: large;margin-right: 2%">Wallet Account</span>
-          <span v-if="!notRegistered" class="foot">注册日期:{{parseTime(account.createTime)}}  </span>
-          <span v-if="!notRegistered" class="foot">注册人员:{{account.createdBy}}</span>
+          <span v-if="!notRegistered" class="foot">Register Time   :{{parseTime(account.createTime)}}  </span>
+          <span v-if="!notRegistered" class="foot">Register 人员:{{account.createdBy}}</span>
         </div>
 
         <div>
@@ -29,7 +29,7 @@
             </el-form-item>
           </el-form>
           <template v-if="notRegistered">
-            <el-button  class="button-style" type="primary"   @click="register('form')">注册</el-button>
+            <el-button  class="button-style" type="primary"   @click="register('form')">Register </el-button>
           </template>
           <template v-else >
             <el-button class="button-style"  type="primary" :disabled="!isEdit" @click="save">保存</el-button>
@@ -143,7 +143,7 @@
               <el-row :gutter="10">
                 <el-col :span="7">
                   <el-form-item label-width="40%" label="Transaction Type">
-                    <el-select v-model="queryParams.transactionType" clearable placeholder="请选择">
+                    <el-select v-model="queryParams.transactionType" clearable placeholder="请 Selection  ">
                       <el-option
                         v-for="(item,index) in this.walletTransactionType"
                         :key="index"
@@ -155,7 +155,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label-width="50%" label="Transaction  Status">
-                    <el-select v-model="queryParams.walletTransactionStatus" clearable placeholder="请选择">
+                    <el-select v-model="queryParams.walletTransactionStatus" clearable placeholder="请 Selection  ">
                       <el-option
                         v-for="(item,index) in this.walletTransactionStatus"
                         :key="index"
@@ -167,7 +167,7 @@
                 </el-col>
                 <el-col :span="7">
                   <el-form-item label-width="40%" label="Finance Type">
-                    <el-select v-model="queryParams.financeType" clearable placeholder="请选择">
+                    <el-select v-model="queryParams.financeType" clearable placeholder="请 Selection  ">
                       <el-option
                         v-for="(item,index) in this.walletFinanceType"
                         :key="index"
@@ -357,13 +357,13 @@
 
         },
 
-        //业务类型 1-充值 2-提现 3-消费 4-退款
+        //业务Type  1-充值 2-提现 3-消费 4-退款
         walletTransactionType:[],
 
         //1-入款 2-出款
         walletFinanceType:[],
 
-        // 1 -申请 , 2 -完成 , -3-失败
+        // 1 -申请 , 2 -complete , -3-Fail
         walletTransactionStatus:[],
 
         total:0,
@@ -401,7 +401,7 @@
       }
     },
     created() {
-      // 1 -申请 , 2 -完成 , -3-失败
+      // 1 -申请 , 2 -complete , -3-Fail
       this.getDicts("wallet_transaction_status").then(response => {
         let data=response.data;
         data.forEach(item=>{
@@ -415,7 +415,7 @@
           this.walletFinanceType.push(item.dictLabel);
         })
       });
-      //业务类型 1-充值 2-提现 3-消费 4-退款
+      //业务Type  1-充值 2-提现 3-消费 4-退款
       this.getDicts("wallet_transaction_type").then(response => {
         let data=response.data;
         data.forEach(item=>{
@@ -442,7 +442,7 @@
           if (valid) {
             console.log(this.account)
             addWalletAccount(this.account).then(response=>{
-              //注册成功
+              //Register Success
               this.notRegistered = false;
             })
           } else {
@@ -505,7 +505,7 @@
           this.total=response.total;
         })
       },
-      /** 重置按钮操作 */
+      /** Reset  按钮Operation */
       resetQuery() {
         this.dateRange = [];
         this.resetForm("queryForm");

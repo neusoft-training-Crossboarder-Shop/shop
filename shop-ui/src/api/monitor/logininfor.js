@@ -9,7 +9,7 @@ export function list(query) {
   })
 }
 
-// 删除登录日志
+//  Delete 登录日志
 export function delLogininfor(infoId) {
   return request({
     url: '/monitor/logininfor/' + infoId,
@@ -25,7 +25,7 @@ export function cleanLogininfor() {
   })
 }
 
-// 导出登录日志
+// Export 登录日志
 export function exportLogininfor(query) {
   return request({
     url: '/monitor/logininfor/export',

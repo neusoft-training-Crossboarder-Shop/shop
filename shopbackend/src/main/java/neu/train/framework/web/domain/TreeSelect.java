@@ -19,7 +19,7 @@ public class TreeSelect implements Serializable
     /** 节点ID */
     private Long id;
 
-    /** 节点名称 */
+    /** 节点Name */
     private String label;
 
     /** 子节点 */

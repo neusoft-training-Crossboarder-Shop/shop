@@ -18,7 +18,7 @@ const privateKey = 'MIIBUwIBADANBgkqhkiG9w0BAQEFAASCAT0wggE5AgEAAkEA0vfvyTdGJkdb
 export function encrypt(txt) {
   const encryptor = new JSEncrypt()
   encryptor.setPublicKey(publicKey) // 设置公钥
-  return encryptor.encrypt(txt) // 对需要加密的数据进行加密
+  return encryptor.encrypt(txt) // 对需要加密的Data 进行加密
 }
 
 // 解密

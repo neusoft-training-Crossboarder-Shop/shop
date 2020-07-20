@@ -51,7 +51,7 @@
 
                       <el-col :span="2">
                         <el-button v-if="stoOrder.orderStatus == 1" type="danger" @click="purchaseUi">Purchase</el-button>
-                        <el-button v-else type="info" :disabled="true">已支付</el-button>
+                        <el-button v-else type="info" :disabled="true">Already支付</el-button>
                       </el-col>
                     </el-row>
                   </el-form>
@@ -207,7 +207,7 @@
                   <span>Accepting</span>
                 </div>
                 <el-form ref="form" :model="form" style="padding: 3%">
-                  <el-button v-if="stoOrder.orderStatus == 4" style="display: inline-block;width: 100%;margin-top: 3%;margin-bottom: 3%" type="primary" @click="acceptGood">确认收货</el-button>
+                  <el-button v-if="stoOrder.orderStatus == 4" style="display: inline-block;width: 100%;margin-top: 3%;margin-bottom: 3%" type="primary" @click="acceptGood"> Confirm 收货</el-button>
                   <el-button v-else style="display: inline-block;width: 100%;margin-top: 3%;margin-bottom: 3%" type="info">不可点击</el-button>
                 </el-form>
               </el-card>
@@ -366,7 +366,7 @@
             this.$notify(
               {
                 type:"success",
-                message:"支付成功"
+                message:"支付Success"
               }
             )
 
@@ -399,7 +399,7 @@
 
       },
       acceptGood(){
-        //确认收货
+        // Confirm 收货
         acceptProduct(this.stoOrder.stoId).then(res=>{
           getStoByStoId(this.stoOrder.stoId).then(response=>{
             this.stoOrder = response.data;

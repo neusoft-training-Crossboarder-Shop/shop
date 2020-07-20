@@ -47,7 +47,7 @@
 
 
                       <el-col :span="2">
-                        <el-button  type="info" :disabled="true">已支付</el-button>
+                        <el-button  type="info" :disabled="true">Already支付</el-button>
                       </el-col>
                     </el-row>
                   </el-form>
@@ -192,7 +192,7 @@
                   <span>Accepting</span>
                 </div>
                 <el-form ref="form" :model="form" style="padding: 3%">
-                  <el-button style="display: inline-block;width: 100%;margin-top: 3%;margin-bottom: 3%" type="info">等待确认</el-button>
+                  <el-button style="display: inline-block;width: 100%;margin-top: 3%;margin-bottom: 3%" type="info">Wait for Confirm </el-button>
                 </el-form>
               </el-card>
             </div>
@@ -211,7 +211,7 @@
                     :colors="colors">
                   </el-rate>
                 </div>
-                <el-button style="display: inline-block;width: 100%;margin-top: 3%;margin-bottom: 3%;position: relative;left: 3%" type="primary">订单完成</el-button>
+                <el-button style="display: inline-block;width: 100%;margin-top: 3%;margin-bottom: 3%;position: relative;left: 3%" type="primary">订单complete</el-button>
               </el-form>
             </el-card>
 

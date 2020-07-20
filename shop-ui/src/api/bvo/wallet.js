@@ -10,7 +10,7 @@ export function getWalletAccount() {
 }
 
 
-//2.注册账号  不用返回数据
+//2.Register 账号  不用返回Data
 export function addWalletAccount(data) {
   return request({
     url:'/wallet/account/',
@@ -19,7 +19,7 @@ export function addWalletAccount(data) {
   })
 }
 
-//3.通过密码登录 这一步不用返回数据 告诉我成功 true 还是失败了 false 就行
+//3.通过密码登录 这一步不用返回Data  告诉我Success true 还是Fail了 false 就行
 export function walletAccountLogin(data) {
   return request({
      url:'/wallet/account/login',
@@ -28,7 +28,7 @@ export function walletAccountLogin(data) {
   })
 }
 
-//4.更新钱包账号  不要返回数据
+//4.更新钱包账号  不要返回Data 
 export function updateWalletAccount(data) {
   return request({
     url:'/wallet/account/',
@@ -37,7 +37,7 @@ export function updateWalletAccount(data) {
   })
 }
 
-//5.返回钱包余额表信息  需要返回钱余额数据
+//5.返回钱包余额表信息  需要返回钱余额Data 
 export function getWalletAccountFund() {
   return request({
     url:'/wallet/fund/',
@@ -47,7 +47,7 @@ export function getWalletAccountFund() {
 
 
 
-//6.分页返回钱包流水表数据  需要返回交易流水记录
+//6.分页返回钱包流水表Data   需要返回交易流水记录
 export function getWalletTransaction(param) {
   return request({
     url:'/wallet/transaction/',

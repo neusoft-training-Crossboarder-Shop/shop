@@ -1,5 +1,5 @@
 ##排除不需要语法校验的文件
-# 忽略build目录下类型为js的文件的语法检查
+# 忽略build目录下Type 为js的文件的语法检查
 build/*.js
 # 忽略src/assets目录下文件的语法检查
 src/assets

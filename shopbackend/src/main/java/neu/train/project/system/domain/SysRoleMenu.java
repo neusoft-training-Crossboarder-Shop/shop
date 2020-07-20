@@ -4,16 +4,16 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * 角色和菜单关联 sys_role_menu
+ * Role和Menu 关联 sys_role_menu
  * 
  * @author
  */
 public class SysRoleMenu
 {
-    /** 角色ID */
+    /** RoleID */
     private Long roleId;
     
-    /** 菜单ID */
+    /** Menu ID */
     private Long menuId;
 
     public Long getRoleId()

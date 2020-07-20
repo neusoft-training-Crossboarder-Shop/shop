@@ -52,7 +52,7 @@ public class FileUploadUtils
      * 以默认配置进行文件上传
      *
      * @param file 上传的文件
-     * @return 文件名称
+     * @return 文件Name
      * @throws Exception
      */
     public static final String upload(MultipartFile file) throws IOException
@@ -72,7 +72,7 @@ public class FileUploadUtils
      *
      * @param baseDir 相对应用的基目录
      * @param file 上传的文件
-     * @return 文件名称
+     * @return 文件Name
      * @throws IOException
      */
     public static final String upload(String baseDir, MultipartFile file) throws IOException
@@ -92,8 +92,8 @@ public class FileUploadUtils
      *
      * @param baseDir 相对应用的基目录
      * @param file 上传的文件
-     * @param extension 上传文件类型
-     * @return 返回上传成功的文件名
+     * @param extension 上传文件Type
+     * @return 返回上传Success的文件名
      * @throws FileSizeLimitExceededException 如果超出最大大小
      * @throws FileNameLengthLimitExceededException 文件名太长
      * @throws IOException 比如读写文件出错时
@@ -108,9 +108,9 @@ public class FileUploadUtils
         {
             throw new FileNameLengthLimitExceededException(FileUploadUtils.DEFAULT_FILE_NAME_LENGTH);
         }
-        //判断是否是允许的类型
+        //判断是否是允许的Type
         assertAllowed(file, allowedExtension);
-        //编码名称
+        //编码Name
         String fileName = extractFilename(file);
         //绝对地址路径
         File desc = getAbsoluteFile(baseDir, fileName);
@@ -214,7 +214,7 @@ public class FileUploadUtils
     }
 
     /**
-     * 判断MIME类型是否是允许的MIME类型
+     * 判断MIMEType 是否是允许的MIMEType
      *
      * @param extension
      * @param allowedExtension

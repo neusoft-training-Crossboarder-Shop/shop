@@ -6,126 +6,126 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 角色业务层
+ * Role业务层
  * 
  * @author
  */
 public interface ISysRoleService
 {
     /**
-     * 根据条件分页查询角色数据
+     * 根据条件分页查询RoleData
      * 
-     * @param role 角色信息
-     * @return 角色数据集合信息
+     * @param role Role信息
+     * @return RoleData 集合信息
      */
     public List<SysRole> selectRoleList(SysRole role);
 
     /**
-     * 根据用户ID查询角色
+     * 根据User ID查询Role
      * 
-     * @param userId 用户ID
-     * @return 权限列表
+     * @param userId User ID
+     * @return Authority 列表
      */
     public Set<String> selectRolePermissionByUserId(Long userId);
 
     /**
-     * 查询所有角色
+     * 查询所有Role
      * 
-     * @return 角色列表
+     * @return Role列表
      */
     public List<SysRole> selectRoleAll();
 
     /**
-     * 根据用户ID获取角色选择框列表
+     * 根据User ID获取Role Selection  框列表
      * 
-     * @param userId 用户ID
-     * @return 选中角色ID列表
+     * @param userId User ID
+     * @return 选中RoleID列表
      */
     public List<Integer> selectRoleListByUserId(Long userId);
 
     /**
-     * 通过角色ID查询角色
+     * 通过RoleID查询Role
      * 
-     * @param roleId 角色ID
-     * @return 角色对象信息
+     * @param roleId RoleID
+     * @return Role对象信息
      */
     public SysRole selectRoleById(Long roleId);
 
     /**
-     * 校验角色名称是否唯一
+     * 校验RoleName是否唯一
      * 
-     * @param role 角色信息
+     * @param role Role信息
      * @return 结果
      */
     public String checkRoleNameUnique(SysRole role);
 
     /**
-     * 校验角色权限是否唯一
+     * 校验RoleAuthority 是否唯一
      * 
-     * @param role 角色信息
+     * @param role Role信息
      * @return 结果
      */
     public String checkRoleKeyUnique(SysRole role);
 
     /**
-     * 校验角色是否允许操作
+     * 校验Role是否允许Operation
      * 
-     * @param role 角色信息
+     * @param role Role信息
      */
     public void checkRoleAllowed(SysRole role);
 
     /**
-     * 通过角色ID查询角色使用数量
+     * 通过RoleID查询Role使用数量
      * 
-     * @param roleId 角色ID
+     * @param roleId RoleID
      * @return 结果
      */
     public int countUserRoleByRoleId(Long roleId);
 
     /**
-     * 新增保存角色信息
+     * Add 保存Role信息
      * 
-     * @param role 角色信息
+     * @param role Role信息
      * @return 结果
      */
     public int insertRole(SysRole role);
 
     /**
-     * 修改保存角色信息
+     *  Modify  保存Role信息
      * 
-     * @param role 角色信息
+     * @param role Role信息
      * @return 结果
      */
     public int updateRole(SysRole role);
 
     /**
-     * 修改角色状态
+     *  Modify  RoleStatus
      * 
-     * @param role 角色信息
+     * @param role Role信息
      * @return 结果
      */
     public int updateRoleStatus(SysRole role);
 
     /**
-     * 修改数据权限信息
+     *  Modify   Data Authority信息
      * 
-     * @param role 角色信息
+     * @param role Role信息
      * @return 结果
      */
     public int authDataScope(SysRole role);
 
     /**
-     * 通过角色ID删除角色
+     * 通过RoleID Delete Role
      * 
-     * @param roleId 角色ID
+     * @param roleId RoleID
      * @return 结果
      */
     public int deleteRoleById(Long roleId);
 
     /**
-     * 批量删除角色信息
+     * 批量 Delete Role信息
      * 
-     * @param roleIds 需要删除的角色ID
+     * @param roleIds 需要 Delete 的RoleID
      * @return 结果
      */
     public int deleteRoleByIds(Long[] roleIds);

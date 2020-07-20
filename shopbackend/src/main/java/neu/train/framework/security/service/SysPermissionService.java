@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 用户权限处理
+ * User Authority 处理
  * 
  * @author
  */
@@ -24,15 +24,15 @@ public class SysPermissionService
     private ISysMenuService menuService;
 
     /**
-     * 获取角色数据权限
+     * 获取Role Data Authority
      * 
-     * @param user 用户信息
-     * @return 角色权限信息
+     * @param user User 信息
+     * @return RoleAuthority 信息
      */
     public Set<String> getRolePermission(SysUser user)
     {
         Set<String> roles = new HashSet<String>();
-        // 管理员拥有所有权限
+        // 管理员拥有所有Authority
         if (user.isAdmin())
         {
             roles.add("admin");
@@ -45,15 +45,15 @@ public class SysPermissionService
     }
 
     /**
-     * 获取菜单数据权限
+     * 获取Menu  Data Authority
      * 
-     * @param user 用户信息
-     * @return 菜单权限信息
+     * @param user User 信息
+     * @return Menu Authority 信息
      */
     public Set<String> getMenuPermission(SysUser user)
     {
         Set<String> perms = new HashSet<String>();
-        // 管理员拥有所有权限
+        // 管理员拥有所有Authority
         if (user.isAdmin())
         {
             perms.add("*:*:*");

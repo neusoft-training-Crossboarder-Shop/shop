@@ -7,27 +7,27 @@ package neu.train.common.constant;
 public class HttpStatus
 {
     /**
-     * 操作成功
+     * OperationSuccess
      */
     public static final int SUCCESS = 200;
 
     /**
-     * 对象创建成功
+     * 对象 Create   Success
      */
     public static final int CREATED = 201;
 
     /**
-     * 请求已经被接受
+     * 请求Already经 be 接受
      */
     public static final int ACCEPTED = 202;
 
     /**
-     * 操作已经执行成功，但是没有返回数据
+     * OperationAlready经执行Success，但是没有返回Data
      */
     public static final int NO_CONTENT = 204;
 
     /**
-     * 资源已被移除
+     * 资源Already be 移除
      */
     public static final int MOVED_PERM = 301;
 
@@ -37,7 +37,7 @@ public class HttpStatus
     public static final int SEE_OTHER = 303;
 
     /**
-     * 资源没有被修改
+     * 资源没有 be  Modify
      */
     public static final int NOT_MODIFIED = 304;
 
@@ -67,12 +67,12 @@ public class HttpStatus
     public static final int BAD_METHOD = 405;
 
     /**
-     * 资源冲突，或者资源被锁
+     * 资源冲突，或者资源 be 锁
      */
     public static final int CONFLICT = 409;
 
     /**
-     * 不支持的数据，媒体类型
+     * 不支持的Data ，媒体Type
      */
     public static final int UNSUPPORTED_TYPE = 415;
 

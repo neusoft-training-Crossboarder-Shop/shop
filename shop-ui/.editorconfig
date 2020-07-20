@@ -3,7 +3,7 @@ root = true
 
 # 匹配全部文件
 [*]
-# 设置字符集
+# 设置Code集
 charset = utf-8
 # 缩进风格，可选space、tab
 indent_style = space
@@ -13,7 +13,7 @@ indent_size = 2
 end_of_line = lf
 # 在文件结尾插入新行
 insert_final_newline = true
-# 删除一行中的前后空格
+#  Delete 一行中的前后空格
 trim_trailing_whitespace = true
 
 # 匹配md结尾的文件

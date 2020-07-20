@@ -5,103 +5,103 @@ import neu.train.project.system.domain.SysRole;
 import java.util.List;
 
 /**
- * 角色表 数据层
+ * Role表 Data 层
  * 
  * @author
  */
 public interface SysRoleMapper
 {
     /**
-     * 根据条件分页查询角色数据
+     * 根据条件分页查询RoleData
      * 
-     * @param role 角色信息
-     * @return 角色数据集合信息
+     * @param role Role信息
+     * @return RoleData 集合信息
      */
     public List<SysRole> selectRoleList(SysRole role);
 
     /**
-     * 根据用户ID查询角色
+     * 根据User ID查询Role
      * 
-     * @param userId 用户ID
-     * @return 角色列表
+     * @param userId User ID
+     * @return Role列表
      */
     public List<SysRole> selectRolePermissionByUserId(Long userId);
 
     /**
-     * 查询所有角色
+     * 查询所有Role
      * 
-     * @return 角色列表
+     * @return Role列表
      */
     public List<SysRole> selectRoleAll();
 
     /**
-     * 根据用户ID获取角色选择框列表
+     * 根据User ID获取Role Selection  框列表
      * 
-     * @param userId 用户ID
-     * @return 选中角色ID列表
+     * @param userId User ID
+     * @return 选中RoleID列表
      */
     public List<Integer> selectRoleListByUserId(Long userId);
 
     /**
-     * 通过角色ID查询角色
+     * 通过RoleID查询Role
      * 
-     * @param roleId 角色ID
-     * @return 角色对象信息
+     * @param roleId RoleID
+     * @return Role对象信息
      */
     public SysRole selectRoleById(Long roleId);
 
     /**
-     * 根据用户ID查询角色
+     * 根据User ID查询Role
      * 
-     * @param userName 用户名
-     * @return 角色列表
+     * @param userName User 名
+     * @return Role列表
      */
     public List<SysRole> selectRolesByUserName(String userName);
 
     /**
-     * 校验角色名称是否唯一
+     * 校验RoleName是否唯一
      * 
-     * @param roleName 角色名称
-     * @return 角色信息
+     * @param roleName RoleName
+     * @return Role信息
      */
     public SysRole checkRoleNameUnique(String roleName);
 
     /**
-     * 校验角色权限是否唯一
+     * 校验RoleAuthority 是否唯一
      * 
-     * @param roleKey 角色权限
-     * @return 角色信息
+     * @param roleKey RoleAuthority
+     * @return Role信息
      */
     public SysRole checkRoleKeyUnique(String roleKey);
 
     /**
-     * 修改角色信息
+     *  Modify  Role信息
      * 
-     * @param role 角色信息
+     * @param role Role信息
      * @return 结果
      */
     public int updateRole(SysRole role);
 
     /**
-     * 新增角色信息
+     * Add Role信息
      * 
-     * @param role 角色信息
+     * @param role Role信息
      * @return 结果
      */
     public int insertRole(SysRole role);
 
     /**
-     * 通过角色ID删除角色
+     * 通过RoleID Delete Role
      * 
-     * @param roleId 角色ID
+     * @param roleId RoleID
      * @return 结果
      */
     public int deleteRoleById(Long roleId);
 
     /**
-     * 批量删除角色信息
+     * 批量 Delete Role信息
      * 
-     * @param roleIds 需要删除的角色ID
+     * @param roleIds 需要 Delete 的RoleID
      * @return 结果
      */
     public int deleteRoleByIds(Long[] roleIds);

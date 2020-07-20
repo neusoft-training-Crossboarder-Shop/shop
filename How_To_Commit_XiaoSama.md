@@ -11,7 +11,7 @@ This file describes how to collabrate on this project
 - 主分支
 - 从分支
 
-基本操作
+基本Operation
 - clone
 - add 
 - commit 
@@ -24,7 +24,7 @@ This file describes how to collabrate on this project
 
 ## III. Guideline
 
-我们远程仓库只存放master分支 ，然后本地仓库克隆这个master分支 ，本地再分支出一个dev 分支 作为每个人的开发分支 。当需要添加新功能时， 从dev分支上分支出一个 Feature 分支 在这个feature分支上进行开发 。开发结束之后合并到自己的dev 分支上 代表这个功能开发完成。 此时不能着急push ， 需要先更新自己的master分支 因为master分支可能已经更改了。 更新之后 再将本地dev分支上的内容merge到master分支 最后pushmaster分支
+我们远程仓库只存放master分支 ，然后本地仓库克隆这个master分支 ，本地再分支出一个dev 分支 作为每个人的开发分支 。当需要 Add  新功能时， 从dev分支上分支出一个 Feature 分支 在这个feature分支上进行开发 。开发End   之后合并到自己的dev 分支上 代表这个功能开发complete。 此时不能着急push ， 需要先更新自己的master分支 因为master分支可能Already经更改了。 更新之后 再将本地dev分支上的内容merge到master分支 最后pushmaster分支
 
 
 
@@ -42,19 +42,19 @@ This file describes how to collabrate on this project
 
    
 
-3. 本地再创建一个dev分支 作为每个人的开发分支
+3. 本地再 Create   一个dev分支 作为每个人的开发分支
 
    ```bash
-   1. git branch dev   //创建分支
+   1. git branch dev   // Create   分支
    2. git checkout dev //切换到这个分支 
-   tips: 可以使用组合命令 git checkout -b dev  创建并切换到这个分支
+   tips: 可以使用组合命令 git checkout -b dev   Create   并切换到这个分支
    ```
 
-   (如果你不是添加一个大的新功能你可以不用创建feature分支  在dev分支上进行操作即可。)
+   (如果你不是 Add  一个大的新功能你可以不用 Create   feature分支  在dev分支上进行Operation即可。)
 
    上面的是你第一次该执行的，下面的步骤是可循环执行的
 
-4.  当你需要为本项目添加新功能时，请创建一个分支，在这个feature分支上进行开发 。
+4.  当你需要为本项目 Add  新功能时，请 Create   一个分支，在这个feature分支上进行开发 。
 
    ```bash
    1.git checkout -b feature-name
@@ -68,14 +68,14 @@ This file describes how to collabrate on this project
 
    
 
-5. 开发结束之后合并到自己的dev 分支，代表这个功能开发完成。 
+5. 开发End   之后合并到自己的dev 分支，代表这个功能开发complete。 
 
 ``` bash
 1. git checkout dev  切换到dev分支
-2. git merge feature-name  合并 feature-name 分支  之后你可以删除这个功能分支
+2. git merge feature-name  合并 feature-name 分支  之后你可以 Delete 这个功能分支
 ```
 
-6. 此时不能着急push ， 需要先更新自己的master分支 并且在dev分支上将新的内容与新的master合并 ， 因为master分支，在你开发的时候 可能已经被push过了。 
+6. 此时不能着急push ， 需要先更新自己的master分支 并且在dev分支上将新的内容与新的master合并 ， 因为master分支，在你开发的时候 可能Already经 be push过了。 
 
 ```bas
 1.git checkout master 切换到主分支

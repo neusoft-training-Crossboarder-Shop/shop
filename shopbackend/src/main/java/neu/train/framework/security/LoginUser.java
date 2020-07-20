@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
- * 登录用户身份权限
+ * 登录User 身份Authority
  * 
  * @author
  */
@@ -18,17 +18,17 @@ public class LoginUser implements UserDetails
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户唯一标识
+     * User 唯一Signal
      */
     private String token;
 
     /**
-     * 登陆时间
+     * 登陆time
      */
     private Long loginTime;
 
     /**
-     * 过期时间
+     * 过期time
      */
     private Long expireTime;
 
@@ -43,22 +43,22 @@ public class LoginUser implements UserDetails
     private String loginLocation;
 
     /**
-     * 浏览器类型
+     * 浏览器Type
      */
     private String browser;
 
     /**
-     * 操作系统
+     * Operation系统
      */
     private String os;
 
     /**
-     * 权限列表
+     * Authority 列表
      */
     private Set<String> permissions;
 
     /**
-     * 用户信息
+     * User 信息
      */
     private SysUser user;
 
@@ -106,7 +106,7 @@ public class LoginUser implements UserDetails
     }
 
     /**
-     * 指定用户是否解锁,锁定的用户无法进行身份验证
+     * 指定User 是否解锁,锁定的User 无法进行身份验证
      * 
      * @return
      */
@@ -118,7 +118,7 @@ public class LoginUser implements UserDetails
     }
 
     /**
-     * 指示是否已过期的用户的凭据(密码),过期的凭据防止认证
+     * 指示是否Already过期的User 的凭据(密码),过期的凭据防止认证
      * 
      * @return
      */
@@ -130,7 +130,7 @@ public class LoginUser implements UserDetails
     }
 
     /**
-     * 是否可用 ,禁用的用户不能身份验证
+     * 是否可用 ,禁用的User 不能身份验证
      * 
      * @return
      */

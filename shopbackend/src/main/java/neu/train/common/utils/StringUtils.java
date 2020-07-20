@@ -6,13 +6,13 @@ import neu.train.common.core.text.StrFormatter;
 import java.util.*;
 
 /**
- * 字符串工具类
+ * Code串工具类
  * 
  * @author
  */
 public class StringUtils extends org.apache.commons.lang3.StringUtils
 {
-    /** 空字符串 */
+    /** 空Code串 */
     private static final String NULLSTR = "";
 
     /** 下划线 */
@@ -96,7 +96,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
     }
 
     /**
-     * * 判断一个字符串是否为空串
+     * * 判断一个Code串是否为空串
      * 
      * @param str String
      * @return true：为空 false：非空
@@ -107,7 +107,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
     }
 
     /**
-     * * 判断一个字符串是否为非空串
+     * * 判断一个Code串是否为非空串
      * 
      * @param str String
      * @return true：非空串 false：空串
@@ -140,7 +140,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
     }
 
     /**
-     * * 判断一个对象是否是数组类型（Java基本型别的数组）
+     * * 判断一个对象是否是数组Type （Java基本型别的数组）
      * 
      * @param object 对象
      * @return true：是数组 false：不是数组
@@ -159,10 +159,10 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
     }
 
     /**
-     * 截取字符串
+     * 截取Code串
      * 
-     * @param str 字符串
-     * @param start 开始
+     * @param str Code串
+     * @param start Start
      * @return 结果
      */
     public static String substring(final String str, int start)
@@ -190,11 +190,11 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
     }
 
     /**
-     * 截取字符串
+     * 截取Code串
      * 
-     * @param str 字符串
-     * @param start 开始
-     * @param end 结束
+     * @param str Code串
+     * @param start Start
+     * @param end End
      * @return 结果
      */
     public static String substring(final String str, int start, int end)
@@ -244,7 +244,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
      * 转义{}： format("this is \\{} for {}", "a", "b") -> this is \{} for a<br>
      * 转义\： format("this is \\\\{} for {}", "a", "b") -> this is \a for b<br>
      * 
-     * @param template 文本模板，被替换的部分用 {} 表示
+     * @param template 文本模板， be 替换的部分用 {} 表示
      * @param params 参数值
      * @return 格式化后的文本
      */
@@ -258,9 +258,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
     }
 
     /**
-     * 字符串转set
+     * Code串转set
      * 
-     * @param str 字符串
+     * @param str Code串
      * @param sep 分隔符
      * @return set集合
      */
@@ -270,9 +270,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
     }
 
     /**
-     * 字符串转list
+     * Code串转list
      * 
-     * @param str 字符串
+     * @param str Code串
      * @param sep 分隔符
      * @param filterBlank 过滤纯空白
      * @param trim 去掉首尾空白
@@ -286,7 +286,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
             return list;
         }
 
-        // 过滤空白字符串
+        // 过滤空白Code串
         if (filterBlank && StringUtils.isBlank(str))
         {
             return list;
@@ -318,11 +318,11 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
             return null;
         }
         StringBuilder sb = new StringBuilder();
-        // 前置字符是否大写
+        // 前置Code是否大写
         boolean preCharIsUpperCase = true;
-        // 当前字符是否大写
+        // 当前Code是否大写
         boolean curreCharIsUpperCase = true;
-        // 下一字符是否大写
+        // 下一Code是否大写
         boolean nexteCharIsUpperCase = true;
         for (int i = 0; i < str.length(); i++)
         {
@@ -358,10 +358,10 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
     }
 
     /**
-     * 是否包含字符串
+     * 是否包含Code串
      * 
-     * @param str 验证字符串
-     * @param strs 字符串组
+     * @param str 验证Code串
+     * @param strs Code串组
      * @return 包含返回true
      */
     public static boolean inStringIgnoreCase(String str, String... strs)
@@ -380,10 +380,10 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
     }
 
     /**
-     * 将下划线大写方式命名的字符串转换为驼峰式。如果转换前的下划线大写方式命名的字符串为空，则返回空字符串。 例如：HELLO_WORLD->HelloWorld
+     * 将下划线大写方式命名的Code串转换为驼峰式。如果转换前的下划线大写方式命名的Code串为空，则返回空Code串。 例如：HELLO_WORLD->HelloWorld
      * 
-     * @param name 转换前的下划线大写方式命名的字符串
-     * @return 转换后的驼峰式命名的字符串
+     * @param name 转换前的下划线大写方式命名的Code串
+     * @return 转换后的驼峰式命名的Code串
      */
     public static String convertToCamelCase(String name)
     {
@@ -399,11 +399,11 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
             // 不含下划线，仅将首字母大写
             return name.substring(0, 1).toUpperCase() + name.substring(1);
         }
-        // 用下划线将原始字符串分割
+        // 用下划线将原始Code串分割
         String[] camels = name.split("_");
         for (String camel : camels)
         {
-            // 跳过原始字符串中开头、结尾的下换线或双重下划线
+            // 跳过原始Code串中开头、结尾的下换线或双重下划线
             if (camel.isEmpty())
             {
                 continue;

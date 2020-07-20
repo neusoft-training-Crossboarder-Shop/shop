@@ -6,7 +6,7 @@ export default [
     vModel: 'mobile',
     formId: 6,
     tag: 'el-input',
-    placeholder: '请输入手机号',
+    placeholder: 'Please Enter 手机号',
     defaultValue: '',
     span: 24,
     style: { width: '100%' },

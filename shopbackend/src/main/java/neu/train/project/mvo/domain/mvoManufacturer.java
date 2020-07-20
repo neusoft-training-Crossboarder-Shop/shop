@@ -146,6 +146,8 @@ public class mvoManufacturer implements Serializable {
     }
 
     public void setManDesc(String manDesc) {
+        manDesc.replace("<p>","");
+        manDesc.replace("</p>","");
         this.manDesc = manDesc;
     }
 

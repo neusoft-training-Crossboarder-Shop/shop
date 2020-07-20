@@ -49,7 +49,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper
     @Override
     public ServletInputStream getInputStream() throws IOException
     {
-        // 非json类型，直接返回
+        // 非jsonType ，直接返回
         if (!isJsonRequest())
         {
             return super.getInputStream();

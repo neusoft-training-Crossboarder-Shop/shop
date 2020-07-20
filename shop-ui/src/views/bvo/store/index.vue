@@ -50,17 +50,17 @@
               size="mini"
               @click="handleAdd"
 
-            >新增</el-button>
+            >Add </el-button>
           </el-col>
           <el-col :span="1.5">
-<!--            v-hasPermi="['bvo:store:edit']" 这是权限控制里加载 el-button里的参数-->
+<!--            v-hasPermi="['bvo:store:edit']" 这是Authority 控制里加载 el-button里的参数-->
             <el-button
               type="success"
               icon="el-icon-edit"
               size="mini"
               :disabled="single"
               @click="handleUpdate"
-            >修改</el-button>
+            > Modify  </el-button>
           </el-col>
 <!--                        v-hasPermi="['bvo:store:remove']"
 -->
@@ -71,7 +71,7 @@
               size="mini"
               :disabled="multiple"
               @click="handleDelete"
-            >删除
+            > Delete
             </el-button>
           </el-col>
 
@@ -82,7 +82,7 @@
               size="mini"
               @click="handleClearCache"
               v-hasPermi="['system:config:remove']"
-            >清理缓存</el-button>
+            >Clean Cache</el-button>
           </el-col>
         </el-row>
 
@@ -110,15 +110,15 @@
               <span>{{ scope.row.lastUpdateTime }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+          <el-table-column label="Operation" align="center" class-name="small-padding fixed-width">
             <template slot-scope="scope">
-<!--         el-button 权限里面v-hasPermi="['system:config:edit']"-->
+<!--         el-button Authority 里面v-hasPermi="['system:config:edit']"-->
               <el-button
                 size="mini"
                 type="text"
                 icon="el-icon-edit"
                 @click.stop="handleUpdate(scope.row)"
-              >修改</el-button>
+              > Modify  </el-button>
 
               <el-button
                 size="mini"
@@ -126,7 +126,7 @@
                 icon="el-icon-delete"
                 @click.stop="handleDelete(scope.row)"
                 v-hasPermi="['system:config:remove']"
-              >删除</el-button>
+              > Delete </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -139,7 +139,7 @@
           @pagination="getList"
         />
 
-        <!-- 添加或修改参数配置对话框 -->
+        <!--  Add  或 Modify  参数配置对话框 -->
         <el-dialog :title="title" :visible.sync="open" width="80%" append-to-body>
           <el-form ref="form" :model="form" :rules="rules" label-width="30%">
             <el-form-item label="Store Name" prop="storeName">
@@ -210,7 +210,7 @@
             title: "",
             // 是否显示弹出层
             open: false,
-            // 参数表格数据
+            // 参数表格Data
             typeOptions:[
               // "Amazon",
               // "Ebay"
@@ -273,7 +273,7 @@
           handleAdd() {
             this.reset();
             this.open = true;
-            this.title = "添加参数";
+            this.title = " Add  参数";
           },
           reset() {
             this.form = {
@@ -283,30 +283,30 @@
             };
             this.resetForm("form");
           },
-          /** 搜索按钮操作 */
+          /** Search 按钮Operation */
           handleQuery() {
             this.queryParams.pageNum = 1;
             this.getList();
           },
-          /** 重置按钮操作 */
+          /** Reset  按钮Operation */
           resetQuery() {
             this.dateRange = [];
             this.resetForm("queryForm");
             this.handleQuery();
           },
-          /** 新增按钮操作 */
+          /** Add 按钮Operation */
           handleAdd() {
             this.reset();
             this.open = true;
-            this.title = "添加参数";
+            this.title = " Add  参数";
           },
-          // 多选框选中数据
+          // 多选框选中Data
           handleSelectionChange(selection) {
             this.ids = selection.map(item => item.storeId)
             this.single = selection.length!=1
             this.multiple = !selection.length
           },
-          /** 修改按钮操作 */
+          /**  Modify  按钮Operation */
           handleUpdate(row) {
             this.reset();
             const storeId = row.storeId || this.ids;
@@ -327,7 +327,7 @@
                   });
                 } else {
                   addStore(this.form).then(response => {
-                    //添加成功
+                    // Add  Success
 
                     this.getList();
                     this.open = false;
@@ -337,7 +337,7 @@
               }
             });
           },
-          /** 删除按钮操作 */
+          /**  Delete 按钮Operation */
           handleDelete(row) {
             const storeId = row.storeId || this.ids;
             this.$confirm('Are you sure to delete No."' + storeId + '"?', "Warning", {
@@ -350,11 +350,11 @@
               this.getList();
             }).catch(function() {});
           },
-          /** 清理缓存按钮操作 */
+          /** 清理缓存按钮Operation */
           handleClearCache() {
             clearCache().then(response => {
               if (response.code === 200) {
-                this.msgSuccess("清理成功");
+                this.msgSuccess("清理Success");
               }
             });
           }
@@ -363,7 +363,7 @@
 </script>
 
 <style scoped>
-  /*表格每一行被hover时的样式设置*/
+  /*表格每一行 be hover时的样式设置*/
   .el-table >>> .el-table__body tr:hover>td {
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
     cursor: pointer;

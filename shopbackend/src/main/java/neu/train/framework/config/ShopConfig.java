@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "shop")
 public class ShopConfig
 {
-    /** 项目名称 */
+    /** 项目Name */
     private String name;
 
     /** 版本 */

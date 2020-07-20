@@ -22,7 +22,7 @@ public class OrderController extends BaseController {
     OrderService orderService;
 
 
-    @ApiOperation(value = "模糊查询原始订单列表，给BVO用的", httpMethod = "GET", notes = "可选参数：模糊订单Id stoId,起始时间startTime，结束时间endTime")
+    @ApiOperation(value = "模糊查询原始订单列表，给BVO用的", httpMethod = "GET", notes = "可选参数：模糊订单Id stoId,起始timestartTime，End   timeendTime")
     @PreAuthorize("@ss.hasAnyPermi('sys:order:list,mvo:order:list')")
     @GetMapping("/bvo/order/stoOrder/list")
     public TableDataInfo listStoOrders(GetAStoOrderQueryByTime getAStoOrderQueryByTime) {
@@ -94,7 +94,7 @@ public class OrderController extends BaseController {
         return AjaxResult.success(orderService.selectSaoStrProByStoId(stoId));
     }
 
-    @ApiOperation(value = "模糊查询SAOPROSTR，给MVO用的",httpMethod = "GET",notes = "可选参数：模糊订单Id salId,起始时间startTime，结束时间endTime")
+    @ApiOperation(value = "模糊查询SAOPROSTR，给MVO用的",httpMethod = "GET",notes = "可选参数：模糊订单Id salId,起始timestartTime，End   timeendTime")
     @PreAuthorize("@ss.hasAnyPermi('sys:order:list,mvo:order:list')")
     @GetMapping("mvo/order/salOrder/list")
     public TableDataInfo listSao(GetASaoQueryByTime getASaoQueryByTime){
@@ -104,7 +104,7 @@ public class OrderController extends BaseController {
             return getDataTable(sendComplexSaos);
     }
 
-    @ApiOperation(value="更新原始订单状态，只有原始订单有状态",httpMethod = "PUT",notes = "必选参数：原始订单Id stoId,将要变成的状态status")
+    @ApiOperation(value="更新原始订单Status，只有原始订单有Status",httpMethod = "PUT",notes = "必选参数：原始订单Id stoId,将要变成的Statusstatus")
     @PreAuthorize("@ss.hasPermi('mvo:order:list')")
     @Transactional
     @PutMapping("mvo/order/stoOrder/status")
@@ -123,7 +123,7 @@ public class OrderController extends BaseController {
         return AjaxResult.success();
     }
 
-    @ApiOperation(value = "确认收货，给BVO用的",httpMethod = "PUT",notes = "必选参数：stoId")
+    @ApiOperation(value = " Confirm 收货，给BVO用的",httpMethod = "PUT",notes = "必选参数：stoId")
     @PreAuthorize("@ss.hasPermi('sys:order:list')")
     @Transactional
     @PutMapping("bvo/order/accept/{stoId}")
@@ -133,7 +133,7 @@ public class OrderController extends BaseController {
         return AjaxResult.success();
     }
 
-    @ApiOperation(value = "上下架，给BVO用的",httpMethod = "PUT",notes = "必选参数：dilId:到手的商品Id,status:要改到的状态")
+    @ApiOperation(value = "上下架，给BVO用的",httpMethod = "PUT",notes = "必选参数：dilId:到手的商品Id,status:要改到的Status")
     @PreAuthorize("@ss.hasPermi('sys:order:list')")
     @Transactional
     @PutMapping("store/storeDetail/{dilId}/{status}")
@@ -142,7 +142,7 @@ public class OrderController extends BaseController {
             return AjaxResult.updateSuccess();
     }
 
-    @ApiOperation(value = "修改上架的物品价格和数量",httpMethod = "PUT",notes = "可选参数：dilId:到手的商品Id，salPrice：上架价格，shelfStockAmount")
+    @ApiOperation(value = " Modify  上架的物品价格和数量",httpMethod = "PUT",notes = "可选参数：dilId:到手的商品Id，salPrice：上架价格，shelfStockAmount")
     @PreAuthorize("@ss.hasPermi('sys:order:list')")
     @Transactional
     @PutMapping("store/storeDetail")
@@ -151,7 +151,7 @@ public class OrderController extends BaseController {
         return AjaxResult.success();
     }
 
-    @ApiOperation(value = "搜索到手的货",httpMethod = "GET",notes = "可选参数：货Id proId,起始截止时间startTime endTime")
+    @ApiOperation(value = "Search 到手的货",httpMethod = "GET",notes = "可选参数：货Id proId,起始截止timestartTime endTime")
     @PreAuthorize("@ss.hasPermi('sys:order:list')")
     @GetMapping("store/storeDetail/list")
     public TableDataInfo selectSTIs(GetStiQuery getStiQuery){

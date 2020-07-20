@@ -3,7 +3,7 @@ package neu.train.common.core.text;
 import neu.train.common.utils.StringUtils;
 
 /**
- * 字符串格式化
+ * Code串格式化
  * 
  * @author
  */
@@ -15,7 +15,7 @@ public class StrFormatter
     public static final char C_DELIM_END = '}';
 
     /**
-     * 格式化字符串<br>
+     * 格式化Code串<br>
      * 此方法只是简单将占位符 {} 按照顺序替换为参数<br>
      * 如果想输出 {} 使用 \\转义 { 即可，如果想输出 {} 之前的 \ 使用双转义符 \\\\ 即可<br>
      * 例：<br>
@@ -23,7 +23,7 @@ public class StrFormatter
      * 转义{}： format("this is \\{} for {}", "a", "b") -> this is \{} for a<br>
      * 转义\： format("this is \\\\{} for {}", "a", "b") -> this is \a for b<br>
      * 
-     * @param strPattern 字符串模板
+     * @param strPattern Code串模板
      * @param argArray 参数列表
      * @return 结果
      */
@@ -50,7 +50,7 @@ public class StrFormatter
                     return strPattern;
                 }
                 else
-                { // 字符串模板剩余部分不再包含占位符，加入剩余部分后返回结果
+                { // Code串模板剩余部分不再包含占位符，加入剩余部分后返回结果
                     sbuf.append(strPattern, handledPosition, strPatternLength);
                     return sbuf.toString();
                 }
@@ -68,7 +68,7 @@ public class StrFormatter
                     }
                     else
                     {
-                        // 占位符被转义
+                        // 占位符 be 转义
                         argIndex--;
                         sbuf.append(strPattern, handledPosition, delimIndex - 1);
                         sbuf.append(C_DELIM_START);
@@ -77,14 +77,14 @@ public class StrFormatter
                 }
                 else
                 {
-                    // 正常占位符
+                    // Normal 占位符
                     sbuf.append(strPattern, handledPosition, delimIndex);
                     sbuf.append(Convert.utf8Str(argArray[argIndex]));
                     handledPosition = delimIndex + 2;
                 }
             }
         }
-        // 加入最后一个占位符后所有的字符
+        // 加入最后一个占位符后所有的Code
         sbuf.append(strPattern, handledPosition, strPattern.length());
 
         return sbuf.toString();

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 菜单信息
+ * Menu 信息
  * 
  * @author
  */
@@ -36,7 +36,7 @@ public class SysMenuController extends BaseController
     private TokenService tokenService;
 
     /**
-     * 获取菜单列表
+     * 获取Menu 列表
      */
     @PreAuthorize("@ss.hasPermi('system:menu:list')")
     @GetMapping("/list")
@@ -49,7 +49,7 @@ public class SysMenuController extends BaseController
     }
 
     /**
-     * 根据菜单编号获取详细信息
+     * 根据Menu ID获取详细信息
      */
     @PreAuthorize("@ss.hasPermi('system:menu:query')")
     @GetMapping(value = "/{menuId}")
@@ -59,7 +59,7 @@ public class SysMenuController extends BaseController
     }
 
     /**
-     * 获取菜单下拉树列表
+     * 获取Menu Pull 树列表
      */
     @GetMapping("/treeselect")
     public AjaxResult treeselect(SysMenu menu)
@@ -71,7 +71,7 @@ public class SysMenuController extends BaseController
     }
 
     /**
-     * 加载对应角色菜单列表树
+     * 加载对应RoleMenu 列表树
      */
     @GetMapping(value = "/roleMenuTreeselect/{roleId}")
     public AjaxResult roleMenuTreeselect(@PathVariable("roleId") Long roleId)
@@ -85,62 +85,62 @@ public class SysMenuController extends BaseController
     }
 
     /**
-     * 新增菜单
+     * Add Menu
      */
     @PreAuthorize("@ss.hasPermi('system:menu:add')")
-//    @Log(title = "菜单管理", businessType = BusinessType.INSERT)
+//    @Log(title = "Menu 管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysMenu menu)
     {
         if (UserConstants.NOT_UNIQUE.equals(menuService.checkMenuNameUnique(menu)))
         {
-            return AjaxResult.error("新增菜单'" + menu.getMenuName() + "'失败，菜单名称已存在");
+            return AjaxResult.error("Add Menu '" + menu.getMenuName() + "'Fail，Menu NameAlready存在");
         }
         else if (UserConstants.YES_FRAME.equals(menu.getIsFrame())
                 && !StringUtils.startsWithAny(menu.getPath(), Constants.HTTP, Constants.HTTPS))
         {
-            return AjaxResult.error("新增菜单'" + menu.getMenuName() + "'失败，地址必须以http(s)://开头");
+            return AjaxResult.error("Add Menu '" + menu.getMenuName() + "'Fail，地址必须以http(s)://开头");
         }
         menu.setCreateBy(SecurityUtils.getUsername());
         return toAjax(menuService.insertMenu(menu));
     }
 
     /**
-     * 修改菜单
+     *  Modify  Menu
      */
     @PreAuthorize("@ss.hasPermi('system:menu:edit')")
-//    @Log(title = "菜单管理", businessType = BusinessType.UPDATE)
+//    @Log(title = "Menu 管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysMenu menu)
     {
         if (UserConstants.NOT_UNIQUE.equals(menuService.checkMenuNameUnique(menu)))
         {
-            return AjaxResult.error("修改菜单'" + menu.getMenuName() + "'失败，菜单名称已存在");
+            return AjaxResult.error(" Modify  Menu '" + menu.getMenuName() + "'Fail，Menu NameAlready存在");
         }
         else if (UserConstants.YES_FRAME.equals(menu.getIsFrame())
                 && !StringUtils.startsWithAny(menu.getPath(), Constants.HTTP, Constants.HTTPS))
         {
-            return AjaxResult.error("新增菜单'" + menu.getMenuName() + "'失败，地址必须以http(s)://开头");
+            return AjaxResult.error("Add Menu '" + menu.getMenuName() + "'Fail，地址必须以http(s)://开头");
         }
         menu.setUpdateBy(SecurityUtils.getUsername());
         return toAjax(menuService.updateMenu(menu));
     }
 
     /**
-     * 删除菜单
+     *  Delete Menu
      */
     @PreAuthorize("@ss.hasPermi('system:menu:remove')")
-//    @Log(title = "菜单管理", businessType = BusinessType.DELETE)
+//    @Log(title = "Menu 管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{menuId}")
     public AjaxResult remove(@PathVariable("menuId") Long menuId)
     {
         if (menuService.hasChildByMenuId(menuId))
         {
-            return AjaxResult.error("存在子菜单,不允许删除");
+            return AjaxResult.error("存在子Menu ,不允许 Delete ");
         }
         if (menuService.checkMenuExistRole(menuId))
         {
-            return AjaxResult.error("菜单已分配,不允许删除");
+            return AjaxResult.error("Menu Already分配,不允许 Delete ");
         }
         return toAjax(menuService.deleteMenuById(menuId));
     }

@@ -1,6 +1,7 @@
 package neu.train.project.mvo.controller;
 
 
+import neu.train.common.utils.DateUtils;
 import neu.train.common.utils.file.FileUploadUtils;
 import neu.train.framework.config.ShopConfig;
 import neu.train.framework.web.controller.BaseController;
@@ -12,11 +13,19 @@ import neu.train.project.mvo.service.IMvoProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.beans.PropertyEditorSupport;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -26,6 +35,20 @@ public class MvoProductController extends BaseController {
 
     @Autowired
     IMvoProductService mvoProductService;
+
+    /**
+     * 将前台传递过来的Time   格式的Code串，自动转化为DateType
+     */
+
+    //只需要加上下面这段即可，注意不能忘记注解
+    @InitBinder
+
+    public void initBinder(WebDataBinder binder, WebRequest request) {
+
+        //转换Time
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));// CustomDateEditor为自定义Time   编辑器
+    }
 
     @GetMapping("/mvo/product/list")
     @PreAuthorize("@ss.hasPermi('mvo:pro:query')")
@@ -97,7 +120,7 @@ public class MvoProductController extends BaseController {
                 return AjaxResult.updateSuccess(productImageUrl);
             }
         }
-        return AjaxResult.error("上传图片异常，请联系管理员");
+        return AjaxResult.error("Update Error");
     }
 
     @DeleteMapping("/mvo/product/image/{imgId}")

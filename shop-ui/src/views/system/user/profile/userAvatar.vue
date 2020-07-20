@@ -71,7 +71,7 @@ export default {
       // 是否显示cropper
       visible: false,
       // 弹出层标题
-      title: "修改头像",
+      title: " Modify  头像",
       options: {
         brdId:undefined,
         img: store.getters.avatar, //裁剪图片的地址
@@ -88,7 +88,7 @@ export default {
     editCropper() {
       this.open = true;
     },
-    // 打开弹出层结束时的回调
+    // 打开弹出层End   时的回调
     modalOpened() {
       this.visible = true;
     },
@@ -111,7 +111,7 @@ export default {
     // 上传预处理
     beforeUpload(file) {
       if (file.type.indexOf("image/") == -1) {
-        this.msgError("文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。");
+        this.msgError("文件格式错误，请上传图片Type ,如：JPG，PNG后缀的文件。");
       } else {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -130,7 +130,7 @@ export default {
             this.open = false;
             this.options.img = process.env.VUE_APP_BASE_API + response.imgUrl;
             store.commit('SET_AVATAR', this.options.img);
-            this.msgSuccess("修改成功");
+            this.msgSuccess(" Modify  Success");
           }
           this.visible = false;
         });

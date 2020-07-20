@@ -32,10 +32,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="dictType != null and dictType != ''">
 				AND dict_type like concat('%', #{dictType}, '%')
 			</if>
-			<if test="beginTime != null and beginTime != ''"><!-- 开始时间检索 -->
+			<if test="beginTime != null and beginTime != ''"><!-- Start  time检索 -->
 				and date_format(create_time,'%y%m%d') &gt;= date_format(#{beginTime},'%y%m%d')
 			</if>
-			<if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+			<if test="endTime != null and endTime != ''"><!-- End   time检索 -->
 				and date_format(create_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
 			</if>
 	    </where>

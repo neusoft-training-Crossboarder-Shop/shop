@@ -132,21 +132,22 @@ public class MvoProductServiceImpl implements IMvoProductService {
                 ids) {
             redisCache.deleteObject(PRO_CACHE_PREFIX + id);
             //删除种类
+
             mvoProductCategoryExample mvoProductCategoryExample = new mvoProductCategoryExample();
             mvoProductCategoryExample.createCriteria().andProIdEqualTo(id);
             mvoProductCategoryMapper.deleteByExample(mvoProductCategoryExample);
 
-            //删除包裹
+            // Delete 包裹
             mvoPackageInfoExample mvoPackageInfoExample = new mvoPackageInfoExample();
             mvoPackageInfoExample.createCriteria().andProIdEqualTo(id);
             mvoPackageInfoMapper.deleteByExample(mvoPackageInfoExample);
 
-            //删除图片
+            // Delete 图片
             mvoImageExample mvoImageExample = new mvoImageExample();
             mvoImageExample.createCriteria().andProIdEqualTo(id);
             mvoImageMapper.deleteByExample(mvoImageExample);
 
-            //删除description
+            // Delete description
             mvoProductDescriptionExample mvoProductDescriptionExample = new mvoProductDescriptionExample();
             mvoProductDescriptionExample.createCriteria().andProIdEqualTo(id);
             mvoProductDescriptionMapper.deleteByExample(mvoProductDescriptionExample);

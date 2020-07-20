@@ -11,7 +11,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="创建时间">
+      <el-form-item label=" Create   time">
         <el-date-picker
           v-model="dateRange"
           size="small"
@@ -19,13 +19,13 @@
           value-format="yyyy-MM-dd"
           type="daterange"
           range-separator="-"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
+          start-placeholder="Start  Time   "
+          end-placeholder="End   Time   "
         ></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">Search </el-button>
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">Reset  </el-button>
       </el-form-item>
     </el-form>
 
@@ -70,10 +70,10 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="200px">
+      <el-table-column label="Operation" align="center" class-name="small-padding fixed-width" width="200px">
         <template slot-scope="scope">
           <el-button v-if="scope.row.dropshipStatus == 1" type="success" @click="OnOutShelf(scope.row.dilId,2)">下架</el-button>
-          <el-button v-if="scope.row.dropshipStatus == 1" type="success" @click="modifyPage(scope.row)">修改</el-button>
+          <el-button v-if="scope.row.dropshipStatus == 1" type="success" @click="modifyPage(scope.row)"> Modify  </el-button>
           <el-button v-else type="primary" @click="OnOutShelf(scope.row.dilId,1)">上架</el-button>
         </template>
       </el-table-column>
@@ -167,7 +167,7 @@
           }
         );
       },
-      /** 搜索按钮操作 */
+      /** Search 按钮Operation */
       handleQuery() {
         this.queryParams.pageNum = 1;
         this.getList();
@@ -180,7 +180,7 @@
       resetForm(formName) {
         this.$notify({
           title: '执行',
-          message: '重置按钮',
+          message: 'Reset  按钮',
           type: 'success'
         });
         this.$refs[formName].resetFields();

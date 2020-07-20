@@ -60,7 +60,7 @@ public class GlobalExceptionHandler
     public AjaxResult handleAuthorizationException(AccessDeniedException e)
     {
         log.error(e.getMessage());
-        return AjaxResult.error(HttpStatus.FORBIDDEN, "没有权限，请联系管理员授权");
+        return AjaxResult.error(HttpStatus.FORBIDDEN, "没有Authority ，Please contact the Admin to授权");
     }
 
     @ExceptionHandler(AccountExpiredException.class)
@@ -113,6 +113,6 @@ public class GlobalExceptionHandler
     @ExceptionHandler(DemoModeException.class)
     public AjaxResult demoModeException(DemoModeException e)
     {
-        return AjaxResult.error("演示模式，不允许操作");
+        return AjaxResult.error("演示模式，不允许Operation");
     }
 }

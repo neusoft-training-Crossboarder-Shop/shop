@@ -1,7 +1,7 @@
 package neu.train.common.exception.user;
 
 /**
- * 验证码错误异常类
+ * Validation Code 错误异常类
  * 
  * @author
  */

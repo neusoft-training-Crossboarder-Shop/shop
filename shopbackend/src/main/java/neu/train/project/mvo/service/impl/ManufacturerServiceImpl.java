@@ -54,6 +54,7 @@ public class ManufacturerServiceImpl implements IManufacturerService {
             redisCache.setCacheObject(MAN_CACHE_PREFIX + userId, mvoManufacturer);
             return mvoManufacturer;
         }
+
     }
 
     @Override

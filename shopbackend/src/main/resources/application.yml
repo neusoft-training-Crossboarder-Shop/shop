@@ -1,6 +1,6 @@
 # 项目相关配置
 shop:
-  # 名称
+  # Name
   name: CrossBoarder Shop
   # 版本
   version: 1.0.0
@@ -10,8 +10,9 @@ shop:
   demoEnabled: true
 #   文件路径 示例（ Windows配置D:/shop/uploadPath，Linux配置 /home/shop/uploadPath）
 #  profile: C:/shop/uploadPath
-  profile: C:/Users/xiaobin/Desktop/线上实训/project/git-test/shop/uploadPath
-#  profile: C:\spring_works\wallet\shop\uploadPath
+
+#  profile: C:/Users/xiaobin/Desktop/线上实训/project/git-test/shop/uploadPath
+  profile: C:\spring_works\NeueduPro\shop\uploadPath
   # 获取ip地址开关
   addressEnabled: false
 
@@ -64,7 +65,7 @@ spring:
     port: 6379
     # 密码
     password:
-    # 连接超时时间
+    # 连接超时time
     timeout: 10s
     lettuce:
       pool:
@@ -72,16 +73,16 @@ spring:
         min-idle: 0
         # 连接池中的最大空闲连接
         max-idle: 8
-        # 连接池的最大数据库连接数
+        # 连接池的最大Data 库连接数
         max-active: 8
-        # #连接池最大阻塞等待时间（使用负值表示没有限制）
+        # #连接池最大阻塞Wait fortime（使用负值表示没有限制）
         max-wait: -1ms
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
 
 # token配置
 token:
-    # 令牌自定义标识
+    # 令牌自定义Signal
     header: Authorization
     # 令牌秘钥
     secret: abcdefghijklmnopqrstuvwxyz
@@ -90,7 +91,7 @@ token:
   
 # MyBatis配置
 mybatis:
-  # 搜索指定包别名
+  # Search 指定包别名
   typeAliasesPackage: neu.train.project.**.domain
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
   mapperLocations: classpath*:mybatis/**/*Mapper.xml

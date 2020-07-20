@@ -33,7 +33,6 @@ public class WalletServiceImp implements WalletService {
     @Autowired
     RedisCache redisCache;
 
-    //查询有没有这个用户ID的钱包,缓存"walletById:"+buyerId
     @Override
     public boolean ifWallet(int buyerId) {
         if (redisCache.getCacheObject("walletById:" + buyerId) != null) {
@@ -48,14 +47,14 @@ public class WalletServiceImp implements WalletService {
         }
     }
 
-    //用于登录,缓存"walletById:"+buyerId
+    //用于登录,Cache"walletById:"+buyerId
     @Override
     public boolean selectWalletLogin(int buyerId, String accountName, String password) {
        WaaWalletAccount waaWalletAccount=selectWalletById(buyerId);
         return waaWalletAccount.getAccountName().equals(accountName) && SecurityUtils.matchesPassword(password, waaWalletAccount.getPassword());
     }
 
-    //用于更新,缓存"walletById:"+buyerId
+    //用于更新,Cache"walletById:"+buyerId
     @Override
     public boolean updateWallet(int buyerId,GetANewWallet getANewWallet) {
         WaaWalletAccount waaWalletAccount=selectWalletById(buyerId);
@@ -68,13 +67,13 @@ public class WalletServiceImp implements WalletService {
         if (waaWalletAccountMapper.updateByPrimaryKeySelective(waaWalletAccount) == 0) {
             return false;
         } else {
-            //再select是为了取得更新时间
+            //再select是为了取得更新time
             redisCache.setCacheObject("walletById:" + waaWalletAccount.getBuyerId(), waaWalletAccountMapper.selectByPrimaryKey(waaWalletAccount.getBuyerId()));
             return true;
         }
     }
 
-    //用于注册,缓存"walletById:"+buyerId
+    //用于Register ,Cache"walletById:"+buyerId
     @Override
     public boolean insertWallet(int userId,int userType,GetANewWallet getANewWallet) {
         if (ifWallet(userId)) {
@@ -97,7 +96,7 @@ public class WalletServiceImp implements WalletService {
         return true;
     }
 
-    //注册的时候，插入fund信息，缓存"fundById:"+buyerId
+    //Register 的时候，插入fund信息，Cache"fundById:"+buyerId
     @Override
     public boolean insertFund(int buyerId, String currency) {
         WafWalletAccountFund wafWalletAccountFund = new WafWalletAccountFund();
@@ -114,7 +113,7 @@ public class WalletServiceImp implements WalletService {
         return true;
     }
 
-    //根据用户Id，检索钱包，缓存"walletById:"+buyerId
+    //根据User Id，检索钱包，Cache"walletById:"+buyerId
     @Override
     public WaaWalletAccount selectWalletById(int buyerId) {
         if(ifWallet(buyerId)){
@@ -124,7 +123,7 @@ public class WalletServiceImp implements WalletService {
         }
     }
 
-    //根据用户Id，检索钱包余额之类的东西，缓存"fundById:"+buyerId
+    //根据User Id，检索钱包余额之类的东西，Cache"fundById:"+buyerId
     @Override
     public WafWalletAccountFund selectFundById(int buyerId) {
         WafWalletAccountFund wafWalletAccountFund = redisCache.getCacheObject("fundById:" + buyerId);
@@ -136,13 +135,13 @@ public class WalletServiceImp implements WalletService {
         return wafWalletAccountFund;
     }
 
-    //多条件查询钱包流水，不缓存
+    //多条件查询钱包流水，不Cache
     @Override
     public List<WtrWalletTransactionRecord> selectTransaction(GetATransactionQuery getATransactionQuery) {
         return wtrWalletTransactionRecordMapper.selectByMany(getATransactionQuery);
     }
 
-    //多条件查询流水审批，不缓存
+    //多条件查询流水审批，不Cache
     @Override
     public List<WtaWalletTransactionAduit> selectAudit(GetAnAuditQuery getAnAuditQuery) {
         return wtaWalletTransactionAduitMapper.selectByMany(getAnAuditQuery);
@@ -169,7 +168,7 @@ public class WalletServiceImp implements WalletService {
     }
 
 
-    //同意单个钱包，缓存"fundById:"+buyerId
+    //同意单个钱包，Cache"fundById:"+buyerId
     @Override
     public boolean doAudit(String managerId, WtaWalletTransactionAduit wtaWalletTransactionAduit) {
         if(wtaWalletTransactionAduit.getStatus()!=1){
@@ -185,7 +184,7 @@ public class WalletServiceImp implements WalletService {
         wtaWalletTransactionAduit.setAvailableMoneyBefore(availableMoney);
         wtaWalletTransactionAduit.setDepositingMoneyBefore(depositingMoney);
         wtaWalletTransactionAduit.setWithdrawingMoneyBefore(withdrawingMoney);
-        //操作类型 1-充值 2-提现 3消费 4-退款
+        //OperationType  1-充值 2-提现 3消费 4-退款
         if (wtaWalletTransactionAduit.getOperateType() == 1) {
             //充值，余额加，充值中金额减，提现中不变
             availableMoney = availableMoney.add(operateMoney);
@@ -218,26 +217,26 @@ public class WalletServiceImp implements WalletService {
         //至此fund表set完毕
         WtrWalletTransactionRecord wtrWalletTransactionRecord = wtrWalletTransactionRecordMapper.selectByPrimaryKey(wtaWalletTransactionAduit.getTransactionId());
         wtrWalletTransactionRecord.setTransactionId(null);
-        //状态 1 -申请 , 2 -完成 , -3-失败
+        //Status 1 -申请 , 2 -complete , -3-Fail
         wtrWalletTransactionRecord.setStatus((byte) 2);
         wtrWalletTransactionRecord.setBalance(availableMoney);
-        //重写创建时间
+        //重写 Create   time
         wtrWalletTransactionRecord.setCreateTime(null);
         //钱包流水set完毕
         //乐观锁
         canOperate(wafWalletAccountFund.getBuyerId(),wafWalletAccountFund.getVersion());
         wafWalletAccountFund.setVersion(wafWalletAccountFund.getVersion()+1);
-        //修改审核
+        // Modify  审核
         wtaWalletTransactionAduitMapper.updateByPrimaryKeySelective(wtaWalletTransactionAduit);
-        //修改钱包fund
+        // Modify  钱包fund
         wafWalletAccountFundMapper.updateByPrimaryKeySelective(wafWalletAccountFund);
         redisCache.setCacheObject("fundById:" + wafWalletAccountFund.getBuyerId(), wafWalletAccountFundMapper.selectByPrimaryKey(wafWalletAccountFund.getBuyerId()));
-        //添加钱包流水
+        // Add  钱包流水
         wtrWalletTransactionRecordMapper.insertSelective(wtrWalletTransactionRecord);
         return true;
     }
 
-    // 驳回单个钱包，缓存"fundById:"+buyerId
+    // 驳回单个钱包，Cache"fundById:"+buyerId
     @Override
     public boolean rejectAudit(String managerId, WtaWalletTransactionAduit wtaWalletTransactionAduit) {
         if(wtaWalletTransactionAduit.getStatus()!=1){
@@ -253,7 +252,7 @@ public class WalletServiceImp implements WalletService {
         wtaWalletTransactionAduit.setAvailableMoneyBefore(availableMoney);
         wtaWalletTransactionAduit.setDepositingMoneyBefore(depositingMoney);
         wtaWalletTransactionAduit.setWithdrawingMoneyBefore(withdrawingMoney);
-        //驳回，操作类型 1-充值 2-提现 3消费 4-退款
+        //驳回，OperationType  1-充值 2-提现 3消费 4-退款
         if (wtaWalletTransactionAduit.getOperateType() == 1) {
             //充值，余额不变，充值中金额减，提现中不变
             depositingMoney = depositingMoney.subtract(operateMoney);
@@ -282,29 +281,29 @@ public class WalletServiceImp implements WalletService {
         //至此fund表set完毕
         WtrWalletTransactionRecord wtrWalletTransactionRecord = wtrWalletTransactionRecordMapper.selectByPrimaryKey(wtaWalletTransactionAduit.getTransactionId());
         wtrWalletTransactionRecord.setTransactionId(null);
-        //状态 1 -申请 , 2 -完成 , -3-失败
+        //Status 1 -申请 , 2 -complete , -3-Fail
         wtrWalletTransactionRecord.setStatus((byte) 3);
         wtrWalletTransactionRecord.setBalance(availableMoney);
-        //重写创建时间
+        //重写 Create   time
         wtrWalletTransactionRecord.setCreateTime(null);
         //钱包流水set完毕
         //乐观锁
         canOperate(wafWalletAccountFund.getBuyerId(),wafWalletAccountFund.getVersion());
         wafWalletAccountFund.setVersion(wafWalletAccountFund.getVersion()+1);
-        //修改审核
+        // Modify  审核
         wtaWalletTransactionAduitMapper.updateByPrimaryKeySelective(wtaWalletTransactionAduit);
-        //修改钱包fund
+        // Modify  钱包fund
         wafWalletAccountFundMapper.updateByPrimaryKeySelective(wafWalletAccountFund);
         redisCache.setCacheObject("fundById:" + wafWalletAccountFund.getBuyerId(), wafWalletAccountFundMapper.selectByPrimaryKey(wafWalletAccountFund.getBuyerId()));
-        //添加钱包流水
+        // Add  钱包流水
         wtrWalletTransactionRecordMapper.insertSelective(wtrWalletTransactionRecord);
         return true;
     }
 
-    //充值，缓存"fundById:"+buyerId
+    //充值，Cache"fundById:"+buyerId
     @Override
     public boolean tryDeposit(int buyerId, MakeATransaction makeATransaction) {
-        //直接修改fund
+        //直接 Modify  fund
         BigDecimal money = new BigDecimal(makeATransaction.getOperateMoney());
         WafWalletAccountFund wafWalletAccountFund = selectFundById(buyerId);
         wafWalletAccountFund.setDepositingMoney(wafWalletAccountFund.getDepositingMoney().add(money));
@@ -315,7 +314,7 @@ public class WalletServiceImp implements WalletService {
         wafWalletAccountFund.setVersion(wafWalletAccountFund.getVersion()+1);
         wafWalletAccountFundMapper.updateByPrimaryKeySelective(wafWalletAccountFund);
         redisCache.setCacheObject("fundById:" + wafWalletAccountFund.getBuyerId(), wafWalletAccountFundMapper.selectByPrimaryKey(buyerId));
-        //先插入一条transaction,主键，创建时间自动生成
+        //先插入一条transaction,主键， Create   time自动生成
         WtrWalletTransactionRecord wtrWalletTransactionRecord = new WtrWalletTransactionRecord();
         wtrWalletTransactionRecord.setBuyerId(buyerId);
         wtrWalletTransactionRecord.setBankCardId(makeATransaction.getBankCardId());
@@ -325,7 +324,7 @@ public class WalletServiceImp implements WalletService {
         wtrWalletTransactionRecord.setBalance(wafWalletAccountFund.getAvailableMoney());
         wtrWalletTransactionRecord.setFinanceType((byte) 1);
         wtrWalletTransactionRecordMapper.insertSelective(wtrWalletTransactionRecord);
-        //插入一条audit,主键，创建时间自动生成，所有未来数据为空
+        //插入一条audit,主键， Create   time自动生成，所有未来Data 为空
         WtaWalletTransactionAduit wtaWalletTransactionAduit = new WtaWalletTransactionAduit();
         wtaWalletTransactionAduit.setBuyerId(buyerId);
         wtaWalletTransactionAduit.setTransactionId(wtrWalletTransactionRecord.getTransactionId());
@@ -340,10 +339,10 @@ public class WalletServiceImp implements WalletService {
     }
 
 
-    //提现，缓存"fundById:"+buyerId
+    //提现，Cache"fundById:"+buyerId
     @Override
     public boolean tryWithdraw(int buyerId, MakeATransaction makeATransaction) {
-        //直接修改fund
+        //直接 Modify  fund
         BigDecimal money = new BigDecimal(makeATransaction.getOperateMoney());
         WafWalletAccountFund wafWalletAccountFund = selectFundById(buyerId);
         BigDecimal newWithDrawingMoney=wafWalletAccountFund.getWithdrawingMoney().add(money);
@@ -358,7 +357,7 @@ public class WalletServiceImp implements WalletService {
         wafWalletAccountFund.setVersion(wafWalletAccountFund.getVersion()+1);
         wafWalletAccountFundMapper.updateByPrimaryKeySelective(wafWalletAccountFund);
         redisCache.setCacheObject("fundById:" + wafWalletAccountFund.getBuyerId(), wafWalletAccountFundMapper.selectByPrimaryKey(buyerId));
-        //先插入一条transaction,主键，创建时间自动生成
+        //先插入一条transaction,主键， Create   time自动生成
         WtrWalletTransactionRecord wtrWalletTransactionRecord = new WtrWalletTransactionRecord();
         wtrWalletTransactionRecord.setBuyerId(buyerId);
         wtrWalletTransactionRecord.setBankCardId(makeATransaction.getBankCardId());
@@ -370,7 +369,7 @@ public class WalletServiceImp implements WalletService {
         wtrWalletTransactionRecord.setCreateBy(String.valueOf(buyerId));
         wtrWalletTransactionRecord.setUpdateBy(String.valueOf(buyerId));
         wtrWalletTransactionRecordMapper.insertSelective(wtrWalletTransactionRecord);
-        //插入一条audit,主键，创建时间自动生成，所有未来数据为空
+        //插入一条audit,主键， Create   time自动生成，所有未来Data 为空
         WtaWalletTransactionAduit wtaWalletTransactionAduit = new WtaWalletTransactionAduit();
         wtaWalletTransactionAduit.setBuyerId(buyerId);
         wtaWalletTransactionAduit.setTransactionId(wtrWalletTransactionRecord.getTransactionId());
@@ -384,7 +383,7 @@ public class WalletServiceImp implements WalletService {
         return true;
     }
 
-    //其实在支付一个原始订单，改余额，加流水，缓存"fundById:"+buyerId
+    //其实在支付一个原始订单，改余额，加流水，Cache"fundById:"+buyerId
     @Override
     public boolean pay(int bvoId, int mvoId, BigDecimal total){
        selectWalletById(bvoId);

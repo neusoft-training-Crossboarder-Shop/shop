@@ -11,17 +11,17 @@ import org.springframework.util.CollectionUtils;
 import java.util.Set;
 
 /**
- *  RuoYi首创 自定义权限实现，ss取自SpringSecurity首字母
+ *  RuoYi首创 自定义Authority 实现，ss取自SpringSecurity首字母
  * 
  * @author
  */
 @Service("ss")
 public class PermissionService
 {
-    /** 所有权限标识 */
+    /** 所有Authority Signal   */
     private static final String ALL_PERMISSION = "*:*:*";
 
-    /** 管理员角色权限标识 */
+    /** 管理员RoleAuthority Signal   */
     private static final String SUPER_ADMIN = "admin";
 
     private static final String ROLE_DELIMETER = ",";
@@ -32,10 +32,10 @@ public class PermissionService
     private TokenService tokenService;
 
     /**
-     * 验证用户是否具备某权限
+     * 验证User 是否具备某Authority
      * 
-     * @param permission 权限字符串
-     * @return 用户是否具备某权限
+     * @param permission Authority Code串
+     * @return User 是否具备某Authority
      */
     public boolean hasPermi(String permission)
     {
@@ -52,10 +52,10 @@ public class PermissionService
     }
 
     /**
-     * 验证用户是否不具备某权限，与 hasPermi逻辑相反
+     * 验证User 是否不具备某Authority ，与 hasPermi逻辑相反
      *
-     * @param permission 权限字符串
-     * @return 用户是否不具备某权限
+     * @param permission Authority Code串
+     * @return User 是否不具备某Authority
      */
     public boolean lacksPermi(String permission)
     {
@@ -63,10 +63,10 @@ public class PermissionService
     }
 
     /**
-     * 验证用户是否具有以下任意一个权限
+     * 验证User 是否具有以下任意一个Authority
      *
-     * @param permissions 以 PERMISSION_NAMES_DELIMETER 为分隔符的权限列表
-     * @return 用户是否具有以下任意一个权限
+     * @param permissions 以 PERMISSION_NAMES_DELIMETER 为分隔符's Authority列表
+     * @return User 是否具有以下任意一个Authority
      */
     public boolean hasAnyPermi(String permissions)
     {
@@ -91,10 +91,10 @@ public class PermissionService
     }
 
     /**
-     * 判断用户是否拥有某个角色
+     * 判断User 是否拥有某个Role
      * 
-     * @param role 角色字符串
-     * @return 用户是否具备某角色
+     * @param role RoleCode串
+     * @return User 是否具备某Role
      */
     public boolean hasRole(String role)
     {
@@ -119,10 +119,10 @@ public class PermissionService
     }
 
     /**
-     * 验证用户是否不具备某角色，与 isRole逻辑相反。
+     * 验证User 是否不具备某Role，与 isRole逻辑相反。
      *
-     * @param role 角色名称
-     * @return 用户是否不具备某角色
+     * @param role RoleName
+     * @return User 是否不具备某Role
      */
     public boolean lacksRole(String role)
     {
@@ -130,10 +130,10 @@ public class PermissionService
     }
 
     /**
-     * 验证用户是否具有以下任意一个角色
+     * 验证User 是否具有以下任意一个Role
      *
-     * @param roles 以 ROLE_NAMES_DELIMETER 为分隔符的角色列表
-     * @return 用户是否具有以下任意一个角色
+     * @param roles 以 ROLE_NAMES_DELIMETER 为分隔符的Role列表
+     * @return User 是否具有以下任意一个Role
      */
     public boolean hasAnyRoles(String roles)
     {
@@ -157,11 +157,11 @@ public class PermissionService
     }
 
     /**
-     * 判断是否包含权限
+     * 判断是否包含Authority
      * 
-     * @param permissions 权限列表
-     * @param permission 权限字符串
-     * @return 用户是否具备某权限
+     * @param permissions Authority 列表
+     * @param permission Authority Code串
+     * @return User 是否具备某Authority
      */
     private boolean hasPermissions(Set<String> permissions, String permission)
     {

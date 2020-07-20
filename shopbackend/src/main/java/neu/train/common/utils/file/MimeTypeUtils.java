@@ -1,7 +1,7 @@
 package neu.train.common.utils.file;
 
 /**
- * 媒体类型工具类
+ * 媒体Type 工具类
  * 
  * @author
  */

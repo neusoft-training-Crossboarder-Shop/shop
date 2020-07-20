@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * 日期格式化工具类
+ * Time   格式化工具类
  */
 public class DateTimeUtil {
 

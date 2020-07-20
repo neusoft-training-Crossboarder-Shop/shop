@@ -4,7 +4,7 @@ package neu.train.framework.web.page;
 import neu.train.common.utils.ServletUtils;
 
 /**
- * 表格数据处理
+ * 表格Data 处理
  * 
  * @author
  */
@@ -21,12 +21,12 @@ public class TableSupport
     public static final String PAGE_SIZE = "pageSize";
 
     /**
-     * 排序列
+     * Sequence 列
      */
     public static final String ORDER_BY_COLUMN = "orderByColumn";
 
     /**
-     * 排序的方向 "desc" 或者 "asc".
+     * Sequence 的方向 "desc" 或者 "asc".
      */
     public static final String IS_ASC = "isAsc";
 

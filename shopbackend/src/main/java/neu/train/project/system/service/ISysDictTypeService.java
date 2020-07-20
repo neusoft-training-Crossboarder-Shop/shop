@@ -6,84 +6,84 @@ import neu.train.project.system.domain.SysDictData;
 import neu.train.project.system.domain.SysDictType;
 
 /**
- * 字典 业务层
+ * Dict    业务层
  * 
  * @author
  */
 public interface ISysDictTypeService
 {
     /**
-     * 根据条件分页查询字典类型
+     * 根据条件分页查询Dict   Type
      * 
-     * @param dictType 字典类型信息
-     * @return 字典类型集合信息
+     * @param dictType Dict   Type 信息
+     * @return Dict   Type 集合信息
      */
     public List<SysDictType> selectDictTypeList(SysDictType dictType);
 
     /**
-     * 根据所有字典类型
+     * 根据所有Dict   Type
      * 
-     * @return 字典类型集合信息
+     * @return Dict   Type 集合信息
      */
     public List<SysDictType> selectDictTypeAll();
 
     /**
-     * 根据字典类型查询字典数据
+     * 根据Dict   Type 查询Dict   Data
      * 
-     * @param dictType 字典类型
-     * @return 字典数据集合信息
+     * @param dictType Dict   Type
+     * @return Dict   Data 集合信息
      */
     public List<SysDictData> selectDictDataByType(String dictType);
 
     /**
-     * 根据字典类型ID查询信息
+     * 根据Dict   Type ID查询信息
      * 
-     * @param dictId 字典类型ID
-     * @return 字典类型
+     * @param dictId Dict   Type ID
+     * @return Dict   Type
      */
     public SysDictType selectDictTypeById(Long dictId);
 
     /**
-     * 根据字典类型查询信息
+     * 根据Dict   Type 查询信息
      * 
-     * @param dictType 字典类型
-     * @return 字典类型
+     * @param dictType Dict   Type
+     * @return Dict   Type
      */
     public SysDictType selectDictTypeByType(String dictType);
 
     /**
-     * 批量删除字典信息
+     * 批量 Delete Dict   信息
      * 
-     * @param dictIds 需要删除的字典ID
+     * @param dictIds 需要 Delete 的Dict   ID
      * @return 结果
      */
     public int deleteDictTypeByIds(Long[] dictIds);
 
     /**
-     * 清空缓存数据
+     * 清空缓存Data
      */
     public void clearCache();
 
     /**
-     * 新增保存字典类型信息
+     * Add 保存Dict   Type 信息
      * 
-     * @param dictType 字典类型信息
+     * @param dictType Dict   Type 信息
      * @return 结果
      */
     public int insertDictType(SysDictType dictType);
 
     /**
-     * 修改保存字典类型信息
+     *  Modify  保存Dict   Type 信息
      * 
-     * @param dictType 字典类型信息
+     * @param dictType Dict   Type 信息
      * @return 结果
      */
     public int updateDictType(SysDictType dictType);
 
     /**
-     * 校验字典类型称是否唯一
+     * 校验Dict   Type 称是否唯一
      * 
-     * @param dictType 字典类型
+     * @param dictType Dict   Type
      * @return 结果
      */
     public String checkDictTypeUnique(SysDictType dictType);

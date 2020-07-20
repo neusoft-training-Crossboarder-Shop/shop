@@ -70,7 +70,7 @@ public class FileUtils
     }
 
     /**
-     * 删除文件
+     *  Delete 文件
      * 
      * @param filePath 文件
      * @return
@@ -79,7 +79,7 @@ public class FileUtils
     {
         boolean flag = false;
         File file = new File(filePath);
-        // 路径为文件且不为空则进行删除
+        // 路径为文件且不为空则进行 Delete
         if (file.isFile() && file.exists())
         {
             file.delete();
@@ -89,10 +89,10 @@ public class FileUtils
     }
 
     /**
-     * 文件名称验证
+     * 文件Name验证
      * 
-     * @param filename 文件名称
-     * @return true 正常 false 非法
+     * @param filename 文件Name
+     * @return true Normal  false 非法
      */
     public static boolean isValidFilename(String filename)
     {

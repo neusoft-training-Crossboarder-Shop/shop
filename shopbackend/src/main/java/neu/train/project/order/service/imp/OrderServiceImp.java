@@ -39,7 +39,7 @@ public class OrderServiceImp implements OrderService {
     @Resource(name="DDMapper")
     StiStoreDropshipItemMapper stiStoreDropshipItemMapper;
 
-    //根据stoId起始终止时间模糊查询StoStrPro
+    //根据stoId起始终止time模糊查询StoStrPro
     @Override
     public List<SendASimpleSto> selectStoStrProByTime(GetAStoOrderQueryByTime getAStoOrderQueryByTime) {
         return stoStoreOrderMapper.selectStoStrProByMany(getAStoOrderQueryByTime);
@@ -67,7 +67,7 @@ public class OrderServiceImp implements OrderService {
         return stoStoreOrder;
     }
 
-    //根据stoId更新单个sto信息,其实就是更新个商品数量而已，缓存"stoById:"+stoId
+    //根据stoId更新单个sto信息,其实就是更新个商品数量而Already，缓存"stoById:"+stoId
     @Override
     public boolean updateStoById(String bvoId, GetUpdateASto getUpdateASto) {
         StoStoreOrder stoStoreOrder = selectStoById(getUpdateASto.getStoId());
@@ -132,7 +132,7 @@ public class OrderServiceImp implements OrderService {
         BigDecimal total = proProduct.getRetailPrice().multiply(new BigDecimal(String.valueOf(stoStoreOrder.getQty()))).add(new BigDecimal(getAPayMessage.freightCost));
         //bvo,mvo,total,让钱包自己去做钱包的事吧
         walletService.pay(bvoId, manManufacturerMapper.selectByPrimaryKey(proProduct.getManId()).getSysUserId(), total);
-        //原始订单修改
+        //原始订单 Modify
         stoStoreOrder.setPurchasePrice(proProduct.getRetailPrice());
         stoStoreOrder.setPaidTime(DateUtils.getTime());
         stoStoreOrder.setOrderStatus(2);
@@ -140,7 +140,7 @@ public class OrderServiceImp implements OrderService {
         stoStoreOrderMapper.updateByPrimaryKey(stoStoreOrder);
         stoStoreOrder = stoStoreOrderMapper.selectByPrimaryKey(stoStoreOrder.getStoId());
         redisCache.setCacheObject("stoById:" + stoStoreOrder.getStoId(), stoStoreOrder);
-        //新增销售订单
+        //Add 销售订单
         SaoSalesOrder saoSalesOrder = new SaoSalesOrder();
         saoSalesOrder.setManId(proProduct.getManId());
         saoSalesOrder.setProid(stoStoreOrder.getProid());
@@ -173,13 +173,13 @@ public class OrderServiceImp implements OrderService {
         return new SendComplexSao(saoSalesOrder,selectStoById(stoId),proProduct, strStore);
     }
 
-    //根据时间和id模糊查询saostrpro
+    //根据time和id模糊查询saostrpro
     @Override
     public List<SendComplexSao> selectSaoStrProByTime(GetASaoQueryByTime getASaoQueryByTime) {
         return saoSalesOrderMapper.selectSaoStrProByMany(getASaoQueryByTime);
     }
 
-    //就是更新下订单状态,缓存"stoById:"+stoId
+    //就是更新下订单Status,缓存"stoById:"+stoId
     @Override
     public boolean updateStoStatus(GetStoStatusQuery getStoStatusQuery) {
         StoStoreOrder stoStoreOrder = new StoStoreOrder();
@@ -259,7 +259,7 @@ public class OrderServiceImp implements OrderService {
         return stiStoreDropshipItem;
     }
 
-    //就改个上架状态，写缓存stiById:
+    //就改个上架Status，写缓存stiById:
     @Override
     public boolean onOffShelf(int someoneId,int dilId,String status){
         StiStoreDropshipItem stiStoreDropshipItem=selectStiRedisById(dilId);

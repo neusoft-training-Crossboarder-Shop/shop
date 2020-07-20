@@ -134,7 +134,7 @@ function buildRules(conf, ruleList) {
   if (trigger[conf.tag]) {
     if (conf.required) {
       const type = isArray(conf.defaultValue) ? 'type: \'array\',' : ''
-      let message = isArray(conf.defaultValue) ? `请至少选择一个${conf.vModel}` : conf.placeholder
+      let message = isArray(conf.defaultValue) ? `请至少 Selection  一个${conf.vModel}` : conf.placeholder
       if (message === undefined) message = `${conf.label}不能为空`
       rules.push(`{ required: true, ${type} message: '${message}', trigger: '${trigger[conf.tag]}' }`)
     }
@@ -179,7 +179,7 @@ function buildBeforeUpload(conf) {
   if (conf.accept) {
     acceptCode = `let isAccept = new RegExp('${conf.accept}').test(file.type)
     if(!isAccept){
-      this.$message.error('应该选择${conf.accept}类型的文件')
+      this.$message.error('应该 Selection  ${conf.accept}Type 的文件')
     }`
     returnList.push('isAccept')
   }
@@ -200,7 +200,7 @@ function buildSubmitUpload(conf) {
 
 function buildOptionMethod(methodName, model, methodList) {
   const str = `${methodName}() {
-    // TODO 发起请求获取数据
+    // TODO 发起请求获取Data 
     this.${model}
   },`
   methodList.push(str)

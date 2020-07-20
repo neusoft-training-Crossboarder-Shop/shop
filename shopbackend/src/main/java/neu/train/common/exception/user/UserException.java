@@ -3,7 +3,7 @@ package neu.train.common.exception.user;
 import neu.train.common.exception.BaseException;
 
 /**
- * 用户信息异常类
+ * User 信息异常类
  * 
  * @author
  */

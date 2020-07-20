@@ -39,7 +39,7 @@ public class WishListController extends BaseController {
         if (result == 1) {
             return AjaxResult.deleteSuccess();
         }else{
-            return AjaxResult.error("删除失败");
+            return AjaxResult.error(" Delete Fail");
         }
     }
 

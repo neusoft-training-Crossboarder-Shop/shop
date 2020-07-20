@@ -29,9 +29,9 @@ public class EscapeUtil
     }
 
     /**
-     * 转义文本中的HTML字符为安全的字符
+     * 转义文本中的HTMLCode为安全的Code
      * 
-     * @param text 被转义的文本
+     * @param text  be 转义的文本
      * @return 转义后的文本
      */
     public static String escape(String text)
@@ -40,10 +40,10 @@ public class EscapeUtil
     }
 
     /**
-     * 还原被转义的HTML特殊字符
+     * 还原 be 转义的HTML特殊Code
      * 
      * @param content 包含转义符的HTML内容
-     * @return 转换后的字符串
+     * @return 转换后的Code串
      */
     public static String unescape(String content)
     {
@@ -51,7 +51,7 @@ public class EscapeUtil
     }
 
     /**
-     * 清除所有HTML标签，但是不删除标签内的内容
+     * 清除所有HTML标签，但是不 Delete 标签内的内容
      * 
      * @param content 文本
      * @return 清除标签后的文本
@@ -64,8 +64,8 @@ public class EscapeUtil
     /**
      * Escape编码
      * 
-     * @param text 被编码的文本
-     * @return 编码后的字符
+     * @param text  be 编码的文本
+     * @return 编码后的Code
      */
     private static String encode(String text)
     {
@@ -94,8 +94,8 @@ public class EscapeUtil
     /**
      * Escape解码
      * 
-     * @param content 被转义的内容
-     * @return 解码后的字符串
+     * @param content  be 转义的内容
+     * @return 解码后的Code串
      */
     public static String decode(String content)
     {

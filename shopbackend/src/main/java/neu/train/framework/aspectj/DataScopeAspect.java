@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 
 /**
- * 数据过滤处理
+ * Data 过滤处理
  * 
  * @author
  */
@@ -29,32 +29,32 @@ import java.lang.reflect.Method;
 public class DataScopeAspect
 {
     /**
-     * 全部数据权限
+     * 全部 Data Authority
      */
     public static final String DATA_SCOPE_ALL = "1";
 
     /**
-     * 自定数据权限
+     * 自定 Data Authority
      */
     public static final String DATA_SCOPE_CUSTOM = "2";
 
     /**
-     * 部门数据权限
+     * 部门 Data Authority
      */
     public static final String DATA_SCOPE_DEPT = "3";
 
     /**
-     * 部门及以下数据权限
+     * 部门及以下 Data Authority
      */
     public static final String DATA_SCOPE_DEPT_AND_CHILD = "4";
 
     /**
-     * 仅本人数据权限
+     * 仅本人 Data Authority
      */
     public static final String DATA_SCOPE_SELF = "5";
 
     /**
-     * 数据权限过滤关键字
+     *  Data Authority过滤关键字
      */
     public static final String DATA_SCOPE = "dataScope";
 
@@ -78,12 +78,12 @@ public class DataScopeAspect
         {
             return;
         }
-        // 获取当前的用户
+        // 获取当前的User
         LoginUser loginUser = SpringUtils.getBean(TokenService.class).getLoginUser(ServletUtils.getRequest());
         SysUser currentUser = loginUser.getUser();
         if (currentUser != null)
         {
-            // 如果是超级管理员，则不过滤数据
+            // 如果是超级管理员，则不过滤Data
             if (!currentUser.isAdmin())
             {
                 dataScopeFilter(joinPoint, currentUser, controllerDataScope.deptAlias(),
@@ -93,10 +93,10 @@ public class DataScopeAspect
     }
 
     /**
-     * 数据范围过滤
+     * Data 范围过滤
      * 
      * @param joinPoint 切点
-     * @param user 用户
+     * @param user User
      */
     public static void dataScopeFilter(JoinPoint joinPoint, SysUser user, String deptAlias, String userAlias)
     {
@@ -134,7 +134,7 @@ public class DataScopeAspect
                 }
                 else
                 {
-                    // 数据权限为仅本人且没有userAlias别名不查询任何数据
+                    //  Data Authority为仅本人且没有userAlias别名不查询任何Data
                     sqlString.append(" OR 1=0 ");
                 }
             }

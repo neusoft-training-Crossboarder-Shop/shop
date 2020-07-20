@@ -41,7 +41,7 @@ public class WalletController extends BaseController {
     }
 
 
-    @ApiOperation(value = "注册钱包,给MVO,BVO用的", httpMethod = "POST", notes = "必选参数有：账户名称accountName,账户邮箱email，账户密码password,账户币种currency")
+    @ApiOperation(value = "Register 钱包,给MVO,BVO用的", httpMethod = "POST", notes = "必选参数有：账户NameaccountName,账户邮箱email，账户密码password,账户币种currency")
     @PreAuthorize("@ss.hasAnyPermi('bvo:wallet:use,mvo:wallet:index')")
     @Transactional
     @PostMapping("/wallet/account")
@@ -87,7 +87,7 @@ public class WalletController extends BaseController {
         }
     }
 
-    @ApiOperation(value = "返回当前用户钱包和钱包余额，感觉爱谁用谁用", httpMethod = "GET", notes = "参数:压根没有")
+    @ApiOperation(value = "返回当前User 钱包和钱包余额，感觉爱谁用谁用", httpMethod = "GET", notes = "参数:压根没有")
     @GetMapping("/wallet/fund")
     public AjaxResult selectWalletAndFund() {
         int buyerId = Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId());
@@ -95,7 +95,7 @@ public class WalletController extends BaseController {
     }
 
 
-    @ApiOperation(value = "返回钱包流水表数据，感觉爱谁用谁用", httpMethod = "GET", notes = "可选参数：流水Id,银行卡号bankCardId,流水状态status1申请2完成3失败，业务类型transactionType1充值2提现3消费4退款,起时间beginTime,止时间endTime")
+    @ApiOperation(value = "返回钱包流水表Data ，感觉爱谁用谁用", httpMethod = "GET", notes = "可选参数：流水Id,银行卡号bankCardId,流水Statusstatus1申请2complete3Fail，业务Type transactionType1充值2提现3消费4退款,起timebeginTime,止timeendTime")
     @GetMapping("/wallet/transaction")
     public TableDataInfo selectTransaction(GetATransactionQuery getATransactionQuery) {
         getATransactionQuery.setBuyerId(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()));
@@ -104,7 +104,7 @@ public class WalletController extends BaseController {
         return getDataTable(wtrWalletTransactionRecords);
     }
 
-    @ApiOperation(value = "返回流水审计表数据，给管理员用的", httpMethod = "GET", notes = "可选参数：用户Id buyerId，流水Id transactionId，操作类型operationType1申请2提现3消费4退款,起时间beginTime,止时间endTime")
+    @ApiOperation(value = "返回流水审计表Data ，给管理员用的", httpMethod = "GET", notes = "可选参数：User Id buyerId，流水Id transactionId，OperationType operationType1申请2提现3消费4退款,起timebeginTime,止timeendTime")
     @PreAuthorize("@ss.hasPermi('system:audit:list')")
     @GetMapping("system/audit/list")
     public TableDataInfo selectAudit(GetAnAuditQuery getAnAuditQuery) {
@@ -133,7 +133,7 @@ public class WalletController extends BaseController {
         return AjaxResult.success();
     }
 
-    @ApiOperation(value = "充值，给MVO,BVO用的", httpMethod = "POST", notes = "必选参数：操作钱数operateMoney 和 银行卡号bankCardId")
+    @ApiOperation(value = "充值，给MVO,BVO用的", httpMethod = "POST", notes = "必选参数：Operation钱数operateMoney 和 银行卡号bankCardId")
     @PreAuthorize("@ss.hasAnyPermi('bvo:wallet:use,mvo:wallet:index')")
     @Transactional
     @PostMapping("/wallet/transaction/deposit")
@@ -143,7 +143,7 @@ public class WalletController extends BaseController {
     }
 
 
-    @ApiOperation(value = "提现，给MVO,BVO用的", httpMethod = "POST", notes = "必选参数：操作钱数operateMoney 和 银行卡号bankCardId")
+    @ApiOperation(value = "提现，给MVO,BVO用的", httpMethod = "POST", notes = "必选参数：Operation钱数operateMoney 和 银行卡号bankCardId")
     @PreAuthorize("@ss.hasAnyPermi('bvo:wallet:use,mvo:wallet:index')")
     @Transactional
     @PostMapping("/wallet/transaction/withdraw")

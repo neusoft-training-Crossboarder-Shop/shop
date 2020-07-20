@@ -28,7 +28,7 @@ public class RouterVo
     private boolean hidden;
 
     /**
-     * 重定向地址，当设置 noRedirect 的时候该路由在面包屑导航中不可被点击
+     * 重定向地址，当设置 noRedirect 的时候该路由在面包屑导航中不可 be 点击
      */
     private String redirect;
 
