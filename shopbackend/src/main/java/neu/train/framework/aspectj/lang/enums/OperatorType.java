@@ -1,7 +1,7 @@
 package neu.train.framework.aspectj.lang.enums;
 
 /**
- * 操作人类别
+ * Operation人类别
  * 
  * @author
  */
@@ -13,12 +13,12 @@ public enum OperatorType
     OTHER,
 
     /**
-     * 后台用户
+     * 后台User
      */
     MANAGE,
 
     /**
-     * 手机端用户
+     * 手机端User
      */
     MOBILE
 }

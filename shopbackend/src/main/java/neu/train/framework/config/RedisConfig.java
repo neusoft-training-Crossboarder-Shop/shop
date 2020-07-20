@@ -21,7 +21,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class RedisConfig extends CachingConfigurerSupport
 {
     /**
-     * 默认情况下，RedisTemplate 只支持字符串
+     * 默认情况下，RedisTemplate 只支持Code串
      * @param connectionFactory
      * @return
      */

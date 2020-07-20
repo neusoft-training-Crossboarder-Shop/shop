@@ -17,31 +17,31 @@ public class BaseEntity implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
-    /** 搜索值 */
+    /** Search 值 */
     private String searchValue;
 
-    /** 创建者 */
+    /**  Create   者 */
     private String createBy;
 
-    /** 创建时间 */
+    /**  Create   time */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /** 更新者 */
     private String updateBy;
 
-    /** 更新时间 */
+    /** 更新time */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    /** 备注 */
+    /** Remark  */
     private String remark;
 
-    /** 开始时间 */
+    /** Start  time */
     @JsonIgnore
     private String beginTime;
 
-    /** 结束时间 */
+    /** End   time */
     @JsonIgnore
     private String endTime;
 

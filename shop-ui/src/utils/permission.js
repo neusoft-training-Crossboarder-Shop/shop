@@ -1,7 +1,7 @@
 import store from '@/store'
 
 /**
- * 字符权限校验
+ * CodeAuthority 校验
  * @param {Array} value 校验值
  * @returns {Boolean}
  */
@@ -25,7 +25,7 @@ export function checkPermi(value) {
 }
 
 /**
- * 角色权限校验
+ * RoleAuthority 校验
  * @param {Array} value 校验值
  * @returns {Boolean}
  */

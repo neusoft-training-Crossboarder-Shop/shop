@@ -17,6 +17,6 @@ public class CrossBoarderShopApplication
     {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(CrossBoarderShopApplication.class, args);
-        System.out.println("启动成功");
+        System.out.println("启动Success");
     }
 }

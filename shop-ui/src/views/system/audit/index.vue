@@ -33,7 +33,7 @@
         <el-row :gutter="10">
           <el-col :span="10">
             <el-form-item  label="Transaction Type">
-              <el-select v-model="queryParams.operateType" clearable placeholder="请选择">
+              <el-select v-model="queryParams.operateType" clearable placeholder="请 Selection  ">
                 <el-option
                   v-for="(item,index) in this.operateType"
                   :key="index"
@@ -45,7 +45,7 @@
           </el-col>
           <el-col :span="10">
             <el-form-item  label="Transaction  Status">
-              <el-select v-model="queryParams.status" clearable placeholder="请选择">
+              <el-select v-model="queryParams.status" clearable placeholder="请 Selection  ">
                 <el-option
                   v-for="(item,index) in this.status"
                   :key="index"
@@ -181,7 +181,7 @@
                </el-row>
              </div>
                <div v-else>
-                    <el-button :disabled="true" type="info">不可操作</el-button>
+                    <el-button :disabled="true" type="info">不可Operation</el-button>
                </div>
              </template>
            </el-table-column>
@@ -247,14 +247,14 @@
             }
           ],
           dataRange:[],
-          //业务类型 1-充值 2-提现 3-消费 4-退款
+          //业务Type  1-充值 2-提现 3-消费 4-退款
           operateType:[],
           status:[],
 
         }
       },
       created(){
-        // 1 -申请 , 2 -完成 , -3-失败
+        // 1 -申请 , 2 -complete , -3-Fail
           this.getDicts("wallet_transaction_status").then(response => {
             let data=response.data;
             data.forEach(item=>{
@@ -263,7 +263,7 @@
            this.getList();
         })
 
-        //业务类型 1-充值 2-提现 3-消费 4-退款
+        //业务Type  1-充值 2-提现 3-消费 4-退款
         this.getDicts("wallet_transaction_type").then(response => {
           let data=response.data;
           data.forEach(item=>{
@@ -292,13 +292,13 @@
           console.log(auditIds)
           let fatherThis=this;
 
-          this.$confirm('是否确认拒绝"' + auditIds + '"的数据项?', "警告", {
+          this.$confirm('是否 Confirm 拒绝"' + auditIds + '"的Data 项?', "警告", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"
           }).then(function() {
             refuseAuditRecord(auditIds).then(response=>{
-              console.log("拒绝成功")
+              console.log("拒绝Success")
               fatherThis.getList()
             });
           }).then(() => {
@@ -310,13 +310,13 @@
           const auditIds = row.transactionAuditId || this.ids;
           console.log(auditIds)
           let fatherThis=this;
-          this.$confirm('是否确认同意"' + auditIds + '"的数据项?', "警告", {
+          this.$confirm('是否 Confirm 同意"' + auditIds + '"的Data 项?', "警告", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"
           }).then(function() {
             acceptAuditRecord(auditIds).then(response=>{
-              console.log("同意成功")
+              console.log("同意Success")
               fatherThis.getList()
             });
 
@@ -338,7 +338,7 @@
         resetForm(formName) {
           this.$notify({
             title: '执行',
-            message: '重置按钮',
+            message: 'Reset  按钮',
             type: 'success'
           });
           this.$refs[formName].resetFields();

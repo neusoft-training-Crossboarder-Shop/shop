@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 验证码操作处理
+ * Validation Code Operation处理
  * 
  * @author
  */
@@ -28,7 +28,7 @@ public class CaptchaController
     private RedisCache redisCache;
 
     /**
-     * 生成验证码
+     * 生成Validation Code
      */
 
     @GetMapping("/captchaImage")
@@ -36,11 +36,11 @@ public class CaptchaController
     {
         // 生成随机字串
         String verifyCode = VerifyCodeUtils.generateVerifyCode(4);
-        // 唯一标识
+        // 唯一Signal
         String uuid = IdUtils.simpleUUID();
         String verifyKey = Constants.CAPTCHA_CODE_KEY + uuid;
 
-        // 为什么要对验证码进行 缓存呢 ?  我觉得没必要欸
+        // 为什么要对Validation Code 进行 缓存呢 ?  我觉得没必要欸
         redisCache.setCacheObject(verifyKey, verifyCode, Constants.CAPTCHA_EXPIRATION, TimeUnit.MINUTES);
         // 生成图片
         int w = 111, h = 36;

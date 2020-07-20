@@ -9,17 +9,17 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * 字典工具类
+ * Dict   工具类
  *
  * @author
  */
 public class DictUtils
 {
     /**
-     * 设置字典缓存
+     * 设置Dict   缓存
      *
      * @param key 参数键
-     * @param dictDatas 字典数据列表
+     * @param dictDatas Dict   Data 列表
      */
     public static void setDictCache(String key, List<SysDictData> dictDatas)
     {
@@ -27,10 +27,10 @@ public class DictUtils
     }
 
     /**
-     * 获取字典缓存
+     * 获取Dict   缓存
      *
      * @param key 参数键
-     * @return dictDatas 字典数据列表
+     * @return dictDatas Dict   Data 列表
      */
     public static List<SysDictData> getDictCache(String key)
     {
@@ -44,7 +44,7 @@ public class DictUtils
     }
 
     /**
-     * 清空字典缓存
+     * 清空Dict   缓存
      */
     public static void clearDictCache()
     {

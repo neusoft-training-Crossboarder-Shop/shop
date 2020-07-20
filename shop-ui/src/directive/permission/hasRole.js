@@ -1,5 +1,5 @@
  /**
- * 角色权限处理
+ * RoleAuthority 处理
  * Copyright (c) 2019
  */
  
@@ -22,7 +22,7 @@ export default {
         el.parentNode && el.parentNode.removeChild(el)
       }
     } else {
-      throw new Error(`请设置角色权限标签值"`)
+      throw new Error(`请设置RoleAuthority 标签值"`)
     }
   }
 }

@@ -12,7 +12,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="创建时间">
+      <el-form-item label=" Create   time">
         <el-date-picker
           v-model="dateRange"
           size="small"
@@ -20,13 +20,13 @@
           value-format="yyyy-MM-dd"
           type="daterange"
           range-separator="-"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
+          start-placeholder="Start  Time   "
+          end-placeholder="End   Time   "
         ></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">Search </el-button>
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">Reset  </el-button>
       </el-form-item>
     </el-form>
 
@@ -99,18 +99,18 @@
       </el-table-column>
 
 
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="Operation" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
 
           <el-button v-if="scope.row.orderStatus == 2" type="primary" @click.stop="update_status(scope.row.stoId,3)">发货</el-button>
           <el-button v-if="scope.row.orderStatus == 3"  type="primary" @click.stop="update_status(scope.row.stoId,4)">送达</el-button>
 
           <el-button v-if="scope.row.orderStatus == 4" type="info">
-            等待确认
+            Wait for Confirm
           </el-button>
 
           <el-button type="info" v-if="scope.row.orderStatus == 5 ">buttonCont
-            不可操作
+            不可Operation
           </el-button>
 
         </template>
@@ -177,14 +177,14 @@
           {text:'Amazon',value:1}, {text:'Ebay',value:2}
         ],
         status:[
-          {text:'待支付',value:1}, {text:'待发货',value:2}, {text:'待送达',value:3}, {text:'已送达',value:4}, {text:'已完成',value:5}
+          {text:'待支付',value:1}, {text:'待发货',value:2}, {text:'待送达',value:3}, {text:'Already送达',value:4}, {text:'Alreadycomplete',value:5}
         ],
       }
     },
     created(){
       this.getDicts("order_status").then(response => {
 
-      // 1 -申请 , 2 -完成 , -3-失败
+      // 1 -申请 , 2 -complete , -3-Fail
         let data=response.data;
         data.forEach((item,index)=>{
           this.status[index]=
@@ -242,7 +242,7 @@
           return 'danger'
         }
       },
-      /** 搜索按钮操作 */
+      /** Search 按钮Operation */
       handleQuery() {
         this.queryParams.pageNum = 1;
         this.getList();
@@ -255,7 +255,7 @@
       resetForm(formName) {
         this.$notify({
           title: '执行',
-          message: '重置按钮',
+          message: 'Reset  按钮',
           type: 'success'
         });
         this.$refs[formName].resetFields();

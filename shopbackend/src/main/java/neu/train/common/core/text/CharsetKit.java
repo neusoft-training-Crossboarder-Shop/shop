@@ -6,7 +6,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
- * 字符集工具类
+ * Code集工具类
  * 
  * @author
  */
@@ -29,7 +29,7 @@ public class CharsetKit
     /**
      * 转换为Charset对象
      * 
-     * @param charset 字符集，为空则返回默认字符集
+     * @param charset Code集，为空则返回默认Code集
      * @return Charset
      */
     public static Charset charset(String charset)
@@ -38,12 +38,12 @@ public class CharsetKit
     }
 
     /**
-     * 转换字符串的字符集编码
+     * 转换Code串的Code集编码
      * 
-     * @param source 字符串
-     * @param srcCharset 源字符集，默认ISO-8859-1
-     * @param destCharset 目标字符集，默认UTF-8
-     * @return 转换后的字符集
+     * @param source Code串
+     * @param srcCharset 源Code集，默认ISO-8859-1
+     * @param destCharset 目标Code集，默认UTF-8
+     * @return 转换后的Code集
      */
     public static String convert(String source, String srcCharset, String destCharset)
     {
@@ -51,12 +51,12 @@ public class CharsetKit
     }
 
     /**
-     * 转换字符串的字符集编码
+     * 转换Code串的Code集编码
      * 
-     * @param source 字符串
-     * @param srcCharset 源字符集，默认ISO-8859-1
-     * @param destCharset 目标字符集，默认UTF-8
-     * @return 转换后的字符集
+     * @param source Code串
+     * @param srcCharset 源Code集，默认ISO-8859-1
+     * @param destCharset 目标Code集，默认UTF-8
+     * @return 转换后的Code集
      */
     public static String convert(String source, Charset srcCharset, Charset destCharset)
     {
@@ -78,7 +78,7 @@ public class CharsetKit
     }
 
     /**
-     * @return 系统字符集编码
+     * @return 系统Code集编码
      */
     public static String systemCharset()
     {

@@ -9,7 +9,7 @@ export function listJobLog(query) {
   })
 }
 
-// 删除调度日志
+//  Delete 调度日志
 export function delJobLog(jobLogId) {
   return request({
     url: '/monitor/jobLog/' + jobLogId,
@@ -25,7 +25,7 @@ export function cleanJobLog() {
   })
 }
 
-// 导出调度日志
+// Export 调度日志
 export function exportJobLog(query) {
   return request({
     url: '/monitor/jobLog/export',

@@ -35,8 +35,8 @@ public class CommonController
     /**
      * 通用下载请求
      * 
-     * @param fileName 文件名称
-     * @param delete 是否删除
+     * @param fileName 文件Name
+     * @param delete 是否 Delete
      */
     @GetMapping("common/download")
     public void fileDownload(String fileName, Boolean delete, HttpServletResponse response, HttpServletRequest request)
@@ -45,7 +45,7 @@ public class CommonController
         {
             if (!FileUtils.isValidFilename(fileName))
             {
-                throw new Exception(StringUtils.format("文件名称({})非法，不允许下载。 ", fileName));
+                throw new Exception(StringUtils.format("文件Name({})非法，不允许下载。 ", fileName));
             }
             String realFileName = System.currentTimeMillis() + fileName.substring(fileName.indexOf("_") + 1);
             String filePath = ShopConfig.getDownloadPath() + fileName;
@@ -62,7 +62,7 @@ public class CommonController
         }
         catch (Exception e)
         {
-            log.error("下载文件失败", e);
+            log.error("下载文件Fail", e);
         }
     }
 
@@ -76,7 +76,7 @@ public class CommonController
         {
             // 上传文件路径
             String filePath = ShopConfig.getUploadPath();
-            // 上传并返回新文件名称
+            // 上传并返回新文件Name
             String fileName = FileUploadUtils.upload(filePath, file);
             String url = serverConfig.getUrl() + fileName;
             AjaxResult ajax = AjaxResult.success();
@@ -98,9 +98,9 @@ public class CommonController
     {
         // 本地资源路径
         String localPath = ShopConfig.getProfile();
-        // 数据库资源地址
+        // Data 库资源地址
         String downloadPath = localPath + StringUtils.substringAfter(name, Constants.RESOURCE_PREFIX);
-        // 下载名称
+        // 下载Name
         String downloadName = StringUtils.substringAfterLast(downloadPath, "/");
         response.setCharacterEncoding("utf-8");
         response.setContentType("multipart/form-data");

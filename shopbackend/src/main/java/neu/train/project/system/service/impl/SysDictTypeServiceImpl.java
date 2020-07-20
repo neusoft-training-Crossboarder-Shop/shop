@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * 字典 业务层处理
+ * Dict    业务层处理
  * 
  * @author
  */
@@ -30,7 +30,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService{
     private SysDictDataMapper dictDataMapper;
 
     /**
-     * 项目启动时，初始化字典到缓存
+     * 项目启动时，初始化Dict   到缓存
      */
     @PostConstruct
     public void init()
@@ -44,10 +44,10 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService{
     }
 
     /**
-     * 根据条件分页查询字典类型
+     * 根据条件分页查询Dict   Type
      * 
-     * @param dictType 字典类型信息
-     * @return 字典类型集合信息
+     * @param dictType Dict   Type 信息
+     * @return Dict   Type 集合信息
      */
     @Override
     public List<SysDictType> selectDictTypeList(SysDictType dictType)
@@ -56,9 +56,9 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService{
     }
 
     /**
-     * 根据所有字典类型
+     * 根据所有Dict   Type
      * 
-     * @return 字典类型集合信息
+     * @return Dict   Type 集合信息
      */
     @Override
     public List<SysDictType> selectDictTypeAll()
@@ -67,10 +67,10 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService{
     }
 
     /**
-     * 根据字典类型查询字典数据
+     * 根据Dict   Type 查询Dict   Data
      * 
-     * @param dictType 字典类型
-     * @return 字典数据集合信息
+     * @param dictType Dict   Type
+     * @return Dict   Data 集合信息
      */
     @Override
     public List<SysDictData> selectDictDataByType(String dictType)
@@ -90,10 +90,10 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService{
     }
 
     /**
-     * 根据字典类型ID查询信息
+     * 根据Dict   Type ID查询信息
      * 
-     * @param dictId 字典类型ID
-     * @return 字典类型
+     * @param dictId Dict   Type ID
+     * @return Dict   Type
      */
     @Override
     public SysDictType selectDictTypeById(Long dictId)
@@ -102,10 +102,10 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService{
     }
 
     /**
-     * 根据字典类型查询信息
+     * 根据Dict   Type 查询信息
      * 
-     * @param dictType 字典类型
-     * @return 字典类型
+     * @param dictType Dict   Type
+     * @return Dict   Type
      */
     @Override
     public SysDictType selectDictTypeByType(String dictType)
@@ -114,9 +114,9 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService{
     }
 
     /**
-     * 批量删除字典类型信息
+     * 批量 Delete Dict   Type 信息
      * 
-     * @param dictIds 需要删除的字典ID
+     * @param dictIds 需要 Delete 的Dict   ID
      * @return 结果
      */
     @Override
@@ -127,7 +127,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService{
             SysDictType dictType = selectDictTypeById(dictId);
             if (dictDataMapper.countDictDataByType(dictType.getDictType()) > 0)
             {
-                throw new CustomException(String.format("%1$s已分配,不能删除", dictType.getDictName()));
+                throw new CustomException(String.format("%1$sAlready分配,不能 Delete ", dictType.getDictName()));
             }
         }
         int count = dictTypeMapper.deleteDictTypeByIds(dictIds);
@@ -139,7 +139,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService{
     }
 
     /**
-     * 清空缓存数据
+     * 清空缓存Data
      */
     @Override
     public void clearCache()
@@ -148,9 +148,9 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService{
     }
 
     /**
-     * 新增保存字典类型信息
+     * Add 保存Dict   Type 信息
      * 
-     * @param dictType 字典类型信息
+     * @param dictType Dict   Type 信息
      * @return 结果
      */
     @Override
@@ -165,9 +165,9 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService{
     }
 
     /**
-     * 修改保存字典类型信息
+     *  Modify  保存Dict   Type 信息
      * 
-     * @param dictType 字典类型信息
+     * @param dictType Dict   Type 信息
      * @return 结果
      */
     @Override
@@ -185,9 +185,9 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService{
     }
 
     /**
-     * 校验字典类型称是否唯一
+     * 校验Dict   Type 称是否唯一
      * 
-     * @param dict 字典类型
+     * @param dict Dict   Type
      * @return 结果
      */
     @Override

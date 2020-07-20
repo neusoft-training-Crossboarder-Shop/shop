@@ -70,15 +70,15 @@ public class SysLoginController
     {
         if (UserConstants.NOT_UNIQUE.equals(userService.checkUserNameUnique(user.getUserName())))
         {
-            return AjaxResult.error("新增用户'" + user.getUserName() + "'失败，登录账号已存在");
+            return AjaxResult.error("Add User '" + user.getUserName() + "'Fail，登录账号Already存在");
         }
         else if (UserConstants.NOT_UNIQUE.equals(userService.checkPhoneUnique(user)))
         {
-            return AjaxResult.error("新增用户'" + user.getUserName() + "'失败，手机号码已存在");
+            return AjaxResult.error("Add User '" + user.getUserName() + "'Fail，Tele-NumberAlready存在");
         }
         else if (UserConstants.NOT_UNIQUE.equals(userService.checkEmailUnique(user)))
         {
-            return AjaxResult.error("新增用户'" + user.getUserName() + "'失败，邮箱账号已存在");
+            return AjaxResult.error("Add User '" + user.getUserName() + "'Fail，邮箱账号Already存在");
         }
         user.setCreateBy(user.getUserName());
         user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
@@ -87,18 +87,18 @@ public class SysLoginController
     }
 
     /**
-     * 获取用户信息
+     * 获取User 信息
      * 
-     * @return 用户信息
+     * @return User 信息
      */
     @GetMapping("getInfo")
     public AjaxResult getInfo()
     {
         LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
         SysUser user = loginUser.getUser();
-        // 角色集合
+        // Role集合
         Set<String> roles = permissionService.getRolePermission(user);
-        // 权限集合
+        // Authority 集合
         Set<String> permissions = permissionService.getMenuPermission(user);
         AjaxResult ajax = AjaxResult.success();
         ajax.put("user", user);
@@ -116,7 +116,7 @@ public class SysLoginController
     public AjaxResult getRouters()
     {
         LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
-        // 用户信息
+        // User 信息
         SysUser user = loginUser.getUser();
         List<SysMenu> menus = menuService.selectMenuTreeByUserId(user.getUserId());
         return AjaxResult.success(menuService.buildMenus(menus));

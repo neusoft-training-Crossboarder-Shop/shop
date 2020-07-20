@@ -87,7 +87,7 @@
             placement="top-start"
             trigger="click">
             <div>
-              <el-select v-model="selectedStore" placeholder="请选择"  multiple collapse-tags>
+              <el-select v-model="selectedStore" placeholder="请 Selection  "  multiple collapse-tags>
                 <el-option
                   v-for="item in storeList"
                   :key="item.storeId"
@@ -282,14 +282,14 @@
               this.$notify({
                 type:"success",
                 title:"执行",
-                message:"已经添加到商店"
+                message:"Already经 Add  到商店"
               })
             })
 
           },
           addToWishList:function () {
             addProIntoWishList({proId:this.pro.proId}).then(response=>{
-                //  添加成功了
+                //   Add  Success了
             })
           },
           platformTypeFormatter(platformType){

@@ -1,5 +1,5 @@
  /**
- * 操作权限处理
+ * OperationAuthority 处理
  *
  */
  
@@ -22,7 +22,7 @@ export default {
         el.parentNode && el.parentNode.removeChild(el)
       }
     } else {
-      throw new Error(`请设置操作权限标签值`)
+      throw new Error(`请设置OperationAuthority 标签值`)
     }
   }
 }

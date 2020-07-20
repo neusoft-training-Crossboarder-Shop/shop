@@ -5,64 +5,64 @@ import neu.train.project.system.domain.SysUser;
 import java.util.List;
 
 /**
- * 用户 业务层
+ * User  业务层
  * 
  * @author
  */
 public interface ISysUserService
 {
     /**
-     * 根据条件分页查询用户列表
+     * 根据条件分页查询User 列表
      * 
-     * @param user 用户信息
-     * @return 用户信息集合信息
+     * @param user User 信息
+     * @return User 信息集合信息
      */
     public List<SysUser> selectUserList(SysUser user);
 
     /**
-     * 通过用户名查询用户
+     * 通过User 名查询User
      * 
-     * @param userName 用户名
-     * @return 用户对象信息
+     * @param userName User 名
+     * @return User 对象信息
      */
     public SysUser selectUserByUserName(String userName);
 
     /**
-     * 通过用户ID查询用户
+     * 通过User ID查询User
      * 
-     * @param userId 用户ID
-     * @return 用户对象信息
+     * @param userId User ID
+     * @return User 对象信息
      */
     public SysUser selectUserById(Long userId);
 
     /**
-     * 根据用户ID查询用户所属角色组
+     * 根据User ID查询User 所属Role组
      * 
-     * @param userName 用户名
+     * @param userName User 名
      * @return 结果
      */
     public String selectUserRoleGroup(String userName);
 
     /**
-     * 根据用户ID查询用户所属岗位组
+     * 根据User ID查询User 所属岗位组
      * 
-     * @param userName 用户名
+     * @param userName User 名
      * @return 结果
      */
 //    public String selectUserPostGroup(String userName);
 
     /**
-     * 校验用户名称是否唯一
+     * 校验User Name是否唯一
      * 
-     * @param userName 用户名称
+     * @param userName User Name
      * @return 结果
      */
     public String checkUserNameUnique(String userName);
 
     /**
-     * 校验手机号码是否唯一
+     * 校验Tele-Number是否唯一
      *
-     * @param user 用户信息
+     * @param user User 信息
      * @return 结果
      */
     public String checkPhoneUnique(SysUser user);
@@ -70,88 +70,88 @@ public interface ISysUserService
     /**
      * 校验email是否唯一
      *
-     * @param user 用户信息
+     * @param user User 信息
      * @return 结果
      */
     public String checkEmailUnique(SysUser user);
 
     /**
-     * 校验用户是否允许操作
+     * 校验User 是否允许Operation
      * 
-     * @param user 用户信息
+     * @param user User 信息
      */
     public void checkUserAllowed(SysUser user);
 
     /**
-     * 新增用户信息
+     * Add User 信息
      * 
-     * @param user 用户信息
+     * @param user User 信息
      * @return 结果
      */
     public int insertUser(SysUser user);
 
     /**
-     * 修改用户信息
+     *  Modify  User 信息
      * 
-     * @param user 用户信息
+     * @param user User 信息
      * @return 结果
      */
     public int updateUser(SysUser user);
 
     /**
-     * 修改用户状态
+     *  Modify  User Status
      * 
-     * @param user 用户信息
+     * @param user User 信息
      * @return 结果
      */
     public int updateUserStatus(SysUser user);
 
     /**
-     * 修改用户基本信息
+     *  Modify  User 基本信息
      * 
-     * @param user 用户信息
+     * @param user User 信息
      * @return 结果
      */
     public int updateUserProfile(SysUser user);
 
     /**
-     * 修改用户头像
+     *  Modify  User 头像
      * 
-     * @param userName 用户名
+     * @param userName User 名
      * @param avatar 头像地址
      * @return 结果
      */
     public boolean updateUserAvatar(String userName, String avatar);
 
     /**
-     * 重置用户密码
+     * Reset  User 密码
      * 
-     * @param user 用户信息
+     * @param user User 信息
      * @return 结果
      */
     public int resetPwd(SysUser user);
 
     /**
-     * 重置用户密码
+     * Reset  User 密码
      * 
-     * @param userName 用户名
+     * @param userName User 名
      * @param password 密码
      * @return 结果
      */
     public int resetUserPwd(String userName, String password);
 
     /**
-     * 通过用户ID删除用户
+     * 通过User ID Delete User
      * 
-     * @param userId 用户ID
+     * @param userId User ID
      * @return 结果
      */
     public int deleteUserById(Long userId);
 
     /**
-     * 批量删除用户信息
+     * 批量 Delete User 信息
      * 
-     * @param userIds 需要删除的用户ID
+     * @param userIds 需要 Delete 的User ID
      * @return 结果
      */
     public int deleteUserByIds(Long[] userIds);

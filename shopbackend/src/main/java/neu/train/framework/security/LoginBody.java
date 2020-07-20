@@ -1,29 +1,29 @@
 package neu.train.framework.security;
 
 /**
- * 用户登录对象
+ * User 登录对象
  * 
  * @author
  */
 public class LoginBody
 {
     /**
-     * 用户名
+     * User 名
      */
     private String username;
 
     /**
-     * 用户密码
+     * User 密码
      */
     private String password;
 
     /**
-     * 验证码
+     * Validation Code
      */
     private String code;
 
     /**
-     * 唯一标识
+     * 唯一Signal
      */
     private String uuid = "";
 

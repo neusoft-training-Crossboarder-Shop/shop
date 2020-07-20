@@ -15,8 +15,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 判断请求url和数据是否和上一次相同，
- * 如果和上次相同，则是重复提交表单。 有效时间为10秒内。
+ * 判断请求url和Data 是否和上一次相同，
+ * 如果和上次相同，则是重复提交表单。 有效time为10秒内。
  * 
  * @author
  */
@@ -33,9 +33,9 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor
     private RedisCache redisCache;
 
     /**
-     * 间隔时间，单位:秒 默认10秒
+     * 间隔time，单位:秒 默认10秒
      * 
-     * 两次相同参数的请求，如果间隔时间大于该参数，系统不会认定为重复提交的数据
+     * 两次相同参数的请求，如果间隔time大于该参数，系统不会认定为重复提交的Data
      */
     private int intervalTime = 10;
 
@@ -51,7 +51,7 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor
         RepeatedlyRequestWrapper repeatedlyRequest = (RepeatedlyRequestWrapper) request;
         String nowParams = HttpHelper.getBodyString(repeatedlyRequest);
 
-        // body参数为空，获取Parameter的数据
+        // body参数为空，获取Parameter的Data
         if (StringUtils.isEmpty(nowParams))
         {
             nowParams = JSONObject.toJSONString(request.getParameterMap());
@@ -93,7 +93,7 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor
     }
 
     /**
-     * 判断两次间隔时间
+     * 判断两次间隔time
      */
     private boolean compareTime(Map<String, Object> nowMap, Map<String, Object> preMap)
     {

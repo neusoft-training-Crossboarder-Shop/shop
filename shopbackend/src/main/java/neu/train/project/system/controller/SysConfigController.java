@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 参数配置 信息操作处理
+ * 参数配置 信息Operation处理
  * 
  * @author
  */
@@ -46,11 +46,11 @@ public class SysConfigController extends BaseController
 //    {
 //        List<SysConfig> list = configService.selectConfigList(config);
 //        ExcelUtil<SysConfig> util = new ExcelUtil<SysConfig>(SysConfig.class);
-//        return util.exportExcel(list, "参数数据");
+//        return util.exportExcel(list, "参数Data ");
 //    }
 
     /**
-     * 根据参数编号获取详细信息
+     * 根据参数ID获取详细信息
      */
     @PreAuthorize("@ss.hasPermi('system:config:query')")
     @GetMapping(value = "/{configId}")
@@ -69,7 +69,7 @@ public class SysConfigController extends BaseController
     }
 
     /**
-     * 新增参数配置
+     * Add 参数配置
      */
     @PreAuthorize("@ss.hasPermi('system:config:add')")
 //    @Log(title = "参数管理", businessType = BusinessType.INSERT)
@@ -78,14 +78,14 @@ public class SysConfigController extends BaseController
     {
         if (UserConstants.NOT_UNIQUE.equals(configService.checkConfigKeyUnique(config)))
         {
-            return AjaxResult.error("新增参数'" + config.getConfigName() + "'失败，参数键名已存在");
+            return AjaxResult.error("Add 参数'" + config.getConfigName() + "'Fail，参数键名Already存在");
         }
         config.setCreateBy(SecurityUtils.getUsername());
         return toAjax(configService.insertConfig(config));
     }
 
     /**
-     * 修改参数配置
+     *  Modify  参数配置
      */
     @PreAuthorize("@ss.hasPermi('system:config:edit')")
 //    @Log(title = "参数管理", businessType = BusinessType.UPDATE)
@@ -94,14 +94,14 @@ public class SysConfigController extends BaseController
     {
         if (UserConstants.NOT_UNIQUE.equals(configService.checkConfigKeyUnique(config)))
         {
-            return AjaxResult.error("修改参数'" + config.getConfigName() + "'失败，参数键名已存在");
+            return AjaxResult.error(" Modify  参数'" + config.getConfigName() + "'Fail，参数键名Already存在");
         }
         config.setUpdateBy(SecurityUtils.getUsername());
         return toAjax(configService.updateConfig(config));
     }
 
     /**
-     * 删除参数配置
+     *  Delete 参数配置
      */
     @PreAuthorize("@ss.hasPermi('system:config:remove')")
 //    @Log(title = "参数管理", businessType = BusinessType.DELETE)

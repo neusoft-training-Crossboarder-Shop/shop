@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 查询字典数据列表
+// 查询Dict   Data 列表
 export function listData(query) {
   return request({
     url: '/system/dict/data/list',
@@ -9,7 +9,7 @@ export function listData(query) {
   })
 }
 
-// 查询字典数据详细
+// 查询Dict   Data 详细
 export function getData(dictCode) {
   return request({
     url: '/system/dict/data/' + dictCode,
@@ -17,7 +17,7 @@ export function getData(dictCode) {
   })
 }
 
-// 根据字典类型查询字典数据信息
+// 根据Dict   Type 查询Dict   Data 信息
 export function getDicts(dictType) {
   return request({
     url: '/system/dict/data/type/' + dictType,
@@ -25,7 +25,7 @@ export function getDicts(dictType) {
   })
 }
 
-// 新增字典数据
+// Add Dict   Data
 export function addData(data) {
   return request({
     url: '/system/dict/data',
@@ -34,7 +34,7 @@ export function addData(data) {
   })
 }
 
-// 修改字典数据
+//  Modify  Dict   Data
 export function updateData(data) {
   return request({
     url: '/system/dict/data',
@@ -43,7 +43,7 @@ export function updateData(data) {
   })
 }
 
-// 删除字典数据
+//  Delete Dict   Data
 export function delData(dictCode) {
   return request({
     url: '/system/dict/data/' + dictCode,
@@ -51,7 +51,7 @@ export function delData(dictCode) {
   })
 }
 
-// 导出字典数据
+// Export Dict   Data
 export function exportData(query) {
   return request({
     url: '/system/dict/data/export',

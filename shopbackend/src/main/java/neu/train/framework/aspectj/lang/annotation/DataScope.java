@@ -3,7 +3,7 @@ package neu.train.framework.aspectj.lang.annotation;
 import java.lang.annotation.*;
 
 /**
- * 数据权限过滤注解
+ *  Data Authority过滤注解
  * 
  * @author
  */
@@ -18,7 +18,7 @@ public @interface DataScope
     public String deptAlias() default "";
 
     /**
-     * 用户表的别名
+     * User 表的别名
      */
     public String userAlias() default "";
 }

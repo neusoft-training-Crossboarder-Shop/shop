@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 查询角色列表
+// 查询Role列表
 export function listRole(query) {
   return request({
     url: '/system/role/list',
@@ -9,7 +9,7 @@ export function listRole(query) {
   })
 }
 
-// 查询角色详细
+// 查询Role详细
 export function getRole(roleId) {
   return request({
     url: '/system/role/' + roleId,
@@ -17,7 +17,7 @@ export function getRole(roleId) {
   })
 }
 
-// 新增角色
+// Add Role
 export function addRole(data) {
   return request({
     url: '/system/role',
@@ -26,7 +26,7 @@ export function addRole(data) {
   })
 }
 
-// 修改角色
+//  Modify  Role
 export function updateRole(data) {
   return request({
     url: '/system/role',
@@ -35,7 +35,7 @@ export function updateRole(data) {
   })
 }
 
-// 角色数据权限
+// Role Data Authority
 export function dataScope(data) {
   return request({
     url: '/system/role/dataScope',
@@ -44,7 +44,7 @@ export function dataScope(data) {
   })
 }
 
-// 角色状态修改
+// RoleStatus Modify
 export function changeRoleStatus(roleId, status) {
   const data = {
     roleId,
@@ -57,7 +57,7 @@ export function changeRoleStatus(roleId, status) {
   })
 }
 
-// 删除角色
+//  Delete Role
 export function delRole(roleId) {
   return request({
     url: '/system/role/' + roleId,
@@ -65,7 +65,7 @@ export function delRole(roleId) {
   })
 }
 
-// 导出角色
+// Export Role
 export function exportRole(query) {
   return request({
     url: '/system/role/export',

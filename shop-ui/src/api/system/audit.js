@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 
-//返回 ： 分页数据
+//返回 ： 分页Data 
 export function listAuditRecord(data){
   return request({
      url: '/system/audit/list',
@@ -10,7 +10,7 @@ export function listAuditRecord(data){
   })
 }
 
-//什么返回值都不要 成功就Ajax.success(). 错误就Ajax.error(msg)
+//什么返回值都不要 Success就Ajax.success(). 错误就Ajax.error(msg)
 export function acceptAuditRecord(ids){
   return request({
     url:'/system/audit/accept/'+ids,

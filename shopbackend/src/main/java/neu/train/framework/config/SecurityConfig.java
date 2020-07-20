@@ -27,14 +27,14 @@ public class
 SecurityConfig extends WebSecurityConfigurerAdapter
 {
     /**
-     * 自定义用户认证逻辑
+     * 自定义User 认证逻辑
      */
     @Qualifier("MyUserDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
     
     /**
-     * 认证失败处理类
+     * 认证Fail处理类
      */
     @Autowired
     private AuthenticationEntryPointImpl unauthorizedHandler;
@@ -68,16 +68,16 @@ SecurityConfig extends WebSecurityConfigurerAdapter
      * anyRequest          |   匹配所有请求路径
      * access              |   SpringEl表达式结果为true时可以访问
      * anonymous           |   匿名可以访问
-     * denyAll             |   用户不能访问
-     * fullyAuthenticated  |   用户完全认证可以访问（非remember-me下自动登录）
-     * hasAnyAuthority     |   如果有参数，参数表示权限，则其中任何一个权限可以访问
-     * hasAnyRole          |   如果有参数，参数表示角色，则其中任何一个角色可以访问
-     * hasAuthority        |   如果有参数，参数表示权限，则其权限可以访问
-     * hasIpAddress        |   如果有参数，参数表示IP地址，如果用户IP和参数匹配，则可以访问
-     * hasRole             |   如果有参数，参数表示角色，则其角色可以访问
-     * permitAll           |   用户可以任意访问
-     * rememberMe          |   允许通过remember-me登录的用户访问
-     * authenticated       |   用户登录后可访问
+     * denyAll             |   User 不能访问
+     * fullyAuthenticated  |   User 完全认证可以访问（非remember-me下自动登录）
+     * hasAnyAuthority     |   如果有参数，参数表示Authority ，则其中任何一个Authority 可以访问
+     * hasAnyRole          |   如果有参数，参数表示Role，则其中任何一个Role可以访问
+     * hasAuthority        |   如果有参数，参数表示Authority ，则其Authority 可以访问
+     * hasIpAddress        |   如果有参数，参数表示IP地址，如果User IP和参数匹配，则可以访问
+     * hasRole             |   如果有参数，参数表示Role，则其Role可以访问
+     * permitAll           |   User 可以任意访问
+     * rememberMe          |   允许通过remember-me登录的User 访问
+     * authenticated       |   User 登录后可访问
      */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception
@@ -85,13 +85,13 @@ SecurityConfig extends WebSecurityConfigurerAdapter
         httpSecurity
                 // CRSF禁用，因为不使用session
                 .csrf().disable()
-                // 认证失败处理类
+                // 认证Fail处理类
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 // 基于token，所以不需要session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 // 过滤请求
                 .authorizeRequests()
-                // 对于登录login 注册 验证码captchaImage 允许匿名访问
+                // 对于登录login Register  Validation Code captchaImage 允许匿名访问
                 .antMatchers("/login", "/captchaImage","/register").anonymous()
 
                 .antMatchers(
@@ -114,7 +114,7 @@ SecurityConfig extends WebSecurityConfigurerAdapter
                 .and()
                 .headers().frameOptions().disable();
         httpSecurity.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
-        // 添加JWT filter
+        //  Add  JWT filter
         httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 

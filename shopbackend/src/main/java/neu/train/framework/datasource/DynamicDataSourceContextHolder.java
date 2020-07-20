@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 数据源切换处理
+ * Data 源切换处理
  * 
  * @author
  */
@@ -19,16 +19,16 @@ public class DynamicDataSourceContextHolder
     private static final ThreadLocal<String> CONTEXT_HOLDER = new ThreadLocal<>();
 
     /**
-     * 设置数据源的变量
+     * 设置Data 源的变量
      */
     public static void setDataSourceType(String dsType)
     {
-        log.info("切换到{}数据源", dsType);
+        log.info("切换到{}Data 源", dsType);
         CONTEXT_HOLDER.set(dsType);
     }
 
     /**
-     * 获得数据源的变量
+     * 获得Data 源的变量
      */
     public static String getDataSourceType()
     {
@@ -36,7 +36,7 @@ public class DynamicDataSourceContextHolder
     }
 
     /**
-     * 清空数据源变量
+     * 清空Data 源变量
      */
     public static void clearDataSourceType()
     {

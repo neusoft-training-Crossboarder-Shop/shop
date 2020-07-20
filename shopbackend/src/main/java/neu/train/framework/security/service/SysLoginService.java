@@ -36,20 +36,20 @@ public class SysLoginService
     /**
      * 登录验证
      * 
-     * @param username 用户名
+     * @param username User 名
      * @param password 密码
-     * @param captcha 验证码
-     * @param uuid 唯一标识
+     * @param captcha Validation Code
+     * @param uuid 唯一Signal
      * @return 结果
      */
     public String login(String username, String password, String code, String uuid) {
-        //uuid 在客户端就已经生成了 code是验证码 uuid 在生成验证码时产生
+        //uuid 在客户端就Already经生成了 code是Validation Code  uuid 在生成Validation Code 时产生
         String verifyKey = Constants.CAPTCHA_CODE_KEY + uuid;
 
-        //为该用户生成验证码的时候 就已经缓存了这个验证码 uuid
+        //为该User 生成Validation Code 的时候 就Already经缓存了这个Validation Code  uuid
         String captcha = redisCache.getCacheObject(verifyKey);
 
-        //删除这个缓存的对象
+        // Delete 这个缓存的对象
         redisCache.deleteObject(verifyKey);
         if (captcha == null)
         {
@@ -63,7 +63,7 @@ public class SysLoginService
 //            AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.error")));
             throw new CaptchaException();
         }
-        // 用户验证
+        // User 验证
         Authentication authentication = null;
         try
         {
@@ -88,7 +88,7 @@ public class SysLoginService
 //        AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
 
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        // 生成token 并且缓存该用户
+        // 生成token 并且缓存该User
         return tokenService.createToken(loginUser);
     }
 }

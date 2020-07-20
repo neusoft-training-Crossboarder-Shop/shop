@@ -46,7 +46,7 @@ public class SysProfileController extends BaseController
     }
 
     /**
-     * 修改用户
+     *  Modify  User
      */
 //    @Log(title = "个人信息", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -55,7 +55,7 @@ public class SysProfileController extends BaseController
         if (userService.updateUserProfile(user) > 0)
         {
             LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
-            // 更新缓存用户信息
+            // 更新缓存User 信息
             loginUser.getUser().setNickName(user.getNickName());
             loginUser.getUser().setPhonenumber(user.getPhonenumber());
             loginUser.getUser().setEmail(user.getEmail());
@@ -63,11 +63,11 @@ public class SysProfileController extends BaseController
             tokenService.setLoginUser(loginUser);
             return AjaxResult.success();
         }
-        return AjaxResult.error("修改个人信息异常，请联系管理员");
+        return AjaxResult.error(" Modify  个人信息异常，Please contact the Admin to");
     }
 
     /**
-     * 重置密码
+     * Reset  密码
      */
 //    @Log(title = "个人信息", businessType = BusinessType.UPDATE)
     @PutMapping("/updatePwd")
@@ -78,7 +78,7 @@ public class SysProfileController extends BaseController
         String password = loginUser.getPassword();
         if (!SecurityUtils.matchesPassword(oldPassword, password))
         {
-            return AjaxResult.error("修改密码失败，旧密码错误");
+            return AjaxResult.error(" Modify  密码Fail，旧密码错误");
         }
         if (SecurityUtils.matchesPassword(newPassword, password))
         {
@@ -86,18 +86,18 @@ public class SysProfileController extends BaseController
         }
         if (userService.resetUserPwd(userName, SecurityUtils.encryptPassword(newPassword)) > 0)
         {
-            // 更新缓存用户密码
+            // 更新缓存User 密码
             loginUser.getUser().setPassword(SecurityUtils.encryptPassword(newPassword));
             tokenService.setLoginUser(loginUser);
             return AjaxResult.success();
         }
-        return AjaxResult.error("修改密码异常，请联系管理员");
+        return AjaxResult.error(" Modify  密码异常，Please contact the Admin to");
     }
 
     /**
      * 头像上传
      */
-//    @Log(title = "用户头像", businessType = BusinessType.UPDATE)
+//    @Log(title = "User 头像", businessType = BusinessType.UPDATE)
     @PostMapping("/avatar")
     public AjaxResult avatar(@RequestParam("avatarfile") MultipartFile file) throws IOException
     {
@@ -109,12 +109,12 @@ public class SysProfileController extends BaseController
             {
                 AjaxResult ajax = AjaxResult.success();
                 ajax.put("imgUrl", avatar);
-                // 更新缓存用户头像
+                // 更新缓存User 头像
                 loginUser.getUser().setAvatar(avatar);
                 tokenService.setLoginUser(loginUser);
                 return ajax;
             }
         }
-        return AjaxResult.error("上传图片异常，请联系管理员");
+        return AjaxResult.error("上传图片异常，Please contact the Admin to");
     }
 }

@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * 认证失败处理类 返回未授权
+ * 认证Fail处理类 返回未授权
  * 
  * @author
  */
@@ -29,7 +29,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
             throws IOException
     {
         int code = HttpStatus.UNAUTHORIZED;
-        String msg = StringUtils.format("请求访问：{}，认证失败，无法访问系统资源", request.getRequestURI());
+        String msg = StringUtils.format("请求访问：{}，认证Fail，无法访问系统资源", request.getRequestURI());
         ServletUtils.renderString(response, JSON.toJSONString(AjaxResult.error(code, msg)));
     }
 }

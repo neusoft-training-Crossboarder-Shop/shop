@@ -35,7 +35,7 @@ import { getToken } from '@/utils/auth'
 
 // 工具栏配置
 const toolbarOptions = [
-  ["bold", "italic", "underline", "strike"],       // 加粗 斜体 下划线 删除线
+  ["bold", "italic", "underline", "strike"],       // 加粗 斜体 下划线  Delete 线
   ["blockquote", "code-block"],                    // 引用  代码块
   [{ list: "ordered" }, { list: "bullet" }],       // 有序、无序列表
   [{ indent: "-1" }, { indent: "+1" }],            // 缩进
@@ -70,14 +70,14 @@ export default {
       content: this.value,
       editorOption: {
         theme: "snow", // or 'bubble'
-        placeholder: "请输入内容",
+        placeholder: "Please Enter 内容",
         modules: {
           toolbar: {
             container: toolbarOptions,
             handlers: {
               image: function(value) {
                 if (value) {
-                  // 触发input框选择图片文件
+                  // 触发input框 Selection  图片文件
                   document.querySelector(".quill-img input").click();
                 } else {
                   this.quill.format("image", false);
@@ -116,16 +116,16 @@ export default {
 			if(fileType === 'image/jpeg' || fileType === 'image/png'){
 				return true;
 			}else {
-				this.$message.error('请插入图片类型文件(jpg/jpeg/png)');
+				this.$message.error('请插入图片Type 文件(jpg/jpeg/png)');
 				return false;
 			}
     },
 
     quillImgSuccess(res, file) {
-      // res为图片服务器返回的数据
+      // res为图片服务器返回的Data
       // 获取富文本组件实例
       let quill = this.$refs.quillEditor.quill;
-      // 如果上传成功
+      // 如果上传Success
       if (res.code == 200) {
         // 获取光标所在位置
         let length = quill.getSelection().index;
@@ -134,13 +134,13 @@ export default {
         // 调整光标到最后
         quill.setSelection(length + 1);
       } else {
-        this.$message.error("图片插入失败");
+        this.$message.error("图片插入Fail");
       }
     },
-    // 富文本图片上传失败
+    // 富文本图片上传Fail
     uploadError() {
       // loading动画消失
-      this.$message.error("图片插入失败");
+      this.$message.error("图片插入Fail");
     }
   }
 };
@@ -155,7 +155,7 @@ export default {
   display: none;
 }
 .ql-snow .ql-tooltip[data-mode="link"]::before {
-  content: "请输入链接地址:";
+  content: "Please Enter 链接地址:";
 }
 .ql-snow .ql-tooltip.ql-editing a.ql-action::after {
   border-right: 0px;
@@ -164,7 +164,7 @@ export default {
 }
 
 .ql-snow .ql-tooltip[data-mode="video"]::before {
-  content: "请输入视频地址:";
+  content: "Please Enter 视频地址:";
 }
 
 .ql-snow .ql-picker.ql-size .ql-picker-label::before,

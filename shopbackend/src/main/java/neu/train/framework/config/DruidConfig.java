@@ -26,7 +26,7 @@ import neu.train.framework.config.properties.DruidProperties;
 import neu.train.framework.datasource.DynamicDataSource;
 
 /**
- * druid 配置多数据源
+ * druid 配置多Data 源
  *
  * @author
  */
@@ -61,11 +61,11 @@ public class DruidConfig
     }
 
     /**
-     * 设置数据源
+     * 设置Data 源
      *
-     * @param targetDataSources 备选数据源集合
-     * @param sourceName 数据源名称
-     * @param beanName bean名称
+     * @param targetDataSources 备选Data 源集合
+     * @param sourceName Data 源Name
+     * @param beanName beanName
      */
     public void setDataSource(Map<Object, Object> targetDataSources, String sourceName, String beanName)
     {
@@ -93,7 +93,7 @@ public class DruidConfig
         String pattern = config.getUrlPattern() != null ? config.getUrlPattern() : "/druid/*";
         String commonJsPattern = pattern.replaceAll("\\*", "js/common.js");
         final String filePath = "support/http/resources/js/common.js";
-        // 创建filter进行过滤
+        //  Create   filter进行过滤
         Filter filter = new Filter()
         {
             @Override
@@ -105,7 +105,7 @@ public class DruidConfig
                     throws IOException, ServletException
             {
                 chain.doFilter(request, response);
-                // 重置缓冲区，响应头不会被重置
+                // Reset  缓冲区，响应头不会 be Reset
                 response.resetBuffer();
                 // 获取common.js
                 String text = Utils.readFromResource(filePath);

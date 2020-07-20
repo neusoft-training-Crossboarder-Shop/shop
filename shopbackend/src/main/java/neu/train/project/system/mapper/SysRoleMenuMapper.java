@@ -5,32 +5,32 @@ import neu.train.project.system.domain.SysRoleMenu;
 import java.util.List;
 
 /**
- * 角色与菜单关联表 数据层
+ * Role与Menu 关联表 Data 层
  * 
  * @author
  */
 public interface SysRoleMenuMapper
 {
     /**
-     * 查询菜单使用数量
+     * 查询Menu 使用数量
      * 
-     * @param menuId 菜单ID
+     * @param menuId Menu ID
      * @return 结果
      */
     public int checkMenuExistRole(Long menuId);
 
     /**
-     * 通过角色ID删除角色和菜单关联
+     * 通过RoleID Delete Role和Menu 关联
      * 
-     * @param roleId 角色ID
+     * @param roleId RoleID
      * @return 结果
      */
     public int deleteRoleMenuByRoleId(Long roleId);
 
     /**
-     * 批量新增角色菜单信息
+     * 批量Add RoleMenu 信息
      * 
-     * @param roleMenuList 角色菜单列表
+     * @param roleMenuList RoleMenu 列表
      * @return 结果
      */
     public int batchRoleMenu(List<SysRoleMenu> roleMenuList);

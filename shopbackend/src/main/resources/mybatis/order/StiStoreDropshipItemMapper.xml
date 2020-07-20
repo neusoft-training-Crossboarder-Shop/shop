@@ -355,10 +355,10 @@
       <if test="proId != null and proId != ''">
         AND sti.pro_id like concat ('%', #{proId},'%')
       </if>
-      <if test="startTime != null and startTime != ''"><!-- 开始时间检索 -->
+      <if test="startTime != null and startTime != ''"><!-- Start  time检索 -->
         and date_format(sti.create_time,'%y%m%d') &gt;= date_format(#{startTime},'%y%m%d')
       </if>
-      <if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+      <if test="endTime != null and endTime != ''"><!-- End   time检索 -->
         and date_format(sti.create_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
       </if>
       and sti.pro_id=pro.pro_id

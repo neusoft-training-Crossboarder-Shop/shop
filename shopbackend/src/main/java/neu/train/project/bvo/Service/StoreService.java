@@ -28,7 +28,7 @@ public interface StoreService
     public List<Store> getStoreList(Store store);
 
     /**
-     * 新增
+     * Add
      *
      * @param store
      * @return 结果
@@ -36,7 +36,7 @@ public interface StoreService
     public int insertStore(Store store);
 
     /**
-     * 修改
+     *  Modify
      *
      * @param store 参数
      * @return 结果
@@ -44,15 +44,15 @@ public interface StoreService
     public int updateStore(Store store);
 
     /**
-     * 批量删除
+     * 批量 Delete
      *
-     * @param storeId 需要删除的参数ID
+     * @param storeId 需要 Delete 的参数ID
      * @return 结果
      */
     public int deleteStoreByIds(int[] storeId);
 
     /**
-     * 清空缓存数据
+     * 清空缓存Data
      */
     public void clearCache();
 

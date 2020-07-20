@@ -3,19 +3,19 @@ package neu.train.common.utils.sql;
 import neu.train.common.utils.StringUtils;
 
 /**
- * sql操作工具类
+ * sqlOperation工具类
  * 
  * @author
  */
 public class SqlUtil
 {
     /**
-     * 仅支持字母、数字、下划线、空格、逗号（支持多个字段排序）
+     * 仅支持字母、数字、下划线、空格、逗号（支持多个字段Sequence ）
      */
     public static String SQL_PATTERN = "[a-zA-Z0-9_\\ \\,]+";
 
     /**
-     * 检查字符，防止注入绕过
+     * 检查Code，防止注入绕过
      */
     public static String escapeOrderBySql(String value)
     {

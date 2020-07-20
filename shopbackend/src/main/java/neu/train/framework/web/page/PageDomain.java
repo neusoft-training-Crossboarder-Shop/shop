@@ -4,7 +4,7 @@ package neu.train.framework.web.page;
 import neu.train.common.utils.StringUtils;
 
 /**
- * 分页数据
+ * 分页Data
  * 
  * @author
  */
@@ -14,9 +14,9 @@ public class PageDomain
     private Integer pageNum;
     /** 每页显示记录数 */
     private Integer pageSize;
-    /** 排序列 */
+    /** Sequence 列 */
     private String orderByColumn;
-    /** 排序的方向 "desc" 或者 "asc". */
+    /** Sequence 的方向 "desc" 或者 "asc". */
     private String isAsc;
 
     public String getOrderBy()

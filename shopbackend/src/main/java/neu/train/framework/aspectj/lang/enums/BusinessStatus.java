@@ -1,7 +1,7 @@
 package neu.train.framework.aspectj.lang.enums;
 
 /**
- * 操作状态
+ * OperationStatus
  * 
  * @author
  *
@@ -9,12 +9,12 @@ package neu.train.framework.aspectj.lang.enums;
 public enum BusinessStatus
 {
     /**
-     * 成功
+     * Success
      */
     SUCCESS,
 
     /**
-     * 失败
+     * Fail
      */
     FAIL,
 }

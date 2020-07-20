@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 时间工具类
+ * time工具类
  * 
  * @author
  */
@@ -30,9 +30,9 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
             "yyyy.MM.dd", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm", "yyyy.MM"};
 
     /**
-     * 获取当前Date型日期
+     * 获取当前Date型Time
      * 
-     * @return Date() 当前日期
+     * @return Date() 当前Time
      */
     public static Date getNowDate()
     {
@@ -40,7 +40,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
     }
 
     /**
-     * 获取当前日期, 默认格式为yyyy-MM-dd
+     * 获取当前Time   , 默认格式为yyyy-MM-dd
      * 
      * @return String
      */
@@ -87,7 +87,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
     }
 
     /**
-     * 日期路径 即年/月/日 如2018/08/08
+     * Time   路径 即年/月/日 如2018/08/08
      */
     public static final String datePath()
     {
@@ -96,7 +96,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
     }
 
     /**
-     * 日期路径 即年/月/日 如20180808
+     * Time   路径 即年/月/日 如20180808
      */
     public static final String dateTime()
     {
@@ -105,7 +105,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
     }
 
     /**
-     * 日期型字符串转化为日期 格式
+     * Time   型Code串转化为Time    格式
      */
     public static Date parseDate(Object str)
     {
@@ -124,7 +124,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
     }
     
     /**
-     * 获取服务器启动时间
+     * 获取服务器启动time
      */
     public static Date getServerStartDate()
     {
@@ -133,7 +133,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
     }
 
     /**
-     * 计算两个时间差
+     * 计算两个time差
      */
     public static String getDatePoor(Date endDate, Date nowDate)
     {
@@ -141,7 +141,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
         long nh = 1000 * 60 * 60;
         long nm = 1000 * 60;
         // long ns = 1000;
-        // 获得两个时间的毫秒时间差异
+        // 获得两个time的毫秒time差异
         long diff = endDate.getTime() - nowDate.getTime();
         // 计算差多少天
         long day = diff / nd;

@@ -25,8 +25,8 @@ export function purchaseProduct(data) {
 }
 //返回Ajax.insertSuccess
 
-//确认收货
-//1.修改原订单状态为已完成 5
+// Confirm 收货
+//1. Modify  原订单Status为Alreadycomplete 5
 //2.在 sti_store_dropship_item 中生成一条记录
 
 

@@ -62,7 +62,7 @@ public class DropShipperServiceImpl implements DropShipperService {
         dropShipper.setLastUpdateBy(SecurityUtils.getLoginUser().getUser().getUserName());
         int result=dropShipperMapper.updateByPrimaryKeySelective(dropShipper);
         if (result==0){
-            return AjaxResult.error("更新失败");
+            return AjaxResult.error("更新Fail");
         }else{
             return AjaxResult.updateSuccess();
         }

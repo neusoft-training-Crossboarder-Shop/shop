@@ -5,7 +5,7 @@
 
 const baseURL = process.env.VUE_APP_BASE_API
 
-// 日期格式化
+// Time   格式化
 export function parseTime(time, pattern) {
 	if (arguments.length === 0 || !time) {
 		return null
@@ -46,14 +46,14 @@ export function parseTime(time, pattern) {
 	return time_str
 }
 
-// 表单重置
+// 表单Reset
 export function resetForm(refName) {
 	if (this.$refs[refName]) {
 		this.$refs[refName].resetFields();
 	}
 }
 
-// 添加日期范围
+//  Add  Time   范围
 export function addDateRange(params, dateRange) {
 	var search = params;
 	search.beginTime = "";
@@ -65,7 +65,7 @@ export function addDateRange(params, dateRange) {
 	return search;
 }
 
-// 回显数据字典
+// 回显Data Dict
 export function selectDictLabel(datas, value) {
 	var actions = [];
 	Object.keys(datas).map((key) => {
@@ -82,7 +82,7 @@ export function download(fileName) {
 	window.location.href = baseURL + "/common/download?fileName=" + encodeURI(fileName) + "&delete=" + true;
 }
 
-// 字符串格式化(%s )
+// Code串格式化(%s )
 export function sprintf(str) {
 	var args = arguments, flag = true, i = 1;
 	str = str.replace(/%s/g, function () {
@@ -96,7 +96,7 @@ export function sprintf(str) {
 	return flag ? str : '';
 }
 
-// 转换字符串，undefined,null等转化为""
+// 转换Code串，undefined,null等转化为""
 export function praseStrEmpty(str) {
     if (!str || str == "undefined" || str == "null") {
         return "";
@@ -105,8 +105,8 @@ export function praseStrEmpty(str) {
 }
 
 /**
- * 构造树型结构数据
- * @param {*} data 数据源
+ * 构造树型结构Data
+ * @param {*} data Data 源
  * @param {*} id id字段 默认 'id'
  * @param {*} parentId 父节点字段 默认 'parentId'
  * @param {*} children 孩子节点字段 默认 'children'
@@ -117,7 +117,7 @@ export function handleTree(data, id, parentId, children, rootId) {
 	parentId = parentId || 'parentId'
 	children = children || 'children'
 	rootId = rootId || 0
-	//对源数据深度克隆
+	//对源Data 深度克隆
 	const cloneData = JSON.parse(JSON.stringify(data))
 	//循环所有项
 	const treeData =  cloneData.filter(father => {

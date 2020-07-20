@@ -17,7 +17,7 @@ export function getJob(jobId) {
   })
 }
 
-// 新增定时任务调度
+// Add 定时任务调度
 export function addJob(data) {
   return request({
     url: '/monitor/job',
@@ -26,7 +26,7 @@ export function addJob(data) {
   })
 }
 
-// 修改定时任务调度
+//  Modify  定时任务调度
 export function updateJob(data) {
   return request({
     url: '/monitor/job',
@@ -35,7 +35,7 @@ export function updateJob(data) {
   })
 }
 
-// 删除定时任务调度
+//  Delete 定时任务调度
 export function delJob(jobId) {
   return request({
     url: '/monitor/job/' + jobId,
@@ -43,7 +43,7 @@ export function delJob(jobId) {
   })
 }
 
-// 导出定时任务调度
+// Export 定时任务调度
 export function exportJob(query) {
   return request({
     url: '/monitor/job/export',
@@ -52,7 +52,7 @@ export function exportJob(query) {
   })
 }
 
-// 任务状态修改
+// 任务Status Modify
 export function changeJobStatus(jobId, status) {
   const data = {
     jobId,

@@ -38,8 +38,8 @@ public class RedisCache
      *
      * @param key 缓存的键值
      * @param value 缓存的值
-     * @param timeout 时间
-     * @param timeUnit 时间颗粒度
+     * @param timeout time
+     * @param timeUnit time颗粒度
      * @return 缓存的对象
      */
     public <T> ValueOperations<String, T> setCacheObject(String key, T value, Integer timeout, TimeUnit timeUnit)
@@ -53,7 +53,7 @@ public class RedisCache
      * 获得缓存的基本对象。
      *
      * @param key 缓存键值
-     * @return 缓存键值对应的数据
+     * @return 缓存键值对应的Data
      */
     public <T> T getCacheObject(String key)
     {
@@ -62,7 +62,7 @@ public class RedisCache
     }
 
     /**
-     * 删除单个对象
+     *  Delete 单个对象
      *
      * @param key
      */
@@ -72,7 +72,7 @@ public class RedisCache
     }
 
     /**
-     * 删除集合对象
+     *  Delete 集合对象
      *
      * @param collection
      */
@@ -82,10 +82,10 @@ public class RedisCache
     }
 
     /**
-     * 缓存List数据
+     * 缓存ListData
      *
      * @param key 缓存的键值
-     * @param dataList 待缓存的List数据
+     * @param dataList 待缓存的ListData
      * @return 缓存的对象
      */
     public <T> ListOperations<String, T> setCacheList(String key, List<T> dataList)
@@ -106,7 +106,7 @@ public class RedisCache
      * 获得缓存的list对象
      *
      * @param key 缓存的键值
-     * @return 缓存键值对应的数据
+     * @return 缓存键值对应的Data
      */
     public <T> List<T> getCacheList(String key)
     {
@@ -125,8 +125,8 @@ public class RedisCache
      * 缓存Set
      *
      * @param key 缓存键值
-     * @param dataSet 缓存的数据
-     * @return 缓存数据的对象
+     * @param dataSet 缓存的Data
+     * @return 缓存Data 的对象
      */
     public <T> BoundSetOperations<String, T> setCacheSet(String key, Set<T> dataSet)
     {
@@ -188,7 +188,7 @@ public class RedisCache
     /**
      * 获得缓存的基本对象列表
      * 
-     * @param pattern 字符串前缀
+     * @param pattern Code串前缀
      * @return 对象列表
      */
     public Collection<String> keys(String pattern)

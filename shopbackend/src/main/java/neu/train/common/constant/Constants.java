@@ -10,12 +10,12 @@ import io.jsonwebtoken.Claims;
 public class Constants
 {
     /**
-     * UTF-8 字符集
+     * UTF-8 Code集
      */
     public static final String UTF8 = "UTF-8";
 
     /**
-     * GBK 字符集
+     * GBK Code集
      */
     public static final String GBK = "GBK";
 
@@ -30,17 +30,17 @@ public class Constants
     public static final String HTTPS = "https://";
 
     /**
-     * 通用成功标识
+     * 通用SuccessSignal
      */
     public static final String SUCCESS = "0";
 
     /**
-     * 通用失败标识
+     * 通用FailSignal
      */
     public static final String FAIL = "1";
 
     /**
-     * 登录成功
+     * 登录Success
      */
     public static final String LOGIN_SUCCESS = "Success";
 
@@ -50,22 +50,22 @@ public class Constants
     public static final String LOGOUT = "Logout";
 
     /**
-     * 登录失败
+     * 登录Fail
      */
     public static final String LOGIN_FAIL = "Error";
 
     /**
-     * 验证码 redis key
+     * Validation Code  redis key
      */
     public static final String CAPTCHA_CODE_KEY = "captcha_codes:";
 
     /**
-     * 登录用户 redis key
+     * 登录User  redis key
      */
     public static final String LOGIN_TOKEN_KEY = "login_tokens:";
 
     /**
-     * 验证码有效期（分钟）
+     * Validation Code 有效期（分钟）
      */
     public static final Integer CAPTCHA_EXPIRATION = 2;
 
@@ -85,27 +85,27 @@ public class Constants
     public static final String LOGIN_USER_KEY = "login_user_key";
 
     /**
-     * 用户ID
+     * User ID
      */
     public static final String JWT_USERID = "userid";
 
     /**
-     * 用户名称
+     * User Name
      */
     public static final String JWT_USERNAME = Claims.SUBJECT;
 
     /**
-     * 用户头像
+     * User 头像
      */
     public static final String JWT_AVATAR = "avatar";
 
     /**
-     * 创建时间
+     *  Create   time
      */
     public static final String JWT_CREATED = "created";
 
     /**
-     * 用户权限
+     * User Authority
      */
     public static final String JWT_AUTHORITIES = "authorities";
 
@@ -115,7 +115,7 @@ public class Constants
     public static final String SYS_CONFIG_KEY = "sys_config:";
 
     /**
-     * 字典管理 cache key
+     * Dict   管理 cache key
      */
     public static final String SYS_DICT_KEY = "sys_dict:";
 

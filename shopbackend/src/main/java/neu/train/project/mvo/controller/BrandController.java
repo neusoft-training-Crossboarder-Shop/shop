@@ -62,7 +62,7 @@ public class BrandController extends BaseController {
         return AjaxResult.deleteSuccess();
     }
 
-    //    @Log(title = "用户头像", businessType = BusinessType.UPDATE)
+    //    @Log(title = "User 头像", businessType = BusinessType.UPDATE)
     @PostMapping("/brand/image")
     public AjaxResult brandImage(@RequestParam("brandfile") MultipartFile file,@RequestParam("brdId")Integer brdId) throws IOException
     {
@@ -74,7 +74,7 @@ public class BrandController extends BaseController {
                 return AjaxResult.updateSuccess();
             }
         }
-        return AjaxResult.error("上传图片异常，请联系管理员");
+        return AjaxResult.error("上传图片异常，Please contact the Admin to");
     }
 
 

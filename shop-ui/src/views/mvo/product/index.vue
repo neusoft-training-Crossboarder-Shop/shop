@@ -1,4 +1,4 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
   <div>
   <div>
     <div class="app-container">
@@ -34,7 +34,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-          <el-form-item label="创建时间">
+          <el-form-item label=" Create   time">
             <el-date-picker
               v-model="dateRange"
               size="middle"
@@ -42,8 +42,8 @@
               value-format="yyyy-MM-dd"
               type="daterange"
               range-separator="-"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              start-placeholder="Start  Time   "
+              end-placeholder="End   Time   "
             ></el-date-picker>
           </el-form-item>
           </el-col>
@@ -58,7 +58,7 @@
                 size="middle"
                 @click="handleAdd"
                 v-hasPermi="['system:config:add']"
-              >新增</el-button>
+              >Add </el-button>
 
 
               <el-button
@@ -68,7 +68,7 @@
                 :disabled="single"
                 @click="handleUpdate"
                 v-hasPermi="['system:config:edit']"
-              >修改</el-button>
+              > Modify  </el-button>
                 <el-button
                   type="danger"
                   icon="el-icon-delete"
@@ -76,7 +76,7 @@
                   :disabled="multiple"
                   @click="handleDelete"
                   v-hasPermi="['system:config:remove']"
-                >删除</el-button>
+                > Delete </el-button>
 
                 <el-button icon="el-icon-refresh"  style="float: right;margin-right: 10%" size="middle" @click="resetForm('queryForm')">Reset</el-button>
                 <el-button type="primary" style="float: right" icon="el-icon-search" size="middle" @click="handleQuery">Search</el-button>
@@ -179,14 +179,14 @@
 
         </el-table-column>
 
-        <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="100">
+        <el-table-column label="Operation" align="center" class-name="small-padding fixed-width" width="100">
           <template slot-scope="scope">
             <el-button v-if="scope.row.prostate == 'In Shelf'" size="middle" type="danger" @click.stop="OnOutShelf(scope.row.proId,'Off Shelf')">Off Shelf</el-button>
             <el-button v-else type="success" size="middle" @click.stop="OnOutShelf(scope.row.proId,'In Shelf')">Put Shelf</el-button>
           </template>
         </el-table-column>
 
-        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+        <el-table-column label="Operation" align="center" class-name="small-padding fixed-width">
           <template slot-scope="scope">
             <el-button
               size="middle"
@@ -194,14 +194,14 @@
               icon="el-icon-edit"
               @click.stop="handleUpdate(scope.row)"
 
-            >修改</el-button>
+            > Modify  </el-button>
             <el-button
               size="middle"
               type="text"
               icon="el-icon-delete"
               @click.stop="handleDelete(scope.row)"
 
-            >删除</el-button>
+            > Delete </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -213,7 +213,7 @@
         @pagination="getList"
       />
 
-      <!-- 添加或修改参数配置对话框 -->
+      <!--  Add  或 Modify  参数配置对话框 -->
       <el-dialog :title="title" :visible.sync="open" width="800px"  append-to-body style="overflow: auto;height: 80%">
         <el-tabs type="border-card">
           <el-tab-pane label="Product Info">
@@ -252,6 +252,7 @@
                 <el-form-item label="Warranty" >
                   <el-input v-model="product.warranty" type="textarea" placeholder="placeholder"></el-input>
                 </el-form-item>
+
 
 
               </div>
@@ -606,7 +607,7 @@
           // 是否显示cropper
           visible: false,
           // 弹出层标题
-          // title: "修改头像",
+          // title: " Modify  头像",
 
           currentImage:{
             uri:undefined,
@@ -722,12 +723,12 @@
           };
           this.resetForm("productForm");
         },
-        /** 搜索按钮操作 */
+        /** Search 按钮Operation */
         handleQuery() {
           this.queryParams.pageNum = 1;
           this.getList();
         },
-        /** 重置按钮操作 */
+        /** Reset  按钮Operation */
         resetQuery() {
           this.dateRange=[]
           this.resetForm("queryForm");
@@ -739,19 +740,19 @@
             this.$refs[formName].resetFields();
           }
         },
-        /** 新增按钮操作 */
+        /** Add 按钮Operation */
         handleAdd() {
           this.reset();
           this.open = true;
-          this.title = "添加参数";
+          this.title = " Add  参数";
         },
-        // 多选框选中数据
+        // 多选框选中Data
         handleSelectionChange(selection) {
           this.ids = selection.map(item => item.proId)
           this.single = selection.length!=1
           this.multiple = !selection.length
         },
-        /** 修改按钮操作 */
+        /**  Modify  按钮Operation */
         handleUpdate(row) {
           // this.reset();
           const proId = row.proId || this.ids;
@@ -801,7 +802,7 @@
                 });
               } else {
                 api_insertProduct(this.product).then(response => {
-                  // 添加成功
+                  //  Add  Success
                   this.getList();
                   this.open = false;
                 });
@@ -809,7 +810,7 @@
             }
           });
         },
-        /** 删除按钮操作 */
+        /**  Delete 按钮Operation */
         handleDelete(row) {
           const proId = row.proId || this.ids;
           this.$confirm('Are you sure to delete No."' + proId + '"?', "Warning", {
@@ -833,7 +834,7 @@
           this.getProductImages(row.proId);
         },
 
-        // 打开弹出层结束时的回调
+        // 打开弹出层End   时的回调
         modalOpened() {
           this.visible = true;
         },
@@ -857,7 +858,7 @@
         // 上传预处理
         beforeUpload(file) {
           if (file.type.indexOf("image/") == -1) {
-            this.msgError("文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。");
+            this.msgError("文件格式错误，请上传图片Type ,如：JPG，PNG后缀的文件。");
           } else {
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -869,7 +870,7 @@
                       proId:this.product.proId,
                       imgId:0
                     }
-                    //添加到fileList中
+                    // Add  到fileList中
                     let image1 = {
                       url:reader.result,
                       proId:this.product.proId,
@@ -952,7 +953,7 @@
 </script>
 
 <style scoped>
-  /*表格每一行被hover时的样式设置*/
+  /*表格每一行 be hover时的样式设置*/
   .el-table >>> .el-table__body tr:hover>td {
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
     cursor: pointer;

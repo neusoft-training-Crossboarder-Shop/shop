@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import java.util.Objects;
 
 /**
- * 多数据源处理
+ * 多Data 源处理
  * 
  * @author
  */
@@ -51,13 +51,13 @@ public class DataSourceAspect
         }
         finally
         {
-            // 销毁数据源 在执行方法之后
+            // 销毁Data 源 在执行方法之后
             DynamicDataSourceContextHolder.clearDataSourceType();
         }
     }
 
     /**
-     * 获取需要切换的数据源
+     * 获取需要切换的Data 源
      */
     public DataSource getDataSource(ProceedingJoinPoint point)
     {

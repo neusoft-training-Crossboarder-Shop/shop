@@ -25,7 +25,8 @@ public class ManufacturerServiceImpl implements IManufacturerService {
         mvoManufacturerExample mvoManufacturerExample = new mvoManufacturerExample();
         mvoManufacturerExample.createCriteria().andSysUserIdEqualTo(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()));
         List<mvoManufacturer> mvoManufacturers = mvoManufacturerMapper.selectByExample(mvoManufacturerExample);
-        return mvoManufacturers.get(0);
+        mvoManufacturer manufacturerResult = mvoManufacturers.get(0);
+        return manufacturerResult ;//Only One Manufacturer
     }
 
     @Override

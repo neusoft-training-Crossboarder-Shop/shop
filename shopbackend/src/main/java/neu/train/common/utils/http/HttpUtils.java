@@ -38,7 +38,7 @@ public class HttpUtils
      *
      * @param url 发送请求的 URL
      * @param param 请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
-     * @param contentType 编码类型
+     * @param contentType 编码Type
      * @return 所代表远程资源的响应结果
      */
     public static String sendGet(String url, String param, String contentType)

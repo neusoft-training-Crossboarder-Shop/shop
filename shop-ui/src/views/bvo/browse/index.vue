@@ -58,7 +58,7 @@
                   size="mini"
                   @click="handleClearCache"
                   v-hasPermi="['system:browse:read']"
-                >清理缓存
+                >Clean Cache
                 </el-button>
               </el-form-item>
             </el-col>
@@ -221,13 +221,13 @@
         },
         handleClearCache() {
           this.$notify({
-            title: '执行',
-            message: '缓存按钮',
+            title: 'Carry',
+            message: 'Cache Button',
             type: 'success'
           });
           // clearCache().then(response => {
           //   if (response.code === 200) {
-          //     this.msgSuccess("清理成功");
+          //     this.msgSuccess("清理Success");
           //   }
           // });
         },

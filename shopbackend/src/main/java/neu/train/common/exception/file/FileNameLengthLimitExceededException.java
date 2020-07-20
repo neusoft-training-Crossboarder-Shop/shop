@@ -1,7 +1,7 @@
 package neu.train.common.exception.file;
 
 /**
- * 文件名称超长限制异常类
+ * 文件Name超长限制异常类
  * 
  * @author xiaosama
  */

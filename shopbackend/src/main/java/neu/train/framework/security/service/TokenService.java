@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class TokenService
 {
-    // 令牌自定义标识
+    // 令牌自定义Signal
     @Value("${token.header}")
     private String header;
 
@@ -48,9 +48,9 @@ public class TokenService
     private RedisCache redisCache;
 
     /**
-     * 获取用户身份信息
+     * 获取User 身份信息
      * 
-     * @return 用户信息
+     * @return User 信息
      */
     public LoginUser getLoginUser(HttpServletRequest request)
     {
@@ -59,7 +59,7 @@ public class TokenService
         if (StringUtils.isNotEmpty(token))
         {
             Claims claims = parseToken(token);
-            // 解析对应的权限以及用户信息
+            // 解析对应's Authority以及User 信息
             String uuid = (String) claims.get(Constants.LOGIN_USER_KEY);
             //
             String userKey = getTokenKey(uuid);
@@ -70,7 +70,7 @@ public class TokenService
     }
 
     /**
-     * 设置用户身份信息
+     * 设置User 身份信息
      */
     public void setLoginUser(LoginUser loginUser)
     {
@@ -81,7 +81,7 @@ public class TokenService
     }
 
     /**
-     * 删除用户身份信息
+     *  Delete User 身份信息
      */
     public void delLoginUser(String token)
     {
@@ -93,9 +93,9 @@ public class TokenService
     }
 
     /**
-     * 为登陆用户创建一个令牌
+     * 为登陆User  Create   一个令牌
      * 
-     * @param loginUser 用户信息
+     * @param loginUser User 信息
      * @return 令牌
      */
     public String createToken(LoginUser loginUser)
@@ -104,7 +104,7 @@ public class TokenService
         String token = IdUtils.fastUUID();
         loginUser.setToken(token);
 
-        //设置用户代理信息
+        //设置User 代理信息
 // xiaosama:       setUserAgent(loginUser);
 
         //
@@ -148,7 +148,7 @@ public class TokenService
     }
     
     /**
-     * 设置用户代理信息 xiaosama 对于该系统没必要
+     * 设置User 代理信息 xiaosama 对于该系统没必要
      * 
      * @param loginUser 登录信息
      */
@@ -163,9 +163,9 @@ public class TokenService
 //    }
     
     /**
-     * 从数据声明生成令牌
+     * 从Data 声明生成令牌
      *
-     * @param claims 数据声明
+     * @param claims Data 声明
      * @return 令牌
      */
     private String createToken(Map<String, Object> claims)
@@ -179,10 +179,10 @@ public class TokenService
     }
 
     /**
-     * 从令牌中获取数据声明
+     * 从令牌中获取Data 声明
      *
      * @param token 令牌
-     * @return 数据声明
+     * @return Data 声明
      */
     private Claims parseToken(String token)
     {
@@ -193,10 +193,10 @@ public class TokenService
     }
 
     /**
-     * 从令牌中获取用户名
+     * 从令牌中获取User 名
      *
      * @param token 令牌
-     * @return 用户名
+     * @return User 名
      */
     public String getUsernameFromToken(String token)
     {

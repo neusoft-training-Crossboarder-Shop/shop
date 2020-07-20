@@ -85,7 +85,7 @@ public class BrandServiceImpl implements IBrandService {
         }else {
 
             String name =SecurityUtils.getLoginUser().getUsername();
-            //获取当前用户名
+            //获取当前User 名
             brand.setCreatedBy(name);
             brand.setLastUpdateBy(name);
             brand.setCreateTime(LocalDateTime.now());
@@ -95,7 +95,7 @@ public class BrandServiceImpl implements IBrandService {
             brand.setPicUrl("profile/upload/2020/07/20/8a2f6a7ab20343350c1ce513e4ec61cf.jpg");
 
             return mvoBrandMapper.insertSelective(brand);
-            //不重名的话完成添加
+            //不重名的话complete Add
         }
         //新建一个图片对象
 
