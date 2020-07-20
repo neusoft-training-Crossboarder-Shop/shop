@@ -7,6 +7,7 @@ import neu.train.framework.web.page.TableDataInfo;
 import neu.train.project.bvo.Service.StoreService;
 import neu.train.project.bvo.domain.Store;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +33,8 @@ public class StoreController extends BaseController {
     }
 
     @PutMapping("/store")
-    @ApiOperation("try to add store")
+    @ApiOperation("try to update store")
+    @PreAuthorize("ss.hasPermi('bvo:store:edit')")
     public AjaxResult updateStore(@RequestBody Store store) {
         storeService.updateStore(store);
         return AjaxResult.updateSuccess();
@@ -40,13 +42,15 @@ public class StoreController extends BaseController {
 
     @PostMapping("/store")
     @ApiOperation("try to add store")
+    @PreAuthorize("ss.hasPermi('bvo:store:add')")
     public AjaxResult addStore(@RequestBody Store store) {
         storeService.insertStore(store);
         return AjaxResult.insertSuccess();
     }
 
     @DeleteMapping("/store/{ids}")
-    @ApiOperation("try to add store")
+    @ApiOperation("try to delete store")
+    @PreAuthorize("ss.hasPermi('bvo:store:delete')")
     public AjaxResult delStore(@PathVariable("ids")int[] ids ){
         storeService.deleteStoreByIds(ids);
         return AjaxResult.deleteSuccess();

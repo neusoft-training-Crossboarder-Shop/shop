@@ -57,7 +57,7 @@
                 icon="el-icon-plus"
                 size="middle"
                 @click="handleAdd"
-                v-hasPermi="['system:config:add']"
+                v-hasPermi="['mvo:pro:add']"
               >新增</el-button>
 
 
@@ -67,7 +67,7 @@
                 size="middle"
                 :disabled="single"
                 @click="handleUpdate"
-                v-hasPermi="['system:config:edit']"
+                v-hasPermi="['mvo:pro:edit']"
               >修改</el-button>
                 <el-button
                   type="danger"
@@ -75,30 +75,13 @@
                   size="middle"
                   :disabled="multiple"
                   @click="handleDelete"
-                  v-hasPermi="['system:config:remove']"
+                  v-hasPermi="['mvo:pro:remove']"
                 >删除</el-button>
 
                 <el-button icon="el-icon-refresh"  style="float: right;margin-right: 10%" size="middle" @click="resetForm('queryForm')">Reset</el-button>
                 <el-button type="primary" style="float: right" icon="el-icon-search" size="middle" @click="handleQuery">Search</el-button>
 
           </div>
-          <div style="margin-left: 2%;margin-bottom: 2%">
-
-
-
-          </div>
-<!--          <el-col :span="2">-->
-<!--            <el-form-item>-->
-<!--              <el-button-->
-<!--                type="danger"-->
-<!--                icon="el-icon-refresh"-->
-<!--                size="middle"-->
-<!--                @click="handleClearCache"-->
-<!--                v-hasPermi="['system:browse:read']"-->
-<!--              >清理缓存-->
-<!--              </el-button>-->
-<!--            </el-form-item>-->
-<!--          </el-col>-->
         </el-row>
       </el-form>
 
@@ -179,28 +162,28 @@
 
         </el-table-column>
 
-        <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="100">
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="100"  v-hasPermi="['mvo:pro:state:edit']">
           <template slot-scope="scope">
             <el-button v-if="scope.row.prostate == 'In Shelf'" size="middle" type="danger" @click.stop="OnOutShelf(scope.row.proId,'Off Shelf')">Off Shelf</el-button>
             <el-button v-else type="success" size="middle" @click.stop="OnOutShelf(scope.row.proId,'In Shelf')">Put Shelf</el-button>
           </template>
         </el-table-column>
 
-        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+        <el-table-column label="操作" v-hasPermi="['mvo:pro:edit']" align="center" class-name="small-padding fixed-width">
           <template slot-scope="scope">
             <el-button
               size="middle"
               type="text"
               icon="el-icon-edit"
               @click.stop="handleUpdate(scope.row)"
-
+              v-hasPermi="['mvo:pro:edit']"
             >修改</el-button>
             <el-button
               size="middle"
               type="text"
               icon="el-icon-delete"
               @click.stop="handleDelete(scope.row)"
-
+              v-hasPermi="['mvo:pro:remove']"
             >删除</el-button>
           </template>
         </el-table-column>
@@ -320,7 +303,7 @@
                 </div>
               </div>
 
-                <el-button type="primary" @click="submitForm">Submit</el-button>
+                <el-button type="primary" @click="submitForm" v-hasPermi="['mvo:pro:edit']" >Submit</el-button>
                 <el-button @click="cancel">Cancel</el-button>
 
             </el-form>
@@ -337,16 +320,6 @@
             </div>
             <el-button type="primary" @click="updateDescription">Submit</el-button>
           </el-tab-pane>
-<!--          </el-tab-pane>-->
-<!--          <el-tab-pane label="Description Editor" :disabled="this.product.proId==undefined" @click="openDescription">-->
-<!--                <div v-for="(description) in this.productDescriptions">-->
-<!--                  <div :key="description.pdnId" style="margin-top: 5%;margin-bottom: 5%;padding-top: 10%;padding-bottom: 10%">-->
-<!--                    <p style="display: block;text-align: center;font-size: large">{{description.platformType}} Description</p>-->
-<!--                    <editor v-model="description.descrition" :maxSize="maxSize" ></editor>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--            <el-button type="primary" @click="updateDescription">Submit</el-button>-->
-<!--          </el-tab-pane>-->
         </el-tabs>
 
 
@@ -397,7 +370,7 @@
             <el-button v-if="currentOptions==0" @click="currentOptions=1" type="primary">Adding Small Image...</el-button>
           </el-col>
           <el-col :lg="{span: 2, offset: 6}" :md="2">
-            <el-button type="primary" size="middle" @click="uploadImg()">提 交</el-button>
+            <el-button type="primary" size="middle" v-hasPermi="['mvo:pro:image:edit']"  @click="uploadImg()">提 交</el-button>
           </el-col>
         </el-row>
         <el-upload
@@ -411,7 +384,7 @@
           :on-remove="handleRemove"
           list-type="picture"
         >
-          <el-button size="middle">
+          <el-button size="middle" v-hasPermi="['mvo:pro:image:edit']">
             上传
             <i class="el-icon-upload el-icon--right"></i>
           </el-button>

@@ -1,9 +1,10 @@
 package neu.train.project.mvo.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class mvoPackageInfo {
+public class mvoPackageInfo  implements Serializable {
     private Integer pckId;
 
     private Integer proId;

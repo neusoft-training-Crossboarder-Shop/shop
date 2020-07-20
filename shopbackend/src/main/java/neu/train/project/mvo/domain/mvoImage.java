@@ -1,8 +1,9 @@
 package neu.train.project.mvo.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class mvoImage {
+public class mvoImage  implements Serializable {
     private Integer imgId;
 
     private String uri;

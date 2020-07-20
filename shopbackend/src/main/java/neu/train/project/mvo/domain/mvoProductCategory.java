@@ -1,8 +1,9 @@
 package neu.train.project.mvo.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class mvoProductCategory {
+public class mvoProductCategory implements Serializable {
     private Integer prcId;
 
     private Integer proId;

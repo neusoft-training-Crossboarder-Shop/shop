@@ -21,6 +21,7 @@ import java.util.List;
 
 @Service
 public class WalletServiceImp implements WalletService {
+
     @Autowired
     WaaWalletAccountMapper waaWalletAccountMapper;
     @Autowired
@@ -31,7 +32,6 @@ public class WalletServiceImp implements WalletService {
     WtaWalletTransactionAduitMapper wtaWalletTransactionAduitMapper;
     @Autowired
     RedisCache redisCache;
-
 
     //查询有没有这个用户ID的钱包,缓存"walletById:"+buyerId
     @Override

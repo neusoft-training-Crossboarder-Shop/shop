@@ -10,8 +10,8 @@ shop:
   demoEnabled: true
 #   文件路径 示例（ Windows配置D:/shop/uploadPath，Linux配置 /home/shop/uploadPath）
 #  profile: C:/shop/uploadPath
-#  profile: C:/Users/xiaobin/Desktop/线上实训/project/git-test/shop/uploadPath
-  profile: C:\spring_works\wallet\shop\uploadPath
+  profile: C:/Users/xiaobin/Desktop/线上实训/project/git-test/shop/uploadPath
+#  profile: C:\spring_works\wallet\shop\uploadPath
   # 获取ip地址开关
   addressEnabled: false
 
@@ -76,6 +76,8 @@ spring:
         max-active: 8
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
 
 # token配置
 token:

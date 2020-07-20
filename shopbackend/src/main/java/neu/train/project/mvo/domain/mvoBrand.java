@@ -1,8 +1,9 @@
 package neu.train.project.mvo.domain;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
+import java.util.Date;
 
-public class mvoBrand {
+public class mvoBrand implements Serializable {
     private Integer brdId;
 
     private Integer manId;
@@ -15,11 +16,11 @@ public class mvoBrand {
 
     private String createdBy;
 
-    private LocalDateTime createTime;
+    private Date createTime;
 
     private String lastUpdateBy;
 
-    private LocalDateTime lastUpdateTime;
+    private Date lastUpdateTime;
 
     private Integer callCnt;
 
@@ -79,11 +80,11 @@ public class mvoBrand {
         this.createdBy = createdBy;
     }
 
-    public LocalDateTime getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
@@ -95,11 +96,11 @@ public class mvoBrand {
         this.lastUpdateBy = lastUpdateBy;
     }
 
-    public LocalDateTime getLastUpdateTime() {
+    public Date getLastUpdateTime() {
         return lastUpdateTime;
     }
 
-    public void setLastUpdateTime(LocalDateTime lastUpdateTime) {
+    public void setLastUpdateTime(Date lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
     }
 

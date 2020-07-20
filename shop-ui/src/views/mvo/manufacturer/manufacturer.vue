@@ -109,11 +109,7 @@
               <el-table-column label="Chinese Name" align="center" prop="nameCn" />
               <el-table-column label="English Name" align="center" prop="nameEn" />
 
-<!--              <el-table-column label="Platform Type" align="center"  :show-overflow-tooltip="true" >-->
-<!--                <template slot-scope="scope">-->
-<!--                  {{typeOptions[scope.row.platformType]}}-->
-<!--                </template>-->
-<!--              </el-table-column>-->
+
               <el-table-column label="GMC Report Type" align="center"  :show-overflow-tooltip="true" >
                 <template slot-scope="scope">
                   {{gmcReportTypeOptions[scope.row.gmcReportType-1].label}}
@@ -136,6 +132,7 @@
                     type="primary"
                     icon="el-icon-edit"
                     @click.stop="modifyProfile = true"
+                    v-hasPermi="['mvo:profile:edit']"
                   >Modify</el-button>
 
                 </template>
@@ -175,7 +172,7 @@
                 />
 
               <el-form-item>
-                <el-button type="primary" icon="el-icon-search" size="middle" @click="handleQuery">Search</el-button>
+                <el-button type="primary" icon="el-icon-search" size="middle" @click="handleQuery" v-hasPermi="['mvo:brand:query']">Search</el-button>
                 <el-button icon="el-icon-refresh" size="middle" @click="resetQuery">Reset</el-button>
               </el-form-item>
             </el-form>
@@ -183,26 +180,24 @@
 
             <el-row :gutter="10" class="mb8">
               <el-col :span="1.5">
-                <!--            v-hasPermi="['bvo:store:add']"-->
                 <el-button
                   type="primary"
                   icon="el-icon-plus"
                   size="middle"
                   @click="handleAdd"
+                  v-hasPermi="['mvo:brand:add']"
                 >新增</el-button>
               </el-col>
               <el-col :span="1.5">
-                <!--            v-hasPermi="['bvo:store:edit']" 这是权限控制里加载 el-button里的参数-->
                 <el-button
                   type="success"
                   icon="el-icon-edit"
                   size="middle"
                   :disabled="single"
                   @click="handleUpdate"
+                  v-hasPermi="['mvo:brand:edit']"
                 >Modify</el-button>
               </el-col>
-              <!--                        v-hasPermi="['bvo:store:remove']"
-              -->
               <el-col :span="1.5">
                 <el-button
                   type="danger"
@@ -210,18 +205,11 @@
                   size="middle"
                   :disabled="multiple"
                   @click="handleDelete"
+                  v-hasPermi="['mvo:brand:remove']"
                 >Delete
                 </el-button>
               </el-col>
-<!--@click="handleClearCache"-->
-              <el-col :span="1.5">
-                <el-button
-                  type="danger"
-                  icon="el-icon-refresh"
-                  size="middle"
-                  v-hasPermi="['system:config:remove']"
-                >清理缓存</el-button>
-              </el-col>
+
             </el-row>
 
             <el-table   class="el-table--enable-row-hover el-table__body" v-loading="loading" :data="brandList"  @selection-change="handleSelectionChange">
@@ -300,13 +288,13 @@
 
               <el-table-column label="操作" width = 280px align="center" class-name="small-padding fixed-width">
                 <template slot-scope="scope">
-                  <!--         el-button 权限里面v-hasPermi="['system:config:edit']"-->
                   <el-button
                     size="small"
                     align="center"
                     type="primary"
                     icon="el-icon-edit"
                     @click.stop="handleUpdate(scope.row)"
+                    v-hasPermi="['mvo:brand:edit']"
                   >Modify</el-button>
 
                   <el-button
@@ -315,7 +303,7 @@
                     type="danger"
                     icon="el-icon-delete"
                     @click.stop="handleDelete(scope.row)"
-                    v-hasPermi="['system:config:remove']"
+                    v-hasPermi="['mov:brand:remove']"
                   >Delete</el-button>
                 </template>
               </el-table-column>
@@ -375,7 +363,7 @@
                     :autoCropWidth="options.autoCropWidth"
                     :autoCropHeight="options.autoCropHeight"
                     :fixedBox="options.fixedBox"
-                    @realTime="realTime"
+                    @realTime="realTime" 
                     v-if="visible"
                   />
                 </el-col>
@@ -438,17 +426,13 @@
         modifyProfile:false,
 
         manufacturer:{
-          manId:1,
+          manId:undefined,
           sysUserId:undefined,
           nameCn:undefined,
           nameEn:'',
-          manDesc:'1',
-          gmcReportType:'1',
-          gmcReportUrl:'1',
-          createdBy:'1',
-          createTime:'1',
-          lastUpdateBy:'1',
-          lastUpdateTime:'1'
+          manDesc:undefined,
+          gmcReportType:undefined,
+          gmcReportUrl:undefined,
         },
 
         manufacturers:[

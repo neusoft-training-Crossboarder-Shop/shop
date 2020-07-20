@@ -7,6 +7,7 @@ import neu.train.project.bvo.domain.Store;
 import neu.train.project.bvo.domain.StoreExample;
 import neu.train.project.bvo.mapper.StoreMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

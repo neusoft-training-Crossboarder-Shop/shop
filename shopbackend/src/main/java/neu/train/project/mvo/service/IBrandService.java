@@ -53,11 +53,6 @@ public interface IBrandService
      */
     public int deleteBrandByIds(int[] brandId);
 
-    /**
-     * 清空缓存数据
-     */
-    public void clearCache();
-
 
     public boolean updateBrandImage(Integer brdId, String imageUrl);
     /**

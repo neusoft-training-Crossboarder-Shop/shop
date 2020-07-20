@@ -9,6 +9,8 @@ import neu.train.framework.web.page.TableDataInfo;
 import neu.train.project.mvo.domain.mvoBrand;
 import neu.train.project.mvo.service.IBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,7 +25,7 @@ public class BrandController extends BaseController {
     IBrandService brandService;
     @GetMapping("/brand/list")
     @ApiOperation("try to get brand list")
-    public TableDataInfo getStoreList(mvoBrand brand) {
+    public TableDataInfo getBrandList(mvoBrand brand) {
         startPage();
         List<mvoBrand> brandList = brandService.getBrandList(brand);
         return getDataTable(brandList);
@@ -36,13 +38,14 @@ public class BrandController extends BaseController {
 
     @GetMapping("/brand/{id}")
     @ApiOperation("try to get brand by Id")
-    public AjaxResult getStoreById(@PathVariable("id") Integer brandId) {
+    public AjaxResult getBrandById(@PathVariable("id") Integer brandId) {
         mvoBrand brand = brandService.selectBrandByBrandId(brandId);
         return AjaxResult.success(brand);
     }
 
     @PutMapping("/brand")
     @ApiOperation("try to add brand")
+    @PreAuthorize("ss.hasPermi('mvo:brand:edit')")
     public AjaxResult updateBrand(@RequestBody mvoBrand brand) {
         brandService.updateBrand(brand);
         return AjaxResult.updateSuccess();
@@ -50,13 +53,15 @@ public class BrandController extends BaseController {
 
     @PostMapping("/brand")
     @ApiOperation("try to add brand")
-    public AjaxResult addStore(@RequestBody mvoBrand brand) {
+    @PreAuthorize("ss.hasPermi('mvo:brand:add')")
+    public AjaxResult addBrand(@RequestBody mvoBrand brand) {
         brandService.insertBrand(brand);
         return AjaxResult.insertSuccess();
     }
 
     @DeleteMapping("/brand/{ids}")
     @ApiOperation("try to add brand")
+    @PreAuthorize("ss.hasPermi('mvo:brand:remove')")
     public AjaxResult delStore(@PathVariable("ids")int[] ids ){
         brandService.deleteBrandByIds(ids);
         return AjaxResult.deleteSuccess();
@@ -64,6 +69,7 @@ public class BrandController extends BaseController {
 
     //    @Log(title = "用户头像", businessType = BusinessType.UPDATE)
     @PostMapping("/brand/image")
+    @PreAuthorize("ss.hasPermi('mvo:brand:image:edit')")
     public AjaxResult brandImage(@RequestParam("brandfile") MultipartFile file,@RequestParam("brdId")Integer brdId) throws IOException
     {
         System.out.println(brdId);

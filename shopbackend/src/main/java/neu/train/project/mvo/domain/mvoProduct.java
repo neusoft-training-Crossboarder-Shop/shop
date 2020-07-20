@@ -1,10 +1,11 @@
 package neu.train.project.mvo.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
-public class mvoProduct {
+public class mvoProduct implements Serializable {
     private Integer proId;
 
     private Integer manId;
@@ -31,11 +32,11 @@ public class mvoProduct {
 
     private String createdBy;
 
-    private LocalDateTime createTime;
+    private Date createTime;
 
     private String lastUpdateBy;
 
-    private LocalDateTime lastUpdateTime;
+    private Date lastUpdateTime;
 
     private Integer callCnt;
 
@@ -162,11 +163,11 @@ public class mvoProduct {
         this.createdBy = createdBy;
     }
 
-    public LocalDateTime getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
@@ -178,11 +179,11 @@ public class mvoProduct {
         this.lastUpdateBy = lastUpdateBy;
     }
 
-    public LocalDateTime getLastUpdateTime() {
+    public Date getLastUpdateTime() {
         return lastUpdateTime;
     }
 
-    public void setLastUpdateTime(LocalDateTime lastUpdateTime) {
+    public void setLastUpdateTime(Date lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
     }
 

@@ -2,17 +2,19 @@ package neu.train.project.mvo.service.impl;
 
 import neu.train.common.exception.CustomException;
 import neu.train.common.utils.SecurityUtils;
+import neu.train.framework.redis.RedisCache;
 import neu.train.project.common.CommonController;
 import neu.train.project.mvo.domain.*;
 import neu.train.project.mvo.domain.vo.MvoSearchProduct;
 import neu.train.project.mvo.mapper.*;
 import neu.train.project.mvo.service.IMvoProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Array;
-import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -32,7 +34,10 @@ public class MvoProductServiceImpl implements IMvoProductService {
     mvoImageMapper mvoImageMapper;
     @Autowired
     MvoCommonService commonService;
-
+    @Autowired
+    RedisCache redisCache;
+    public static final String PRO_CACHE_PREFIX = "PRODUCT:";
+    public static final String PRO_DESCRI_CACHE_PREFIX = "PRODUCT_DESCRIPTION:";
 
 
     @Override
@@ -41,6 +46,7 @@ public class MvoProductServiceImpl implements IMvoProductService {
     }
 
     @Override
+    @Cacheable(value =PRO_CACHE_PREFIX)
     public mvoProduct getProductByProId(Integer id) {
         return mvoProductMapper.selectByProId(id);
     }
@@ -55,8 +61,6 @@ public class MvoProductServiceImpl implements IMvoProductService {
         String name = SecurityUtils.getLoginUser().getUsername();
         product.setCreatedBy(name);
         product.setLastUpdateBy(name);
-        product.setCreateTime(LocalDateTime.now());
-        product.setLastUpdateTime(LocalDateTime.now());
 
         mvoProductMapper.insert(product);
 
@@ -103,6 +107,7 @@ public class MvoProductServiceImpl implements IMvoProductService {
 
     @Override
     @Transactional
+    @CacheEvict(value = PRO_CACHE_PREFIX,key = "#product.getProId()")
     public void updateProduct(mvoProduct product) {
         //新建Product对象
         mvoProductMapper.updateByPrimaryKey(product);
@@ -116,7 +121,6 @@ public class MvoProductServiceImpl implements IMvoProductService {
 
         String name = SecurityUtils.getLoginUser().getUsername();
         product.setLastUpdateBy(name);
-        product.setLastUpdateTime(LocalDateTime.now());
 
 
     }
@@ -126,7 +130,7 @@ public class MvoProductServiceImpl implements IMvoProductService {
     public void deleteProductByIds(int[] ids){
         for (int id :
                 ids) {
-
+            redisCache.deleteObject(PRO_CACHE_PREFIX + id);
             //删除种类
             mvoProductCategoryExample mvoProductCategoryExample = new mvoProductCategoryExample();
             mvoProductCategoryExample.createCriteria().andProIdEqualTo(id);
@@ -163,6 +167,8 @@ public class MvoProductServiceImpl implements IMvoProductService {
         }else{
             //更新缩略图片
             if (mvoImageMapper.selectByPrimaryKey(imgId).getTypeCd()==0){
+                //如果更新缩略图 删除当前的缓存
+                redisCache.deleteObject(PRO_CACHE_PREFIX+proId);
                 return mvoImageMapper.updateByPrimaryKeySelective(image)==1;
             }
 
@@ -179,6 +185,7 @@ public class MvoProductServiceImpl implements IMvoProductService {
     }
     @Override
     @Transactional
+    @Cacheable(value = PRO_DESCRI_CACHE_PREFIX)
     public List<mvoProductDescription> getDescriptionByProId(Integer proId){
 
         mvoProductDescriptionExample mvoProductDescriptionExample = new mvoProductDescriptionExample();
@@ -201,6 +208,7 @@ public class MvoProductServiceImpl implements IMvoProductService {
 
     @Override
     @Transactional
+    @CacheEvict(value = PRO_DESCRI_CACHE_PREFIX,key = "#productDescriptions.get(0).getProId()")
     public void updateDescription(List<mvoProductDescription> productDescriptions){
         for (mvoProductDescription mvoProductDescription:productDescriptions
              ) {
@@ -210,17 +218,18 @@ public class MvoProductServiceImpl implements IMvoProductService {
 
     @Override
     public boolean deleteProductImageById(Integer imgId) {
+        int id=mvoImageMapper.selectByPrimaryKey(imgId).getProId();
+        redisCache.deleteObject(PRO_CACHE_PREFIX + id);
         return mvoImageMapper.deleteByPrimaryKey(imgId)==1;
     }
 
     @Override
+    @CacheEvict(value = PRO_CACHE_PREFIX,key = "#proId")
     public void updateProductProStatus(Integer proId, String status) {
         mvoProduct product = new mvoProduct();
         product.setProId(proId);
         product.setProstate(status);
         mvoProductMapper.updateByPrimaryKeySelective(product);
     }
-
-
 }
 

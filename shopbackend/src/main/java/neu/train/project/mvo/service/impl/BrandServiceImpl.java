@@ -2,15 +2,18 @@ package neu.train.project.mvo.service.impl;
 
 import neu.train.common.utils.SecurityUtils;
 import neu.train.common.utils.StringUtils;
+import neu.train.framework.redis.RedisCache;
 import neu.train.project.mvo.domain.mvoBrand;
 import neu.train.project.mvo.domain.mvoBrandExample;
 import neu.train.project.mvo.mapper.mvoBrandMapper;
 import neu.train.project.mvo.service.IBrandService;
 import neu.train.project.mvo.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static neu.train.project.mvo.util.AdminResponseCode.BRAND_NAME_EXIST;
@@ -24,12 +27,19 @@ public class BrandServiceImpl implements IBrandService {
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     mvoBrandMapper mvoBrandMapper;
+    @Autowired
+    RedisCache redisCache;
+    public static final String BRAND_CACHE_PREFIX = "BRAND:";
 
 
 
     @Override
+    @Cacheable(value = BRAND_CACHE_PREFIX)
     public mvoBrand selectBrandByBrandId(int brandId) {
-        return mvoBrandMapper.selectByPrimaryKey(brandId);
+
+        mvoBrand mvoBrand = mvoBrandMapper.selectByPrimaryKey(brandId);
+
+        return mvoBrand;
     }
 
     @Override
@@ -88,8 +98,6 @@ public class BrandServiceImpl implements IBrandService {
             //获取当前用户名
             brand.setCreatedBy(name);
             brand.setLastUpdateBy(name);
-            brand.setCreateTime(LocalDateTime.now());
-            brand.setLastUpdateTime(LocalDateTime.now());
             brand.setManId(mvoCommonService.getManId());
             //默认图片
             brand.setPicUrl("profile/upload/2020/07/20/8a2f6a7ab20343350c1ce513e4ec61cf.jpg");
@@ -103,21 +111,20 @@ public class BrandServiceImpl implements IBrandService {
     }
 
     @Override
+    @CacheEvict(value = BRAND_CACHE_PREFIX,key="#brand.getBrdId()")
     public int updateBrand(mvoBrand brand) {
         brand.setLastUpdateBy(SecurityUtils.getLoginUser().getUsername());
-        brand.setLastUpdateTime(LocalDateTime.now());
         return mvoBrandMapper.updateByPrimaryKeySelective(brand);
     }
 
     @Override
     public int deleteBrandByIds(int[] brandIds) {
+        for (Integer id : brandIds) {
+            redisCache.deleteObject(BRAND_CACHE_PREFIX + id);
+        }
         return mvoBrandMapper.deleteBrandByIds(brandIds);
     }
 
-    @Override
-    public void clearCache() {
-
-    }
 
     @Override
     public boolean updateBrandImage(Integer brdId, String imageUrl) {

@@ -28,6 +28,7 @@ import java.util.List;
  * xiaosama :  这个文件是可以删除的 可以用注解的mybatis 代替
  * @author
  */
+
 @Configuration
 public class MyBatisConfig
 {
@@ -106,4 +107,5 @@ public class MyBatisConfig
         sessionFactory.setConfigLocation(new DefaultResourceLoader().getResource(configLocation));
         return sessionFactory.getObject();
     }
+
 }

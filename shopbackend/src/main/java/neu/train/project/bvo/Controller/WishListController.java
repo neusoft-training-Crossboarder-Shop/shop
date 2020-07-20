@@ -9,6 +9,8 @@ import neu.train.project.bvo.Service.ProductService;
 import neu.train.project.bvo.domain.SimpleProduct;
 import neu.train.project.bvo.domain.WishList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
@@ -20,6 +22,7 @@ import java.util.List;
 public class WishListController extends BaseController {
     @Autowired
     ProductService productService;
+
     @GetMapping("/list")
     @ApiOperation("get withslist of drp_ID ")
     public AjaxResult getWishList() {
@@ -30,6 +33,7 @@ public class WishListController extends BaseController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("ss.hasPermi('bvo:wishlist:delete')")
     public AjaxResult deleteByProId(@PathVariable("id")Integer id){
         int result=productService.deleteProInWishlistByProId(id);
         if (result == 1) {

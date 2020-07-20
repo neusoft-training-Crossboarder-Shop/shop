@@ -14,6 +14,7 @@ public interface IMvoProductService {
 
     mvoProduct getProductByProId(Integer id);
 
+
     void insertProduct(mvoProduct product);
 
     @Transactional
