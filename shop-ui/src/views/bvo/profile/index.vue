@@ -17,7 +17,7 @@
           </template>
           <template v-else >
               <el-button class="button-style"  type="primary" :disabled="!isEdit" @click="save">Save</el-button>
-              <el-button class="button-style" style="position: relative;left: -10px"   type="danger"  @click="redirect">My store</el-button>
+              <el-button class="button-style" style="position: relative;left: -10px"   type="danger"  @click="redirect">My Store</el-button>
           </template>
         </div>
     </el-card>
@@ -75,10 +75,10 @@
           })
         },
         edit(){
-          if (isEdit){
-            isEdit=false
+          if (this.isEdit){
+            this.isEdit=false
           } else{
-            isEdit = true;
+            this.isEdit = true;
           }
         },
         redirect(){
