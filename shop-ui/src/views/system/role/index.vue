@@ -85,8 +85,7 @@
           v-hasPermi="['system:role:remove']"
         > Delete </el-button>
       </el-col>
-<<<<<<< HEAD
-=======
+
 <!--      <el-col :span="1.5">-->
 <!--        <el-button-->
 <!--          type="warning"-->
@@ -96,7 +95,6 @@
 <!--          v-hasPermi="['system:post:export']"-->
 <!--        >Export </el-button>-->
 <!--      </el-col>-->
->>>>>>> 43c996df0e61f274f732ddae27441bc889feeb4e
     </el-row>
 
     <el-table v-loading="loading" :data="roleList" @selection-change="handleSelectionChange">

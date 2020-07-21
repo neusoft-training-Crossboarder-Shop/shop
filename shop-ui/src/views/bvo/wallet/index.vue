@@ -445,7 +445,7 @@
           // if (response.data.waaWalletAccount === null){
           //   this.notRegistered = true;
           // }else{
-          //   console.log("有账号了")
+          //   console.log("有Account 了")
           // }
             // this.buyer=response.data
             // this.notRegistered = false;

@@ -148,6 +148,7 @@ public class mvoManufacturer implements Serializable {
     public void setManDesc(String manDesc) {
         manDesc.replace("<p>","");
         manDesc.replace("</p>","");
+        manDesc.replace("<br>","");
         this.manDesc = manDesc;
     }
 
@@ -159,13 +160,16 @@ public class mvoManufacturer implements Serializable {
         this.picUrl = picUrl;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+//    public String getDescription() {
+//        return description;
+//    }
+//
+//    public void setDescription(String description) {
+//        description.replace("<p>","");
+//        description.replace("</p>","");
+//        description.replace("<br>","");
+//        this.description = description;
+//    }
 
     @Override
     public String toString() {

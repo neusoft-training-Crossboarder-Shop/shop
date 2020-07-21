@@ -136,6 +136,7 @@ public class mvoProduct implements Serializable {
     }
 
     public void setWarrantyDay(String warrantyDay) {
+
         this.warrantyDay = warrantyDay;
     }
 
@@ -224,6 +225,9 @@ public class mvoProduct implements Serializable {
     }
 
     public void setWarranty(String warranty) {
+        warranty.replace("<p>","");
+        warranty.replace("</p>","");
+        warranty.replace("<br>","");
         this.warranty = warranty;
     }
 

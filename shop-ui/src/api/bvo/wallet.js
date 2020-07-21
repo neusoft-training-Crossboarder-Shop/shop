@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 
-//1.判断是否有账号  需要返回true 或者 false
+//1.判断是否有Account   需要返回true 或者 false
 export function getWalletAccount() {
   return request({
     url: '/wallet/account/',
@@ -10,7 +10,7 @@ export function getWalletAccount() {
 }
 
 
-//2.Register 账号  不用返回Data
+//2.Register Account   不用返回Data
 export function addWalletAccount(data) {
   return request({
     url:'/wallet/account/',
@@ -28,7 +28,7 @@ export function walletAccountLogin(data) {
   })
 }
 
-//4.更新钱包账号  不要返回Data 
+//4.更新钱包Account   不要返回Data
 export function updateWalletAccount(data) {
   return request({
     url:'/wallet/account/',

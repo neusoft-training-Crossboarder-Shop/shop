@@ -26,7 +26,7 @@ public class SysUser extends BaseEntity
     /** 部门ID */
     private Long deptId;
 
-    /** User 账号 */
+    /** User Account  */
     private String userName;
 
     /** User Name */
@@ -120,8 +120,8 @@ public class SysUser extends BaseEntity
         this.nickName = nickName;
     }
 
-    @NotBlank(message = "User 账号不能为空")
-    @Size(min = 0, max = 30, message = "User 账号长度不能超过30个Code")
+    @NotBlank(message = "User Account 不能为空")
+    @Size(min = 0, max = 30, message = "User Account 长度不能超过30个Code")
     public String getUserName()
     {
         return userName;

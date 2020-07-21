@@ -4,7 +4,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
       <h3 class="title">CrossBoarderShop</h3>
       <el-form-item prop="username">
-        <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号">
+        <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="Account ">
           <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
         </el-input>
       </el-form-item>
@@ -62,7 +62,7 @@
       <el-form ref="registerForm" :model="registerForm" :rules="registerRules" label-width="30%">
         <el-row>
           <el-col :span="24">
-            <el-form-item label="账号Type ">
+            <el-form-item label="Account Type ">
               <el-switch
                   v-model="registerForm.roleIds"
                   active-value='3'
@@ -327,7 +327,7 @@ export default {
           //Start  加载
           this.loading = true;
           if (this.loginForm.rememberMe) {
-            //保存账号密码
+            //保存Account 密码
             Cookies.set("username", this.loginForm.username, { expires: 30 });
             Cookies.set("password", encrypt(this.loginForm.password), { expires: 30 });
             Cookies.set('rememberMe', this.loginForm.rememberMe, { expires: 30 });

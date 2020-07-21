@@ -90,7 +90,7 @@ public class MvoProductServiceImpl implements IMvoProductService {
                 product.getImages()) {
             mvoImage.setProId(id);
             //默认图片
-            mvoImage.setUri("/profile/product/2020/07/18/739d0ab61d6626309b822de8f10cb600.jpeg");
+            mvoImage.setUri("/profile/brand/2020/07/22/e400edf79513250747504b3020700878.jpeg");
             mvoImageMapper.insertSelective(mvoImage);
         }
     }

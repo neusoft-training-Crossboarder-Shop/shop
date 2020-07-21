@@ -121,6 +121,9 @@ public class mvoProductDescription implements Serializable {
     }
 
     public void setDescrition(String descrition) {
+        descrition.replace("<p>","");
+        descrition.replace("</p>","");
+        descrition.replace("<br>","");
         this.descrition = descrition;
     }
 

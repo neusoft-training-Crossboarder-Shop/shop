@@ -51,7 +51,7 @@ public class MvoProductController extends BaseController {
     }
 
     @GetMapping("/mvo/product/list")
-    @PreAuthorize("@ss.hasPermi('mvo:pro:query')")
+//    @PreAuthorize("@ss.hasPermi('mvo:pro:query')")
     public AjaxResult getProductList(MvoSearchProduct mvoSearchProduct) {
         startPage();
         List<mvoProduct> productList = mvoProductService.getProductList(mvoSearchProduct);
@@ -59,7 +59,7 @@ public class MvoProductController extends BaseController {
     }
 
     @PostMapping("/mvo/product")
-    @PreAuthorize("@ss.hasPermi('mvo:pro:add')")
+//    @PreAuthorize("@ss.hasPermi('mvo:pro:add')")
     @Transactional
     public AjaxResult insertProduct(@RequestBody mvoProduct product) {
         mvoProductService.insertProduct(product);
@@ -67,7 +67,7 @@ public class MvoProductController extends BaseController {
     }
 
     @PutMapping("/mvo/product")
-    @PreAuthorize("@ss.hasPermi('mvo:pro:edit')")
+//    @PreAuthorize("@ss.hasPermi('mvo:pro:edit')")
     @Transactional
     public AjaxResult updateProduct(@RequestBody mvoProduct product) {
         mvoProductService.updateProduct(product);
@@ -75,13 +75,13 @@ public class MvoProductController extends BaseController {
     }
 
     @GetMapping("/mvo/product/{proId}")
-    @PreAuthorize("@ss.hasPermi('mvo:pro:query')")
+//    @PreAuthorize("@ss.hasPermi('mvo:pro:query')")
     public AjaxResult getProductById(@PathVariable("proId")Integer proId ){
         return AjaxResult.success(mvoProductService.getProductByProId(proId));
     }
 
     @DeleteMapping("/mvo/product/{ids}")
-    @PreAuthorize("@ss.hasPermi('mvo:pro:remove')")
+//    @PreAuthorize("@ss.hasPermi('mvo:pro:remove')")
     @Transactional
     public AjaxResult deleteProductById(@PathVariable("ids")int[] id) {
         mvoProductService.deleteProductByIds(id);
@@ -89,7 +89,7 @@ public class MvoProductController extends BaseController {
     }
 
     @GetMapping("/mvo/product/description/{proId}")
-    @PreAuthorize("@ss.hasPermi('mvo:pro:query')")
+//    @PreAuthorize("@ss.hasPermi('mvo:pro:query')")
     public AjaxResult getDescriptionByProId(@PathVariable("proId")Integer proId) {
         return AjaxResult.success(mvoProductService.getDescriptionByProId(proId));
     }
@@ -100,7 +100,7 @@ public class MvoProductController extends BaseController {
     }
 
     @PutMapping("/mvo/product/description/")
-    @PreAuthorize("@ss.hasPermi('mvo:pro:edit')")
+//    @PreAuthorize("@ss.hasPermi('mvo:pro:edit')")
     @Transactional
     public AjaxResult updateDescription(@RequestBody List<mvoProductDescription> productDescriptions) {
         mvoProductService.updateDescription(productDescriptions);
@@ -108,7 +108,7 @@ public class MvoProductController extends BaseController {
     }
 
     @PostMapping("/mvo/product/image")
-    @PreAuthorize("@ss.hasPermi('mvo:pro:image:edit')")
+//    @PreAuthorize("@ss.hasPermi('mvo:pro:image:edit')")
     public AjaxResult uploadBrandImage(@RequestParam("productfile") MultipartFile file, @RequestParam("proId")Integer proId,@RequestParam("typeCd")Integer typeCd,@RequestParam("imgId")Integer imgId) throws IOException
     {
 
@@ -123,8 +123,8 @@ public class MvoProductController extends BaseController {
         return AjaxResult.error("Update Error");
     }
 
-    @DeleteMapping("/mvo/product/image/{imgId}")
-    @PreAuthorize("@ss.hasPermi('mvo:pro:image:edit')")
+//    @DeleteMapping("/mvo/product/image/{imgId}")
+//    @PreAuthorize("@ss.hasPermi('mvo:pro:image:edit')")
     public AjaxResult deleteProductImage(@PathVariable("imgId") Integer imgId) {
 
         mvoProductService.deleteProductImageById(imgId);
@@ -133,7 +133,7 @@ public class MvoProductController extends BaseController {
     }
 
     @PutMapping("mvo/product/{proId}/{status}")
-    @PreAuthorize("@ss.hasPermi('mvo:pro:state:edit')")
+//    @PreAuthorize("@ss.hasPermi('mvo:pro:state:edit')")
     public AjaxResult updateProductProStatus(@PathVariable("proId")Integer proId,@PathVariable("status")String status){
         mvoProductService.updateProductProStatus(proId,status);
         return AjaxResult.updateSuccess();

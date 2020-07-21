@@ -112,7 +112,7 @@ public class SysUserController extends BaseController
     {
         if (UserConstants.NOT_UNIQUE.equals(userService.checkUserNameUnique(user.getUserName())))
         {
-            return AjaxResult.error("Add User '" + user.getUserName() + "'Fail，登录账号Already存在");
+            return AjaxResult.error("Add User '" + user.getUserName() + "'Fail，登录Account Already存在");
         }
         else if (UserConstants.NOT_UNIQUE.equals(userService.checkPhoneUnique(user)))
         {
@@ -120,7 +120,7 @@ public class SysUserController extends BaseController
         }
         else if (UserConstants.NOT_UNIQUE.equals(userService.checkEmailUnique(user)))
         {
-            return AjaxResult.error("Add User '" + user.getUserName() + "'Fail，邮箱账号Already存在");
+            return AjaxResult.error("Add User '" + user.getUserName() + "'Fail，邮箱Account Already存在");
         }
         user.setCreateBy(SecurityUtils.getUsername());
         user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
@@ -142,7 +142,7 @@ public class SysUserController extends BaseController
         }
         else if (UserConstants.NOT_UNIQUE.equals(userService.checkEmailUnique(user)))
         {
-            return AjaxResult.error(" Modify  User '" + user.getUserName() + "'Fail，邮箱账号Already存在");
+            return AjaxResult.error(" Modify  User '" + user.getUserName() + "'Fail，邮箱Account Already存在");
         }
         user.setUpdateBy(SecurityUtils.getUsername());
         return toAjax(userService.updateUser(user));
