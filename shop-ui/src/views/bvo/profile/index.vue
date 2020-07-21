@@ -4,20 +4,20 @@
       <div slot="header" class="clearfix">
         <span style="font-weight: bold;font-size: large;margin-right: 2%">Profile</span>
         <span v-if="!notRegistered" class="foot">Register Time   :{{this.buyer.createTime}}  </span>
-        <span v-if="!notRegistered" class="foot">Register 人:{{this.buyer.createdBy}}</span>
+        <span v-if="!notRegistered" class="foot">Register :{{this.buyer.createdBy}}</span>
       </div>
         <div>
           <el-form ref="form" :model="buyer" label-width="80px">
-            <el-form-item label="StoreName">
-              <el-input v-model="buyer.name" @focus="changeEdit"  placeholder="Please Enter Store Name" ></el-input>
+            <el-form-item label="Name">
+              <el-input v-model="buyer.name" @focus="changeEdit"  placeholder="Please Enter The Name" ></el-input>
             </el-form-item>
           </el-form>
           <template v-if="notRegistered">
               <el-button  class="button-style" type="primary"   @click="register">Register </el-button>
           </template>
           <template v-else >
-              <el-button class="button-style"  type="primary" :disabled="!isEdit" @click="save">保存</el-button>
-              <el-button class="button-style" style="position: relative;left: -10px"   type="danger"  @click="redirect">我的店铺</el-button>
+              <el-button class="button-style"  type="primary" :disabled="!isEdit" @click="save">Save</el-button>
+              <el-button class="button-style" style="position: relative;left: -10px"   type="danger"  @click="redirect">My store</el-button>
           </template>
         </div>
     </el-card>
