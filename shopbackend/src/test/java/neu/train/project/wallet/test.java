@@ -1,6 +1,7 @@
 package neu.train.project.wallet;
 
 
+import neu.train.project.system.domain.SysUser;
 import neu.train.project.wallet.mapper.WtaWalletTransactionAduitMapper;
 import neu.train.project.wallet.pojo.WaaWalletAccount;
 import neu.train.project.wallet.pojo.WtaWalletTransactionAduit;
@@ -103,7 +104,9 @@ public class test {
     @Test
     public void test6(){
         GetANewWallet getANewWallet=new GetANewWallet("testA","108","2500921","USD");
-         walletService.insertWallet(2,2,getANewWallet);
+        SysUser sysUser = new SysUser();
+        sysUser.setUserId((long) 2);
+         walletService.insertWallet(sysUser,2,getANewWallet);
     }
 
     @Test

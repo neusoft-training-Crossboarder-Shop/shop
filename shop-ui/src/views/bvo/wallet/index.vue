@@ -442,14 +442,6 @@
               this.notRegistered = true;
             }
           })
-          // if (response.data.waaWalletAccount === null){
-          //   this.notRegistered = true;
-          // }else{
-          //   console.log("有Account 了")
-          // }
-            // this.buyer=response.data
-            // this.notRegistered = false;
-        // })
       },
       register(form){
            this.$refs[form].validate((valid) => {
@@ -504,10 +496,6 @@
       },
       save(){
         updateWalletAccount(this.account).then(response=>{
-          this.$notify({
-            type:'success',
-            message:'更新啊啊啊  '
-          })
         })
       },
       handleQuery() {

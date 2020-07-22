@@ -36,7 +36,7 @@ public interface WafWalletAccountFundMapper {
         "#{lastUpdateBy,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, ",
         "#{currency,jdbcType=VARCHAR}, #{version,jdbcType=INTEGER})"
     })
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="buyerId", before=true, resultType=Integer.class)
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="buyerId", before=false, resultType=Integer.class)
     int insert(WafWalletAccountFund record);
 
     int insertSelective(WafWalletAccountFund record);

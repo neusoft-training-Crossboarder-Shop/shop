@@ -348,7 +348,7 @@
     from sao_sales_order sao,sto_store_order sto,str_store str,pro_product pro
     <where>
       <if test="mvoId != null and mvoId != '' ">
-        AND str.dsr_id = #{mvoId}
+        AND sao.man_id = #{mvoId}
       </if>
       <if test="salId != null and salId != ''">
         AND sao.sales_oder_id like concat ('%', #{salId},'%')

@@ -258,8 +258,8 @@
           pushToStore(){
             let data = {
                 amount:this.amount,
-               proId:this.pro.proId,
-               storeIds:this.selectedStore,
+                proId:this.pro.proId,
+                storeIds:this.selectedStore,
             }
             purchaseProduct(data).then(res=>{
               this.$notify({

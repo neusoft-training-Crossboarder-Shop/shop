@@ -12,7 +12,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label=" Create   time">
+      <el-form-item label=" Create time">
         <el-date-picker
           v-model="dateRange"
           size="small"
@@ -94,7 +94,7 @@
         :filter-method="filterStatus"
       >
         <template slot-scope="scope">
-          <el-tag effect="dark" :type="getTypeTag(scope.row.orderStatus)">
+          <el-tag effect="light" :type="getTypeTag(scope.row.orderStatus)">
             {{orderStatusFormatter(scope.row)}}
           </el-tag>
         </template>
@@ -213,11 +213,6 @@
       //   })
       // });
       // 1 -申请 , 2 -complete , -3-Fail
-
-      // setTimeout(()=>{
-      //   console.log(this.platformType)
-      //   console.log(this.status)
-      // },500)
       this.getList()
 
     },
@@ -228,7 +223,7 @@
           path: `/bvo/good/${id}`
         })
       },
-      getList() {
+      getList(){
 
         this.loading = true;
         listOrders(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
@@ -237,47 +232,17 @@
             this.loading = false;
           }
         );
-
-        // setTimeout(()=>{
-        //   this.tableData=[
-        //     {
-        //       stoId:'1',
-        //       qty:'1',
-        //       product:{
-        //         proId:'1',
-        //         title:'汉堡',
-        //         retailPrice:'180',
-        //       },
-        //       //str
-        //       store:{
-        //         strId:'23',
-        //         storeName:'KFC',
-        //         platformType:1,
-        //       },
-        //
-        //       purchasePrice:1280,
-        //
-        //       paidTime:'',
-        //       createTime:'',
-        //       lastUpdateTime:'',
-        //       orderStatus:1,
-        //
-        //     }
-        //   ],
-        //   this.loading=false
-
-        // },500)
       },
       getTypeTag(status) {
         let s = parseInt(status);
         if (s == 1) {
           return 'danger'
         } else if (s == 2) {
-          return 'info'
+          return 'primary'
         } else if (s == 3) {
-          return 'info'
+          return 'primary'
         } else if (s == 4) {
-          return 'info'
+          return 'primary'
         } else if (s == 5) {
           return 'danger'
         }

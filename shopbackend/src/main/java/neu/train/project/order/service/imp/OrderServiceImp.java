@@ -3,6 +3,7 @@ package neu.train.project.order.service.imp;
 
 import neu.train.common.core.lang.UUID;
 import neu.train.common.utils.DateUtils;
+import neu.train.common.utils.SecurityUtils;
 import neu.train.framework.redis.RedisCache;
 import neu.train.project.order.mapper.*;
 import neu.train.project.order.pojo.*;
@@ -73,13 +74,10 @@ public class OrderServiceImp implements OrderService {
         StoStoreOrder stoStoreOrder = selectStoById(getUpdateASto.getStoId());
         stoStoreOrder.setUpdateBy(bvoId);
         stoStoreOrder.setQty(getUpdateASto.getQty());
-        if (stoStoreOrderMapper.updateByPrimaryKeySelective(stoStoreOrder) == 0) {
-            return false;
-        } else {
-            stoStoreOrder = stoStoreOrderMapper.selectByPrimaryKey(stoStoreOrder.getStoId());
-            redisCache.setCacheObject("stoById:" + stoStoreOrder.getStoId(), stoStoreOrder);
-            return true;
-        }
+        stoStoreOrderMapper.updateByPrimaryKeySelective(stoStoreOrder);
+        stoStoreOrder = stoStoreOrderMapper.selectByPrimaryKey(stoStoreOrder.getStoId());
+        redisCache.setCacheObject("stoById:" + stoStoreOrder.getStoId(), stoStoreOrder);
+        return true;
     }
 
     //插入一条收获地址，缓存"addressByStoId:"+stoId
@@ -112,9 +110,16 @@ public class OrderServiceImp implements OrderService {
         ShaShippingAddressExample shaShippingAddressExample = new ShaShippingAddressExample();
         ShaShippingAddressExample.Criteria shaShippingAddressExampleCriteria = shaShippingAddressExample.createCriteria();
         shaShippingAddressExampleCriteria.andStoIdEqualTo(stoId);
-        shaShippingAddress = shaShippingAddressMapper.selectByExample(shaShippingAddressExample).get(0);
-        redisCache.setCacheObject("addressByStoId:" + shaShippingAddress.getStoId(), shaShippingAddress);
-        return shaShippingAddress;
+
+        List<ShaShippingAddress> shaShippingAddresses = shaShippingAddressMapper.selectByExample(shaShippingAddressExample);
+
+        if (shaShippingAddresses.size() == 0) {
+            return new ShaShippingAddress();
+        }else{
+            ShaShippingAddress result = shaShippingAddresses.get(0);
+            redisCache.setCacheObject("addressByStoId:" + result.getStoId(), result);
+            return shaShippingAddress;
+        }
     }
 
     //支付一个原始订单,缓存stoById:
@@ -122,8 +127,8 @@ public class OrderServiceImp implements OrderService {
     public boolean pay(int bvoId, GetAPayMessage getAPayMessage) {
         //查密码
         WaaWalletAccount waaWalletAccount = walletService.selectWalletById(bvoId);
-        if (!waaWalletAccount.getPassword().equals(getAPayMessage.getPassword())) {
-            throw new RuntimeException("Password so wrong!");
+        if (!SecurityUtils.matchesPassword(getAPayMessage.getPassword(), waaWalletAccount.getPassword())) {
+            throw new RuntimeException("Wrong Password!");
         }
         //新算钱,现价买入
         StoStoreOrder stoStoreOrder = selectStoById(getAPayMessage.getStoId());
@@ -131,7 +136,7 @@ public class OrderServiceImp implements OrderService {
         //运费加商品总钱
         BigDecimal total = proProduct.getRetailPrice().multiply(new BigDecimal(String.valueOf(stoStoreOrder.getQty()))).add(new BigDecimal(getAPayMessage.freightCost));
         //bvo,mvo,total,让钱包自己去做钱包的事吧
-        walletService.pay(bvoId, manManufacturerMapper.selectByPrimaryKey(proProduct.getManId()).getSysUserId(), total);
+        walletService.pay(getAPayMessage.stoId,bvoId, manManufacturerMapper.selectByPrimaryKey(proProduct.getManId()).getSysUserId(), total);
         //原始订单 Modify
         stoStoreOrder.setPurchasePrice(proProduct.getRetailPrice());
         stoStoreOrder.setPaidTime(DateUtils.getTime());
@@ -217,10 +222,10 @@ public class OrderServiceImp implements OrderService {
     public boolean acceptSto(int bvoId,int stoId){
         StoStoreOrder stoStoreOrder=new StoStoreOrder();
         stoStoreOrder.setStoId(stoId);
-        stoStoreOrder.setOrderStatus(3);
+        stoStoreOrder.setOrderStatus(5);
         stoStoreOrder.setLastUpdateBy(String.valueOf(bvoId));
         stoStoreOrderMapper.updateByPrimaryKeySelective(stoStoreOrder);
-        stoStoreOrderMapper.selectByPrimaryKey(stoId);
+        stoStoreOrder = stoStoreOrderMapper.selectByPrimaryKey(stoId);
         redisCache.setCacheObject("stoById:" + stoId, stoStoreOrder);
         return true;
     }

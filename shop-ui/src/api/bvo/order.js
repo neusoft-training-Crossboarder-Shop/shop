@@ -60,6 +60,15 @@ export function getStoByStoId(stoId) {
     }
   )
 }
+//查询单个的原始订单
+export function getSalByStoId(stoId) {
+  return request(
+    {
+      url:'bvo/order/salOrder/'+stoId,
+      method:'get',
+    }
+  )
+}
 
 //更新单个的原始订单
 //data{

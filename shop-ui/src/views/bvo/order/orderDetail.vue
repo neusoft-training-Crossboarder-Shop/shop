@@ -50,8 +50,8 @@
                       </el-col>
 
                       <el-col :span="2">
-                        <el-button v-if="stoOrder.orderStatus == 1" type="danger" @click="purchaseUi">Purchase</el-button>
-                        <el-button v-else type="info" :disabled="true">Already支付</el-button>
+                        <el-button v-if="stoOrder.orderStatus == 1" type="danger" @click="purchaseUi" :disabled="this.shippingAddress.shaId==null" >Purchase</el-button>
+                        <el-button v-else type="info" :disabled="true">Already Pay</el-button>
                       </el-col>
                     </el-row>
                   </el-form>
@@ -164,8 +164,6 @@
                 <div><span class="tag">Quantity</span> <span>{{salInfo.qty}}</span></div>
                 <div><span class="tag">Purchase Price</span> <span class="price">${{salInfo.purchasePrice}}</span></div>
                 <div><span class="tag">Total Price</span> <span class="price">${{salInfo.price}}</span></div>
-                <div><span class="tag">Manufacturer Name</span><span style="display: block;position: relative;left: 15%;top: -35px">{{salInfo.manufacturer.nameEn}}</span></div>
-                <div><span class="tag">description</span> <span style="display: block;position: relative;left: 15%;top: -35px">{{salInfo.manufacturer.description}}</span></div>
               </div>
             </div>
 
@@ -239,14 +237,17 @@
   </div>
 </template>
 <script>
-  import {getStoByStoId,
+  import {
+    getStoByStoId,
     updateStoByStoId,
     payStoBySto,
     getShippingAddressByStoId,
     insertShippingAddress,
     updateShippingAddress,
-    acceptProduct
+    acceptProduct,
+    getSalByStoId,
   } from "../../../api/bvo/order";
+
   export default {
     name: "orderDetail.vue",
     data:function () {
@@ -313,6 +314,11 @@
       this.stoOrder.stoId=stoId
       getStoByStoId(stoId).then(response=>{
         this.stoOrder = response.data;
+        if (this.stoOrder.orderStatus >= 2) {
+          getSalByStoId(this.stoOrder.stoId).then(response => {
+            this.salInfo = response.data;
+          });
+        }
       })
 
       getShippingAddressByStoId(stoId).then(response=>{
@@ -324,7 +330,7 @@
     },
     methods:{
       on_click(e){
-        if (e > this.stoOrder.orderStatus) {
+        if (parseInt(e) > this.stoOrder.orderStatus) {
           this.$notify({
             type:'info',
             message:'You cannot click'
@@ -357,16 +363,22 @@
             password:value,
             stoId:this.stoOrder.stoId,
             freightCost: this.shippingAddress.freightCost || 5
-          }
+          };
           payStoBySto(data).then(response=>{
-
             getStoByStoId(this.stoOrder.stoId).then(response=>{
               this.stoOrder = response.data;
-            })
+            });
+            getSalByStoId(this.stoOrder.stoId).then(response=>{
+              this.salInfo=response.data;
+            });
+
+
+
+
             this.$notify(
               {
                 type:"success",
-                message:"支付Success"
+                message:"Pay Success"
               }
             )
 
@@ -383,14 +395,16 @@
       click_updateShippingAddress(){
         console.log("click_updateShippingAddress")
         if (this.shippingAddress.stoId) {
+
           updateShippingAddress(this.shippingAddress).then((response)=>{
             getShippingAddressByStoId(stoId).then(response=>{
               this.shippingAddress=response.data;
             })
           })
         }else{
+          this.shippingAddress.stoId = this.stoOrder.stoId;
           insertShippingAddress(this.shippingAddress).then((response)=>{
-            getShippingAddressByStoId(stoId).then(response=>{
+            getShippingAddressByStoId(this.stoOrder.stoId).then(response=>{
               this.shippingAddress=response.data;
             })
           })
@@ -420,11 +434,6 @@
       handleTabClick(tab,event){
         console.log(tab)
         console.log(event)
-        this.$notify({
-          type:'info',
-          message:`You cannot click ${tab.name}`
-        })
-
       }
     }
   }

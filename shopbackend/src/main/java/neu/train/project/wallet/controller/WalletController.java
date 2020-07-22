@@ -50,15 +50,15 @@ public class WalletController extends BaseController {
             throw new RuntimeException("Some not null is null now,too bad");
         }
         int userType;
-        if (permissionService.hasRole("MVO")) {
+        if (permissionService.hasRole("mvo")) {
             userType=2;
-        } else if (permissionService.hasRole("BVO")) {
+        } else if (permissionService.hasRole("bvo")) {
             userType=1;
         } else {
             throw new RuntimeException("Who are you at all？");
         }
-        walletService.insertWallet(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()),userType,getANewWallet);
-        walletService.insertFund(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()), getANewWallet.getCurrency());
+        walletService.insertWallet(SecurityUtils.getLoginUser().getUser(),userType,getANewWallet);
+        walletService.insertFund(SecurityUtils.getLoginUser().getUser(), getANewWallet.getCurrency());
         return AjaxResult.insertSuccess();
     }
 

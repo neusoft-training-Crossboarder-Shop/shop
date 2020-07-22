@@ -53,14 +53,14 @@ public class GlobalExceptionHandler
     public AjaxResult handlerNoFoundException(Exception e)
     {
         log.error(e.getMessage(), e);
-        return AjaxResult.error(HttpStatus.NOT_FOUND, "路径不存在，请检查路径是否正确");
+        return AjaxResult.error(HttpStatus.NOT_FOUND, "Wrong Path");
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     public AjaxResult handleAuthorizationException(AccessDeniedException e)
     {
         log.error(e.getMessage());
-        return AjaxResult.error(HttpStatus.FORBIDDEN, "没有Authority ，Please contact the Admin to授权");
+        return AjaxResult.error(HttpStatus.FORBIDDEN, "No Authority ，Please contact the Admin to Authorize");
     }
 
     @ExceptionHandler(AccountExpiredException.class)

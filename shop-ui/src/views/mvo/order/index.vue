@@ -226,7 +226,6 @@
             this.loading = false;
           }
         );
-
       },
       getTypeTag(status){
         let s = parseInt(status);
