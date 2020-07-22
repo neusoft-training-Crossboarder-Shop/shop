@@ -1,31 +1,6 @@
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-<!--      &lt;!&ndash;部门Data &ndash;&gt;-->
-<!--      <el-col :span="4" :xs="24">-->
-<!--        <div class="head-container">-->
-<!--          <el-input-->
-<!--            v-model="deptName"-->
-<!--            placeholder="Please Enter 部门Name"-->
-<!--            clearable-->
-<!--            size="small"-->
-<!--            prefix-icon="el-icon-search"-->
-<!--            style="margin-bottom: 20px"-->
-<!--          />-->
-<!--        </div>-->
-<!--        <div class="head-container">-->
-<!--          <el-tree-->
-<!--            :data="deptOptions"-->
-<!--            :props="defaultProps"-->
-<!--            :expand-on-click-node="false"-->
-<!--            :filter-node-method="filterNode"-->
-<!--            ref="tree"-->
-<!--            default-expand-all-->
-<!--            @node-click="handleNodeClick"-->
-<!--          />-->
-<!--        </div>-->
-<!--      </el-col>-->
-      <!--User Data -->
       <el-col :span="24" :xs="24">
         <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="68px">
           <el-form-item label="User Name" prop="userName">

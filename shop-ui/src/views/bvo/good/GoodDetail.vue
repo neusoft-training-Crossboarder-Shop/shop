@@ -250,19 +250,6 @@
               }
             })
           });
-
-          // this.getDicts("store_platform_type").then(response => {
-          //   let data=response.data;
-          //   data.forEach((item,index)=>{
-          //     this.platformType[index]=
-          //       {
-          //         text:item.dictLabel,
-          //         value:item.dictValue
-          //       }
-          //   })
-          // });
-
-
           getStoreList(this.queryParams).then(response => {
               this.storeList = response.rows;
             }
@@ -282,7 +269,7 @@
               this.$notify({
                 type:"success",
                 title:"执行",
-                message:"Already经 Add  到商店"
+                message:"Already Add "
               })
             })
 

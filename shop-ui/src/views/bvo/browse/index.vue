@@ -113,7 +113,7 @@
 </template>
 
 <script>
-  import { search, clearCache } from "@/api/bvo/browse";
+  import { search } from "@/api/bvo/browse";
   import { Loading } from 'element-ui';
   export default {
         name: "index.vue",
@@ -167,12 +167,15 @@
        },
       methods:{
         getList(){
-          console.log(this.searchCondition);
           search(this.searchCondition).then(response=>{
-            console.log(response)
             this.loadingInstance.close();
-            this.items=[...this.items,...response.data.rows]
-
+            let products=response.data.rows
+            products.forEach(item=>{
+              item.imageList.forEach(image=>{
+                image.uri=process.env.VUE_APP_BASE_API+image.uri
+              })
+            })
+            this.items=[...this.items,...products]
             if(this.items.length===response.data.total){
               this.noMore = true;
             }
@@ -181,7 +184,6 @@
         },
         load () {
           this.searchCondition.pageNum=this.searchCondition.pageNum+1
-          console.log("12312312");
           this.loading = true;
           this.getList()
         },
@@ -200,7 +202,6 @@
             lock:"true",
           });
           setTimeout(()=>{
-
           },500),
           this.getList();
         },
@@ -225,11 +226,6 @@
             message: 'Cache Button',
             type: 'success'
           });
-          // clearCache().then(response => {
-          //   if (response.code === 200) {
-          //     this.msgSuccess("清理Success");
-          //   }
-          // });
         },
 
       },

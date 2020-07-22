@@ -92,8 +92,8 @@
 
         <el-row>
           <el-col :span="24">
-            <el-form-item label="User Name" prop="nickName">
-              <el-input v-model="registerForm.nickName" placeholder="Please Enter User Name" />
+            <el-form-item label="Nick Name" prop="nickName">
+              <el-input v-model="registerForm.nickName" placeholder="Please Enter Nick Name" />
             </el-form-item>
           </el-col>
         </el-row>

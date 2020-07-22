@@ -210,19 +210,7 @@
                 >Delete
                 </el-button>
               </el-col>
-<<<<<<< HEAD
 
-=======
-<!--@click="handleClearCache"-->
-              <el-col :span="1.5">
-                <el-button
-                  type="danger"
-                  icon="el-icon-refresh"
-                  size="middle"
-                  v-hasPermi="['system:config:remove']"
-                >Clean Cache</el-button>
-              </el-col>
->>>>>>> 43c996df0e61f274f732ddae27441bc889feeb4e
             </el-row>
 
             <el-table   class="el-table--enable-row-hover el-table__body" v-loading="loading" :data="brandList"  @selection-change="handleSelectionChange">
@@ -301,10 +289,7 @@
 
               <el-table-column label="Operation" width = 280px align="center" class-name="small-padding fixed-width">
                 <template slot-scope="scope">
-<<<<<<< HEAD
-=======
-                  <!--         el-button Authority 里面v-hasPermi="['system:config:edit']"-->
->>>>>>> 43c996df0e61f274f732ddae27441bc889feeb4e
+
                   <el-button
                     size="small"
                     align="center"
