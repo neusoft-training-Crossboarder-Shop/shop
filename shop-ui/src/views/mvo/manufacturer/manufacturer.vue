@@ -12,23 +12,10 @@
                 <el-input v-model="manufacturer.nameEn" placeholder="Enter English Name"></el-input>
               </el-form-item>
               <el-form-item label="manDesc" prop="manDesc" height = 200px wodth = 200px>
-<!--                <el-input-->
-<!--                  type="textarea"-->
-<!--                  :rows="2"-->
-<!--                  placeholder="Please Enter 内容"-->
-<!--                  v-model="manufacturer.manDesc">-->
-<!--                </el-input>-->
-<!--                <editor v-model="description.descrition" :maxSize="maxSize" ></editor>-->
-
                 <div class="ql-editor" >
-<!--                <div class="ql-editor" style="margin-top: 50%;margin-bottom: 50%;padding-top: 10%;padding-bottom: 10%">-->
-<!--                  <p class="ql-editor" style="display: block;text-align: center;font-size: small">{{manufacturer.manDesc}}</p>-->
                   <editor class="ql-editor" v-model="manufacturer.manDesc" :maxSize="maxSize" ></editor>
                 </div>
-
-
               </el-form-item>
-
 
               <el-form-item label="GMC Report Type" prop="gmcReportType">
                 <el-select v-model="manufacturer.gmcReportType" placeholder="placeholder">
@@ -41,7 +28,6 @@
                 </el-select>
               </el-form-item>
 
-
               <el-form-item label="GMC Report Url" prop="gmcReportUrl">
                 <el-input v-model="manufacturer.gmcReportUrl" placeholder="placeholder"></el-input>
               </el-form-item>
@@ -52,6 +38,7 @@
                 <el-button v-if="manufacturer.manId == undefined" @click="resetManufacturerForm('manufacturerForm')">Reset</el-button>
                 <el-button v-if="manufacturer.manId != undefined" type="primary" @click="modifyProfile=false">返回</el-button>
               </el-form-item>
+
             </el-form>
           </div>
 
@@ -72,9 +59,6 @@
                     <el-form-item label="nameCn">
                       <span>{{ props.row.nameCn }}</span>
                     </el-form-item>
-<!--                    <el-form-item label="imgId">-->
-<!--                      <span>{{ props.row.imgId }}</span>-->
-<!--                    </el-form-item>-->
 
                     <el-form-item label="picUrl">
               <span>
@@ -108,7 +92,6 @@
               <el-table-column label="Chinese Name" align="center" prop="nameCn" />
               <el-table-column label="English Name" align="center" prop="nameEn" />
 
-
               <el-table-column label="GMC Report Type" align="center"  :show-overflow-tooltip="true" >
                 <template slot-scope="scope">
                   {{gmcReportTypeOptions[scope.row.gmcReportType-1].label}}
@@ -122,7 +105,6 @@
               <el-table-column label="Last Update Time" align="center" prop="lastUpdateTime" width="170">
               </el-table-column>
 
-
               <el-table-column label="Operation" align="center" class-name="small-padding fixed-width">
                 <template slot-scope="scope">
                   <!--         el-button Authority 里面v-hasPermi="['system:config:edit']"-->
@@ -133,7 +115,6 @@
                     @click.stop="modifyProfile = true"
                     v-hasPermi="['mvo:profile:edit']"
                   >Modify</el-button>
-
                 </template>
               </el-table-column>
 
@@ -507,7 +488,6 @@
         ],
         brandList:[
           {
-
             brdId:123,
             manId:'',
             nameEn:"好宝宝网店",
@@ -579,14 +559,14 @@
       submitManufacturerForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-
             if(this.manufacturer.manId == undefined){
               api_insertManufacturer(this.manufacturer).then(res=>{
                   api_getManufacturer().then(res=>{
                     this.manufacturers[0]=res.data
+                    this.manufacturer=res.data
+                    this.notRegistered = false;
                   })
               })
-
             }else{
               api_updateManufacturer(this.manufacturer).then(res=>{
                 api_getManufacturer().then(res=>{
@@ -622,7 +602,7 @@
       handleAdd() {
         this.reset();
         this.open = true;
-        this.title = " Add  品牌";
+        this.title = " Add  Brand";
       },
       reset() {
         this.form = {
@@ -779,3 +759,4 @@
   }
 
 </style>
+

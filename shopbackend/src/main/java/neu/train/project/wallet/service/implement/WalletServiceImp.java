@@ -389,7 +389,7 @@ public class WalletServiceImp implements WalletService {
 
     //其实在支付一个原始订单，改余额，加流水，Cache"fundById:"+buyerId
     @Override
-    public boolean pay(int bvoId, int mvoId, BigDecimal total){
+    public boolean pay(Integer stoId, int bvoId, int mvoId, BigDecimal total){
        selectWalletById(bvoId);
         try {
             selectWalletById(mvoId);
@@ -425,11 +425,14 @@ public class WalletServiceImp implements WalletService {
         bvoTransaction.setTransactionMoney(total.negate());
         bvoTransaction.setStatus((byte)2);
         bvoTransaction.setBalance(bvoFund.getAvailableMoney());
+        bvoTransaction.setBusinessId(stoId);
+
         bvoTransaction.setFinanceType((byte)2);
         wtrWalletTransactionRecordMapper.insertSelective(bvoTransaction);
         //写mvo流水
         WtrWalletTransactionRecord mvoTransaction=new WtrWalletTransactionRecord();
         mvoTransaction.setBuyerId(mvoId);
+        mvoTransaction.setBusinessId(stoId);
         mvoTransaction.setTransactionType((byte)3);
         mvoTransaction.setTransactionMoney(total);
         mvoTransaction.setStatus((byte)2);

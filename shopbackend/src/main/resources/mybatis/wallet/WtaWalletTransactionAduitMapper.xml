@@ -378,7 +378,7 @@
   </resultMap>
 
   <sql id="selectA">
-    select transaction_audit_id, buyer_id, transaction_id, available_money_before, depositing_money_before, withdrawing_money_before, operate_money, operate_type, available_money_after, depositing_money_after,withdrawing_money_after,operate_by,status,created_By,create_time,last_update_by,last_update_time
+    select transaction_audit_id, buyer_id, transaction_id, operate_type ,available_money_before, depositing_money_before, withdrawing_money_before, operate_money, operate_type, available_money_after, depositing_money_after,withdrawing_money_after,operate_by,status,created_By,create_time,last_update_by,last_update_time
     from wta_wallet_transaction_aduit
   </sql>
 
@@ -392,7 +392,7 @@
         AND transaction_id = #{transactionId}
       </if>
       <if test="operateType != null and operateType != '' ">
-        AND transaction_type = #{transactionType}
+        AND operate_type = #{operateType}
       </if>
       <if test="status != null and status != '' ">
         AND status = #{status}

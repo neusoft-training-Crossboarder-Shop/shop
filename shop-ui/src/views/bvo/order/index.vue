@@ -12,7 +12,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label=" Create   time">
+      <el-form-item label=" Create time">
         <el-date-picker
           v-model="dateRange"
           size="small"
@@ -94,7 +94,7 @@
         :filter-method="filterStatus"
       >
         <template slot-scope="scope">
-          <el-tag effect="dark" :type="getTypeTag(scope.row.orderStatus)">
+          <el-tag effect="light" :type="getTypeTag(scope.row.orderStatus)">
             {{orderStatusFormatter(scope.row)}}
           </el-tag>
         </template>
@@ -238,11 +238,11 @@
         if (s == 1) {
           return 'danger'
         } else if (s == 2) {
-          return 'info'
+          return 'primary'
         } else if (s == 3) {
-          return 'info'
+          return 'primary'
         } else if (s == 4) {
-          return 'info'
+          return 'primary'
         } else if (s == 5) {
           return 'danger'
         }

@@ -47,7 +47,7 @@
 
 
                       <el-col :span="2">
-                        <el-button  type="info" :disabled="true">Already支付</el-button>
+                        <el-button  type="info" :disabled="true">Already Pay</el-button>
                       </el-col>
                     </el-row>
                   </el-form>
@@ -144,13 +144,11 @@
             <el-button type="primary" @click="update_status(stoOrder.stoId,3)" :disabled="stoOrder.orderStatus>2" style="display: inline-block;width: 20%;margin-left: 5%">发货</el-button>
             <div class="main_content detail_info">
               <div>
-                <h3 style=" font: italic 1em Georgia, serif">Your Commodity</h3>
+                <h3 style=" font: italic 1em Georgia, serif">Commodity</h3>
                 <div><span class="tag">Name </span> <span>{{salInfo.product.title}}</span></div>
                 <div><span class="tag">Quantity</span> <span>{{salInfo.qty}}</span></div>
                 <div><span class="tag">Purchase Price</span> <span class="price">${{salInfo.purchasePrice}}</span></div>
                 <div><span class="tag">Total Price</span> <span class="price">${{salInfo.price}}</span></div>
-                <div><span class="tag">Manufacturer Name</span><span style="display: block;position: relative;left: 15%;top: -35px">{{salInfo.manufacturer.nameEn}}</span></div>
-                <div><span class="tag">description</span> <span style="display: block;position: relative;left: 15%;top: -35px">{{salInfo.manufacturer.description}}</span></div>
               </div>
             </div>
 
@@ -222,12 +220,13 @@
   </div>
 </template>
 <script>
-  import {getStoByStoId,
+  import {
+    getStoByStoId,
     updateStoByStoId,
     payStoBySto,
     getShippingAddressByStoId,
     insertShippingAddress,
-    updateShippingAddress
+    updateShippingAddress, getSalByStoId
   } from "../../../api/bvo/order";
 
   import {updateOrderStatus} from "../../../api/mvo/order";
@@ -302,6 +301,11 @@
 
       getStoByStoId(stoId).then(response=>{
         this.stoOrder = response.data;
+        if (this.stoOrder.orderStatus >= 2) {
+          getSalByStoId(this.stoOrder.stoId).then(response => {
+            this.salInfo = response.data;
+          });
+        }
       })
 
       getShippingAddressByStoId(stoId).then(response=>{
@@ -325,10 +329,7 @@
       },
       on_click(e){
         if (e > this.stoOrder.orderStatus) {
-          this.$notify({
-            type:'info',
-            message:'You cannot click'
-          })
+
         }else{
           this.active=''+e
         }
@@ -341,12 +342,6 @@
       },
 
       handleTabClick(tab,event){
-        console.log(tab)
-        console.log(event)
-        this.$notify({
-          type:'info',
-          message:`You cannot click ${tab.name}`
-        })
 
       }
     }

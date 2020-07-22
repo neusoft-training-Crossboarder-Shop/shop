@@ -214,7 +214,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="User 性别">
-              <el-select v-model="form.sex" placeholder="请 Selection  ">
+              <el-select v-model="form.sex" placeholder="Please Select">
                 <el-option
                   v-for="dict in sexOptions"
                   :key="dict.dictValue"
@@ -252,7 +252,7 @@
 <!--          </el-col>-->
 <!--          <el-col :span="12">-->
             <el-form-item label="Role">
-              <el-select v-model="form.roleIds" multiple placeholder="请 Selection  ">
+              <el-select v-model="form.roleIds" multiple placeholder="Please Select  ">
                 <el-option
                   v-for="item in roleOptions"
                   :key="item.roleId"

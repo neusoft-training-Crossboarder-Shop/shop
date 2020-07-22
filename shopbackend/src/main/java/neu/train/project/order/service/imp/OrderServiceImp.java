@@ -74,13 +74,10 @@ public class OrderServiceImp implements OrderService {
         StoStoreOrder stoStoreOrder = selectStoById(getUpdateASto.getStoId());
         stoStoreOrder.setUpdateBy(bvoId);
         stoStoreOrder.setQty(getUpdateASto.getQty());
-        if (stoStoreOrderMapper.updateByPrimaryKeySelective(stoStoreOrder) == 0) {
-            return false;
-        } else {
-            stoStoreOrder = stoStoreOrderMapper.selectByPrimaryKey(stoStoreOrder.getStoId());
-            redisCache.setCacheObject("stoById:" + stoStoreOrder.getStoId(), stoStoreOrder);
-            return true;
-        }
+        stoStoreOrderMapper.updateByPrimaryKeySelective(stoStoreOrder);
+        stoStoreOrder = stoStoreOrderMapper.selectByPrimaryKey(stoStoreOrder.getStoId());
+        redisCache.setCacheObject("stoById:" + stoStoreOrder.getStoId(), stoStoreOrder);
+        return true;
     }
 
     //插入一条收获地址，缓存"addressByStoId:"+stoId
@@ -139,7 +136,7 @@ public class OrderServiceImp implements OrderService {
         //运费加商品总钱
         BigDecimal total = proProduct.getRetailPrice().multiply(new BigDecimal(String.valueOf(stoStoreOrder.getQty()))).add(new BigDecimal(getAPayMessage.freightCost));
         //bvo,mvo,total,让钱包自己去做钱包的事吧
-        walletService.pay(bvoId, manManufacturerMapper.selectByPrimaryKey(proProduct.getManId()).getSysUserId(), total);
+        walletService.pay(getAPayMessage.stoId,bvoId, manManufacturerMapper.selectByPrimaryKey(proProduct.getManId()).getSysUserId(), total);
         //原始订单 Modify
         stoStoreOrder.setPurchasePrice(proProduct.getRetailPrice());
         stoStoreOrder.setPaidTime(DateUtils.getTime());
@@ -225,10 +222,10 @@ public class OrderServiceImp implements OrderService {
     public boolean acceptSto(int bvoId,int stoId){
         StoStoreOrder stoStoreOrder=new StoStoreOrder();
         stoStoreOrder.setStoId(stoId);
-        stoStoreOrder.setOrderStatus(3);
+        stoStoreOrder.setOrderStatus(5);
         stoStoreOrder.setLastUpdateBy(String.valueOf(bvoId));
         stoStoreOrderMapper.updateByPrimaryKeySelective(stoStoreOrder);
-        stoStoreOrderMapper.selectByPrimaryKey(stoId);
+        stoStoreOrder = stoStoreOrderMapper.selectByPrimaryKey(stoId);
         redisCache.setCacheObject("stoById:" + stoId, stoStoreOrder);
         return true;
     }

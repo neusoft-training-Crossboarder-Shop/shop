@@ -1,5 +1,6 @@
 package neu.train.project.order;
 
+import neu.train.project.order.pojo.StoStoreOrder;
 import neu.train.project.order.service.OrderService;
 import neu.train.project.order.vo.*;
 import org.junit.Test;
@@ -55,5 +56,10 @@ public class test {
         System.out.println(sendStis.isEmpty());
         System.out.println(sendStis.get(0));
         System.out.println(sendStis.get(0).toString());
+    }
+    @Test
+    public void test5(){
+        StoStoreOrder stoStoreOrder=orderService.selectStoById(12);
+        System.out.println(stoStoreOrder);
     }
 }

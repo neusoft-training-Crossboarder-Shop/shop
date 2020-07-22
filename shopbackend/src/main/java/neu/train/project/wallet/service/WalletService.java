@@ -31,7 +31,7 @@ public interface WalletService {
     boolean rejectAudit(String managerId,WtaWalletTransactionAduit wtaWalletTransactionAduit);
     boolean tryDeposit(int buyerId,MakeATransaction makeATransaction);
     boolean tryWithdraw(int buyerId,MakeATransaction makeATransaction);
-    boolean pay(int bvoId, int mvoId, BigDecimal total);
+    boolean pay(Integer stoId, int bvoId, int mvoId, BigDecimal total);
 
 
 }

@@ -155,4 +155,23 @@ public class StoStoreOrder extends BaseEntity {
     public void setStsCd(String stsCd) {
         this.stsCd = stsCd == null ? null : stsCd.trim();
     }
+
+    @Override
+    public String toString() {
+        return "StoStoreOrder{" +
+                "stoId=" + stoId +
+                ", proid=" + proid +
+                ", qty=" + qty +
+                ", storeId=" + storeId +
+                ", purchasePrice=" + purchasePrice +
+                ", paidTime='" + paidTime + '\'' +
+                ", orderStatus=" + orderStatus +
+                ", createTime=" + createTime +
+                ", createdBy='" + createdBy + '\'' +
+                ", lastUpdateBy='" + lastUpdateBy + '\'' +
+                ", lastUpdateTime=" + lastUpdateTime +
+                ", callCnt=" + callCnt +
+                ", stsCd='" + stsCd + '\'' +
+                '}';
+    }
 }

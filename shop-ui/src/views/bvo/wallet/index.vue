@@ -442,14 +442,6 @@
               this.notRegistered = true;
             }
           })
-          // if (response.data.waaWalletAccount === null){
-          //   this.notRegistered = true;
-          // }else{
-          //   console.log("有Account 了")
-          // }
-            // this.buyer=response.data
-            // this.notRegistered = false;
-        // })
       },
       register(form){
            this.$refs[form].validate((valid) => {

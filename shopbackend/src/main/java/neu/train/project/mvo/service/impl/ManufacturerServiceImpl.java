@@ -33,34 +33,26 @@ public class ManufacturerServiceImpl implements IManufacturerService {
     @Override
     public mvoManufacturer getManufacturer() {
         mvoManufacturerExample mvoManufacturerExample = new mvoManufacturerExample();
-
         int userId = Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId());
-
         //检查缓存
         mvoManufacturer manufacturer=redisCache.getCacheObject(MAN_CACHE_PREFIX + userId);
         if (manufacturer != null) {
             return manufacturer;
         }
-
         mvoManufacturerExample.createCriteria().andSysUserIdEqualTo(userId);
         List<mvoManufacturer> mvoManufacturers = mvoManufacturerMapper.selectByExample(mvoManufacturerExample);
-
-
         if (mvoManufacturers.size() == 0) {
-
             return new mvoManufacturer();
         }else{
             mvoManufacturer mvoManufacturer = mvoManufacturers.get(0);
             redisCache.setCacheObject(MAN_CACHE_PREFIX + userId, mvoManufacturer);
             return mvoManufacturer;
         }
-
     }
-
     @Override
     public void insertManufacturer(mvoManufacturer manufacturer) {
         LoginUser loginUser = SecurityUtils.getLoginUser();
-        manufacturer.setManId(Math.toIntExact(loginUser.getUser().getUserId()));
+        manufacturer.setSysUserId(Math.toIntExact(loginUser.getUser().getUserId()));
         manufacturer.setCreatedBy(loginUser.getUsername());
         manufacturer.setLastUpdateBy(loginUser.getUsername());
         mvoManufacturerMapper.insertSelective(manufacturer);

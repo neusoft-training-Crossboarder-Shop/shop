@@ -33,7 +33,7 @@
         <el-row :gutter="10">
           <el-col :span="10">
             <el-form-item  label="Transaction Type">
-              <el-select v-model="queryParams.operateType" clearable placeholder="请 Selection  ">
+              <el-select v-model="queryParams.operateType" clearable placeholder="Please Select  ">
                 <el-option
                   v-for="(item,index) in this.operateType"
                   :key="index"
@@ -45,7 +45,7 @@
           </el-col>
           <el-col :span="10">
             <el-form-item  label="Transaction  Status">
-              <el-select v-model="queryParams.status" clearable placeholder="请 Selection  ">
+              <el-select v-model="queryParams.status" clearable placeholder="Please Select  ">
                 <el-option
                   v-for="(item,index) in this.status"
                   :key="index"
@@ -181,7 +181,7 @@
                </el-row>
              </div>
                <div v-else>
-                    <el-button :disabled="true" type="info">不可Operation</el-button>
+                    <el-button :disabled="true" type="info">Forbidden Operation</el-button>
                </div>
              </template>
            </el-table-column>
@@ -216,7 +216,7 @@
             pageSize: 10,
             buyerId: undefined,
             transactionId: undefined,
-            OperateType: undefined,
+            operateType: undefined,
             status:'',
             beginTime:'',
             endTime:'',
