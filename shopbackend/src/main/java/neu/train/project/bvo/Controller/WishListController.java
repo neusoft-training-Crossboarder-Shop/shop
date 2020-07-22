@@ -26,9 +26,7 @@ public class WishListController extends BaseController {
     @GetMapping("/list")
     @ApiOperation("get withslist of drp_ID ")
     public AjaxResult getWishList() {
-//        startPage();
         List<SimpleProduct> wishLists = productService.getWishListByDsrId();
-//        TableDataInfo dataTable = getDataTable(wishLists);
         return AjaxResult.success(wishLists);
     }
 

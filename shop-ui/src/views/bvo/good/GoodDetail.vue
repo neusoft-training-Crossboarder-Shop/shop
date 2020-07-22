@@ -87,7 +87,7 @@
             placement="top-start"
             trigger="click">
             <div>
-              <el-select v-model="selectedStore" placeholder="请 Selection  "  multiple collapse-tags>
+              <el-select v-model="selectedStore" placeholder="Please Select  "  multiple collapse-tags>
                 <el-option
                   v-for="item in storeList"
                   :key="item.storeId"

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class MvoSearchProduct {
+    private Integer manId;
     private Integer proId;
     private String categoryName;
     private String title;
@@ -13,7 +14,9 @@ public class MvoSearchProduct {
     private Date beginTime;
     private Date endTime;
 
-    public MvoSearchProduct(Integer proId, String categoryName, String title, String brandName, BigDecimal topPrice, BigDecimal lowPrice, Date beginTime, Date endTime) {
+
+    public MvoSearchProduct(Integer manId, Integer proId, String categoryName, String title, String brandName, BigDecimal topPrice, BigDecimal lowPrice, Date beginTime, Date endTime) {
+        this.manId = manId;
         this.proId = proId;
         this.categoryName = categoryName;
         this.title = title;
@@ -22,6 +25,10 @@ public class MvoSearchProduct {
         this.lowPrice = lowPrice;
         this.beginTime = beginTime;
         this.endTime = endTime;
+    }
+
+    public Integer getManId() {
+        return manId;
     }
 
     public BigDecimal getTopPrice() {
@@ -86,5 +93,9 @@ public class MvoSearchProduct {
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
+    }
+
+    public void setManId(Integer manId) {
+        this.manId = manId;
     }
 }

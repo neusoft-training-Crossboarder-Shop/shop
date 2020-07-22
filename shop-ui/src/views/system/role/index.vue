@@ -117,13 +117,7 @@
             @click="handleUpdate(scope.row)"
             v-hasPermi="['system:role:edit']"
           > Modify  </el-button>
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-circle-check"
-            @click="handleDataScope(scope.row)"
-            v-hasPermi="['system:role:edit']"
-          > Data Authority</el-button>
+
           <el-button
             size="mini"
             type="text"
@@ -146,13 +140,13 @@
     <!--  Add  或 Modify  Role配置对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="RoleName" prop="roleName">
+        <el-form-item label="Role Name" prop="roleName">
           <el-input v-model="form.roleName" placeholder="Please Enter RoleName" />
         </el-form-item>
         <el-form-item label="Authority Code" prop="roleKey">
           <el-input v-model="form.roleKey" placeholder="Please Enter Authority Code" />
         </el-form-item>
-        <el-form-item label="Role顺序" prop="roleSort">
+        <el-form-item label="Role Order" prop="roleSort">
           <el-input-number v-model="form.roleSort" controls-position="right" :min="0" />
         </el-form-item>
         <el-form-item label="Status">
@@ -183,48 +177,11 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
-
-    <!-- 分配Role Data Authority对话框 -->
-    <el-dialog :title="title" :visible.sync="openDataScope" width="500px" append-to-body>
-      <el-form :model="form" label-width="80px">
-        <el-form-item label="RoleName">
-          <el-input v-model="form.roleName" :disabled="true" />
-        </el-form-item>
-        <el-form-item label="Authority Code">
-          <el-input v-model="form.roleKey" :disabled="true" />
-        </el-form-item>
-        <el-form-item label="Authority 范围">
-          <el-select v-model="form.dataScope">
-            <el-option
-              v-for="item in dataScopeOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-<!--        <el-form-item label=" Data Authority" v-show="form.dataScope == 2">-->
-<!--          <el-tree-->
-<!--            :data="deptOptions"-->
-<!--            show-checkbox-->
-<!--            default-expand-all-->
-<!--            ref="dept"-->
-<!--            node-key="id"-->
-<!--            empty-text="加载中，请稍后"-->
-<!--            :props="defaultProps"-->
-<!--          ></el-tree>-->
-<!--        </el-form-item>-->
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitDataScope">确 定</el-button>
-        <el-button @click="cancelDataScope">取 消</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
 <script>
-import { listRole, getRole, delRole, addRole, updateRole, dataScope, changeRoleStatus } from "@/api/system/role";
+import { listRole, getRole, delRole, addRole, updateRole, changeRoleStatus } from "@/api/system/role";
 import { treeselect as menuTreeselect, roleMenuTreeselect } from "@/api/system/menu";
 
 export default {
@@ -253,29 +210,6 @@ export default {
       dateRange: [],
       // StatusData Dict
       statusOptions: [],
-      // Data 范围选项
-      dataScopeOptions: [
-        {
-          value: "1",
-          label: "全部 Data Authority"
-        },
-        {
-          value: "2",
-          label: "自定 Data Authority"
-        },
-        {
-          value: "3",
-          label: "本部门 Data Authority"
-        },
-        {
-          value: "4",
-          label: "本部门及以下 Data Authority"
-        },
-        {
-          value: "5",
-          label: "仅本人 Data Authority"
-        }
-      ],
       // Menu 列表
       menuOptions: [],
       // // 部门列表
@@ -297,13 +231,13 @@ export default {
       // 表单校验
       rules: {
         roleName: [
-          { required: true, message: "RoleName不能为空", trigger: "blur" }
+          { required: true, message: "RoleName cannot be null", trigger: "blur" }
         ],
         roleKey: [
-          { required: true, message: "Authority Code不能为空", trigger: "blur" }
+          { required: true, message: "Authority Code cannot be null", trigger: "blur" }
         ],
         roleSort: [
-          { required: true, message: "Role顺序不能为空", trigger: "blur" }
+          { required: true, message: "RoleOrder cannot be null", trigger: "blur" }
         ]
       }
     };
@@ -332,12 +266,6 @@ export default {
         this.menuOptions = response.data;
       });
     },
-    // /** 查询部门树结构 */
-    // getDeptTreeselect() {
-    //   deptTreeselect().then(response => {
-    //     this.deptOptions = response.data;
-    //   });
-    // },
     // 所有Menu 节点Data
     getMenuAllCheckedKeys() {
       // 目前 be 选中的Menu 节点
@@ -347,15 +275,7 @@ export default {
       checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys);
       return checkedKeys;
     },
-    // 所有部门节点Data
-    getDeptAllCheckedKeys() {
-      // 目前 be 选中的部门节点
-      // let checkedKeys = this.$refs.dept.getHalfCheckedKeys();
-      // 半选中的部门节点
-      // let halfCheckedKeys = this.$refs.dept.getCheckedKeys();
-      checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys);
-      return checkedKeys;
-    },
+
     /** 根据RoleID查询Menu 树结构 */
     getRoleMenuTreeselect(roleId) {
       roleMenuTreeselect(roleId).then(response => {
@@ -363,14 +283,7 @@ export default {
         this.$refs.menu.setCheckedKeys(response.checkedKeys);
       });
     },
-    /** 根据RoleID查询部门树结构 */
-    // getRoleDeptTreeselect(roleId) {
-    //   roleDeptTreeselect(roleId).then(response => {
-    //     this.deptOptions = response.depts;
-    //     this.$refs.dept.setCheckedKeys(response.checkedKeys);
-    //   });
-    // },
-    // RoleStatus Modify
+
     handleStatusChange(row) {
       let text = row.status === "0" ? "启用" : "停用";
       this.$confirm(' Confirm 要"' + text + '""' + row.roleName + '"Role吗?', "警告", {
@@ -440,25 +353,13 @@ export default {
     handleUpdate(row) {
       this.reset();
       const roleId = row.roleId || this.ids
-      this.$nextTick(() => {
-        this.getRoleMenuTreeselect(roleId);
-      });
       getRole(roleId).then(response => {
         this.form = response.data;
         this.open = true;
         this.title = " Modify  Role";
       });
-    },
-    /** 分配 Data AuthorityOperation */
-    handleDataScope(row) {
-      this.reset();
       this.$nextTick(() => {
-        this.getRoleDeptTreeselect(row.roleId);
-      });
-      getRole(row.roleId).then(response => {
-        this.form = response.data;
-        this.openDataScope = true;
-        this.title = "分配 Data Authority";
+        this.getRoleMenuTreeselect(roleId);
       });
     },
     /** 提交按钮 */
@@ -487,19 +388,7 @@ export default {
         }
       });
     },
-    /** 提交按钮（ Data Authority） */
-    submitDataScope: function() {
-      if (this.form.roleId != undefined) {
-        // this.form.deptIds = this.getDeptAllCheckedKeys();
-        dataScope(this.form).then(response => {
-          if (response.code === 200) {
-            this.msgSuccess(" Modify  Success");
-            this.openDataScope = false;
-            this.getList();
-          }
-        });
-      }
-    },
+
     /**  Delete 按钮Operation */
     handleDelete(row) {
       const roleIds = row.roleId || this.ids;

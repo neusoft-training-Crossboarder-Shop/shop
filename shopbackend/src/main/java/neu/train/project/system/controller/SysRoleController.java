@@ -39,15 +39,6 @@ public class SysRoleController extends BaseController
     }
 
 
-//    @Log(title = "Role管理", businessType = BusinessType.EXPORT)
-//    @PreAuthorize("@ss.hasPermi('system:role:export')")
-//    @GetMapping("/export")
-//    public AjaxResult export(SysRole role)
-//    {
-//        List<SysRole> list = roleService.selectRoleList(role);
-//        ExcelUtil<SysRole> util = new ExcelUtil<SysRole>(SysRole.class);
-//        return util.exportExcel(list, "RoleData ");
-//    }
 
     /**
      * 根据RoleID获取详细信息
@@ -64,7 +55,6 @@ public class SysRoleController extends BaseController
      */
 
     @PreAuthorize("@ss.hasPermi('system:role:add')")
-//    @Log(title = "Role管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysRole role)
     {
@@ -85,7 +75,6 @@ public class SysRoleController extends BaseController
      *  Modify  保存Role
      */
     @PreAuthorize("@ss.hasPermi('system:role:edit')")
-//    @Log(title = "Role管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysRole role)
     {
@@ -106,7 +95,6 @@ public class SysRoleController extends BaseController
      *  Modify  保存 Data Authority
      */
     @PreAuthorize("@ss.hasPermi('system:role:edit')")
-//    @Log(title = "Role管理", businessType = BusinessType.UPDATE)
     @PutMapping("/dataScope")
     public AjaxResult dataScope(@RequestBody SysRole role)
     {
@@ -118,7 +106,6 @@ public class SysRoleController extends BaseController
      * Status Modify
      */
     @PreAuthorize("@ss.hasPermi('system:role:edit')")
-//    @Log(title = "Role管理", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
     public AjaxResult changeStatus(@RequestBody SysRole role)
     {
@@ -131,7 +118,6 @@ public class SysRoleController extends BaseController
      *  Delete Role
      */
     @PreAuthorize("@ss.hasPermi('system:role:remove')")
-//    @Log(title = "Role管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{roleIds}")
     public AjaxResult remove(@PathVariable Long[] roleIds)
     {

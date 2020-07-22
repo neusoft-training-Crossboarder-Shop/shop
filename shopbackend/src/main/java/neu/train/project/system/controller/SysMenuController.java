@@ -109,7 +109,6 @@ public class SysMenuController extends BaseController
      *  Modify  Menu
      */
     @PreAuthorize("@ss.hasPermi('system:menu:edit')")
-//    @Log(title = "Menu 管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysMenu menu)
     {

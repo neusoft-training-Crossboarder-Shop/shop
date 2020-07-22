@@ -177,7 +177,7 @@
               })
             })
             this.items=[...this.items,...products]
-            if(this.items.length===response.data.total){
+            if(this.items.length >= response.data.total){
               this.noMore = true;
             }
             this.loading = false;
@@ -194,7 +194,7 @@
           })
         },
         handleQuery() {
-          this.searchCondition.pageNum = 1;
+          this.searchCondition.pageNum = 0;
           this.items=[]
           this.loadingInstance=Loading.service({
             target:"#container",

@@ -42,7 +42,9 @@ public class MvoProductServiceImpl implements IMvoProductService {
 
     @Override
     public List<mvoProduct> getProductList(MvoSearchProduct product) {
+        product.setManId(commonService.getManId());
         return mvoProductMapper.selectBySearchProduct(product);
+
     }
 
     @Override
@@ -152,6 +154,8 @@ public class MvoProductServiceImpl implements IMvoProductService {
             mvoProductDescriptionExample.createCriteria().andProIdEqualTo(id);
             mvoProductDescriptionMapper.deleteByExample(mvoProductDescriptionExample);
 
+            //删除自己
+            mvoProductMapper.deleteByPrimaryKey(id);
 
         }
     }
@@ -192,7 +196,7 @@ public class MvoProductServiceImpl implements IMvoProductService {
         mvoProductDescriptionExample mvoProductDescriptionExample = new mvoProductDescriptionExample();
         mvoProductDescriptionExample.createCriteria().andProIdEqualTo(proId);
 
-        List<mvoProductDescription> mvoProductDescriptions = mvoProductDescriptionMapper.selectByExample(mvoProductDescriptionExample);
+        List<mvoProductDescription> mvoProductDescriptions = mvoProductDescriptionMapper.selectByExampleWithBLOBs(mvoProductDescriptionExample);
 
         if (mvoProductDescriptions.size() == 0) {
             mvoProductDescription mvoProductDescription = new mvoProductDescription();
