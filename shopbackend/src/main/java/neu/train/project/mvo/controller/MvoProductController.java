@@ -98,7 +98,7 @@ public class MvoProductController extends BaseController {
     }
 
     @PostMapping("/mvo/product/image")
-//    @PreAuthorize("@ss.hasPermi('mvo:pro:image:edit')")
+//    @PreAuthorize(value = "@ss.hasPermi('mvo:pro:image:edit')")
     public AjaxResult uploadBrandImage(@RequestParam("productfile") MultipartFile file, @RequestParam("proId")Integer proId,@RequestParam("typeCd")Integer typeCd,@RequestParam("imgId")Integer imgId) throws IOException
     {
 

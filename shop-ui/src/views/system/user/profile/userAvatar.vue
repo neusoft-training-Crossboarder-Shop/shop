@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img v-bind:src="options.img" @click="editCropper()" title="点击上传头像" class="img-circle img-lg" />
+    <img v-bind:src="options.img" @click="editCropper()" title="点击Upload 头像" class="img-circle img-lg" />
     <el-dialog :title="title" :visible.sync="open" width="800px" append-to-body @opened="modalOpened">
       <el-row>
         <el-col :xs="24" :md="12" :style="{height: '350px'}">
@@ -27,7 +27,7 @@
         <el-col :lg="2" :md="2">
           <el-upload action="#" :http-request="requestUpload" :show-file-list="false" :before-upload="beforeUpload">
             <el-button size="small">
-              上传
+              Upload
               <i class="el-icon-upload el-icon--right"></i>
             </el-button>
           </el-upload>
@@ -92,7 +92,7 @@ export default {
     modalOpened() {
       this.visible = true;
     },
-    // 覆盖默认的上传行为
+    // 覆盖默认的Upload 行为
     requestUpload() {
     },
     // 向左旋转
@@ -108,10 +108,10 @@ export default {
       num = num || 1;
       this.$refs.cropper.changeScale(num);
     },
-    // 上传预处理
+    // Upload 预处理
     beforeUpload(file) {
       if (file.type.indexOf("image/") == -1) {
-        this.msgError("文件格式错误，请上传图片Type ,如：JPG，PNG后缀的文件。");
+        this.msgError("文件格式错误，请Upload 图片Type ,如：JPG，PNG后缀的文件。");
       } else {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -120,7 +120,7 @@ export default {
         };
       }
     },
-    // 上传图片
+    // Upload 图片
     uploadImg() {
       this.$refs.cropper.getCropBlob(data => {
         let formData = new FormData();

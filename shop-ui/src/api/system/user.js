@@ -109,7 +109,7 @@ export function updateUserPwd(oldPassword, newPassword) {
   })
 }
 
-// User 头像上传
+// User 头像Upload
 export function uploadAvatar(data) {
   return request({
     url: '/system/user/profile/avatar',

@@ -110,7 +110,7 @@ public class SysRole extends BaseEntity
     }
 
 //    @NotBlank(message = "Sequence不能为空")
-    @NotNull(message = "Sequence不能为空")
+//    @NotNull(message = "Sequence不能为空")
     public String getRoleSort()
     {
         return roleSort;

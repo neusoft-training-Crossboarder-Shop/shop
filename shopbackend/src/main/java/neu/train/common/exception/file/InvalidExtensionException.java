@@ -6,7 +6,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import java.util.Arrays;
 
 /**
- * 文件上传 误异常类
+ * 文件Upload  误异常类
  * 
  * @author xiaosama
  */

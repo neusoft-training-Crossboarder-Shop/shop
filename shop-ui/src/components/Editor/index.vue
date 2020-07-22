@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- 图片上传组件辅助 -->
+    <!-- 图片Upload 组件辅助 -->
     <el-upload
       class="avatar-uploader quill-img"
       :action="uploadImgUrl"
@@ -87,7 +87,7 @@ export default {
           }
         }
       },
-      uploadImgUrl: process.env.VUE_APP_BASE_API + "/common/upload", // 上传的图片服务器地址
+      uploadImgUrl: process.env.VUE_APP_BASE_API + "/common/upload", // Upload 的图片服务器地址
       headers: {
         Authorization: 'Bearer ' + getToken()
       }
@@ -110,7 +110,7 @@ export default {
       this.$emit("input", this.content);
     },
 
-    // 富文本图片上传前
+    // 富文本图片Upload 前
     quillImgBefore(file) {
       let fileType = file.type;
 			if(fileType === 'image/jpeg' || fileType === 'image/png'){
@@ -125,7 +125,7 @@ export default {
       // res为图片服务器返回的Data
       // 获取富文本组件实例
       let quill = this.$refs.quillEditor.quill;
-      // 如果上传Success
+      // 如果Upload Success
       if (res.code == 200) {
         // 获取光标所在位置
         let length = quill.getSelection().index;
@@ -137,7 +137,7 @@ export default {
         this.$message.error("图片插入Fail");
       }
     },
-    // 富文本图片上传Fail
+    // 富文本图片Upload Fail
     uploadError() {
       // loading动画消失
       this.$message.error("图片插入Fail");

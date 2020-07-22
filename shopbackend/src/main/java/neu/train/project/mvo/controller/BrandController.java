@@ -80,7 +80,7 @@ public class BrandController extends BaseController {
                 return AjaxResult.updateSuccess();
             }
         }
-        return AjaxResult.error("上传图片异常，Please contact the Admin to");
+        return AjaxResult.error("Upload 图片异常，Please contact the Admin to");
     }
 
 

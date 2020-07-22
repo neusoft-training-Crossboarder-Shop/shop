@@ -372,7 +372,7 @@ export const selectComponents = [
     document: 'https://element.eleme.cn/#/zh-CN/component/color-picker'
   },
   {
-    label: '上传',
+    label: 'Upload ',
     tag: 'el-upload',
     tagIcon: 'upload',
     action: 'https://jsonplaceholder.typicode.com/posts/',
@@ -384,7 +384,7 @@ export const selectComponents = [
     name: 'file',
     'auto-upload': true,
     showTip: false,
-    buttonText: '点击上传',
+    buttonText: '点击Upload ',
     fileSize: 2,
     sizeUnit: 'MB',
     'list-type': 'text',

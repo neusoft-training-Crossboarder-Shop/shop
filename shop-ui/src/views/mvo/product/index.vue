@@ -148,7 +148,7 @@
         <el-table-column label="Pro Id" align="center" prop="proId" />
         <el-table-column label="Brand Image" align="center" prop="picUrl" width="200">
           <template slot-scope="scope">
-            <img :src="scope.row.images[0].uri" @click.stop="editCropper(scope.row)" title="点击上传" class="img-list" />
+            <img :src="scope.row.images[0].uri" @click.stop="editCropper(scope.row)" title="点击Upload " class="img-list" />
           </template>
         </el-table-column>
         <el-table-column label="Brand Name" align="center" prop="productBrand.nameEn" :show-overflow-tooltip="true"/>
@@ -392,7 +392,7 @@
           list-type="picture"
         >
           <el-button size="middle" v-hasPermi="['mvo:pro:image:edit']">
-            上传
+            Upload
             <i class="el-icon-upload el-icon--right"></i>
           </el-button>
         </el-upload>
@@ -818,7 +818,7 @@
         modalOpened() {
           this.visible = true;
         },
-        // 覆盖默认的上传行为
+        // 覆盖默认的Upload 行为
         requestUpload() {
 
         },
@@ -835,10 +835,10 @@
           num = num || 1;
           this.$refs.cropper.changeScale(num);
         },
-        // 上传预处理
+        // Upload 预处理
         beforeUpload(file) {
           if (file.type.indexOf("image/") == -1) {
-            this.msgError("文件格式错误，请上传图片Type ,如：JPG，PNG后缀的文件。");
+            this.msgError("文件格式错误，请Upload 图片Type ,如：JPG，PNG后缀的文件。");
           } else {
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -864,7 +864,7 @@
 
 
         },
-        // 上传图片
+        // Upload 图片
         uploadImg() {
           this.$refs.cropper.getCropBlob(data => {
             let formData = new FormData();

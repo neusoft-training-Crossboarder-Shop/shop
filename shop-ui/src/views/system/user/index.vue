@@ -295,7 +295,7 @@
 <!--        <i class="el-icon-upload"></i>-->
 <!--        <div class="el-upload__text">-->
 <!--          将文件拖到此处，或-->
-<!--          <em>点击上传</em>-->
+<!--          <em>点击Upload </em>-->
 <!--        </div>-->
 <!--        <div class="el-upload__tip" slot="tip">-->
 <!--          <el-checkbox v-model="upload.updateSupport" />是否更新Already经存在的User Data -->
@@ -364,13 +364,13 @@ export default {
         open: false,
         // 弹出层标题（User 导入）
         title: "",
-        // 是否禁用上传
+        // 是否禁用Upload
         isUploading: false,
         // 是否更新Already经存在的User Data
         updateSupport: 0,
-        // 设置上传的请求头部
+        // 设置Upload 的请求头部
         headers: { Authorization: "Bearer " + getToken() },
-        // 上传的地址
+        // Upload 的地址
         url: process.env.VUE_APP_BASE_API + "/system/user/importData"
       },
       // 查询参数
@@ -616,11 +616,11 @@ export default {
         this.download(response.msg);
       });
     },
-    // 文件上传中处理
+    // 文件Upload 中处理
     handleFileUploadProgress(event, file, fileList) {
       this.upload.isUploading = true;
     },
-    // 文件上传Success处理
+    // 文件Upload Success处理
     handleFileSuccess(response, file, fileList) {
       this.upload.open = false;
       this.upload.isUploading = false;
@@ -628,7 +628,7 @@ export default {
       this.$alert(response.msg, "导入结果", { dangerouslyUseHTMLString: true });
       this.getList();
     },
-    // 提交上传文件
+    // 提交Upload 文件
     submitFileForm() {
       this.$refs.upload.submit();
     }
