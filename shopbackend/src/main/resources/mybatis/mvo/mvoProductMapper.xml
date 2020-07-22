@@ -199,6 +199,8 @@
 
     select
 
+    distinct
+
     p.pro_id ,p.man_id, p.brd_id, p.title, p.sku_cd, p.upc, p.ean, p.retail_price, p.mininum_retail_price,
 
     p.warranty_day, p.time_unit, p.model, p.create_time,p.last_update_time,
@@ -217,7 +219,7 @@
 
     where p.brd_id=b.brd_id  and p.pro_id = category.pro_id and p.pro_id = img.pro_id and p.pro_id=pck.pro_id
 
-    AND type_cd = 0
+    AND img.type_cd = 0
 
     And p.man_id=#{manId}
 

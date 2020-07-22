@@ -8,6 +8,7 @@ import neu.train.project.mvo.domain.*;
 import neu.train.project.mvo.domain.vo.MvoSearchProduct;
 import neu.train.project.mvo.mapper.*;
 import neu.train.project.mvo.service.IMvoProductService;
+import neu.train.project.system.domain.vo.MetaVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -223,8 +224,22 @@ public class MvoProductServiceImpl implements IMvoProductService {
 
     @Override
     public boolean deleteProductImageById(Integer imgId) {
-        int id=mvoImageMapper.selectByPrimaryKey(imgId).getProId();
-        redisCache.deleteObject(PRO_CACHE_PREFIX + id);
+        int proId=mvoImageMapper.selectByPrimaryKey(imgId).getProId();
+        redisCache.deleteObject(PRO_CACHE_PREFIX + proId);
+
+        mvoImage mvoImage = mvoImageMapper.selectByPrimaryKey(imgId);
+
+        int type_cd = mvoImage.getTypeCd();
+
+        mvoImageExample mvoImageExample = new mvoImageExample();
+        mvoImageExample.createCriteria().andProIdEqualTo(proId);
+        mvoImageExample.createCriteria().andTypeCdEqualTo(type_cd);
+
+        List<neu.train.project.mvo.domain.mvoImage> mvoImages = mvoImageMapper.selectByExample(mvoImageExample);
+
+        if (mvoImages.size() == 1) {
+            throw new CustomException("It's required at least 1 small/big picture");
+        }
         return mvoImageMapper.deleteByPrimaryKey(imgId)==1;
     }
 

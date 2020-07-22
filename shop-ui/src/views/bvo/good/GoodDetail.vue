@@ -123,13 +123,10 @@
             <div><span class="tag">Last Update Time</span> <span>{{parseTime(description.lastUpdateTime)}}</span></div>
             <div>
               <span class="tag">Description
-
               </span>
-
               <span style="display: block;position: relative;left: 15%;top: -35px" v-html="description.descrition">
 
               </span>
-
             </div>
           </div>
         </el-collapse-item>
@@ -258,31 +255,25 @@
               }
             );
           },
-          pushToStore:function () {
+          pushToStore(){
             let data = {
                 amount:this.amount,
                proId:this.pro.proId,
                storeIds:this.selectedStore,
             }
-            console.log(data)
-
             purchaseProduct(data).then(res=>{
               this.$notify({
                 type:"success",
                 title:"执行",
-                message:"Already Add "
+                message:"success"
               })
             })
-
           },
           addToWishList:function () {
             addProIntoWishList({proId:this.pro.proId}).then(response=>{
-                //   Add  Success了
             })
           },
           platformTypeFormatter(platformType){
-            // console.log(platformType)
-            // console.log(this.platformType[parseInt(platformType)+1])
             return this.platformType[parseInt(platformType)+1]['text']
           },
 

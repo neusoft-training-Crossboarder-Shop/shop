@@ -72,7 +72,7 @@
       <el-divider></el-divider>
     <div class="infinite-list-wrapper" style="height:1000px;overflow:auto">
       <ul   v-infinite-scroll="load"  infinite-scroll-disabled="disabled" infinite-scroll-throttle-delay="500" infinite-scroll-distance="10" >
-<!--        <el-backtop target=".page-component__scroll .el-scrollbar__wrap" ></el-backtop>-->
+        <el-backtop target=".page-component__scroll .el-scrollbar__wrap" ></el-backtop>
         <li v-for="item in items" class="card"  :key="item.proId" @click="redirect(item.proId)" >
             <el-image
               style="height: 100%;"
@@ -149,6 +149,7 @@
             ],
             loading: false,
             noMore:false,
+            num:0
         }
       },
     computed: {
@@ -175,9 +176,11 @@
               item.imageList.forEach(image=>{
                 image.uri=process.env.VUE_APP_BASE_API+image.uri
               })
+              this.num+=(item.imageList.length-1)
             })
+
             this.items=[...this.items,...products]
-            if(this.items.length >= response.data.total){
+            if(this.items.length >= response.data.total-num){
               this.noMore = true;
             }
             this.loading = false;
@@ -194,6 +197,7 @@
           })
         },
         handleQuery() {
+          this.num=0
           this.searchCondition.pageNum = 0;
           this.items=[]
           this.loadingInstance=Loading.service({
@@ -207,6 +211,7 @@
           this.getList();
         },
         reset() {
+          this.num=0
           this.searchCondition = {
             title:"",
             brandName: "" ,
@@ -228,9 +233,7 @@
             type: 'success'
           });
         },
-
       },
-
     }
 </script>
 

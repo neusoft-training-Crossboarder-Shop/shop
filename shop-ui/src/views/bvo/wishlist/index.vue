@@ -20,9 +20,28 @@
          <p style="font-weight: bold;font-size: 1.2em;white-space: nowrap;text-overflow:ellipsis;  overflow:hidden;">
            {{item.title}}</p>
 
-         <p class="item-description">{{item.categoryName}}</p>
-         <p class="item-description">{{item.brandName}}</p>
-         <p class="item-description">{{item.manufacturerName}}</p>
+         <p class="item-description">
+           <el-tag effect="light">
+             {{ item.categoryName }}
+           </el-tag>
+         </p>
+         <p class="item-description">
+           <el-tag
+             effect="dark" >
+             {{item.brandName }}
+           </el-tag>
+         </p>
+         <p class="item-description">
+           <el-tag
+             effect="light" class="item-description">
+             <el-icon
+               class="el-icon-s-shop" style="display: inline-block "/>
+             {{item.manufacturerName}}
+           </el-tag>
+         </p>
+
+
+
 
          <p class="item-price" >${{item.price}}</p>
 <!--                          v-hasPermi="['bvo:wishlist:remove']"-->
@@ -56,15 +75,15 @@
           return {
             loadingInstance:'',
             items:[
-              {
-                proId:'1',
-                title:"这是一个非常非常非常非常长的标题",
-                imageUrl:'',
-                brandName:'',
-                categoryName:'',
-                manufacturerName:'',
-                price:"8.9"
-              },
+              // {
+              //   proId:'1',
+              //   title:"这是一个非常非常非常非常长的标题",
+              //   imageUrl:'',
+              //   brandName:'',
+              //   categoryName:'',
+              //   manufacturerName:'',
+              //   price:"8.9"
+              // },
             ],
           }
         },
@@ -81,7 +100,9 @@
           getList(){
               getWishList().then(response=>{
                 this.items = response.data;
-
+                this.items.forEach(item=>{
+                   item.imageUrl=process.env.VUE_APP_BASE_API+item.imageUrl
+                })
                 setTimeout(() => {
                   this.loadingInstance.close();
                 }, 500);
@@ -116,16 +137,6 @@
   text-decoration : underline;
   cursor: pointer;
 }
-
-
-.item-description{
-  display: block;
-  height: 15%;
-  font-size: 1em;
-  color: #1f2d3d;
-  margin-top: 2%;
-}
-
 
 .item-price{
   margin:  2px;
