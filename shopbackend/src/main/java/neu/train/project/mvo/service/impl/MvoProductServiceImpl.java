@@ -60,7 +60,6 @@ public class MvoProductServiceImpl implements IMvoProductService {
         //新建Product对象
         product.setManId(commonService.getManId());
 
-
         String name = SecurityUtils.getLoginUser().getUsername();
         product.setCreatedBy(name);
         product.setLastUpdateBy(name);
@@ -113,13 +112,14 @@ public class MvoProductServiceImpl implements IMvoProductService {
     @CacheEvict(value = PRO_CACHE_PREFIX,key = "#product.getProId()")
     public void updateProduct(mvoProduct product) {
         //新建Product对象
-        mvoProductMapper.updateByPrimaryKey(product);
+        mvoProductMapper.updateByPrimaryKeySelective(product);
+
         mvoProductCategory mvoProductCategory = product.getCategories().get(0);
         //新建种类
-        mvoProductCategoryMapper.updateByPrimaryKey(mvoProductCategory);
+        mvoProductCategoryMapper.updateByPrimaryKeySelective(mvoProductCategory);
         //新建包裹信息
         mvoPackageInfo mvoPackageInfo = product.getProductPackageInfos().get(0);
-        mvoPackageInfoMapper.updateByPrimaryKey(mvoPackageInfo);
+        mvoPackageInfoMapper.updateByPrimaryKeySelective(mvoPackageInfo);
 
 
         String name = SecurityUtils.getLoginUser().getUsername();
@@ -186,7 +186,7 @@ public class MvoProductServiceImpl implements IMvoProductService {
             }
             //更新大图
             image.setImgId(imgId);
-            return mvoImageMapper.updateByPrimaryKey(image)==1;
+            return mvoImageMapper.updateByPrimaryKeySelective(image)==1;
         }
     }
     @Override

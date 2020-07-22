@@ -1,5 +1,8 @@
 package neu.train.project.mvo.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -11,11 +14,16 @@ public class MvoSearchProduct {
     private String brandName;
     private BigDecimal topPrice;
     private BigDecimal lowPrice;
-    private Date beginTime;
-    private Date endTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
+    /** Start  time */
+    @JsonIgnore
+    private String beginTime;
+    @JsonIgnore
+    private String endTime;
 
 
-    public MvoSearchProduct(Integer manId, Integer proId, String categoryName, String title, String brandName, BigDecimal topPrice, BigDecimal lowPrice, Date beginTime, Date endTime) {
+    public MvoSearchProduct(Integer manId, Integer proId, String categoryName, String title, String brandName, BigDecimal topPrice, BigDecimal lowPrice, String beginTime, String endTime) {
         this.manId = manId;
         this.proId = proId;
         this.categoryName = categoryName;
@@ -47,19 +55,19 @@ public class MvoSearchProduct {
         this.lowPrice = lowPrice;
     }
 
-    public Date getBeginTime() {
+    public String getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Date beginTime) {
+    public void setBeginTime(String beginTime) {
         this.beginTime = beginTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

@@ -1,5 +1,6 @@
 package neu.train.project.wallet.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import neu.train.framework.web.domain.BaseEntity;
 
 import java.math.BigDecimal;
@@ -23,7 +24,7 @@ public class WtrWalletTransactionRecord extends BaseEntity {
     private Integer businessId;
 
     private Byte financeType;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     public WtrWalletTransactionRecord(Integer transactionId, Integer buyerId, String bankCardId, Byte transactionType, BigDecimal transactionMoney, Byte status, BigDecimal balance, Integer businessId, Byte financeType, Date createTime) {

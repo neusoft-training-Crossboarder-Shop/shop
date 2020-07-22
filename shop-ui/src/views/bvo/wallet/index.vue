@@ -503,7 +503,7 @@
         this.getList();
       },
       getList(){
-        getWalletTransaction(this.queryParams).then(response=>{
+        getWalletTransaction(this.addDateRange(this.queryParams, this.dateRange)).then(response=>{
           this.loading=false
           this.record=response.rows;
           this.total=response.total;

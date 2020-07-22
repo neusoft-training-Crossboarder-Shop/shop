@@ -1,5 +1,7 @@
 package neu.train.project.mvo.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -29,7 +31,7 @@ public class MvoSimpleProduct {
     private String model;
 
     private String createdBy;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String lastUpdateBy;

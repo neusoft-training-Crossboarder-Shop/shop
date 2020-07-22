@@ -1,5 +1,6 @@
 package neu.train.project.order.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import neu.train.project.order.pojo.ProProduct;
 import neu.train.project.order.pojo.SaoSalesOrder;
 import neu.train.project.order.pojo.StoStoreOrder;
@@ -25,7 +26,7 @@ public class SendComplexSao {
     private String trackingNo;
 
     private String createdBy;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String lastUpdateBy;

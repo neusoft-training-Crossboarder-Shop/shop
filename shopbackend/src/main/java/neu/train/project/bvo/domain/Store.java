@@ -1,5 +1,7 @@
 package neu.train.project.bvo.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Store {
@@ -14,7 +16,7 @@ public class Store {
     private String authencationCode;
 
     private String createdBy;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String lastUpdateBy;

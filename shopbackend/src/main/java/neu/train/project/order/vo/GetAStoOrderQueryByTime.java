@@ -1,17 +1,22 @@
 package neu.train.project.order.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 public class GetAStoOrderQueryByTime {
     private Integer bvoId;
     private Integer stoId;
-    private Date startTime;
-    private Date endTime;
+    @JsonIgnore
+    private String beginTime;
+    @JsonIgnore
+    private String endTime;
 
-    public GetAStoOrderQueryByTime(Integer bvoId, Integer stoId, Date startTime, Date endTime) {
+    public GetAStoOrderQueryByTime(Integer bvoId, Integer stoId, String beginTime, String endTime) {
         this.bvoId = bvoId;
         this.stoId = stoId;
-        this.startTime = startTime;
+        this.beginTime = beginTime;
         this.endTime = endTime;
     }
 
@@ -31,19 +36,19 @@ public class GetAStoOrderQueryByTime {
         this.stoId = stoId;
     }
 
-    public Date getStartTime() {
-        return startTime;
+    public String getBeginTime() {
+        return beginTime;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
+    public void setBeginTime(String beginTime) {
+        this.beginTime = beginTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 }

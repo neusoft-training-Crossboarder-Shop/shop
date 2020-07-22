@@ -145,7 +145,7 @@
           salId:'',
           pageNum:1,
           pageSize:10,
-          startTime:undefined,
+          beginTime:undefined,
           endTime:undefined
         },
         dateRange: [],

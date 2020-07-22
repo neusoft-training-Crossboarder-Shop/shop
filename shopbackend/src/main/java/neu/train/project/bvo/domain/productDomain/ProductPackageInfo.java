@@ -1,5 +1,6 @@
 package neu.train.project.bvo.domain.productDomain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
@@ -20,7 +21,7 @@ public class ProductPackageInfo implements Serializable {
     private BigDecimal weight;
 
     private String createdBy;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String lastUpdateBy;

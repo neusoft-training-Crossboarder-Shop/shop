@@ -1,5 +1,6 @@
 package neu.train.project.wallet.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import neu.train.framework.web.domain.BaseEntity;
 import neu.train.project.validate.DeleteGroup;
 import neu.train.project.validate.InsertGroup;
@@ -29,7 +30,7 @@ public class WaaWalletAccount extends BaseEntity {
     private Byte status;
 
     private String createdBy;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String lastUpdateBy;
