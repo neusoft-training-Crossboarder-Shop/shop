@@ -3,6 +3,7 @@ package neu.train.project.order.service.imp;
 
 import neu.train.common.core.lang.UUID;
 import neu.train.common.utils.DateUtils;
+import neu.train.common.utils.SecurityUtils;
 import neu.train.framework.redis.RedisCache;
 import neu.train.project.order.mapper.*;
 import neu.train.project.order.pojo.*;
@@ -112,9 +113,16 @@ public class OrderServiceImp implements OrderService {
         ShaShippingAddressExample shaShippingAddressExample = new ShaShippingAddressExample();
         ShaShippingAddressExample.Criteria shaShippingAddressExampleCriteria = shaShippingAddressExample.createCriteria();
         shaShippingAddressExampleCriteria.andStoIdEqualTo(stoId);
-        shaShippingAddress = shaShippingAddressMapper.selectByExample(shaShippingAddressExample).get(0);
-        redisCache.setCacheObject("addressByStoId:" + shaShippingAddress.getStoId(), shaShippingAddress);
-        return shaShippingAddress;
+
+        List<ShaShippingAddress> shaShippingAddresses = shaShippingAddressMapper.selectByExample(shaShippingAddressExample);
+
+        if (shaShippingAddresses.size() == 0) {
+            return new ShaShippingAddress();
+        }else{
+            ShaShippingAddress result = shaShippingAddresses.get(0);
+            redisCache.setCacheObject("addressByStoId:" + result.getStoId(), result);
+            return shaShippingAddress;
+        }
     }
 
     //支付一个原始订单,缓存stoById:
@@ -122,8 +130,8 @@ public class OrderServiceImp implements OrderService {
     public boolean pay(int bvoId, GetAPayMessage getAPayMessage) {
         //查密码
         WaaWalletAccount waaWalletAccount = walletService.selectWalletById(bvoId);
-        if (!waaWalletAccount.getPassword().equals(getAPayMessage.getPassword())) {
-            throw new RuntimeException("Password so wrong!");
+        if (!SecurityUtils.matchesPassword(getAPayMessage.getPassword(), waaWalletAccount.getPassword())) {
+            throw new RuntimeException("Wrong Password!");
         }
         //新算钱,现价买入
         StoStoreOrder stoStoreOrder = selectStoById(getAPayMessage.getStoId());

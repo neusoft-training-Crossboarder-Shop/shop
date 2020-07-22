@@ -5,6 +5,7 @@ import neu.train.common.utils.SecurityUtils;
 import neu.train.framework.web.controller.BaseController;
 import neu.train.framework.web.domain.AjaxResult;
 import neu.train.framework.web.page.TableDataInfo;
+import neu.train.project.bvo.Service.impl.BvoCommonService;
 import neu.train.project.order.pojo.ShaShippingAddress;
 import neu.train.project.order.service.OrderService;
 import neu.train.project.order.vo.*;
@@ -20,13 +21,14 @@ import java.util.List;
 public class OrderController extends BaseController {
     @Autowired
     OrderService orderService;
-
+    @Autowired
+    BvoCommonService bvoCommonService;
 
     @ApiOperation(value = "模糊查询原始订单列表，给BVO用的", httpMethod = "GET", notes = "可选参数：模糊订单Id stoId,起始timestartTime，End   timeendTime")
     @PreAuthorize("@ss.hasAnyPermi('sys:order:list,mvo:order:list')")
     @GetMapping("/bvo/order/stoOrder/list")
     public TableDataInfo listStoOrders(GetAStoOrderQueryByTime getAStoOrderQueryByTime) {
-        getAStoOrderQueryByTime.setBvoId(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()));
+        getAStoOrderQueryByTime.setBvoId(bvoCommonService.getDsrId());
         startPage();
         List<SendASimpleSto> sendASimpleStos=orderService.selectStoStrProByTime(getAStoOrderQueryByTime);
         return getDataTable(sendASimpleStos);

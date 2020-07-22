@@ -9,7 +9,7 @@
           </div>
         </el-col>
         <el-col :span="20">
-          <el-steps  :active="active" process-status="wait"  finish-status="success" >
+          <el-steps  :active="active-1" process-status="wait"  finish-status="success" >
             <el-step class="clickable"  @click.native="on_click(1)"  title="Waiting For Pay"></el-step>
             <el-step class="clickable"  @click.native="on_click(2)" title="Waiting For Dispatching"></el-step>
             <el-step class="clickable" @click.native="on_click(3)" title="Waiting For Arriving"></el-step>
@@ -50,8 +50,8 @@
                       </el-col>
 
                       <el-col :span="2">
-                        <el-button v-if="stoOrder.orderStatus == 1" type="danger" @click="purchaseUi">Purchase</el-button>
-                        <el-button v-else type="info" :disabled="true">Already支付</el-button>
+                        <el-button v-if="stoOrder.orderStatus == 1" type="danger" @click="purchaseUi" :disabled="this.shippingAddress.shaId==null" >Purchase</el-button>
+                        <el-button v-else type="info" :disabled="true">Already Pay</el-button>
                       </el-col>
                     </el-row>
                   </el-form>
@@ -324,7 +324,7 @@
     },
     methods:{
       on_click(e){
-        if (e > this.stoOrder.orderStatus) {
+        if (parseInt(e) > this.stoOrder.orderStatus) {
           this.$notify({
             type:'info',
             message:'You cannot click'
@@ -359,7 +359,6 @@
             freightCost: this.shippingAddress.freightCost || 5
           }
           payStoBySto(data).then(response=>{
-
             getStoByStoId(this.stoOrder.stoId).then(response=>{
               this.stoOrder = response.data;
             })
@@ -383,14 +382,16 @@
       click_updateShippingAddress(){
         console.log("click_updateShippingAddress")
         if (this.shippingAddress.stoId) {
+
           updateShippingAddress(this.shippingAddress).then((response)=>{
             getShippingAddressByStoId(stoId).then(response=>{
               this.shippingAddress=response.data;
             })
           })
         }else{
+          this.shippingAddress.stoId = this.stoOrder.stoId;
           insertShippingAddress(this.shippingAddress).then((response)=>{
-            getShippingAddressByStoId(stoId).then(response=>{
+            getShippingAddressByStoId(this.stoOrder.stoId).then(response=>{
               this.shippingAddress=response.data;
             })
           })
@@ -420,11 +421,6 @@
       handleTabClick(tab,event){
         console.log(tab)
         console.log(event)
-        this.$notify({
-          type:'info',
-          message:`You cannot click ${tab.name}`
-        })
-
       }
     }
   }

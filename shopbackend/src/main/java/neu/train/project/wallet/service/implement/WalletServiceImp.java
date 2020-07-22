@@ -2,6 +2,7 @@ package neu.train.project.wallet.service.implement;
 
 import neu.train.common.utils.SecurityUtils;
 import neu.train.framework.redis.RedisCache;
+import neu.train.project.system.domain.SysUser;
 import neu.train.project.wallet.mapper.WaaWalletAccountMapper;
 import neu.train.project.wallet.mapper.WafWalletAccountFundMapper;
 import neu.train.project.wallet.mapper.WtaWalletTransactionAduitMapper;
@@ -75,7 +76,8 @@ public class WalletServiceImp implements WalletService {
 
     //用于Register ,Cache"walletById:"+buyerId
     @Override
-    public boolean insertWallet(int userId,int userType,GetANewWallet getANewWallet) {
+    public boolean insertWallet(SysUser user, int userType, GetANewWallet getANewWallet) {
+        int userId = Math.toIntExact(user.getUserId());
         if (ifWallet(userId)) {
             throw new RuntimeException("You have owned a wallet,haven't you???");
         }
@@ -84,8 +86,9 @@ public class WalletServiceImp implements WalletService {
         waaWalletAccount.setAccountName(getANewWallet.getAccountName());
         waaWalletAccount.setEmail(getANewWallet.getEmail());
         waaWalletAccount.setPassword(SecurityUtils.encryptPassword(getANewWallet.getPassword()));
-        waaWalletAccount.setCreatedBy(String.valueOf(userId));
-        waaWalletAccount.setLastUpdateBy(String.valueOf(userId));
+        waaWalletAccount.setCreatedBy(String.valueOf(user.getUserName()));
+        waaWalletAccount.setLastUpdateBy(String.valueOf(user.getUserName()));
+        waaWalletAccount.setAccountType(userType);
         waaWalletAccount.setIsActive("Y");
         waaWalletAccount.setStatus((byte) 7);
         waaWalletAccount.setHoldOrderTime("0");
@@ -98,14 +101,15 @@ public class WalletServiceImp implements WalletService {
 
     //Register 的时候，插入fund信息，Cache"fundById:"+buyerId
     @Override
-    public boolean insertFund(int buyerId, String currency) {
+    public boolean insertFund(SysUser user, String currency) {
+        int buyerId = Math.toIntExact(user.getUserId());
         WafWalletAccountFund wafWalletAccountFund = new WafWalletAccountFund();
         wafWalletAccountFund.setBuyerId(buyerId);
         wafWalletAccountFund.setAvailableMoney(new BigDecimal(0));
         wafWalletAccountFund.setDepositingMoney(new BigDecimal(0));
         wafWalletAccountFund.setWithdrawingMoney(new BigDecimal(0));
-        wafWalletAccountFund.setCreatedBy(String.valueOf(buyerId));
-        wafWalletAccountFund.setLastUpdateBy(String.valueOf(buyerId));
+        wafWalletAccountFund.setCreatedBy(String.valueOf(user.getUserName()));
+        wafWalletAccountFund.setLastUpdateBy(String.valueOf(user.getUserName()));
         wafWalletAccountFund.setCurrency(currency);
         wafWalletAccountFundMapper.insertSelective(wafWalletAccountFund);
         wafWalletAccountFund=wafWalletAccountFundMapper.selectByPrimaryKey(buyerId);
@@ -387,7 +391,11 @@ public class WalletServiceImp implements WalletService {
     @Override
     public boolean pay(int bvoId, int mvoId, BigDecimal total){
        selectWalletById(bvoId);
-       selectWalletById(mvoId);
+        try {
+            selectWalletById(mvoId);
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Pay failed Because manufacturer haven't get wallet account ,yet ");
+        }
        WafWalletAccountFund bvoFund=selectFundById(bvoId);
        WafWalletAccountFund mvoFund=selectFundById(mvoId);
        //钱不够

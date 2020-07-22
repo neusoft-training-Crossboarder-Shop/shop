@@ -4,8 +4,8 @@
       <el-card class="box-card" v-if="showFrom">
         <div slot="header" class="clearfix">
           <span style="font-weight: bold;font-size: large;margin-right: 2%">Wallet Account</span>
-          <span v-if="!notRegistered" class="foot">Register Time   :{{parseTime(account.createTime)}}  </span>
-          <span v-if="!notRegistered" class="foot">Register 人员:{{account.createdBy}}</span>
+          <span v-if="!notRegistered" class="foot">Register Time:{{parseTime(account.createTime)}}  </span>
+          <span v-if="!notRegistered" class="foot">Register :{{account.createdBy}}</span>
         </div>
 
         <div>
@@ -15,8 +15,8 @@
             </el-form-item>
             <el-form-item label="Account Type" prop="currency" :disabled="!notRegistered">
               <el-radio-group v-model="account.currency">
-                <el-radio :label="2"  >$ USD</el-radio>
                 <el-radio :label="1" >￥ RMB</el-radio>
+                <el-radio :label="2"  >$ USD</el-radio>
               </el-radio-group>
             </el-form-item>
 
@@ -488,10 +488,7 @@
       },
       save(){
         updateWalletAccount(this.account).then(response=>{
-          this.$notify({
-            type:'success',
-            message:'更新啊啊啊  '
-          })
+
         })
       },
       handleQuery() {

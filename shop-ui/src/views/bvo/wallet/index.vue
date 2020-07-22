@@ -504,10 +504,6 @@
       },
       save(){
         updateWalletAccount(this.account).then(response=>{
-          this.$notify({
-            type:'success',
-            message:'更新啊啊啊  '
-          })
         })
       },
       handleQuery() {
