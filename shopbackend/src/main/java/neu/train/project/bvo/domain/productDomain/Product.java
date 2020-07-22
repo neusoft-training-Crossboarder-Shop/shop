@@ -1,5 +1,6 @@
 package neu.train.project.bvo.domain.productDomain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
@@ -48,6 +49,7 @@ public class Product implements Serializable {
 
     private String createdBy;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String lastUpdateBy;
@@ -67,8 +69,6 @@ public class Product implements Serializable {
     public void setProId(Integer proId) {
         this.proId = proId;
     }
-
-
 
 
     public String getTitle() {

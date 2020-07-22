@@ -63,7 +63,6 @@ public class MvoProductServiceImpl implements IMvoProductService {
 
         product.setManId(commonService.getManId());
 
-
         String name = SecurityUtils.getLoginUser().getUsername();
         product.setCreatedBy(name);
         product.setLastUpdateBy(name);
@@ -122,7 +121,7 @@ public class MvoProductServiceImpl implements IMvoProductService {
         mvoProductCategoryMapper.updateByPrimaryKeySelective(mvoProductCategory);
         //新建包裹信息
         mvoPackageInfo mvoPackageInfo = product.getProductPackageInfos().get(0);
-//        mvoPackageInfoMapper.updateByPrimaryKeySelective(mvoPackageInfo);
+
         mvoPackageInfoMapper.updateByPrimaryKeySelective(mvoPackageInfo);
 
 

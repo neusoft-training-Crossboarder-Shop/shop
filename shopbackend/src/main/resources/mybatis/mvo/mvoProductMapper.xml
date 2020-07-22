@@ -249,11 +249,11 @@
     </if>
 
     <if test="beginTime != null and beginTime != ''"><!-- Start  time检索 -->
-      and date_format(create_time,'%y%m%d') &gt;= date_format(#{beginTime},'%y%m%d')
+      and date_format(p.create_time,'%y%m%d') &gt;= date_format(#{beginTime},'%y%m%d')
     </if>
 
     <if test="endTime != null and endTime != ''"><!-- End   time检索 -->
-      and date_format(create_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
+      and date_format(p.create_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
     </if>
 
   </select>

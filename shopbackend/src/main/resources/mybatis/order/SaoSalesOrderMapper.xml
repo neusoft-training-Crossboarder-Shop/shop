@@ -353,8 +353,8 @@
       <if test="salId != null and salId != ''">
         AND sao.sales_oder_id like concat ('%', #{salId},'%')
       </if>
-      <if test="startTime != null and startTime != ''"><!-- Start  time检索 -->
-        and date_format(sao.create_time,'%y%m%d') &gt;= date_format(#{startTime},'%y%m%d')
+      <if test="beginTime != null and beginTime != ''"><!-- Start  time检索 -->
+        and date_format(sao.create_time,'%y%m%d') &gt;= date_format(#{beginTime},'%y%m%d')
       </if>
       <if test="endTime != null and endTime != ''"><!-- End   time检索 -->
         and date_format(sao.create_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')

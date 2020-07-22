@@ -1,5 +1,6 @@
 package neu.train.project.order.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import neu.train.project.order.pojo.ProProduct;
 import neu.train.project.order.pojo.StoStoreOrder;
 import neu.train.project.order.pojo.StrStore;
@@ -21,9 +22,8 @@ public class SendAStoOrder {
     private String paidTime;
 
     private Integer orderStatus;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
-
     private String createdBy;
 
     private String lastUpdateBy;

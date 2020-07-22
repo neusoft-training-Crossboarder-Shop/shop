@@ -1,5 +1,6 @@
 package neu.train.project.wallet.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import neu.train.framework.web.domain.BaseEntity;
 
 import java.math.BigDecimal;
@@ -33,7 +34,7 @@ public class WtaWalletTransactionAduit extends BaseEntity {
     private Byte status;
 
     private String createdBy;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String lastUpdateBy;

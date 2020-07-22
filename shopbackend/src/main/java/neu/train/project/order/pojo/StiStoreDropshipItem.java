@@ -1,5 +1,6 @@
 package neu.train.project.order.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import neu.train.framework.web.domain.BaseEntity;
 
 import java.math.BigDecimal;
@@ -24,6 +25,7 @@ public class StiStoreDropshipItem extends BaseEntity {
 
     private String createdBy;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private Integer callCnt;

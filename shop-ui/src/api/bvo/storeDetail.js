@@ -9,7 +9,7 @@ import request from '@/utils/request'
 //     strId:       商店ID 前端参数
 //     pageNum:1,
 //     pageSize:10
-//     startTime:'',
+//     beginTime:'',
 //     endTime:'',
 // },
 export function listDropshipItem(params) {

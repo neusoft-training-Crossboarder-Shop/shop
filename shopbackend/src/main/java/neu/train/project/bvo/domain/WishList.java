@@ -1,5 +1,6 @@
 package neu.train.project.bvo.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import neu.train.project.bvo.domain.productDomain.Product;
 
 import java.util.Date;
@@ -14,7 +15,7 @@ public class WishList {
     private Product product;
 
     private String createdBy;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String lastUpdateBy;

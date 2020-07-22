@@ -1,5 +1,6 @@
 package neu.train.project.wallet.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import neu.train.framework.web.domain.BaseEntity;
 
@@ -16,7 +17,7 @@ public class WafWalletAccountFund extends BaseEntity {
     private BigDecimal withdrawingMoney;
 
     private String createdBy;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String lastUpdateBy;

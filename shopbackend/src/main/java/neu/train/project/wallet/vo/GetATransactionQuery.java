@@ -1,5 +1,8 @@
 package neu.train.project.wallet.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -15,12 +18,12 @@ public class GetATransactionQuery {
     private Byte status;
 
     private Byte financeType;
+    @JsonIgnore
+    private String beginTime;
+    @JsonIgnore
+    private String endTime;
 
-    private Date beginTime;
-
-    private Date endTime;
-
-    public GetATransactionQuery(Integer buyerId, Integer transactionId, String bankCardId, Byte transactionType, Byte status, Byte financeType, Date beginTime, Date endTime) {
+    public GetATransactionQuery(Integer buyerId, Integer transactionId, String bankCardId, Byte transactionType, Byte status, Byte financeType, String beginTime, String endTime) {
         this.buyerId = buyerId;
         this.transactionId = transactionId;
         this.bankCardId = bankCardId;
@@ -79,19 +82,19 @@ public class GetATransactionQuery {
         this.financeType = financeType;
     }
 
-    public Date getBeginTime() {
+    public String getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Date beginTime) {
+    public void setBeginTime(String beginTime) {
         this.beginTime = beginTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 }

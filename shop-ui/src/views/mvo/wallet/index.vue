@@ -189,8 +189,8 @@
                       value-format="yyyy-MM-dd"
                       type="daterange"
                       range-separator="-"
-                      start-placeholder="Begin Time"
-                      end-placeholder="End Time"
+                      start-placeholder="Start  Time   "
+                      end-placeholder="End   Time   "
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -496,7 +496,7 @@
         this.getList();
       },
       getList(){
-        getWalletTransaction(this.queryParams).then(response=>{
+        getWalletTransaction(this.addDateRange(this.queryParams, this.dateRange)).then(response=>{
           this.loading=false
           this.record=response.rows;
           this.total=response.total;

@@ -1,5 +1,7 @@
 package neu.train.project.order.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class ManManufacturer {
@@ -16,7 +18,7 @@ public class ManManufacturer {
     private String gmcReportUrl;
 
     private String createdBy;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String lastUpdateBy;
