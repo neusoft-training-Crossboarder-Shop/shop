@@ -43,12 +43,12 @@ public class UserDetailsServiceImpl implements UserDetailsService
         else if (UserStatus.DELETED.getCode().equals(user.getDelFlag()))
         {
             log.info("登录User ：{} Already be  Delete .", username);
-            throw new BaseException("对不起，您的账号：" + username + " Already be  Delete ");
+            throw new BaseException("对不起，您的Account ：" + username + " Already be  Delete ");
         }
         else if (UserStatus.DISABLE.getCode().equals(user.getStatus()))
         {
             log.info("登录User ：{} Already be 停用.", username);
-            throw new BaseException("对不起，您的账号：" + username + " Already停用");
+            throw new BaseException("对不起，您的Account ：" + username + " Already停用");
         }
 
         return createLoginUser(user);

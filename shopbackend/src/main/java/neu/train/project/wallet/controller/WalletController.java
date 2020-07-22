@@ -62,7 +62,7 @@ public class WalletController extends BaseController {
         return AjaxResult.insertSuccess();
     }
 
-    @ApiOperation(value = "登录,给MVO，BVO用的", notes = "必选参数：账号accountName，密码password")
+    @ApiOperation(value = "登录,给MVO，BVO用的", notes = "必选参数：Account accountName，密码password")
     @PreAuthorize("@ss.hasAnyPermi('bvo:wallet:use,mvo:wallet:index')")
     @PostMapping("/wallet/account/login")
     public AjaxResult walletLogin(@Validated({SelectGroup.class}) @RequestBody GetLogin getLogin, BindingResult bindingResult) {
@@ -72,7 +72,7 @@ public class WalletController extends BaseController {
         return AjaxResult.success(walletService.selectWalletLogin(Math.toIntExact(SecurityUtils.getLoginUser().getUser().getUserId()), getLogin.getAccountName(), getLogin.getPassword()));
     }
 
-    @ApiOperation(value = "更新钱包，给MVO，BVO用的", httpMethod = "PUT", notes = "必选参数：账号accountName,密码password，邮箱email,注意：币种是不可以改的!!!!!!!")
+    @ApiOperation(value = "更新钱包，给MVO，BVO用的", httpMethod = "PUT", notes = "必选参数：Account accountName,密码password，邮箱email,注意：币种是不可以改的!!!!!!!")
     @PreAuthorize("@ss.hasAnyPermi('bvo:wallet:use,mvo:wallet:index')")
     @Transactional
     @PutMapping("/wallet/account")

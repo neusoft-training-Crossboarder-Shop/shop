@@ -58,6 +58,7 @@
                   size="mini"
                   @click="handleClearCache"
                   v-hasPermi="['system:browse:read']"
+
                 >Clean Cache
                 </el-button>
               </el-form-item>

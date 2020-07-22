@@ -78,7 +78,7 @@
 
        </div>
 
-       <el-row :gutter="10">
+       <el-row :gutter="10" v-hasRole="['bvo']">
           <el-input-number size="medium" v-model="amount"   ></el-input-number>
           <el-button-group>
             <el-button icon="el-icon-star-off" @click="addToWishList">Add to wishlist</el-button>
@@ -99,7 +99,7 @@
               </el-select>
               <el-button type="primary" @click="pushToStore">PUSH</el-button>
             </div>
-            <el-button type="danger"  slot="reference" icon="el-icon-goods">Purchase</el-button>
+            <el-button type="danger"   slot="reference" icon="el-icon-goods" @click="storeLists">Purchase</el-button>
           </el-popover>
         </el-row>
        </div>
@@ -114,7 +114,7 @@
           <div><span class="tag">Name En</span> <span>{{pro.manufacturer.nameEn}}</span></div>
           <div><span class="tag">Name Cn</span> <span>{{pro.manufacturer.nameCn}}</span></div>
           <div><span class="tag">gmcReportUrl</span><span style="display: block;position: relative;left: 15%;top: -35px">{{pro.manufacturer.gmcReportUrl}}</span></div>
-          <div><span class="tag">description</span> <span style="display: block;position: relative;left: 15%;top: -35px">{{pro.manufacturer.description}}</span></div>
+          <div><span class="tag">description</span> <span style="display: block;position: relative;left: 15%;top: -35px" v-html="pro.manufacturer.manDesc"></span></div>
           </div>
         </el-collapse-item>
 
@@ -250,13 +250,14 @@
               }
             })
           });
-          getStoreList(this.queryParams).then(response => {
-              this.storeList = response.rows;
-            }
-          );
-
         },
         methods:{
+          storeLists(){
+            getStoreList(this.queryParams).then(response => {
+                this.storeList = response.rows;
+              }
+            );
+          },
           pushToStore:function () {
             let data = {
                 amount:this.amount,

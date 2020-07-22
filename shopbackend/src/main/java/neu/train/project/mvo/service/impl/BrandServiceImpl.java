@@ -100,7 +100,8 @@ public class BrandServiceImpl implements IBrandService {
             brand.setLastUpdateBy(name);
             brand.setManId(mvoCommonService.getManId());
             //默认图片
-            brand.setPicUrl("profile/upload/2020/07/20/8a2f6a7ab20343350c1ce513e4ec61cf.jpg");
+            brand.setPicUrl("/profile/brand/2020/07/22/e400edf79513250747504b3020700878.jpeg");
+            //新建一个图片对象
 
             return mvoBrandMapper.insertSelective(brand);
             //不重名的话complete Add

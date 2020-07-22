@@ -32,6 +32,8 @@ public class Manufacturer implements Serializable {
 
     private String description;
 
+    private String manDesc;
+
     public Integer getManId() {
         return manId;
     }
@@ -157,5 +159,13 @@ public class Manufacturer implements Serializable {
         sb.append(", description=").append(description);
         sb.append("]");
         return sb.toString();
+    }
+
+    public String getManDesc() {
+        return manDesc;
+    }
+
+    public void setManDesc(String manDesc) {
+        this.manDesc = manDesc;
     }
 }

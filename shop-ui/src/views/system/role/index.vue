@@ -87,7 +87,6 @@
       </el-col>
 
     </el-row>
-
     <el-table v-loading="loading" :data="roleList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="RoleID" prop="roleId" width="120" />
@@ -531,3 +530,4 @@ export default {
   }
 };
 </script>
+

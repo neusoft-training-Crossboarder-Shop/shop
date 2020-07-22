@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -108,7 +109,8 @@ public class SysRole extends BaseEntity
         this.roleKey = roleKey;
     }
 
-    @NotBlank(message = "Sequence不能为空")
+//    @NotBlank(message = "Sequence不能为空")
+    @NotNull(message = "Sequence不能为空")
     public String getRoleSort()
     {
         return roleSort;

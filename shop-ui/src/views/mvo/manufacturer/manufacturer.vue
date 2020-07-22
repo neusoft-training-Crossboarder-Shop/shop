@@ -290,6 +290,7 @@
               <el-table-column label="Operation" width = 280px align="center" class-name="small-padding fixed-width">
                 <template slot-scope="scope">
 
+
                   <el-button
                     size="small"
                     align="center"

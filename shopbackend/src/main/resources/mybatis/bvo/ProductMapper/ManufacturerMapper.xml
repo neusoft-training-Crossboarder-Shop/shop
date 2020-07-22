@@ -17,6 +17,7 @@
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="neu.train.project.bvo.domain.productDomain.Manufacturer">
     <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="man_desc" jdbcType="LONGVARCHAR" property="manDesc" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -78,7 +79,7 @@
   </sql>
   <sql id="Base_Column_List">
     man_id, sys_user_id, name_en, name_cn, gmc_report_type, gmc_report_url, created_by, 
-    create_time, last_update_by, last_update_time, call_cnt, sts_cd
+    create_time, last_update_by, last_update_time, call_cnt, sts_cd , man_desc
   </sql>
   <sql id="Blob_Column_List">
     description
