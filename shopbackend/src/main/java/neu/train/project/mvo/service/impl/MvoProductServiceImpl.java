@@ -58,6 +58,9 @@ public class MvoProductServiceImpl implements IMvoProductService {
     @Transactional
     public void insertProduct(mvoProduct product) {
         //新建Product对象
+
+
+
         product.setManId(commonService.getManId());
 
         String name = SecurityUtils.getLoginUser().getUsername();
@@ -113,12 +116,12 @@ public class MvoProductServiceImpl implements IMvoProductService {
     public void updateProduct(mvoProduct product) {
         //新建Product对象
         mvoProductMapper.updateByPrimaryKeySelective(product);
-
         mvoProductCategory mvoProductCategory = product.getCategories().get(0);
         //新建种类
         mvoProductCategoryMapper.updateByPrimaryKeySelective(mvoProductCategory);
         //新建包裹信息
         mvoPackageInfo mvoPackageInfo = product.getProductPackageInfos().get(0);
+
         mvoPackageInfoMapper.updateByPrimaryKeySelective(mvoPackageInfo);
 
 
