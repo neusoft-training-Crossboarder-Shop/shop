@@ -34,7 +34,7 @@ public class StoreController extends BaseController {
 
     @PutMapping("/store")
     @ApiOperation("try to update store")
-    @PreAuthorize("ss.hasPermi('bvo:store:edit')")
+    @PreAuthorize("@ss.hasPermi('bvo:store:edit')")
     public AjaxResult updateStore(@RequestBody Store store) {
         storeService.updateStore(store);
         return AjaxResult.updateSuccess();
@@ -42,7 +42,7 @@ public class StoreController extends BaseController {
 
     @PostMapping("/store")
     @ApiOperation("try to add store")
-    @PreAuthorize("ss.hasPermi('bvo:store:add')")
+    @PreAuthorize("@ss.hasPermi('bvo:store:add')")
     public AjaxResult addStore(@RequestBody Store store) {
         storeService.insertStore(store);
         return AjaxResult.insertSuccess();
@@ -50,7 +50,7 @@ public class StoreController extends BaseController {
 
     @DeleteMapping("/store/{ids}")
     @ApiOperation("try to delete store")
-    @PreAuthorize("ss.hasPermi('bvo:store:delete')")
+    @PreAuthorize("@ss.hasPermi('bvo:store:delete')")
     public AjaxResult delStore(@PathVariable("ids")int[] ids ){
         storeService.deleteStoreByIds(ids);
         return AjaxResult.deleteSuccess();

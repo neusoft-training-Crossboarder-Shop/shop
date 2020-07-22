@@ -18,7 +18,7 @@ public class ManufacturerController {
     public AjaxResult getManufacturer(){
         return AjaxResult.success(manufacturerService.getManufacturer());
     }
-//    @PreAuthorize("ss.hasPermi('mvo:profile:add')")
+//    @PreAuthorize("@ss.hasPermi('mvo:profile:add')")
     @PostMapping("/mvo/manufacturer")
     public AjaxResult insertManufacturer(@RequestBody mvoManufacturer manufacturer){
         manufacturerService.insertManufacturer(manufacturer);

@@ -65,7 +65,7 @@ public class MvoProductServiceImpl implements IMvoProductService {
         product.setCreatedBy(name);
         product.setLastUpdateBy(name);
 
-        mvoProductMapper.insert(product);
+        mvoProductMapper.insertSelective(product);
 
 
 

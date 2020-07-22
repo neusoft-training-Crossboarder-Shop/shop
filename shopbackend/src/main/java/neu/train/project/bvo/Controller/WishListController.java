@@ -31,7 +31,7 @@ public class WishListController extends BaseController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("ss.hasPermi('bvo:wishlist:delete')")
+    @PreAuthorize("@ss.hasPermi('bvo:wishlist:delete')")
     public AjaxResult deleteByProId(@PathVariable("id")Integer id){
         int result=productService.deleteProInWishlistByProId(id);
         if (result == 1) {

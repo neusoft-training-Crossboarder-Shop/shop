@@ -206,20 +206,20 @@ export default {
 
         registerRules: {
           userName: [
-            { required: true, message: "User Name不能为空", trigger: "blur" }
+            { required: true, message: "User Name cannot be null", trigger: "blur" }
           ],
           nickName: [
-            { required: true, message: "User Name不能为空", trigger: "blur" }
+            { required: true, message: "Nick Name cannot be null", trigger: "blur" }
           ],
 
           password: [
-            { required: true, message: "User 密码不能为空", trigger: "blur" }
+            { required: true, message: "password cannot be null", trigger: "blur" }
           ],
           email: [
-            { required: true, message: "邮箱地址不能为空", trigger: "blur" },
+            { required: true, message: "email cannot be null", trigger: "blur" },
             {
               type: "email",
-              message: "'Please Enter 正确的邮箱地址",
+              message: "'Please Enter valid email",
               trigger: ["blur", "change"]
             }
           ],

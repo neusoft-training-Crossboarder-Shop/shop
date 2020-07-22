@@ -45,7 +45,7 @@ public class BrandController extends BaseController {
 
     @PutMapping("/brand")
     @ApiOperation("try to add brand")
-//    @PreAuthorize("ss.hasPermi('mvo:brand:edit')")
+//    @PreAuthorize("@ss.hasPermi('mvo:brand:edit')")
     public AjaxResult updateBrand(@RequestBody mvoBrand brand) {
         brandService.updateBrand(brand);
         return AjaxResult.updateSuccess();
@@ -53,7 +53,7 @@ public class BrandController extends BaseController {
 
     @PostMapping("/brand")
     @ApiOperation("try to add brand")
-//    @PreAuthorize("ss.hasPermi('mvo:brand:add')")
+//    @PreAuthorize("@ss.hasPermi('mvo:brand:add')")
     public AjaxResult addBrand(@RequestBody mvoBrand brand) {
         brandService.insertBrand(brand);
         return AjaxResult.insertSuccess();
@@ -61,7 +61,7 @@ public class BrandController extends BaseController {
 
     @DeleteMapping("/brand/{ids}")
     @ApiOperation("try to add brand")
-//    @PreAuthorize("ss.hasPermi('mvo:brand:remove')")
+//    @PreAuthorize("@ss.hasPermi('mvo:brand:remove')")
     public AjaxResult delStore(@PathVariable("ids")int[] ids ){
         brandService.deleteBrandByIds(ids);
         return AjaxResult.deleteSuccess();
@@ -69,7 +69,7 @@ public class BrandController extends BaseController {
 
     //    @Log(title = "User 头像", businessType = BusinessType.UPDATE)
     @PostMapping("/brand/image")
-//    @PreAuthorize("ss.hasPermi('mvo:brand:image:edit')")
+//    @PreAuthorize("@ss.hasPermi('mvo:brand:image:edit')")
     public AjaxResult brandImage(@RequestParam("brandfile") MultipartFile file,@RequestParam("brdId")Integer brdId) throws IOException
     {
         System.out.println(brdId);

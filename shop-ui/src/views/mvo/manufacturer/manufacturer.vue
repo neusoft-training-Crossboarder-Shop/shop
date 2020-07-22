@@ -488,14 +488,14 @@
         ],
         brandList:[
           {
-            brdId:123,
-            manId:'',
-            nameEn:"好宝宝网店",
-            nameCn:1,
-            createTime:"2020-07-01 07:27:04",
-            lastUpdateTime:"2020-07-01 07:27:04",
-            brdDesc:'',
-            picUrl:'',
+            // brdId:123,
+            // manId:'',
+            // nameEn:"好宝宝网店",
+            // nameCn:1,
+            // createTime:"2020-07-01 07:27:04",
+            // lastUpdateTime:"2020-07-01 07:27:04",
+            // brdDesc:'',
+            // picUrl:'',
           },
         ],
         // 弹出层标题

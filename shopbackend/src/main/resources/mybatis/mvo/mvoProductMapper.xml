@@ -316,7 +316,7 @@
       #{deleted,jdbcType=BIT}, #{prostate,jdbcType=VARCHAR}, #{warranty,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="neu.train.project.mvo.domain.mvoProduct" >
+  <insert id="insertSelective" parameterType="neu.train.project.mvo.domain.mvoProduct" useGeneratedKeys="true" keyColumn="pro_id" keyProperty="proId">
     insert into pro_product
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="proId != null" >

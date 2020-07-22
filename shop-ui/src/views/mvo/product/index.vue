@@ -479,6 +479,7 @@
               { required: true, message: 'Cannot be null', trigger: 'change' }
             ],
             skuCd: [
+              {min: 3, max: 10, message: 'Length should between 3 to 10 char', trigger: 'blur'},
               { required: true, message: 'Cannot be null', trigger: 'change' }
             ],
             upc: [
