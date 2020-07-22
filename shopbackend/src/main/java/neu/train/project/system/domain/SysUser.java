@@ -109,7 +109,7 @@ public class SysUser extends BaseEntity
         this.deptId = deptId;
     }
 
-    @Size(min = 0, max = 30, message = "User Name长度不能超过30个Code")
+//    @Size(min = 0, max = 30, message = "User Name长度不能超过30个Code")
     public String getNickName()
     {
         return nickName;
@@ -120,8 +120,8 @@ public class SysUser extends BaseEntity
         this.nickName = nickName;
     }
 
-    @NotBlank(message = "User Account 不能为空")
-    @Size(min = 0, max = 30, message = "User Account 长度不能超过30个Code")
+//    @NotBlank(message = "User Account 不能为空")
+//    @Size(min = 0, max = 30, message = "User Account 长度不能超过30个Code")
     public String getUserName()
     {
         return userName;
@@ -132,8 +132,8 @@ public class SysUser extends BaseEntity
         this.userName = userName;
     }
 
-    @Email(message = "邮箱格式不正确")
-    @Size(min = 0, max = 50, message = "邮箱长度不能超过50个Code")
+//    @Email(message = "邮箱格式不正确")
+//    @Size(min = 0, max = 50, message = "邮箱长度不能超过50个Code")
     public String getEmail()
     {
         return email;
@@ -144,7 +144,7 @@ public class SysUser extends BaseEntity
         this.email = email;
     }
 
-    @Size(min = 0, max = 11, message = "Tele-Number长度不能超过11个Code")
+//    @Size(min = 0, max = 11, message = "Tele-Number长度不能超过11个Code")
     public String getPhonenumber()
     {
         return phonenumber;

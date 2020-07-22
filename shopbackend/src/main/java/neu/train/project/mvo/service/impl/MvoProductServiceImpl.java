@@ -65,7 +65,7 @@ public class MvoProductServiceImpl implements IMvoProductService {
         product.setCreatedBy(name);
         product.setLastUpdateBy(name);
 
-        mvoProductMapper.insert(product);
+        mvoProductMapper.insertSelective(product);
 
 
 
@@ -182,7 +182,7 @@ public class MvoProductServiceImpl implements IMvoProductService {
             mvoImageExample mvoImageExample = new mvoImageExample();
             mvoImageExample.createCriteria().andProIdEqualTo(proId);
             if (mvoImageMapper.selectByExample(mvoImageExample).size()>=12){
-                throw new CustomException("最多上传12张图片");
+                throw new CustomException("最多Upload 12张图片");
             }
             //更新大图
             image.setImgId(imgId);

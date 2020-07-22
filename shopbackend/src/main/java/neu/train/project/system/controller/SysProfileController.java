@@ -95,7 +95,7 @@ public class SysProfileController extends BaseController
     }
 
     /**
-     * 头像上传
+     * 头像Upload
      */
 //    @Log(title = "User 头像", businessType = BusinessType.UPDATE)
     @PostMapping("/avatar")
@@ -115,6 +115,6 @@ public class SysProfileController extends BaseController
                 return ajax;
             }
         }
-        return AjaxResult.error("上传图片异常，Please contact the Admin to");
+        return AjaxResult.error("Upload 图片异常，Please contact the Admin to");
     }
 }

@@ -15,7 +15,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * 文件上传工具类
+ * 文件Upload 工具类
  * 
  * @author
  */
@@ -32,7 +32,7 @@ public class FileUploadUtils
     public static final int DEFAULT_FILE_NAME_LENGTH = 100;
 
     /**
-     * 默认上传的地址
+     * 默认Upload 的地址
      */
     private static String defaultBaseDir = ShopConfig.getProfile();
 
@@ -49,9 +49,9 @@ public class FileUploadUtils
     }
 
     /**
-     * 以默认配置进行文件上传
+     * 以默认配置进行文件Upload
      *
-     * @param file 上传的文件
+     * @param file Upload 的文件
      * @return 文件Name
      * @throws Exception
      */
@@ -68,10 +68,10 @@ public class FileUploadUtils
     }
 
     /**
-     * 根据文件路径上传
+     * 根据文件路径Upload
      *
      * @param baseDir 相对应用的基目录
-     * @param file 上传的文件
+     * @param file Upload 的文件
      * @return 文件Name
      * @throws IOException
      */
@@ -88,12 +88,12 @@ public class FileUploadUtils
     }
 
     /**
-     * 文件上传
+     * 文件Upload
      *
      * @param baseDir 相对应用的基目录
-     * @param file 上传的文件
-     * @param extension 上传文件Type
-     * @return 返回上传Success的文件名
+     * @param file Upload 的文件
+     * @param extension Upload 文件Type
+     * @return 返回Upload Success的文件名
      * @throws FileSizeLimitExceededException 如果超出最大大小
      * @throws FileNameLengthLimitExceededException 文件名太长
      * @throws IOException 比如读写文件出错时
@@ -172,7 +172,7 @@ public class FileUploadUtils
     /**
      * 文件大小校验
      *
-     * @param file 上传的文件
+     * @param file Upload 的文件
      * @return
      * @throws FileSizeLimitExceededException 如果超出最大大小
      * @throws InvalidExtensionException

@@ -43,12 +43,12 @@ spring:
     basename: i18n/messages
   profiles: 
     active: druid
-  # 文件上传
+  # 文件Upload
   servlet:
      multipart:
        # 单个文件大小
        max-file-size:  10MB
-       # 设置总上传的文件大小
+       # 设置总Upload 的文件大小
        max-request-size:  20MB
   # 服务模块
   devtools:

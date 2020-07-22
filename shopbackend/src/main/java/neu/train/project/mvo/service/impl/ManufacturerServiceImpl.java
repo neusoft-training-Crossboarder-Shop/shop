@@ -60,7 +60,7 @@ public class ManufacturerServiceImpl implements IManufacturerService {
     @Override
     public void insertManufacturer(mvoManufacturer manufacturer) {
         LoginUser loginUser = SecurityUtils.getLoginUser();
-        manufacturer.setManId(Math.toIntExact(loginUser.getUser().getUserId()));
+        manufacturer.setSysUserId(Math.toIntExact(loginUser.getUser().getUserId()));
         manufacturer.setCreatedBy(loginUser.getUsername());
         manufacturer.setLastUpdateBy(loginUser.getUsername());
         mvoManufacturerMapper.insertSelective(manufacturer);

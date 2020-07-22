@@ -76,13 +76,13 @@
 <!--                      <span>{{ props.row.imgId }}</span>-->
 <!--                    </el-form-item>-->
 
-                    <el-form-item label="picUrl">
-              <span>
-                <template>
-                  <img v-if="props.row.picUrl" :src="props.row.picUrl" width="220"  alt="">
-                </template>
-              </span>
-                    </el-form-item>
+<!--                    <el-form-item label="picUrl">-->
+<!--              <span>-->
+<!--                <template>-->
+<!--                  <img v-if="props.row.picUrl" :src="props.row.picUrl" width="220"  alt="">-->
+<!--                </template>-->
+<!--              </span>-->
+<!--                    </el-form-item>-->
                     <el-form-item label="createdBy">
                       <span>{{ props.row.createdBy }}</span>
                     </el-form-item>
@@ -96,7 +96,9 @@
                       <span>{{ props.row.lastUpdateTime }}</span>
                     </el-form-item>
                     <el-form-item label="manDesc">
-                      <span>{{ props.row.manDesc }}</span>
+                      <p  v-html="props.row.manDesc">{{props.row.manDesc}}</p>
+<!--                      <span>{{ props.row.manDesc }}</span>-->
+<!--                      <span>{{ props.row.manDesc }}</span>-->
                     </el-form-item>
                     <el-form-item label="deleted">
                       <span>{{ props.row.deleted }}</span>
@@ -273,7 +275,7 @@
 
               <el-table-column label="Brand Image" align="center" prop="picUrl" width="200">
                 <template slot-scope="scope">
-                  <img v-bind:src="scope.row.picUrl" @click="editCropper(scope.row)" title="点击上传" class="img-list" />
+                  <img v-bind:src="scope.row.picUrl" @click="editCropper(scope.row)" title="点击Upload " class="img-list" />
                 </template>
               </el-table-column>
               <el-table-column label="CreateTime" align="center" prop="createTime" width="170">
@@ -334,21 +336,21 @@
                 <el-form-item label="Brand Image"  prop="picUrl">
                   <el-upload action="#" :http-request="requestUpload" :show-file-list="false" :before-upload="beforeUpload">
                     <el-button size="middle">
-                      上传
+                      Upload
                       <i class="el-icon-upload el-icon--right"></i>
                     </el-button>
                   </el-upload>
 
                 </el-form-item>
 
-<!--                  <el-button v-bind:src="scope.row.picUrl" @click="editCropper(scope.row)" title="点击上传" class="img-list" />-->
+<!--                  <el-button v-bind:src="scope.row.picUrl" @click="editCropper(scope.row)" title="点击Upload " class="img-list" />-->
 
 
 
               </el-form>
               <div slot="footer" class="dialog-footer">
 <!--                <el-button type="success"  @click="editCropper(scope.row)"-->
-<!--                           title="点击上传" class="img-list">Upload Picture</el-button>-->
+<!--                           title="点击Upload " class="img-list">Upload Picture</el-button>-->
                 <el-button type="primary" @click="submitForm">确 定</el-button>
                 <el-button type="danger" @click="cancel">取 消</el-button>
               </div>
@@ -381,7 +383,7 @@
                 <el-col :lg="2" :md="2">
                   <el-upload action="#" :http-request="requestUpload" :show-file-list="false" :before-upload="beforeUpload">
                     <el-button size="middle">
-                      上传
+                      Upload
                       <i class="el-icon-upload el-icon--right"></i>
                     </el-button>
                   </el-upload>
@@ -583,6 +585,8 @@
             if(this.manufacturer.manId == undefined){
               api_insertManufacturer(this.manufacturer).then(res=>{
                   api_getManufacturer().then(res=>{
+                    this.manufacturer=res.data
+                    this.notRegistered = false
                     this.manufacturers[0]=res.data
                   })
               })
@@ -718,7 +722,7 @@
       modalOpened() {
         this.visible = true;
       },
-      // 覆盖默认的上传行为
+      // 覆盖默认的Upload 行为
       requestUpload() {
 
       },
@@ -735,10 +739,10 @@
         num = num || 1;
         this.$refs.cropper.changeScale(num);
       },
-      // 上传预处理
+      // Upload 预处理
       beforeUpload(file) {
         if (file.type.indexOf("image/") == -1) {
-          this.msgError("文件格式错误，请上传图片Type ,如：JPG，PNG后缀的文件。");
+          this.msgError("文件格式错误，请Upload 图片Type ,如：JPG，PNG后缀的文件。");
         } else {
           const reader = new FileReader();
           reader.readAsDataURL(file);
@@ -747,7 +751,7 @@
           };
         }
       },
-      // 上传图片
+      // Upload 图片
       uploadImg() {
         this.$refs.cropper.getCropBlob(data => {
           let formData = new FormData();

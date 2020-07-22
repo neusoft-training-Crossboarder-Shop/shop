@@ -24,7 +24,7 @@ public class ShopConfig
     /** 实例演示开关 */
     private boolean demoEnabled;
 
-    /** 上传路径 */
+    /** Upload 路径 */
     private static String profile;
 
     /** 获取地址开关 */
@@ -91,7 +91,7 @@ public class ShopConfig
     }
 
     /**
-     * 获取头像上传路径
+     * 获取头像Upload 路径
      */
     public static String getAvatarPath()
     {
@@ -115,7 +115,7 @@ public class ShopConfig
     }
 
     /**
-     * 获取上传路径
+     * 获取Upload 路径
      */
     public static String getUploadPath()
     {

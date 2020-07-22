@@ -67,16 +67,16 @@ public class CommonController
     }
 
     /**
-     * 通用上传请求
+     * 通用Upload 请求
      */
     @PostMapping("/common/upload")
     public AjaxResult uploadFile(MultipartFile file) throws Exception
     {
         try
         {
-            // 上传文件路径
+            // Upload 文件路径
             String filePath = ShopConfig.getUploadPath();
-            // 上传并返回新文件Name
+            // Upload 并返回新文件Name
             String fileName = FileUploadUtils.upload(filePath, file);
             String url = serverConfig.getUrl() + fileName;
             AjaxResult ajax = AjaxResult.success();
