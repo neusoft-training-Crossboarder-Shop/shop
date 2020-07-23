@@ -66,7 +66,7 @@ public class MvoProductServiceImpl implements IMvoProductService {
         String name = SecurityUtils.getLoginUser().getUsername();
         product.setCreatedBy(name);
         product.setLastUpdateBy(name);
-
+        product.setProstate("Off Shelf");
         mvoProductMapper.insertSelective(product);
 
 

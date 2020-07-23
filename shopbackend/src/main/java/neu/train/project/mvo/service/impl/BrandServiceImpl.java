@@ -90,12 +90,12 @@ public class BrandServiceImpl implements IBrandService {
         String nameEn = brand.getNameEn();
 
         //判断是否重名
-        if (checkExistByNameCn(nameCn)&checkExistByNameEn(nameEn)) {
-            return (int) ResponseUtil.fail(BRAND_NAME_EXIST, "The same name already exist!");
+//        if (checkExistByNameCn(nameCn)&checkExistByNameEn(nameEn)) {
+//            return (int) ResponseUtil.fail(BRAND_NAME_EXIST, "The same name already exist!");
 //            return (int) ResponseUtil.badArgumentValue();
-        }else {
+//        }else {
 
-            String name =SecurityUtils.getLoginUser().getUsername();
+            String name = SecurityUtils.getLoginUser().getUsername();
             //获取当前User 名
             brand.setCreatedBy(name);
             brand.setLastUpdateBy(name);
@@ -106,7 +106,7 @@ public class BrandServiceImpl implements IBrandService {
 
             return mvoBrandMapper.insertSelective(brand);
             //不重名的话complete Add
-        }
+//        }
         //新建一个图片对象
 
 
