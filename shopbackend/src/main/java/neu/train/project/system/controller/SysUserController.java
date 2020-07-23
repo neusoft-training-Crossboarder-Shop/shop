@@ -53,36 +53,6 @@ public class SysUserController extends BaseController
         return getDataTable(list);
     }
 
-////    @Log(title = "User 管理", businessType = BusinessType.EXPORT)
-//    @PreAuthorize("@ss.hasPermi('system:user:export')")
-//    @GetMapping("/export")
-//    public AjaxResult export(SysUser user)
-//    {
-//        List<SysUser> list = userService.selectUserList(user);
-////        ExcelUtil<SysUser> util = new ExcelUtil<SysUser>(SysUser.class);
-////        return util.exportExcel(list, "User Data ");
-//    }
-
-////    @Log(title = "User 管理", businessType = BusinessType.IMPORT)
-//    @PreAuthorize("@ss.hasPermi('system:user:import')")
-//    @PostMapping("/importData")
-//    public AjaxResult importData(MultipartFile file, boolean updateSupport) throws Exception
-//    {
-//        ExcelUtil<SysUser> util = new ExcelUtil<SysUser>(SysUser.class);
-//        List<SysUser> userList = util.importExcel(file.getInputStream());
-//        LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
-//        String operName = loginUser.getUsername();
-//        String message = userService.importUser(userList, updateSupport, operName);
-//        return AjaxResult.success(message);
-//    }
-//
-//    @GetMapping("/importTemplate")
-//    public AjaxResult importTemplate()
-//    {
-//        ExcelUtil<SysUser> util = new ExcelUtil<SysUser>(SysUser.class);
-//        return util.importTemplateExcel("User Data ");
-//    }
-
     /**
      * 根据User ID获取详细信息
      */

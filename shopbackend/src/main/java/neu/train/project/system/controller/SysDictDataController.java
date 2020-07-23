@@ -41,15 +41,7 @@ public class SysDictDataController extends BaseController
         return getDataTable(list);
     }
 
-//    @Log(title = "Dict   Data ", businessType = BusinessType.EXPORT)
-//    @PreAuthorize("@ss.hasPermi('system:dict:export')")
-//    @GetMapping("/export")
-//    public AjaxResult export(SysDictData dictData)
-//    {
-//        List<SysDictData> list = dictDataService.selectDictDataList(dictData);
-//        ExcelUtil<SysDictData> util = new ExcelUtil<SysDictData>(SysDictData.class);
-//        return util.exportExcel(list, "Dict   Data ");
-//    }
+
 
     /**
      * 查询Dict   Data 详细

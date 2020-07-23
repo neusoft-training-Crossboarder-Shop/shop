@@ -38,16 +38,6 @@ public class SysDictTypeController extends BaseController
         return getDataTable(list);
     }
 
-////    @Log(title = "Dict   Type ", businessType = BusinessType.EXPORT)
-//    @PreAuthorize("@ss.hasPermi('system:dict:export')")
-//    @GetMapping("/export")
-//    public AjaxResult export(SysDictType dictType)
-//    {
-//        List<SysDictType> list = dictTypeService.selectDictTypeList(dictType);
-//        ExcelUtil<SysDictType> util = new ExcelUtil<SysDictType>(SysDictType.class);
-//        return util.exportExcel(list, "Dict   Type ");
-//    }
-
     /**
      * 查询Dict   Type 详细
      */

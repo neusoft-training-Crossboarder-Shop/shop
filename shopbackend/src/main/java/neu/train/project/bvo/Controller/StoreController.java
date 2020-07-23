@@ -19,6 +19,7 @@ public class StoreController extends BaseController {
     StoreService storeService;
     @GetMapping("/store/list")
     @ApiOperation("try to get store list")
+    @PreAuthorize("@ss.hasPermi('bvo:store:query')")
     public TableDataInfo getStoreList(Store store) {
         startPage();
         List<Store> storeList = storeService.getStoreList(store);
@@ -27,6 +28,7 @@ public class StoreController extends BaseController {
 
     @GetMapping("/store/{id}")
     @ApiOperation("try to get store by Id")
+    @PreAuthorize("@ss.hasPermi('bvo:store:query')")
     public AjaxResult getStoreById(@PathVariable("id") Long storeId) {
         Store store = storeService.selectStoreByStoreId(storeId);
         return AjaxResult.success(store);
@@ -55,4 +57,5 @@ public class StoreController extends BaseController {
         storeService.deleteStoreByIds(ids);
         return AjaxResult.deleteSuccess();
     }
+
 }
