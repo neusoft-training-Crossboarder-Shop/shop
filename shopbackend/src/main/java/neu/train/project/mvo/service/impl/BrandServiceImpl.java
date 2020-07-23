@@ -92,6 +92,7 @@ public class BrandServiceImpl implements IBrandService {
         //判断是否重名
         if (checkExistByNameCn(nameCn)&checkExistByNameEn(nameEn)) {
             return (int) ResponseUtil.fail(BRAND_NAME_EXIST, "The same name already exist!");
+//            return (int) ResponseUtil.badArgumentValue();
         }else {
 
             String name =SecurityUtils.getLoginUser().getUsername();
