@@ -873,7 +873,7 @@
             formData.append("imgId", this.currentImage.imgId || 0);
             formData.append("typeCd", this.currentOptions);
               // api_uploadProductImage(formData).then(response => {
-              api_uploadProductImage(formData).then(response => {
+            api_uploadProductImage(formData).then(response => {
                 this.getProductImages(this.product.proId);
             });
           });
@@ -922,7 +922,6 @@
                 name:(item.typeCd==0)?'small':'big'
               }
               this.fileList.push(image2)
-              console.log(this.fileList)
             })
           })
         }

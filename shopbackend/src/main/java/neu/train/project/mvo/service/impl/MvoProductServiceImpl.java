@@ -165,30 +165,41 @@ public class MvoProductServiceImpl implements IMvoProductService {
     }
 
     @Override
+    @Transactional
     public boolean uploadProductImage(Integer proId, Integer imgId, Integer typeCd, String imageUrl) {
         mvoImage image = new mvoImage();
         image.setProId(proId);
         image.setUri(imageUrl);
         image.setTypeCd(typeCd);
+
         if(imgId == null || imgId == 0){
+            //如果是新图片
+
+//            1.不能上传12张图片
+            mvoImageExample mvoImageExample1 = new mvoImageExample();
+            mvoImageExample1.createCriteria().andProIdEqualTo(proId);
+            if (mvoImageMapper.selectByExample(mvoImageExample1).size()>=12){
+                throw new CustomException("最多Upload 12张图片");
+            }
+//            2.如果添加的是缩略图则进入下架状态
+            if (typeCd == 0) {
+                mvoProduct product = new mvoProduct();
+                product.setProId(proId);
+                product.setProstate("Off Shelf");
+                mvoProductMapper.updateByPrimaryKeySelective(product);
+            }
+
             image.setImgId(null);
             return mvoImageMapper.insertSelective(image) == 1;
         }else{
-            //更新缩略图片
+            image.setImgId(imgId);
+            //更新图片
             if (mvoImageMapper.selectByPrimaryKey(imgId).getTypeCd()==0){
                 //如果更新缩略图 删除当前的缓存
                 redisCache.deleteObject(PRO_CACHE_PREFIX+proId);
                 return mvoImageMapper.updateByPrimaryKeySelective(image)==1;
             }
-
-            //大图最多12张
-            mvoImageExample mvoImageExample = new mvoImageExample();
-            mvoImageExample.createCriteria().andProIdEqualTo(proId);
-            if (mvoImageMapper.selectByExample(mvoImageExample).size()>=12){
-                throw new CustomException("最多Upload 12张图片");
-            }
             //更新大图
-            image.setImgId(imgId);
             return mvoImageMapper.updateByPrimaryKeySelective(image)==1;
         }
     }
@@ -235,14 +246,16 @@ public class MvoProductServiceImpl implements IMvoProductService {
         int type_cd = mvoImage.getTypeCd();
 
         mvoImageExample mvoImageExample = new mvoImageExample();
-        mvoImageExample.createCriteria().andProIdEqualTo(proId);
-        mvoImageExample.createCriteria().andTypeCdEqualTo(type_cd);
-
+        mvoImageExample.createCriteria().andProIdEqualTo(proId).andTypeCdEqualTo(type_cd);
+        ;
         List<neu.train.project.mvo.domain.mvoImage> mvoImages = mvoImageMapper.selectByExample(mvoImageExample);
 
         if (mvoImages.size() == 1) {
             throw new CustomException("It's required at least 1 small/big picture");
         }
+
+
+
         return mvoImageMapper.deleteByPrimaryKey(imgId)==1;
     }
 
@@ -252,6 +265,29 @@ public class MvoProductServiceImpl implements IMvoProductService {
         mvoProduct product = new mvoProduct();
         product.setProId(proId);
         product.setProstate(status);
+
+
+        if (status.equals("In Shelf")){
+            //如果缩略图的数量大于1 不能上架
+            mvoImageExample mvoImageExample1 = new mvoImageExample();
+            mvoImageExample1.createCriteria().andProIdEqualTo(proId).andTypeCdEqualTo(0);
+            List<mvoImage> mvoImages1 = mvoImageMapper.selectByExample(mvoImageExample1);
+            if (mvoImages1.size() != 1) {
+                throw new CustomException("It's required to only one small picture");
+            }
+
+            mvoImageExample mvoImageExample2 = new mvoImageExample();
+            mvoImageExample2.createCriteria().andProIdEqualTo(proId).andTypeCdEqualTo(1);
+            List<mvoImage> mvoImages2 = mvoImageMapper.selectByExample(mvoImageExample2);
+
+            //如果没有一张大图     也不能上架
+            if (mvoImages2.size() == 0) {
+                throw new CustomException("It's required at least one big picture");
+            }
+        }
+
+
+
         mvoProductMapper.updateByPrimaryKeySelective(product);
     }
 }
