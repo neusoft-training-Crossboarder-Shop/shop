@@ -80,10 +80,10 @@ public class AjaxResult extends HashMap<String, Object>
 
 
     public static AjaxResult updateSuccess() {
-        return new AjaxResult(HttpStatus.UPDATE_SUCCESS,"更新Success");
+        return new AjaxResult(HttpStatus.UPDATE_SUCCESS,"Update Success");
     }
     public static AjaxResult updateSuccess(Object data) {
-        return new AjaxResult(HttpStatus.UPDATE_SUCCESS,"更新Success");
+        return new AjaxResult(HttpStatus.UPDATE_SUCCESS,"Update Success");
     }
 
     public static AjaxResult deleteSuccess() {

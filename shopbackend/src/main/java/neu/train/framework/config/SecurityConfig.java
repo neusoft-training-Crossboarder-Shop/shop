@@ -93,7 +93,6 @@ SecurityConfig extends WebSecurityConfigurerAdapter
                 .authorizeRequests()
                 // 对于登录login Register  Validation Code captchaImage 允许匿名访问
                 .antMatchers("/login", "/captchaImage","/register").anonymous()
-
                 .antMatchers(
                         HttpMethod.GET,
                         "/*.html",

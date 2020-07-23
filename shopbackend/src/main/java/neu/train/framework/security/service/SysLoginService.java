@@ -38,12 +38,12 @@ public class SysLoginService
      * 
      * @param username User 名
      * @param password 密码
-     * @param captcha Validation Code
+     * @param code Validation Code
      * @param uuid 唯一Signal
      * @return 结果
      */
     public String login(String username, String password, String code, String uuid) {
-        //uuid 在客户端就Already经生成了 code是Validation Code  uuid 在生成Validation Code 时产生
+        //uuid 在客户端就已经经生成了 code是Validation Code  uuid 在生成Validation Code 时产生
         String verifyKey = Constants.CAPTCHA_CODE_KEY + uuid;
 
         //为该User 生成Validation Code 的时候 就Already经缓存了这个Validation Code  uuid
@@ -53,14 +53,11 @@ public class SysLoginService
         redisCache.deleteObject(verifyKey);
         if (captcha == null)
         {
-//             记录日志
-//            AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire")));
 
             throw new CaptchaExpireException();
         }
         if (!code.equalsIgnoreCase(captcha))
         {
-//            AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.error")));
             throw new CaptchaException();
         }
         // User 验证
@@ -75,17 +72,13 @@ public class SysLoginService
         {
             if (e instanceof BadCredentialsException)
             {
-//                AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.password.not.match")));
                 throw new UserPasswordNotMatchException();
             }
             else
             {
-//                AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, e.getMessage()));
                 throw new CustomException(e.getMessage());
             }
         }
-        //记录登陆行为
-//        AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
 
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         // 生成token 并且缓存该User

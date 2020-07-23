@@ -110,35 +110,35 @@ public class ResponseUtil {
     }
 
     public static Object badArgument() {
-        return fail(401, "参数不对");
+        return fail(401, "Wrong parameter ");
     }
 
     public static Object badArgumentValue() {
-        return fail(402, "参数值不对");
+        return fail(402, "Wrong parameter Value ");
     }
 
     public static Object unlogin() {
-        return fail(501, "请登录");
+        return fail(501, "Please Login");
     }
 
     public static Object serious() {
-        return fail(502, "系统内部错误");
+        return fail(502, "system error");
     }
 
     public static Object unsupport() {
-        return fail(503, "业务不支持");
+        return fail(503, "no supported");
     }
 
     public static Object updatedDateExpired() {
-        return fail(504, "更新Data Already经失效");
+        return fail(504, "update Data Already expired ");
     }
 
     public static Object updatedDataFailed() {
-        return fail(505, "更新Data Fail");
+        return fail(505, "update Data Fail");
     }
 
     public static Object unauthz() {
-        return fail(506, "无OperationAuthority ");
+        return fail(506, "No Operation Authority ");
     }
 }
 

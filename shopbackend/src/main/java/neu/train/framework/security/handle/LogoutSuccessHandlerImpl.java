@@ -43,9 +43,7 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler
             String userName = loginUser.getUsername();
             //  Delete User 缓存记录
             tokenService.delLoginUser(loginUser.getToken());
-            // 记录User 退出日志
-//            AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGOUT, "退出Success"));
         }
-        ServletUtils.renderString(response, JSON.toJSONString(AjaxResult.error(HttpStatus.SUCCESS, "退出Success")));
+        ServletUtils.renderString(response, JSON.toJSONString(AjaxResult.error(HttpStatus.SUCCESS, "Log Out Success")));
     }
 }

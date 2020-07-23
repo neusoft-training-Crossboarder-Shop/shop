@@ -37,18 +37,18 @@ public class UserDetailsServiceImpl implements UserDetailsService
         SysUser user = userService.selectUserByUserName(username);
         if (StringUtils.isNull(user))
         {
-            log.info("登录User ：{} 不存在.", username);
-            throw new UsernameNotFoundException("登录User ：" + username + " 不存在");
+            log.info("Login User ：{} not exist.", username);
+            throw new UsernameNotFoundException("Login User ：" + username + " not exist");
         }
         else if (UserStatus.DELETED.getCode().equals(user.getDelFlag()))
         {
-            log.info("登录User ：{} Already be  Delete .", username);
-            throw new BaseException("对不起，您的Account ：" + username + " Already be  Delete ");
+            log.info("Login User ：{} Already be  Delete .", username);
+            throw new BaseException("Sorry，your Account ：" + username + " Already be  Delete ");
         }
         else if (UserStatus.DISABLE.getCode().equals(user.getStatus()))
         {
-            log.info("登录User ：{} Already be 停用.", username);
-            throw new BaseException("对不起，您的Account ：" + username + " Already停用");
+            log.info("Login User ：{} Already be forbidden.", username);
+            throw new BaseException("Sorry，your Account ：" + username + " Already not used");
         }
 
         return createLoginUser(user);

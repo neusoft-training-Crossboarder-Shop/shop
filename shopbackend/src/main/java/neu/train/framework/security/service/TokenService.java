@@ -104,10 +104,6 @@ public class TokenService
         String token = IdUtils.fastUUID();
         loginUser.setToken(token);
 
-        //设置User 代理信息
-// xiaosama:       setUserAgent(loginUser);
-
-        //
         refreshToken(loginUser);
 
 
@@ -147,20 +143,7 @@ public class TokenService
         redisCache.setCacheObject(userKey, loginUser, expireTime, TimeUnit.MINUTES);
     }
     
-    /**
-     * 设置User 代理信息 xiaosama 对于该系统没必要
-     * 
-     * @param loginUser 登录信息
-     */
-//    public void setUserAgent(LoginUser loginUser)
-//    {
-//        UserAgent userAgent = UserAgent.parseUserAgentString(ServletUtils.getRequest().getHeader("User-Agent"));
-//        String ip = IpUtils.getIpAddr(ServletUtils.getRequest());
-//        loginUser.setIpaddr(ip);
-//        loginUser.setLoginLocation(AddressUtils.getRealAddressByIP(ip));
-//        loginUser.setBrowser(userAgent.getBrowser().getName());
-//        loginUser.setOs(userAgent.getOperatingSystem().getName());
-//    }
+    /*
     
     /**
      * 从Data 声明生成令牌
