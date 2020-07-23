@@ -110,7 +110,7 @@ public class OrderController extends BaseController {
     }
 
     @ApiOperation(value="更新原始订单Status，只有原始订单有Status",httpMethod = "PUT",notes = "必选参数：原始订单Id stoId,将要变成的Statusstatus")
-//    @PreAuthorize("@ss.hasPermi('mvo:order:list')")
+    @PreAuthorize("@ss.hasPermi('mvo:order:list')")
     @Transactional
     @PutMapping("mvo/order/stoOrder/status")
     public AjaxResult updateStoStatus(@RequestBody GetStoStatusQuery getStoStatusQuery){
