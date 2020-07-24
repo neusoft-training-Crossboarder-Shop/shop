@@ -17,7 +17,7 @@ public class SendASimpleSto {
     private Integer orderStatus;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastUpdateTime;
 
     private SimpleStr store;

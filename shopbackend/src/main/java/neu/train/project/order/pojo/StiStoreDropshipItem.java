@@ -35,7 +35,7 @@ public class StiStoreDropshipItem extends BaseEntity {
     private String stsCd;
 
     private String lastUpdateBy;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastUpdateTime;
 
     public StiStoreDropshipItem(Integer dilId, Integer proId, Integer strId, BigDecimal salPrice, BigDecimal dropshipPrice, Integer storeRetentionAmount, Integer shelfStockAmount, String dropshipStatus, String createdBy, Date createTime, Integer callCnt, String remark, String stsCd, String lastUpdateBy, Date lastUpdateTime) {

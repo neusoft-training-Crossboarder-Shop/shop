@@ -35,7 +35,7 @@ public class MvoSimpleProduct {
     private Date createTime;
 
     private String lastUpdateBy;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastUpdateTime;
 
     private Integer callCnt;

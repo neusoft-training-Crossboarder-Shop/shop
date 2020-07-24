@@ -27,7 +27,7 @@ public class SendAStoOrder {
     private String createdBy;
 
     private String lastUpdateBy;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastUpdateTime;
 
     private Integer callCnt;

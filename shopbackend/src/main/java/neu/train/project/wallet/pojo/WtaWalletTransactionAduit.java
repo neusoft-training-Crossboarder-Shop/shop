@@ -38,7 +38,7 @@ public class WtaWalletTransactionAduit extends BaseEntity {
     private Date createTime;
 
     private String lastUpdateBy;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastUpdateTime;
 
     public WtaWalletTransactionAduit(Integer transactionAuditId, Integer buyerId, Integer transactionId, BigDecimal availableMoneyBefore, BigDecimal depositingMoneyBefore, BigDecimal withdrawingMoneyBefore, BigDecimal operateMoney, Byte operateType, BigDecimal availableMoneyAfter, BigDecimal depositingMoneyAfter, BigDecimal withdrawingMoneyAfter, String operateBy, Byte status, String createdBy, Date createTime, String lastUpdateBy, Date lastUpdateTime) {

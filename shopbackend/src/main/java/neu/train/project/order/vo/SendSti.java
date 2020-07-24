@@ -29,7 +29,7 @@ public class SendSti {
     private String remark;
 
     private String lastUpdateBy;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastUpdateTime;
 
     public SendSti(){}
