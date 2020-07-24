@@ -19,13 +19,13 @@ public class ManufacturerController {
         return AjaxResult.success(manufacturerService.getManufacturer());
     }
 
-    @PreAuthorize("@ss.hasPermi('mvo:profile:add')")
+    @PreAuthorize("@ss.hasPermi('mvo:profile:edit')")
     @PostMapping("/mvo/manufacturer")
     public AjaxResult insertManufacturer(@RequestBody mvoManufacturer manufacturer){
         manufacturerService.insertManufacturer(manufacturer);
         return AjaxResult.insertSuccess();
     }
-
+    @PreAuthorize("@ss.hasPermi('mvo:profile:edit')")
     @PutMapping("/mvo/manufacturer")
     public AjaxResult updateManufacturer(@RequestBody mvoManufacturer manufacturer){
         manufacturerService.updateManufacturer(manufacturer);

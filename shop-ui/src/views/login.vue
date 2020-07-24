@@ -120,7 +120,7 @@
         <el-row>
           <el-col :span="24">
             <el-form-item label="User 性别">
-<!--              <el-select v-model="registerForm.sex" placeholder="请 Selection  ">-->
+<!--              <el-select v-model="registerForm.sex" placeholder="Please Select  ">-->
 <!--                <el-option-->
 <!--                  v-for="dict in sexOptions"-->
 <!--                  :key="dict.dictValue"-->
@@ -192,7 +192,6 @@ export default {
 
       registerForm: {
         userId: undefined,
-        // deptId: undefined,
         userName: undefined,
         nickName: undefined,
         password: undefined,
@@ -299,10 +298,8 @@ export default {
       this.$refs["registerForm"].validate(valid => {
         if (valid) {
             let id=this.registerForm.roleIds;
-            this.registerForm.roleIds=[]
             this.registerForm.roleIds.push(id[0])
-
-            console.log(this.registerForm)
+            this.registerForm.roleIds=[]
             addUser(this.registerForm).then(response=>{
               this.$notify(
                 {

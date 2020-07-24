@@ -211,35 +211,35 @@
               <div class="section">
                 <p style="display: block;text-align: center;font-size: large">Product Info</p>
                 <el-form-item label="Title"  prop="title">
-                  <el-input v-model="product.title" placeholder="placeholder"></el-input>
+                  <el-input v-model="product.title" placeholder="input"></el-input>
                 </el-form-item>
 
                 <el-form-item label="Model" prop="model">
-                  <el-input v-model="product.model" placeholder="placeholder"></el-input>
+                  <el-input v-model="product.model" placeholder="input"></el-input>
                 </el-form-item>
                 <el-form-item label="Sku Cd" prop="skuCd">
-                  <el-input v-model="product.skuCd" placeholder="placeholder"></el-input>
+                  <el-input v-model="product.skuCd" placeholder="input"></el-input>
                 </el-form-item>
                 <el-form-item label="Upc" prop="upc">
-                  <el-input v-model="product.upc" placeholder="placeholder"></el-input>
+                  <el-input v-model="product.upc" placeholder="input"></el-input>
                 </el-form-item>
                 <el-form-item label="Ean" prop="ean">
-                  <el-input v-model="product.ean" placeholder="placeholder"></el-input>
+                  <el-input v-model="product.ean" placeholder="input"></el-input>
                 </el-form-item>
                 <el-form-item label="RetailPrice" prop="retailPrice">
-                  <el-input v-model="product.retailPrice" placeholder="placeholder"></el-input>
+                  <el-input v-model="product.retailPrice" placeholder="input"></el-input>
                 </el-form-item>
                 <el-form-item label="Mininum RetailPrice" prop="mininumRetailPrice">
-                  <el-input v-model="product.mininumRetailPrice" placeholder="placeholder"></el-input>
+                  <el-input v-model="product.mininumRetailPrice" placeholder="input"></el-input>
                 </el-form-item>
                 <el-form-item label="Warranty Unit" >
-                  <el-input v-model="product.time_unit" placeholder="placeholder"></el-input>
+                  <el-input v-model="product.time_unit" placeholder="input"></el-input>
                 </el-form-item>
                 <el-form-item label="Warranty Day" >
-                  <el-input v-model="product.warrantyDay" placeholder="placeholder"></el-input>
+                  <el-input v-model="product.warrantyDay" placeholder="input"></el-input>
                 </el-form-item>
                 <el-form-item label="Warranty" >
-                  <el-input v-model="product.warranty" type="textarea" placeholder="placeholder"></el-input>
+                  <el-input v-model="product.warranty" type="textarea" placeholder="input"></el-input>
                 </el-form-item>
 
 
@@ -254,21 +254,21 @@
                 <div v-for="(item,index) in product.productPackageInfos">
                   <div :key="index">
                     <el-form-item label="width">
-                      <el-input v-model="item.width" placeholder="placeholder"></el-input>
+                      <el-input v-model="item.width" placeholder="input"></el-input>
                     </el-form-item>
 
                     <el-form-item label="height">
-                      <el-input v-model="item.height" placeholder="placeholder"></el-input>
+                      <el-input v-model="item.height" placeholder="input"></el-input>
 
                     </el-form-item>
 
                     <el-form-item label="length">
-                      <el-input v-model="item.length" placeholder="placeholder"></el-input>
+                      <el-input v-model="item.length" placeholder="input"></el-input>
 
                     </el-form-item>
 
                     <el-form-item label="weight">
-                      <el-input v-model="item.weight" placeholder="placeholder"></el-input>
+                      <el-input v-model="item.weight" placeholder="input"></el-input>
                     </el-form-item>
                   </div>
                 </div>
@@ -280,7 +280,7 @@
                 <p style="display: block;text-align: center;font-size: large">Brand Info</p>
                 <el-row :gutter="10">
                   <el-form-item label="Brand Selection">
-                    <el-select v-model="product.brdId" filterable clearable placeholder="placeholder" style="display: inline-block;width: 100%">
+                    <el-select v-model="product.brdId" filterable clearable placeholder="input" style="display: inline-block;width: 100%">
                       <el-option
                         v-for="item in brandList"
                         :key="item.brdId"
@@ -301,10 +301,10 @@
                 <div v-for="(item,index) in product.categories">
                   <div :key="index">
                     <el-form-item label="Category Name">
-                      <el-input v-model="item.categoryName" placeholder="placeholder"></el-input>
+                      <el-input v-model="item.categoryName" placeholder="input"></el-input>
                     </el-form-item>
                     <el-form-item label="Category Path">
-                      <el-input v-model="item.categoryPath" placeholder="placeholder"></el-input>
+                      <el-input v-model="item.categoryPath" placeholder="input"></el-input>
                     </el-form-item>
                   </div>
                 </div>

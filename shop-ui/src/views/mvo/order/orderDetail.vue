@@ -94,12 +94,12 @@
                 <el-row :gutter="10">
                   <el-col :span="8">
                     <el-form-item label="City Name">
-                      <el-input v-model="shippingAddress.cityName" placeholder="placeholder" :disabled="true"></el-input>
+                      <el-input v-model="shippingAddress.cityName" placeholder="input" :disabled="true"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="Postal Cd">
-                      <el-input v-model="shippingAddress.postalCd" placeholder="placeholder" :disabled="true"></el-input>
+                      <el-input v-model="shippingAddress.postalCd" placeholder="input" :disabled="true"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -107,12 +107,12 @@
                 <el-row :gutter="10">
                   <el-col :span="8">
                     <el-form-item label="Email">
-                      <el-input v-model="shippingAddress.email" placeholder="placeholder" :disabled="true"> </el-input>
+                      <el-input v-model="shippingAddress.email" placeholder="input" :disabled="true"> </el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="Phone Number">
-                      <el-input v-model="shippingAddress.contactPhoneNo" placeholder="placeholder" :disabled="true"></el-input>
+                      <el-input v-model="shippingAddress.contactPhoneNo" placeholder="input" :disabled="true"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>

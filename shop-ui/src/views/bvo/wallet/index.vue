@@ -143,7 +143,7 @@
           <el-row :gutter="10">
            <el-col :span="7">
                 <el-form-item label-width="40%" label="Transaction Type">
-                    <el-select v-model="queryParams.transactionType" clearable placeholder="请 Selection  ">
+                    <el-select v-model="queryParams.transactionType" clearable placeholder="Please Select  ">
                       <el-option
                         v-for="(item,index) in this.walletTransactionType"
                         :key="index"
@@ -155,7 +155,7 @@
            </el-col>
               <el-col :span="8">
                 <el-form-item label-width="50%" label="Transaction  Status">
-                    <el-select v-model="queryParams.walletTransactionStatus" clearable placeholder="请 Selection  ">
+                    <el-select v-model="queryParams.walletTransactionStatus" clearable placeholder="Please Select  ">
                       <el-option
                         v-for="(item,index) in this.walletTransactionStatus"
                         :key="index"
@@ -167,7 +167,7 @@
               </el-col>
             <el-col :span="7">
               <el-form-item label-width="40%" label="Finance Type">
-                  <el-select v-model="queryParams.financeType" clearable placeholder="请 Selection  ">
+                  <el-select v-model="queryParams.financeType" clearable placeholder="Please Select  ">
                     <el-option
                       v-for="(item,index) in this.walletFinanceType"
                       :key="index"

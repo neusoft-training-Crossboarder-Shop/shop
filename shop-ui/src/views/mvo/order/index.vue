@@ -109,8 +109,8 @@
             Wait for Confirm
           </el-button>
 
-          <el-button type="info" v-if="scope.row.orderStatus == 5 ">buttonCont
-            不可Operation
+          <el-button type="info" v-if="scope.row.orderStatus == 5 ">Forbidden
+            Operation
           </el-button>
 
         </template>

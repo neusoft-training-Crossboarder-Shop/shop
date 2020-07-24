@@ -183,7 +183,7 @@
           </el-col>
 <!--          <el-col :span="12">-->
 <!--            <el-form-item label="归属部门" prop="deptId">-->
-<!--              <treeselect v-model="form.deptId" :options="deptOptions" :disable-branch-nodes="true" :show-count="true" placeholder="请 Selection  归属部门" />-->
+<!--              <treeselect v-model="form.deptId" :options="deptOptions" :disable-branch-nodes="true" :show-count="true" placeholder="Please Select  归属部门" />-->
 <!--            </el-form-item>-->
 <!--          </el-col>-->
         </el-row>
@@ -239,7 +239,7 @@
         <el-row>
           <el-col :span="12">
 <!--            <el-form-item label="岗位">-->
-<!--              <el-select v-model="form.postIds" multiple placeholder="请 Selection  ">-->
+<!--              <el-select v-model="form.postIds" multiple placeholder="Please Select  ">-->
 <!--                <el-option-->
 <!--                  v-for="item in postOptions"-->
 <!--                  :key="item.postId"-->

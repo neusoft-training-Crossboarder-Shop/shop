@@ -1,10 +1,10 @@
 <template>
   <div class="main_container">
 
-    <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="68px">
+    <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="200px">
       <el-form-item label="Transaction Id" prop="configName">
         <el-input
-          v-model="queryParams.storeOrderId"
+          v-model="queryParams.stoId"
           placeholder="storeOrderId"
           clearable
           size="small"
@@ -117,7 +117,7 @@
           </el-button>
 
           <el-button type="info" v-if="scope.row.orderStatus == 5 ">buttonCont
-            不可Operation
+            Forbidden Operation
           </el-button>
 
         </template>
@@ -149,7 +149,7 @@
         loading: true,
         total: 0,
         queryParams: {
-          storeOrderId: '',
+          stoId: '',
           pageNum: 1,
           pageSize: 10
         },

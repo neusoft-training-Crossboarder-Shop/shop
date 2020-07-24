@@ -72,7 +72,6 @@
       <el-divider></el-divider>
     <div class="infinite-list-wrapper" style="height:1000px;overflow:auto">
       <ul   v-infinite-scroll="load"  infinite-scroll-disabled="disabled" infinite-scroll-throttle-delay="500" infinite-scroll-distance="10" >
-        <el-backtop target=".page-component__scroll .el-scrollbar__wrap" ></el-backtop>
         <li v-for="item in items" class="card"  :key="item.proId" @click="redirect(item.proId)" >
             <el-image
               style="height: 100%;"
@@ -96,12 +95,14 @@
                   effect="dark" >
                   {{item.productBrand.nameEn }}
                 </el-tag>
+
                 <el-tag
                   effect="light" class="item-description">
                   <el-icon
                     class="el-icon-s-shop"/>
                   {{item.manufacturer.nameEn}}
                 </el-tag>
+
               </div>
               <p class="item-price" >${{item.retailPrice}}</p>
             </div>
@@ -122,14 +123,14 @@
           return {
             loadingInstance:{},
             searchCondition : {
-               title:"",
+                title:"",
                 brandName: "" ,
                 categoryName:'',
                 manufacturerName:'',
                 lowPrice: undefined,
                 topPrice: undefined,
                 pageNum: 0,
-                pageSize: 6,
+                pageSize: 9,
             },
 
             items:[
@@ -147,15 +148,15 @@
               //   retailPrice:"8.9"
               // }
             ],
+
             loading: false,
             noMore:false,
-            num:0
+
         }
       },
     computed: {
       disabled () {
         let result =this.loading || this.noMore;
-        console.log("Disabled:"+result)
         return result
       }
     },
@@ -176,11 +177,10 @@
               item.imageList.forEach(image=>{
                 image.uri=process.env.VUE_APP_BASE_API+image.uri
               })
-              this.num+=(item.imageList.length-1)
             })
 
             this.items=[...this.items,...products]
-            if(this.items.length >= response.data.total-num){
+            if(this.items.length >= response.data.total){
               this.noMore = true;
             }
             this.loading = false;
@@ -197,8 +197,8 @@
           })
         },
         handleQuery() {
-          this.num=0
           this.searchCondition.pageNum = 0;
+          this.noMore = false;
           this.items=[]
           this.loadingInstance=Loading.service({
             target:"#container",
@@ -206,12 +206,13 @@
             fullscreen:"false",
             lock:"true",
           });
-          setTimeout(()=>{
-          },500),
+
           this.getList();
         },
         reset() {
-          this.num=0
+          this.loading = true;
+          this.noMore = false;
+          this.items = [];
           this.searchCondition = {
             title:"",
             brandName: "" ,
@@ -219,9 +220,10 @@
             manufacturerName:'',
             lowPrice: undefined,
             topPrice: undefined,
-            pageNum: 0,
-            pageSize: 6,
+            pageNum: 1,
+            pageSize: 9,
           };
+          this.getList();
         },
         resetForm(formName) {
            this.reset();

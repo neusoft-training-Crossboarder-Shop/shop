@@ -18,7 +18,7 @@
               </el-form-item>
 
               <el-form-item label="GMC Report Type" prop="gmcReportType">
-                <el-select v-model="manufacturer.gmcReportType" placeholder="placeholder">
+                <el-select v-model="manufacturer.gmcReportType" placeholder="input">
                   <el-option
                     v-for="item in gmcReportTypeOptions"
                     :key="item.value"
@@ -29,7 +29,7 @@
               </el-form-item>
 
               <el-form-item label="GMC Report Url" prop="gmcReportUrl">
-                <el-input v-model="manufacturer.gmcReportUrl" placeholder="placeholder"></el-input>
+                <el-input v-model="manufacturer.gmcReportUrl" placeholder="input"></el-input>
               </el-form-item>
 
               <el-form-item>

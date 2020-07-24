@@ -78,7 +78,7 @@ public class SysProfileController extends BaseController
         String password = loginUser.getPassword();
         if (!SecurityUtils.matchesPassword(oldPassword, password))
         {
-            return AjaxResult.error(" Modify  密码Fail，旧密码错误");
+            return AjaxResult.error(" Modify  Password Fail，Old Password Fail");
         }
         if (SecurityUtils.matchesPassword(newPassword, password))
         {
